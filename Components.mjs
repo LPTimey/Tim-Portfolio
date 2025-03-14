@@ -1,5 +1,28 @@
 "use strict";
 
+class MultiStateButton extends HTMLElement {
+    static get observedAttributes() {
+        return ["ids"];
+    }
+    constructor() {
+        super();
+
+        /**
+         * @type {string[]}
+         */
+        this.ids = (this.getAttribute("ids") ?? "").split(";");
+
+        let children = this.children ?? new HTMLCollection;
+
+        this.innerHTML = `
+        ${this.ids.map((id,index) => {
+            return `<label for="${id}">${children[index].innerHTML}</label>`
+        })}
+        `
+    }
+}
+customElements.define("multi-state-button", MultiStateButton)
+
 class SiteHeader extends HTMLElement {
     static get observedAttributes() {
         return [];
@@ -18,7 +41,21 @@ class SiteHeader extends HTMLElement {
         // fetch("header.html")
         //     .then(req => req.text())
         //     .then((text) => this.innerHTML = text.toString())
-        this.innerHTML = `<header><a href="./">Home</a> <a href="about.html">About</a></header>`
+        this.innerHTML = `
+        <div hidden>
+        <input type="radio" name="theme" value="system" id="theme_system" checked>
+        <input type="radio" name="theme" value="dark" id="theme_dark">
+        <input type="radio" name="theme" value="light" id="theme_light">
+        </div>
+        <header>
+            <a href="./">Home</a> 
+            <a href="about.html">About</a>
+            <multi-state-button ids="theme_system;theme_dark;theme_light">
+                <span>System</span>
+                <span>Dark</span>
+                <span>Light</span>
+            </multi-state-button>
+        </header>`
     }
 }
 customElements.define("site-header", SiteHeader)
@@ -82,7 +119,7 @@ class ProjectSection extends HTMLElement {
         let img_src = this.getAttribute("img-src");
         this.innerHTML = `
         <section>
-            <img src="${img_src??""}" alt="${subtitle}-image"/>
+            <img src="${img_src ?? ""}" alt="${subtitle}-image"/>
             <h2>${title ?? ""}</h2>
             <h3>${subtitle ?? ""}</h3>
             ${this.innerHTML}

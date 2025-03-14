@@ -3,44 +3,77 @@
     src: local("JetBrains Mono"), url(/assets/JetBrains_Mono/JetBrainsMono-VariableFont_wght.ttf);
 }
 
+*::before,
+*::after,
+* {
+    transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+    box-sizing: border-box;
+}
+
 :root {
     --dark: #181818;
-    --light: #fafafa;
+    --light: #eee;
     --accent: #6060ff;
     --second: #d99f3c;
-
-    --bg: var(--dark);
-    --fg: var(--light);
 
     font-family: "JetBrains Mono", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 
-@media screen and (prefers-color-scheme: light) {
-    :root {
+:root:has(#theme_system:checked) {
+
+    @media screen and (prefers-color-scheme: light) {
         --bg: var(--light);
         --fg: var(--dark);
     }
-} 
 
+    @media screen and (prefers-color-scheme: dark) {
+        --bg: var(--dark);
+        --fg: var(--light);
+    }
+}
 
-/* 
-.light {
+:root:has(#theme_dark:checked) {
+    --bg: var(--dark);
+    --fg: var(--light);
+}
+
+:root:has(#theme_light:checked) {
     --bg: var(--light);
     --fg: var(--dark);
 }
-*/
 
 body {
     background-color: var(--bg);
     color: var(--fg);
     min-height: 100dvh;
+    max-width: 80dvw;
+    margin: auto;
     display: flex;
     flex-direction: column;
 }
 
-project-section{
+project-section {
     min-height: 100dvh;
     display: grid;
     align-items: center;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1ch;
+}
+
+site-header {
+    margin: 2em auto;
+
+    a {
+        color: var(--fg);
+
+        &:hover {
+            color: var(--accent);
+        }
+    }
 }
