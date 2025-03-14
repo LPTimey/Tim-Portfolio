@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="430" height="932" viewBox="0 0 430 932">
+  <defs>
+    <filter id="Rechteck_1004">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-color="#799dcb" flood-opacity="0.835" result="color"/>
+      <feComposite operator="out" in="SourceGraphic" in2="blur"/>
+      <feComposite operator="in" in="color"/>
+      <feComposite operator="in" in2="SourceGraphic"/>
+    </filter>
+    <filter id="Rechteck_1032" x="25" y="496" width="189" height="79" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur-2"/>
+      <feFlood flood-color="#799dcb"/>
+      <feComposite operator="in" in2="blur-2"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Rechteck_1040" x="216" y="496" width="189" height="79" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur-3"/>
+      <feFlood flood-color="#799dcb"/>
+      <feComposite operator="in" in2="blur-3"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <clipPath id="clip-path">
+      <rect id="Rechteck_1046" data-name="Rechteck 1046" width="14.475" height="14.384" fill="none"/>
+    </clipPath>
+    <filter id="Rechteck_1032-2" x="32" y="647" width="175" height="61" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur-4"/>
+      <feFlood flood-color="#799dcb"/>
+      <feComposite operator="in" in2="blur-4"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Rechteck_1032-3" x="223" y="647" width="175" height="61" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur-5"/>
+      <feFlood flood-color="#799dcb"/>
+      <feComposite operator="in" in2="blur-5"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Rechteck_1032-4" x="32" y="720" width="175" height="61" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur-6"/>
+      <feFlood flood-color="#799dcb"/>
+      <feComposite operator="in" in2="blur-6"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Rechteck_1032-5" x="223" y="720" width="175" height="61" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur-7"/>
+      <feFlood flood-color="#799dcb"/>
+      <feComposite operator="in" in2="blur-7"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <clipPath id="clip-Message_Overlay_2">
+      <rect width="430" height="932"/>
+    </clipPath>
+  </defs>
+  <g id="Message_Overlay_2" data-name="Message Overlay – 2" clip-path="url(#clip-Message_Overlay_2)">
+    <g data-type="innerShadowGroup">
+      <rect id="Rechteck_1004-2" data-name="Rechteck 1004" width="430" height="432" rx="20" transform="translate(0 440)" fill="#eaf3f9"/>
+      <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#Rechteck_1004)">
+        <rect id="Rechteck_1004-3" data-name="Rechteck 1004" width="430" height="432" rx="20" transform="translate(0 440)" fill="#fff"/>
+      </g>
+    </g>
+    <g id="nav" transform="translate(0 836)">
+      <path id="BG" d="M10,0H420a10,10,0,0,1,10,10V96a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V10A10,10,0,0,1,10,0Z" fill="#fff"/>
+      <g id="nav_icons" data-name="nav icons" transform="translate(0 -810.581)">
+        <g id="History" transform="translate(138 822.581)">
+          <g id="Gruppe_2826" data-name="Gruppe 2826" transform="translate(-0.024 -0.155)">
+            <rect id="Rechteck_514" data-name="Rechteck 514" width="62" height="57" rx="12" transform="translate(0.024 0.155)" fill="none"/>
+          </g>
+          <path id="history-svgrepo-com" d="M22.153,3A15.866,15.866,0,0,0,6.288,18.865H1l6.857,6.857.123.247,7.121-7.1H9.814a12.4,12.4,0,1,1,3.631,8.708l-2.5,2.5A15.861,15.861,0,1,0,22.153,3ZM20.39,11.814v8.814L27.935,25.1,29.2,22.972l-6.17-3.667V11.814Z" transform="translate(9.496 4.45)"/>
+        </g>
+        <g id="Map" transform="translate(231 822.581)">
+          <g id="Gruppe_2824" data-name="Gruppe 2824" transform="translate(-0.013 -0.155)">
+            <rect id="Rechteck_514-2" data-name="Rechteck 514" width="62" height="57" rx="12" transform="translate(0.013 0.155)" fill="none"/>
+          </g>
+          <g id="Map_Icon" data-name="Map Icon" transform="translate(16.344 7)">
+            <path id="Pfad_10149" data-name="Pfad 10149" d="M42.185,153.776c-7.623,0-15.828-1.853-15.828-5.92,0-3.465,5.712-4.883,9.116-5.42a1.31,1.31,0,0,1,1.48,1.142,1.353,1.353,0,0,1-1.092,1.548c-5.25.828-6.9,2.369-6.9,2.731,0,.142.582,1.048,3.349,1.916a34.373,34.373,0,0,0,9.878,1.284,34.373,34.373,0,0,0,9.878-1.284c2.766-.869,3.349-1.774,3.349-1.916,0-.372-1.7-1.945-7.113-2.763a1.352,1.352,0,0,1-1.1-1.54,1.31,1.31,0,0,1,1.473-1.151c3.489.527,9.342,1.938,9.342,5.455,0,4.068-8.2,5.92-15.828,5.92" transform="translate(-26.357 -119.273)"/>
+            <path id="Pfad_10150" data-name="Pfad 10150" d="M62.726,40.412a10.139,10.139,0,0,0-7.2,3.269,11.027,11.027,0,0,0-2.793,7.674c.115,1.86.754,3.143,1.854,5.353a41.525,41.525,0,0,0,3.874,5.874c.894,1.243,2.081,2.878,3.5,4.8a1.077,1.077,0,0,0,.79.413,1.092,1.092,0,0,0,.868-.439c1.481-2.123,2.7-3.828,3.532-4.972a39.215,39.215,0,0,0,3.9-5.845,13.081,13.081,0,0,0,1.716-4.8A11.274,11.274,0,0,0,70.1,43.682a10.007,10.007,0,0,0-7.377-3.27m.167,17.077a6.9,6.9,0,0,1-6.863-6.308,6.806,6.806,0,1,1,6.863,6.308" transform="translate(-47.004 -40.411)"/>
+          </g>
+        </g>
+        <g id="Settings" transform="translate(323 823.581)">
+          <g id="Gruppe_2825" data-name="Gruppe 2825" transform="translate(0.058 -0.155)">
+            <rect id="Rechteck_514-3" data-name="Rechteck 514" width="62" height="57" rx="12" transform="translate(-0.058 0.155)" fill="none"/>
+          </g>
+          <g id="Settings_Icon" data-name="Settings Icon" transform="translate(13.499 7.557)">
+            <path id="Ausschluss_1" data-name="Ausschluss 1" d="M20.314,33.621h-6.2a1.048,1.048,0,0,1-1.053-1.012l-.086-4.345-.979-.524L8.537,30.715a1.069,1.069,0,0,1-1.446-.051L2.8,26.394a1.016,1.016,0,0,1-.027-1.421l3.007-3.222L5.428,20.9.974,20.567A1.045,1.045,0,0,1,0,19.527l.054-5.772a1.046,1.046,0,0,1,.994-1.022l4.366-.242.334-.961-2.821-3.3A1.023,1.023,0,0,1,3,6.832L7.194,2.8a1.068,1.068,0,0,1,1.427-.044l3.414,2.9.854-.586L13.128.991A1.048,1.048,0,0,1,14.177.017L20.14,0A1.048,1.048,0,0,1,21.2,1.021l.046,4.055,1.192.534,3.291-2.764a1.069,1.069,0,0,1,1.422.045l4.268,4.077a1.017,1.017,0,0,1,.055,1.422L28.6,11.582l.584,1.121,4.095.125a1.039,1.039,0,0,1,1.02,1.031l.009,5.536a1.038,1.038,0,0,1-.949,1.029l-4.42.434-.485,1,2.783,3.249a1.012,1.012,0,0,1-.055,1.387L27.09,30.572a1.056,1.056,0,0,1-.751.308,1.071,1.071,0,0,1-.663-.23l-3.7-2.94-.6.442v4.437A1.044,1.044,0,0,1,20.314,33.621ZM11.85,25.454a1.071,1.071,0,0,1,.506.127l2.161,1.16a1.031,1.031,0,0,1,.547.885l.078,3.93H19.26V27.634a1.029,1.029,0,0,1,.424-.828l1.685-1.231a1.06,1.06,0,0,1,.629-.2,1.073,1.073,0,0,1,.663.23l3.6,2.854,2.747-2.739-2.6-3.038a1.016,1.016,0,0,1-.145-1.106l1.031-2.127a1.056,1.056,0,0,1,.846-.584l4.062-.4-.005-3.6-3.7-.114a1.055,1.055,0,0,1-.905-.563L26.4,11.9a1.011,1.011,0,0,1,.148-1.153L29.227,7.76,26.365,5.027l-3.07,2.58a1.071,1.071,0,0,1-1.124.155L19.759,6.681a1.036,1.036,0,0,1-.615-.927L19.1,2.068l-3.926.011-.212,3.608a1.023,1.023,0,0,1-.447.786L12.57,7.809a1.071,1.071,0,0,1-1.294-.065l-3.3-2.8-2.808,2.7L7.744,10.65a1.023,1.023,0,0,1,.19,1l-.754,2.17a1.046,1.046,0,0,1-.938.7l-4.09.226-.036,3.84,4.128.305a1.045,1.045,0,0,1,.9.648l.834,2.056a1.021,1.021,0,0,1-.2,1.078L5,25.643,7.893,28.52l3.261-2.809A1.07,1.07,0,0,1,11.85,25.454Zm5.3-2a6.641,6.641,0,1,1,6.776-6.64A6.717,6.717,0,0,1,17.153,23.451Zm0-11.216a4.577,4.577,0,1,0,4.669,4.576A4.629,4.629,0,0,0,17.153,12.235Z" transform="translate(0 0)"/>
+          </g>
+        </g>
+        <g id="News" transform="translate(47 818.052)">
+          <g id="Gruppe_2826-2" data-name="Gruppe 2826" transform="translate(-0.017 2.528)">
+            <rect id="Rechteck_514-4" data-name="Rechteck 514" width="63" height="58" rx="12" transform="translate(0.017 0)" fill="none"/>
+          </g>
+          <text id="News-2" data-name="News" transform="translate(0 48.528)" fill="#5991b2" font-size="14" font-family="Roboto-Regular, Roboto"><tspan x="-17.568" y="13">News</tspan></text>
+          <path id="bell-svgrepo-com" d="M18.333-.016A14.082,14.082,0,0,0,4.2,14.175l0,1.294a6.469,6.469,0,0,1-1.071,3.6l-2.09,3.159a6.517,6.517,0,0,0,3.7,9.849q2.076.576,4.183.978l0,.009a10.186,10.186,0,0,0,9.545,6.446,9.994,9.994,0,0,0,9.5-6.373l0-.009q2.1-.385,4.176-.945a6.446,6.446,0,0,0,3.628-9.82l-2.114-3.175a6.55,6.55,0,0,1-1.1-3.6l0-1.294A14.348,14.348,0,0,0,18.333-.016Zm6.309,33.639a51.853,51.853,0,0,1-12.358-.048,7.547,7.547,0,0,0,6.191,3.173A7.417,7.417,0,0,0,24.641,33.623ZM6.95,14.185A11.357,11.357,0,0,1,18.343,2.741,11.571,11.571,0,0,1,29.825,14.274l0,1.294A9.335,9.335,0,0,0,31.4,20.7l2.114,3.175a3.7,3.7,0,0,1-2.082,5.637,49.127,49.127,0,0,1-25.963-.1,3.741,3.741,0,0,1-2.126-5.653L5.429,20.6A9.218,9.218,0,0,0,6.955,15.48Z" transform="translate(26.169 0.026) rotate(30)" fill="#5991b2" fill-rule="evenodd"/>
+        </g>
+      </g>
+      <line id="Iphone_Pull-up-bar" data-name="Iphone Pull-up-bar" x2="150" transform="translate(140 84)" fill="none" stroke="#707070" stroke-linecap="round" stroke-width="4"/>
+    </g>
+    <g id="Call_Helen" data-name="Call Helen" transform="translate(24 496)">
+      <g transform="matrix(1, 0, 0, 1, -24, -496)" filter="url(#Rechteck_1032)">
+        <rect id="Rechteck_1032-6" data-name="Rechteck 1032" width="171" height="61" rx="15" transform="translate(34 502)" fill="#fff"/>
+      </g>
+      <text id="Call_Helen-2" data-name="Call Helen" transform="translate(96 43)" font-size="18" font-family="Roboto-Regular, Roboto"><tspan x="-40.865" y="0">Call </tspan><tspan y="0" font-family="Roboto-Bold, Roboto" font-weight="700">Helen</tspan></text>
+    </g>
+    <g id="Call_911_" data-name="Call 911 " transform="translate(25 496)">
+      <g transform="matrix(1, 0, 0, 1, -25, -496)" filter="url(#Rechteck_1040)">
+        <rect id="Rechteck_1040-2" data-name="Rechteck 1040" width="171" height="61" rx="15" transform="translate(225 502)" fill="#fff"/>
+      </g>
+      <text id="Call_911" data-name="Call 911" transform="translate(286 43)" font-size="18" font-family="Roboto-Regular, Roboto"><tspan x="-32.84" y="0">Call </tspan><tspan y="0" font-family="Roboto-Bold, Roboto" font-weight="700">911</tspan></text>
+    </g>
+    <text id="Favorites" transform="translate(59 483)" font-size="16" font-family="Roboto-Regular, Roboto"><tspan x="0" y="0">Favorites</tspan></text>
+    <path id="star-sharp-svgrepo-com" d="M11.245,4.174c.231-.666.347-1,.518-1.091a.5.5,0,0,1,.475,0c.171.092.287.425.518,1.091l1.53,4.4a1.138,1.138,0,0,0,.158.355.5.5,0,0,0,.195.142,1.138,1.138,0,0,0,.386.041l4.66.095c.7.014,1.057.022,1.2.156a.5.5,0,0,1,.147.451c-.035.191-.316.4-.878.83l-3.714,2.816a1.141,1.141,0,0,0-.289.26.5.5,0,0,0-.074.229,1.14,1.14,0,0,0,.081.38l1.35,4.461c.2.675.306,1.012.222,1.187a.5.5,0,0,1-.384.279c-.193.026-.482-.175-1.061-.578l-3.826-2.662a1.142,1.142,0,0,0-.336-.194.5.5,0,0,0-.241,0,1.142,1.142,0,0,0-.337.194L7.718,19.68c-.579.4-.868.6-1.061.578a.5.5,0,0,1-.384-.279c-.084-.175.018-.513.222-1.187l1.35-4.461a1.139,1.139,0,0,0,.081-.38.5.5,0,0,0-.074-.229,1.141,1.141,0,0,0-.289-.26L3.849,10.646c-.562-.426-.843-.639-.878-.83a.5.5,0,0,1,.147-.451c.141-.134.493-.141,1.2-.156l4.66-.095a1.139,1.139,0,0,0,.386-.041.5.5,0,0,0,.195-.142,1.139,1.139,0,0,0,.158-.355Z" transform="translate(31.037 464.858)"/>
+    <text id="Others" transform="translate(60.9 620)" font-size="16" font-family="Roboto-Regular, Roboto"><tspan x="0" y="0">Others</tspan></text>
+    <g id="Gruppe_3122" data-name="Gruppe 3122" transform="translate(37.7 607.615)">
+      <g id="Gruppe_3121" data-name="Gruppe 3121" clip-path="url(#clip-path)">
+        <path id="Pfad_18044" data-name="Pfad 18044" d="M11.743,14.384a5.792,5.792,0,0,1-1.7-.429,15.907,15.907,0,0,1-9.568-9.4L.449,4.488C-.032,3.184-.27,2.344.48,1.682A19.43,19.43,0,0,1,2.313.351,1.96,1.96,0,0,1,3.376,0a1.57,1.57,0,0,1,.933.319A10.9,10.9,0,0,1,5.8,2.3a.893.893,0,0,1,.07.905,1.683,1.683,0,0,1-.61.565,4.434,4.434,0,0,0-.609.476l-.27.264.112.361A7.045,7.045,0,0,0,6.057,7.483a1,1,0,0,0,.167.145,8.738,8.738,0,0,0,2.467,1.94,4.421,4.421,0,0,0,.98.361.849.849,0,0,0,.1.006.665.665,0,0,0,.541-.273c.12-.153.224-.314.326-.47a4.409,4.409,0,0,1,.316-.446.744.744,0,0,1,.6-.32,3.746,3.746,0,0,1,1.706.887c.095.07.187.138.276.2.878.632,1.005,1.155.926,1.745a8.509,8.509,0,0,1-1.42,2.335l-.047.062a1.483,1.483,0,0,1-1.244.729" transform="translate(0 0)"/>
+      </g>
+    </g>
+    <g id="Call_Helen-3" data-name="Call Helen" transform="translate(23 638)">
+      <g transform="matrix(1, 0, 0, 1, -23, -638)" filter="url(#Rechteck_1032-2)">
+        <rect id="Rechteck_1032-7" data-name="Rechteck 1032" width="157" height="43" rx="15" transform="translate(41 653)" fill="#fff"/>
+      </g>
+      <text id="Call_Gunther" data-name="Call Gunther" transform="translate(96 43)" font-size="18" font-family="Roboto-Regular, Roboto"><tspan x="-49.781" y="0">Call </tspan><tspan y="0" font-family="Roboto-Bold, Roboto" font-weight="700">Gunther</tspan></text>
+    </g>
+    <g id="Call_Helen-4" data-name="Call Helen" transform="translate(214 638)">
+      <g transform="matrix(1, 0, 0, 1, -214, -638)" filter="url(#Rechteck_1032-3)">
+        <rect id="Rechteck_1032-8" data-name="Rechteck 1032" width="157" height="43" rx="15" transform="translate(232 653)" fill="#fff"/>
+      </g>
+      <text id="Call_Joe" data-name="Call Joe" transform="translate(96 43)" font-size="18" font-family="Roboto-Regular, Roboto"><tspan x="-32.331" y="0">Call </tspan><tspan y="0" font-family="Roboto-Bold, Roboto" font-weight="700">Joe</tspan></text>
+    </g>
+    <g id="Call_Helen-5" data-name="Call Helen" transform="translate(23 711)">
+      <g transform="matrix(1, 0, 0, 1, -23, -711)" filter="url(#Rechteck_1032-4)">
+        <rect id="Rechteck_1032-9" data-name="Rechteck 1032" width="157" height="43" rx="15" transform="translate(41 726)" fill="#fff"/>
+      </g>
+      <text id="Call_Peter" data-name="Call Peter" transform="translate(96 43)" font-size="18" font-family="Roboto-Regular, Roboto"><tspan x="-39.151" y="0">Call </tspan><tspan y="0" font-family="Roboto-Bold, Roboto" font-weight="700">Peter</tspan></text>
+    </g>
+    <g id="Call_Helen-6" data-name="Call Helen" transform="translate(214 711)">
+      <g transform="matrix(1, 0, 0, 1, -214, -711)" filter="url(#Rechteck_1032-5)">
+        <rect id="Rechteck_1032-10" data-name="Rechteck 1032" width="157" height="43" rx="15" transform="translate(232 726)" fill="#fff"/>
+      </g>
+      <text id="Call_Jack" data-name="Call Jack" transform="translate(96 43)" font-size="18" font-family="Roboto-Regular, Roboto"><tspan x="-36.703" y="0">Call </tspan><tspan y="0" font-family="Roboto-Bold, Roboto" font-weight="700">Jack</tspan></text>
+    </g>
+  </g>
+</svg>
