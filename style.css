@@ -1,0 +1,46 @@
+@font-face {
+    font-family: "JetBrains Mono";
+    src: local("JetBrains Mono"), url(../../assets/Tim/JetBrains_Mono/JetBrainsMono-VariableFont_wght.ttf);
+}
+
+:root {
+    --dark: #181818;
+    --light: #fafafa;
+    --accent: #6060ff;
+    --second: #d99f3c;
+
+    --bg: var(--dark);
+    --fg: var(--light);
+
+    font-family: "JetBrains Mono", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+@media screen and (prefers-color-scheme: light) {
+    :root {
+        --bg: var(--light);
+        --fg: var(--dark);
+    }
+} 
+
+
+/* 
+.light {
+    --bg: var(--light);
+    --fg: var(--dark);
+}
+*/
+
+body {
+    background-color: var(--bg);
+    color: var(--fg);
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+}
+
+project-section{
+    min-height: 100dvh;
+    display: grid;
+    align-items: center;
+}

@@ -1,11 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Tim Ruland</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="Components.mjs"></script>
 </head>
+
 <body>
-    
+    <site-header></site-header>
+    <main>
+        <site-hero></site-hero>
+        <hr>
+        <project-section title="DMMS" subtitle="Watch Out" img-src="">
+            <!-- TODO: make 2 spaltig mit bild und text -->
+            <p> Demenz hat tiefgreifende Auswirkungen auf das Leben der Betroffenen und ihrer Familienangehörigen. Watch
+                out unterstützt
+                die Angehörigen dabei, einen klaren Überblick über die Situation zu behalten und schnell eingreifen zu
+                können.
+            </p>
+            <p>Watch Out besteht aus zwei Teilen</p>
+            <p>Uhr & App</p>
+            <h4>Watch</h4>
+            <!-- TODO: add 3d watch-->
+            <p> Da Demenz oft die vertrauten Gewohnheiten und Erinnerungen der Betroffenen am längsten bewahrt, wurde
+                die Uhr im
+                klassischen, analogen Design gestaltet. Die Gestaltung zielt darauf ab, der Uhr eine vertraute Bedeutung
+                zu verleihen.
+                Um den Bedürfnissen der oft älteren Zielgruppe gerecht zu werden, sind sowohl die Ziffern als auch die
+                Zeiger gut lesbar
+                und groß. Zudem ist die Uhr ergonomisch abgerundet und aus einem weichen Material gefertigt, um
+                Verletzungen
+                vorzubeugen.
+            </p>
+            <p>Die Uhr sendet GPS-Daten, verfügt über eine aktive Fallerkennung und eine Notruffunktion. Zusätzlich
+                behält sie ihre
+                Funktion als gewöhnliche Analoguhr mit Krone bei.
+                6 Tim
+            </p>
+            <h4>App</h4>
+            <!-- TODO: add (3d) App screens-->
+            <p>
+                Die mit der Uhr verbundene App wurde nach dem Prinzip der Schlichtheit gestaltet.
+            </p>
+            <p>Die Startseite bietet einen Überblick über die letzten Ereignisse. Um die Übersichtlichkeit zu
+                gewährleisten, sind diese
+                Ereignisse zusammengefasst, nach Zeit sortiert und farblich nach Schweregrad kategorisiert. Außerdem
+                ermöglicht die
+                Übersicht, die uhrtragende Person, gespeicherte Kontakte oder die Notfallstelle direkt anzurufen.
+            </p>
+            <p>In der Historie werden neben den aktuellen Ereignissen auch vergangene Ereignisse angezeigt, die
+                detaillierte Einblicke
+                in frühere Aktivitäten und Notfälle bieten.
+            </p>
+            <p>Zusätzlich enthält die App eine Karte, mit der die Position der erkrankten Person sowie die anderer
+                Angehöriger
+                überprüft werden kann.
+            </p>
+        </project-section>
+        <hr>
+        <project-section title="Tetris" subtitle="C & Arduino" img-src="">
+            <!-- TODO: Arduino stuff -->
+            <p>Das Tetris-Spiel wurde in C programmiert und auf einem Arduino ausgeführt. Die Anzeige erfolgt auf dessen
+                eingebauten
+                LED-Matrix, während die Steuerung durch externe Tasten ermöglicht wird. Bei der Gestaltung der
+                Verbindungen wurde
+                besonderes Augenmerk auf die Kompaktheit und Benutzerfreundlichkeit gelegt. Die Verbindungskabel wurden
+                so verlegt, dass
+                sie nicht vertikal aus dem Breadboard herausragen und die Buttons verdecken. Sie sind kompakt und an
+                einer Stelle
+                zusammengeführt welche vom Breadboard zum Arduino führt, um eine effiziente und übersichtliche
+                Verkabelung zu
+                gewährleisten.
+            </p>
+            <p>Das eindimensionale Button-Layout wurde so gestaltet, dass die Eingabe intuitiv erfolgt: Links entspricht
+                „links“,
+                rechts entspricht „rechts“ und der vertikale Button befindet sich in der Mitte. Ebenso sind die
+                Rotationen neben der
+                jeweiligen Bewegung.
+            </p>
+            <!-- TODO: Code und explainer animation -->
+            <p>Das Spielfeld wurde als eindimensionales Array gespeichert, um im Stack zu bleiben und eine möglichst
+                effiziente Nutzung
+                des CPU-Caches zu ermöglichen. Alle Zeilen wurden hintereinander angeordnet, sodass der Index i=x+x*y
+                gilt, wobei alle
+                Variablen positive ganze Zahlen, einschließlich 0, sein können. Zudem müssen die Werte für x kleiner als
+                die
+                Spielfeldbreite und y kleiner als die Spielfeldhöhe sein.
+            </p>
+            <p>Ein Bitflag-System ermöglicht es, mehrere Tasten in einem einzelnen Byte (8 Bits) zu speichern und zu
+                verwalten, wobei
+                jeder Bitwert eine bestimmte Taste repräsentiert. Dies wird durch die Verwendung von Bitmasken erreicht,
+                bei denen jede
+                Taste mit einem einzelnen Bit im Byte verknüpft ist.
+            </p>
+            <p>Im gegebenen Code wurde ein enum für die Tastenbelegungen definiert. Dabei bekommt jede Taste einen Wert,
+                der eine
+                Potenz von 2 darstellt. Dadurch wird jeder Wert einer einzigen Bitposition im Byte zugewiesen:
+            </p>
+        </project-section>
+        <hr>
+        <project-section title="Printer" subtitle="small Touch screens" img-src="">
+            <p>Drucker sind leider oft dafür bekannt, nicht so zu funktionieren, wie es die Nutzer erwarten. Ein großer
+                Teil dieses
+                Problems liegt in der meist unzureichenden Nutzererfahrung (UX).
+            </p>
+            <p>Oft beginnt dies schon bei einem überladenen Login-Bildschirm. Der neue Login-Bildschirm wurde jedoch
+                vereinfacht und
+                ist mit großen Buttons und gut lesbarem Text für kleine Touchscreens optimiert.
+            </p>
+            <p>Die wichtigsten Einstellungen des Drucker-UIs, wie Sprache und Füllstand, sind sofort sichtbar und können
+                einfach
+                angepasst werden. Weitere Einstellungen sind ebenfalls schnell und problemlos erreichbar.
+            </p>
+            <!-- TODO: Login screen mit slider PW/Karte -->
+            <p>Nach dem Login mit Passwort oder NFC-Karte wird
+                der Nutzername zusammen mit dem Kontostand in
+                der Anzeigeschablone angezeigt.
+            </p>
+            <p>Die Druckoptionen sind groß, kontrastreich und mit
+                klaren Icons versehen, um die Bedienung zu erleichtern.
+            </p>
+            <p>Das Abmelden erfolgt über das Nutzermenü, das über
+                den Nutzernamen-Knopf erreichbar ist.
+            </p>
+            <!-- TODO: HomeScreen -->
+            <p>Der Nutzer wird von einem klar strukturierten Leitfaden
+                durch den gesamten Druckprozess geführt,
+                sodass er stets weiß, wo er ist und welcher Schritt als
+                nächstes kommt.
+            </p>
+            <p>Der aktuelle Schritt wird hervorgehoben, während
+                noch nicht abgeschlossene Schritte ausgegraut bleiben,
+                um Verwirrung zu vermeiden.
+            </p>
+            <!-- TODO: Print-serie -->
+        </project-section>
+        <hr>
+        <project-section title="Themes" subtitle="a Case study" img-src="">
+            <!-- TODO: Original Screen -->
+            <p>Screendesigns lassen sich häufig in verschiedene Stile, Themen und Trends unterteilen. Diese
+                Veränderungen betreffen in
+                erster Linie die visuelle, nicht jedoch die interaktive Komponente des Designs.
+                Um dies zu veranschaulichen, wurde das ursprüngliche Screendesign zunächst auf seine interaktiven
+                Elemente hin
+                analysiert, reduziert und anschließend in verschiedene andere Themen und Stile umgewandelt.
+            </p>
+            <!-- TODO: Minimal Screen -->
+            <p>Diese Version, die das Layout-Design und den tatsächlichen Content ohne das vollständige Screendesign
+                enthält, dient als
+                Grundversion für die nachfolgenden Screendesigns. Es werden keine grundlegenden Änderungen am Layout
+                vorgenommen,
+                sondern lediglich neue Screendesigns hinzugefügt.
+            </p>
+            <!-- TODO: Bauhaus Screen -->
+            <p>Bauhaus-Screendesign setzt auf klare, geometrische Formen und eine reduzierte Farbpalette. Primärfarben
+                und einfache Formen wie Rechtecke und Kreise dominieren das Design, wobei Funktion und Ästhetik in
+                Einklang stehen.
+            </p>
+            <!-- TODO: Glas Screen -->
+            <p>Glasmorphismus nutzt transparente, verschwommene Elemente mit Hintergrundunschärfe, um einen
+                glasähnlichen Effekt zu erzeugen. Es kombiniert sanfte Farben und weiche Kanten, wodurch das Design
+                modern und leicht wirkt, während der Fokus auf Transparenz und Tiefe liegt.
+            </p>
+        </project-section>
+    </main>
+    <site-footer></site-footer>
 </body>
+
 </html>

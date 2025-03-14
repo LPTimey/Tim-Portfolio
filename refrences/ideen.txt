@@ -1,0 +1,195 @@
+--------------------------------------------------------------------------------------------------------------------------------
+|                                                         Bsp. Projekte:                                                       |
+--------------------------------------------------------------------------------------------------------------------------------
+Screendesign
+- DMMS Watch Out
+- Printer
+- App
+- Klima Icons
+- ?Plakat?
+
+Programmieren
+- Tetris im Arduino
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------------------------
+|                                                          Lebenslauf                                                          |
+--------------------------------------------------------------------------------------------------------------------------------
+
+---Über mich---
+
+- IT & programmieren seit 8. Klasse
+- Kunst seit Realschule mit design seit 11. Klasse
+- Musik?
+- ordentlich/planend/durchdacht
+- hilfsbereit und fleißig/proaktiv
+- Sensible Daten sensibel
+
+v1:
+Seit der 8. Klasse interessiere ich mich intensiv für IT und Programmieren, was meine technische Denkweise und Problemlösungsfähigkeiten geschärft hat. Ab der Realschule habe ich zudem meine Leidenschaft für Kunst entdeckt, insbesondere im Bereich Design, den ich seit der 11. Klasse vertiefe. In der Musik fasziniere ich mich besonders für starke Rhythmen, die ich als kreative Ausdrucksform nutze. Meine Arbeitsweise ist stets ordentlich, planend und durchdacht, wodurch ich strukturiert an Aufgaben herangehe. Als hilfsbereite und fleißige Person bin ich stets proaktiv und strebe danach, einen positiven Beitrag zu leisten. Zudem lege ich großen Wert auf den sensiblen Umgang mit Daten und behandle diese mit höchster Diskretion.
+
+v2:
+Ich interessiere mich seit der 8. Klasse für IT und Programmieren, was mir hilft, Probleme kreativ und effizient zu lösen. Schon seit der Realschule habe ich eine Leidenschaft für Kunst entwickelt, insbesondere für Design, das ich seit der 11. Klasse intensiver verfolge. Ich arbeite stets ordentlich, planend und durchdacht, was mir hilft, auch komplexe Aufgaben strukturiert anzugehen. Als hilfsbereite und fleißige Person bin ich proaktiv und stets bereit, Unterstützung zu leisten. Zudem lege ich großen Wert auf den sensiblen Umgang mit Daten und behandle diese mit höchster Diskretion.
+
+v3:
+Seit der 8. Klasse beschäftige ich mich mit IT und Programmieren und entwickle so meine Problemlösungsfähigkeiten. Kunst und Design verfolge ich seit der Realschule. Ich arbeite stets ordentlich, planend und durchdacht, bin hilfsbereit, proaktiv und lege großen Wert auf den sensiblen Umgang mit Daten.
+
+--------------------------------------------------------------------------------------------------------------------------------
+|                                                             DMMS                                                             |
+--------------------------------------------------------------------------------------------------------------------------------
+
+---Uhr---
+Demenz hat tiefgreifende Auswirkungen auf das Leben der Betroffenen und ihrer Familienangehörigen. Watch out unterstützt die Angehörigen dabei, einen klaren Überblick über die Situation zu behalten und schnell eingreifen zu können.
+Watch out besteht aus zwei Komponenten: einer Uhr für die erkrankte Person und einer App für die Angehörigen.
+
+Da Demenz oft die vertrauten Gewohnheiten und Erinnerungen der Betroffenen am längsten bewahrt, wurde die Uhr im klassischen, analogen Design gestaltet. Die Gestaltung zielt darauf ab, der Uhr eine vertraute Bedeutung zu verleihen. Um den Bedürfnissen der oft älteren Zielgruppe gerecht zu werden, sind sowohl die Ziffern als auch die Zeiger gut lesbar und groß. Zudem ist die Uhr ergonomisch abgerundet und aus einem weichen Material gefertigt, um Verletzungen vorzubeugen.
+
+Die Uhr sendet GPS-Daten, verfügt über eine aktive Fallerkennung und eine Notruffunktion. Zusätzlich behält sie ihre Funktion als gewöhnliche Analoguhr mit Krone bei.
+
+
+---App---
+Die mit der Uhr verbundene App wurde nach dem Prinzip der Schlichtheit gestaltet.
+
+Die Startseite bietet einen Überblick über die letzten Ereignisse. Um die Übersichtlichkeit zu gewährleisten, sind diese Ereignisse zusammengefasst, nach Zeit sortiert und farblich nach Schweregrad kategorisiert. Außerdem ermöglicht die Übersicht, die uhrtragende Person, gespeicherte Kontakte oder die Notfallstelle direkt anzurufen.
+
+In der Historie werden neben den aktuellen Ereignissen auch vergangene Ereignisse angezeigt, die detaillierte Einblicke in frühere Aktivitäten und Notfälle bieten.
+
+Zusätzlich enthält die App eine Karte, mit der die Position der erkrankten Person sowie die anderer Angehöriger überprüft werden kann.
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+|                                                            TMMI                                                              |
+--------------------------------------------------------------------------------------------------------------------------------
+
+---Arduino---
+Das Tetris-Spiel wurde in C programmiert und auf einem Arduino ausgeführt. Die Anzeige erfolgt auf dessen eingebauten LED-Matrix, während die Steuerung durch externe Tasten ermöglicht wird. Bei der Gestaltung der Verbindungen wurde besonderes Augenmerk auf die Kompaktheit und Benutzerfreundlichkeit gelegt. Die Verbindungskabel wurden so verlegt, dass sie nicht vertikal aus dem Breadboard herausragen und die Buttons verdecken. Sie sind kompakt und an einer Stelle zusammengeführt welche vom Breadboard zum Arduino führt, um eine effiziente und übersichtliche Verkabelung zu gewährleisten.
+
+Das eindimensionale Button-Layout wurde so gestaltet, dass die Eingabe intuitiv erfolgt: Links entspricht „links“, rechts entspricht „rechts“ und die vertikalen Buttons befinden sich in der Mitte. Ebenso sind die Rotationen neben der jeweiligen Bewegung.
+
+
+---Code---
+
+Das Spielfeld wurde als eindimensionales Array gespeichert, um im Stack zu bleiben und eine möglichst effiziente Nutzung des CPU-Caches zu ermöglichen. Alle Zeilen wurden hintereinander angeordnet, sodass der Index i=x+x*y gilt, wobei alle Variablen positive ganze Zahlen, einschließlich 0, sein können. Zudem müssen die Werte für x kleiner als die Spielfeldbreite und y kleiner als die Spielfeldhöhe sein.
+
+Ein Bitflag-System ermöglicht es, mehrere Tasten in einem einzelnen Byte (8 Bits) zu speichern und zu verwalten, wobei jeder Bitwert eine bestimmte Taste repräsentiert. Dies wird durch die Verwendung von Bitmasken erreicht, bei denen jede Taste mit einem einzelnen Bit im Byte verknüpft ist.
+
+Im gegebenen Code wurde ein enum für die Tastenbelegungen definiert. Dabei bekommt jede Taste einen Wert, der eine Potenz von 2 darstellt. Dadurch wird jeder Wert einer einzigen Bitposition im Byte zugewiesen:
+
+enum Buttons : uint8_t {
+    TurnLeft    = 1,   // 00000001
+    TurnRight   = 2,   // 00000010
+    Up          = 4,   // 00000100
+    Down        = 8,   // 00001000
+    Left        = 16,  // 00010000
+    Right       = 32,  // 00100000
+    Swap        = 64   // 01000000
+}
+
+Jeder Wert entspricht einer Bitposition:
+
+    TurnLeft = 1 (00000001) → Das erste Bit ist gesetzt.
+    TurnRight = 2 (00000010) → Das zweite Bit ist gesetzt.
+    Up = 4 (00000100) → Das dritte Bit ist gesetzt.
+    Down = 8 (00001000) → Das vierte Bit ist gesetzt.
+    Left = 16 (00010000) → Das fünfte Bit ist gesetzt.
+    Right = 32 (00100000) → Das sechste Bit ist gesetzt.
+    Swap = 64 (01000000) → Das siebte Bit ist gesetzt.
+
+Wie es funktioniert:
+
+Ein einzelnes Byte (8 Bits) wird verwendet, um die Eingaben der Tasten zu speichern. Jeder Bit repräsentiert dabei eine Taste. Wenn eine Taste gedrückt wird, wird das entsprechende Bit auf 1 gesetzt. Andernfalls bleibt das Bit auf 0.
+
+Beispiel:
+
+    Wenn die Tasten "Up" und "Left" gleichzeitig gedrückt werden, wird der Wert des Bytes 00010000 (16 für "Left") plus 00000100 (4 für "Up") ergeben, also 00010100 (20 in Dezimal). In diesem Fall bedeutet der Wert 20, dass die Tasten "Up" und "Left" gedrückt wurden.
+
+Beispiel:
+
+Wenn ein Byte den Wert 20 hat, entspricht dies:
+
+    00010100 in Binär
+    Bit 1 (TurnLeft) ist 0 → nicht gedrückt
+    Bit 2 (TurnRight) ist 0 → nicht gedrückt
+    Bit 3 (Up) ist 1 → gedrückt
+    Bit 4 (Down) ist 0 → nicht gedrückt
+    Bit 5 (Left) ist 1 → gedrückt
+    Bit 6 (Right) ist 0 → nicht gedrückt
+    Bit 7 (Swap) ist 0 → nicht gedrückt
+
+So lässt sich durch einfache bitweise Operationen wie UND (&), ODER (|) und XOR (^) ermitteln, welche Tasten gedrückt sind.
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+|                                                           Printer                                                            |
+--------------------------------------------------------------------------------------------------------------------------------
+
+---Login---
+Drucker sind leider oft dafür bekannt, nicht so zu funktionieren, wie es die Nutzer erwarten. Ein großer Teil dieses Problems liegt in der meist unzureichenden Nutzererfahrung (UX).
+
+Oft beginnt dies schon bei einem überladenen Login-Bildschirm. Der neue Login-Bildschirm wurde jedoch vereinfacht und ist mit großen Buttons und gut lesbarem Text für kleine Touchscreens optimiert.
+
+Die wichtigsten Einstellungen des Drucker-UIs, wie Sprache und Füllstand, sind sofort sichtbar und können einfach angepasst werden. Weitere Einstellungen sind ebenfalls schnell und problemlos erreichbar.
+
+---Menü---
+Nach dem Login mit Passwort oder NFC-Karte wird der Nutzername zusammen mit dem Kontostand in der Anzeigeschablone angezeigt.
+
+Die Druckoptionen sind groß, kontrastreich und mit klaren Icons versehen, um die Bedienung zu erleichtern.
+
+Das Abmelden erfolgt über das Nutzermenü, das über den Nutzernamen-Knopf erreichbar ist.
+
+---Druckvorgang---
+- Der Nutzer wird von dem Leitfaden …
+- Aktuell ist unterstrichen; noch nicht gemacht ausgegraut
+- 
+
+Der Nutzer wird von einem klar strukturierten Leitfaden durch den gesamten Druckprozess geführt, sodass er stets weiß, wo er ist und welcher Schritt als nächstes kommt.
+Der aktuelle Schritt wird hervorgehoben, während noch nicht abgeschlossene Schritte ausgegraut bleiben, um Verwirrung zu vermeiden.
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+|                                                            Stile                                                             |
+--------------------------------------------------------------------------------------------------------------------------------
+
+---Original---
+- Aufgabe: Übersetzen von etwas zu anderen Stilen
+- Das das original
+
+Screendesigns lassen sich häufig in verschiedene Stile, Themen und Trends unterteilen. Diese Veränderungen betreffen in erster Linie die visuelle, nicht jedoch die interaktive Komponente des Designs.
+
+Um dies zu veranschaulichen, wurde das ursprüngliche Screendesign zunächst auf seine interaktiven Elemente hin analysiert, reduziert und anschließend in verschiedene andere Themen und Stile umgewandelt.
+
+---Essenz---
+- Das ist die funktionale Oberfläche ohne Stil
+
+Diese Version, die das Layout-Design und den tatsächlichen Content ohne das vollständige Screendesign enthält, dient als Grundversion für die nachfolgenden Screendesigns. Es werden keine grundlegenden Änderungen am Layout vorgenommen, sondern lediglich neue Screendesigns hinzugefügt.
+
+---Bauhaus---
+- Bauhaus ist:
+- Hier umgesetzt in:
+
+Bauhaus-Screendesign setzt auf klare, geometrische Formen und eine reduzierte Farbpalette. Primärfarben und einfache Formen wie Rechtecke und Kreise dominieren das Design, wobei Funktion und Ästhetik in Einklang stehen.
+
+...
+
+---Glasmorphismus---
+- Glasmorphismus ist:
+- Hier umgesetzt in:
+
+Glasmorphismus nutzt transparente, verschwommene Elemente mit Hintergrundunschärfe, um einen glasähnlichen Effekt zu erzeugen. Es kombiniert sanfte Farben und weiche Kanten, wodurch das Design modern und leicht wirkt, während der Fokus auf Transparenz und Tiefe liegt.
+
+...
+
+--------------------------------------------------------------------------------------------------------------------------------
+|                                                            Icons                                                             |
+--------------------------------------------------------------------------------------------------------------------------------
+
+---Dark-Neon---
+
+--------------------------------------------------------------------------------------------------------------------------------
+|                                                             asd                                                              |
+--------------------------------------------------------------------------------------------------------------------------------
+
+---YXZ---
