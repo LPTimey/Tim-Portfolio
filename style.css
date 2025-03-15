@@ -72,10 +72,6 @@ body {
     flex-direction: column;
 }
 
-.grow {
-    flex-grow: 1;
-}
-
 .center {
     display: inline-flex;
     justify-content: center;
@@ -174,6 +170,22 @@ site-header {
             }
         }
     }
+
+    multi-state-button {
+        position: relative;
+        top: 10%;
+    }
+}
+
+site-footer{
+    margin-top: 3em;
+    padding-bottom: 3em;
+    padding-top: 3em;
+    background-color: color-mix(in srgb,var(--bg),var(--fg) 25%);
+    footer{
+        width: var(--width);
+        margin: auto;
+    }
 }
 
 #hero {
@@ -219,6 +231,13 @@ site-header {
 
 .flex {
     display: flex;
+    &.column{
+        flex-direction: column;
+    }
+}
+
+.grow {
+    flex-grow: 1;
 }
 
 .button {

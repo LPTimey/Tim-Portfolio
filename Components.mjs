@@ -76,7 +76,7 @@ class SiteHeader extends HTMLElement {
                 <span class="link" id="light">${light_mode}</span>
             </multi-state-button>
             |
-            <a href="https://github.com/LPTimey/Tim-Portfolio" class="center">Source ${gh_logo}</a>
+            <a href="https://github.com/LPTimey/Tim-Portfolio" target="_blank" class="center">${"" ?? "Source "}${gh_logo}</a>
         </header>`;
     }
 }
@@ -101,7 +101,10 @@ class SiteFooter extends HTMLElement {
     }
     constructor() {
         super();
-        this.innerHTML = `<footer></footer>`;
+        this.innerHTML = `
+        <footer>
+            Created by Tim Ruland
+        </footer>`;
     }
 }
 customElements.define("site-footer", SiteFooter);
