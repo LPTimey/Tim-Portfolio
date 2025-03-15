@@ -84,30 +84,6 @@ class SiteFooter extends HTMLElement {
 }
 customElements.define("site-footer", SiteFooter)
 
-class SiteHero extends HTMLElement {
-    static get observedAttributes() {
-        return [];
-    }
-    /**
-     * 
-     * @param {string} name name of attribute
-     * @param {*} oldValue old value of attribute
-     * @param {*} newValue new value of attribute
-     */
-    attributeChangedCallback(name, oldValue, newValue) {
-        // name will be "value"
-        // oldValue will be "7" 
-        // newValue will be "11" 
-
-        // your code...
-    }
-    constructor() {
-        super()
-        this.innerHTML = `<h1>Tim Ruland</h1>`
-    }
-}
-customElements.define("site-hero", SiteHero)
-
 class TitleImage extends HTMLElement{
     static get observedAttributes() {
         return ['alt', 'src'];

@@ -6,7 +6,10 @@
 *::before,
 *::after,
 * {
-    transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+    transition: color 0.2s ease-in-out,
+        background-color 0.2s ease-in-out,
+        border-color 0.2s ease-in-out;
+
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -17,6 +20,8 @@
     --light: #eee;
     --accent: #6060ff;
     --second: #d99f3c;
+
+    --width: 80dvw;
 
     font-family: "JetBrains Mono", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -44,6 +49,7 @@
     --bg: var(--light);
     --fg: var(--dark);
 }
+
 img {
     width: 100%;
     height: 100%;
@@ -59,29 +65,30 @@ body {
     flex-direction: column;
 }
 
-section {
+.detail {
     min-height: 100dvh;
     display: grid;
     align-items: center;
     padding: 4rem;
-    grid-template-areas: 
-    "Heading"
-    "content";
-    
+    grid-template-areas:
+        "Heading"
+        "content";
+
 }
 
-.content{
+.content {
     grid-area: content;
-    max-width: 90%;
-    margin: auto;
+    width: var(--width);
+    margin: 0 auto;
 }
 
-.heading{
+.heading {
     grid-area: Heading;
     column-span: all;
     display: block;
     width: 100%;
-    .title-image{
+
+    .title-image {
         height: 25em;
         width: 100%;
     }
@@ -106,11 +113,53 @@ site-header {
     }
 }
 
+#hero {
+    display: flex;
+    flex-direction: column;
+    height: 75dvh;
+
+    .spread{
+        flex-grow: 1;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        > picture{
+            grid-column: 4 / 1;
+            grid-row: 4 / 1;
+        }
+        #heroButtons{
+            grid-column: 3;
+            grid-row: 3;
+        }
+    }
+}
+
 /* #DMMS{
     color: var(--dark);
     background-image: url("./assets/Design der Mensch Maschiene Schnittstelle/WatchOut/app bg.png");
 } */
-#DMMS-Title{
+#DMMS-Title {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+}
+
+.flex {
+    display: flex;
+}
+
+.button {
+    --size: 2em;
+    margin: var(--size) 2ch;
+    padding: calc(var(--size)*0.5) calc(var(--size)*0.75);
+    border-radius: calc(var(--size)*0.5);
+    border: 0.05em solid var(--fg);
+    color: var(--fg);
+    background-color: var(--bg);
+
+    &:hover,
+    &[active] {
+        background-color: var(--accent);
+        color: var(--light);
+        border-color: rgba(255, 255, 255, 0);
+    }
 }

@@ -12,10 +12,21 @@
 <body>
     <site-header></site-header>
     <main>
-
-        <site-hero></site-hero>
+        <section id="hero">
+            <div class="content">
+                <p>Willkommen hier,</p>
+                <h1>Wo die Details scheinen</h1>
+            </div>
+            <div class="spread">
+                <picture></picture>
+                <div class="flex" id="heroButtons">
+                    <a href="" class="button" active>To my Projects</a><a href="" class="button">About Me</a>
+                </div>
+            </div>
+        </section>
+        <section id="projectgrid"></section>
         <hr>
-        <section id="DMMS">
+        <section class="detail" id="DMMS">
             <div class="heading">
                 <!-- <img class="title-image" src="./assets/Design der Mensch Maschiene Schnittstelle/WatchOut/app bg.png" /> -->
                 <div class="title-image" id="DMMS-Title">
@@ -79,7 +90,7 @@
             </div>
         </section>
         <hr>
-        <section title="Tetris" subtitle="C & Arduino" img-src="">
+        <section class="detail" id="Tetris">
             <div class="heading">
                 <img>
                 <h2>Tetris</h2>
@@ -134,7 +145,7 @@
             </div>
         </section>
         <hr>
-        <section>
+        <section class="detail" id="Printer">
             <div class="heading">
                 <img />
                 <h2>Printer</h2>
@@ -180,7 +191,7 @@
             <!-- TODO: Print-serie -->
         </section>
         <hr>
-        <section>
+        <section class="detail" id="Themes">
             <div class="heading">
                 <img>
                 <h2>Themes</h2>
@@ -215,7 +226,7 @@
                 </p>
             </div>
         </section>
-        <section>
+        <section class="detail" id="WebDesign">
             <div class="heading">
                 <img src="" alt="">
                 <h2>WebDesign</h2>
