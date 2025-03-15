@@ -121,13 +121,20 @@ site-header {
     .spread{
         flex-grow: 1;
         display: grid;
+        align-items: end;
         grid-template-columns: 1fr 1fr 1fr;
         grid-template-rows: 1fr 1fr 1fr;
         > picture{
             grid-column: 4 / 1;
             grid-row: 4 / 1;
+            object-fit: cover;
         }
         #heroButtons{
+            width: fit-content;
+            height: fit-content;
+            /* padding: 1em 2ch;
+            border-radius: 2em;
+            background-color: rgba(120, 120, 120, 0.2); */
             grid-column: 3;
             grid-row: 3;
         }
@@ -155,11 +162,16 @@ site-header {
     border: 0.05em solid var(--fg);
     color: var(--fg);
     background-color: var(--bg);
+    height: fit-content;
+    width: fit-content;
 
     &:hover,
     &[active] {
         background-color: var(--accent);
         color: var(--light);
         border-color: rgba(255, 255, 255, 0);
+    }
+    &[active]:hover {
+        background-color: color-mix(in srgb, var(--accent), var(--dark) 25%);;
     }
 }
