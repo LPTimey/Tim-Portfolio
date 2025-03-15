@@ -103,10 +103,26 @@ class SiteHero extends HTMLElement {
     }
     constructor() {
         super()
-        this.innerHTML = `<section><h1>Tim Ruland</h1></section><hr />`
+        this.innerHTML = `<h1>Tim Ruland</h1>`
     }
 }
 customElements.define("site-hero", SiteHero)
+
+class TitleImage extends HTMLElement{
+    static get observedAttributes() {
+        return ['alt', 'src'];
+    }
+    constructor() {
+        super()
+        let src = this.getAttribute("src");
+        let alt = this.getAttribute("alt");
+
+        this.innerHTML = `
+        <img src="${src ?? ""}" alt="${alt}" />
+        `
+    }
+}
+customElements.define("title-img", TitleImage)
 
 class ProjectSection extends HTMLElement {
     static get observedAttributes() {
@@ -118,12 +134,10 @@ class ProjectSection extends HTMLElement {
         let subtitle = this.getAttribute("subtitle");
         let img_src = this.getAttribute("img-src");
         this.innerHTML = `
-        <section>
-            <img src="${img_src ?? ""}" alt="${subtitle}-image"/>
+            <title-img src="${img_src ?? ""}" alt="${subtitle}-image"></title-img>
             <h2>${title ?? ""}</h2>
             <h3>${subtitle ?? ""}</h3>
-            ${this.innerHTML}
-        </section>
+            <div>${this.innerHTML}</div>
         `;
     }
 }

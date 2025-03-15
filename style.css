@@ -8,6 +8,8 @@
 * {
     transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 :root {
@@ -42,21 +44,47 @@
     --bg: var(--light);
     --fg: var(--dark);
 }
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: scale-down;
+}
 
 body {
     background-color: var(--bg);
     color: var(--fg);
     min-height: 100dvh;
-    max-width: 80dvw;
     margin: auto;
     display: flex;
     flex-direction: column;
 }
 
-project-section {
+section {
     min-height: 100dvh;
     display: grid;
     align-items: center;
+    padding: 4rem;
+    grid-template-areas: 
+    "Heading"
+    "content";
+    
+}
+
+.content{
+    grid-area: content;
+    max-width: 90%;
+    margin: auto;
+}
+
+.heading{
+    grid-area: Heading;
+    column-span: all;
+    display: block;
+    width: 100%;
+    .title-image{
+        height: 25em;
+        width: 100%;
+    }
 }
 
 header {
@@ -76,4 +104,13 @@ site-header {
             color: var(--accent);
         }
     }
+}
+
+/* #DMMS{
+    color: var(--dark);
+    background-image: url("./assets/Design der Mensch Maschiene Schnittstelle/WatchOut/app bg.png");
+} */
+#DMMS-Title{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
 }
