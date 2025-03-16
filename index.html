@@ -8,6 +8,7 @@
     <link rel="shortcut icon" href="assets/Lebenslauf/schönes bild klein@0,1x.png" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
     <script type="module" src="Components.mjs"></script>
+    <script type="module" async src="script.mjs"></script>
 </head>
 
 <body>
@@ -34,7 +35,27 @@
             <div class="heading">
                 <h2>Projects:</h2>
             </div>
-            <div class="content">*Grid an Projekten als inhaltsverzeichnis</div>
+            <div class="content">
+                <div class="masonry default" style="--min-col: 20ch">
+                    <div><button modal-target="#DMMS-Dialog" class="button">Open</button></div>
+                    <img src="https://placehold.co/600x400" alt="Scrolling Image">
+                    <img src="https://placehold.co/600x400" alt="Scrolling Image">
+                    <img src="https://placehold.co/600x400" alt="Scrolling Image">
+                    <img src="https://placehold.co/600x400" alt="Scrolling Image">
+                    <img src="https://placehold.co/600x815" alt="Scrolling Image">
+                    <img src="https://placehold.co/600x400" alt="Scrolling Image">
+                    <img src="https://placehold.co/600x400" alt="Scrolling Image">
+                    <img src="https://placehold.co/600x400" alt="Scrolling Image">
+                    <img src="https://placehold.co/600x1230" alt="Scrolling Image">
+                </div>
+            </div>
+            <dialog id="DMMS-Dialog">
+                Hello
+                <div id="DMMS-Dialog-Head" class="grid" style="--grid-width: 2;--grid-height:0">
+                    <img src="./assets/Design der Mensch Maschiene Schnittstelle/WatchOut/straight0149.png" alt="">
+                    <img src="./assets/Design der Mensch Maschiene Schnittstelle/WatchOut/Phone with app.png" alt="">
+                </div>
+            </dialog>
         </section>
         <hr>
         <section class="detail" id="DMMS">

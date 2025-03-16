@@ -53,6 +53,14 @@
     --fg: var(--dark);
 }
 
+dialog {
+    margin: revert;
+    padding: revert;
+    color: var(--fg);
+    background-color: rgba(from var(--bg) r g b / 0.8);
+    max-width: var(--width);
+}
+
 img {
     width: 100%;
     height: 100%;
@@ -83,11 +91,71 @@ body {
     min-height: 100dvh;
     display: grid;
     align-items: center;
-    padding: 4rem;
+    padding: 10rem;
     grid-template-areas:
         "Heading"
         "content";
 
+}
+
+.button {
+    --size: 2em;
+    margin: var(--size) 2ch;
+    padding: calc(var(--size)*0.5) calc(var(--size)*0.75);
+    border-radius: calc(var(--size)*0.5);
+    border: 0.05em solid var(--fg);
+    color: var(--fg);
+    background-color: var(--bg);
+    height: fit-content;
+    width: fit-content;
+
+    &:hover,
+    &[active] {
+        background-color: var(--accent);
+        color: var(--light);
+        border-color: rgba(255, 255, 255, 0);
+    }
+
+    &[active]:hover {
+        background-color: color-mix(in srgb, var(--accent), var(--dark) 25%);
+    }
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(var(--grid-width), 1fr);
+    grid-template-rows: repeat(var(--grid-height), 1fr);
+
+    &.auto,
+    &.default {
+        grid-template-columns: repeat(auto-fit, minmax(var(--min-col), 1fr));
+        grid-template-rows: none;
+        justify-content: center;
+    }
+
+    &.default {
+        gap: 1ch;
+    }
+}
+
+.masonry {
+    &.default {
+        --column-width: 20ch;
+    }
+
+    columns: var(--column-width);
+}
+
+.flex {
+    display: flex;
+
+    &.column {
+        flex-direction: column;
+    }
+}
+
+.grow {
+    flex-grow: 1;
 }
 
 .content {
@@ -179,24 +247,12 @@ site-header {
     }
 }
 
-site-footer {
-    margin-top: 3em;
-    padding-bottom: 3em;
-    padding-top: 3em;
-    background-color: color-mix(in srgb, var(--bg), var(--fg) 25%);
-
-    footer {
-        width: var(--width);
-        margin: auto;
-    }
-}
-
 #hero {
     --grid-size: 3;
 
     display: flex;
     flex-direction: column;
-    height: 80dvh;
+    height: 80vh;
 
     .spread {
         margin: 2em 0;
@@ -284,7 +340,8 @@ scroll-image {
     }
 }
 
-#DMMS {
+#DMMS,
+#DMMS-Dialog-Head {
     color: var(--dark);
     background-image: url("./assets/Design der Mensch Maschiene Schnittstelle/WatchOut/app bg.png");
 }
@@ -296,37 +353,14 @@ scroll-image {
     grid-template-columns: repeat(var(--grid-size), 1fr);
 }
 
-.button {
-    --size: 2em;
-    margin: var(--size) 2ch;
-    padding: calc(var(--size)*0.5) calc(var(--size)*0.75);
-    border-radius: calc(var(--size)*0.5);
-    border: 0.05em solid var(--fg);
-    color: var(--fg);
-    background-color: var(--bg);
-    height: fit-content;
-    width: fit-content;
+site-footer {
+    margin-top: 3em;
+    padding-bottom: 3em;
+    padding-top: 3em;
+    background-color: color-mix(in srgb, var(--bg), var(--fg) 25%);
 
-    &:hover,
-    &[active] {
-        background-color: var(--accent);
-        color: var(--light);
-        border-color: rgba(255, 255, 255, 0);
+    footer {
+        width: var(--width);
+        margin: auto;
     }
-
-    &[active]:hover {
-        background-color: color-mix(in srgb, var(--accent), var(--dark) 25%);
-    }
-}
-
-.flex {
-    display: flex;
-
-    &.column {
-        flex-direction: column;
-    }
-}
-
-.grow {
-    flex-grow: 1;
 }
