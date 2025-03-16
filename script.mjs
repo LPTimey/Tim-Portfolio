@@ -22,12 +22,12 @@ let popover_buttons = document.querySelectorAll("[popover-target]");
 function activate_button(button, typeStr, openFn) {
     const target = button.getAttribute(typeStr);
     if (target == null) {
-        console.err(`no ${typeStr}`)
+        console.error(`no ${typeStr}`)
         return;
     }
     const targetElement = document.querySelector(target);
     if (targetElement == null || !(targetElement instanceof HTMLDialogElement)) {
-        console.err(`${target} is not a valid ${typeStr}`)
+        console.error(`${target} is not a valid ${typeStr}`)
         return;
     }
     button.addEventListener("click", event => {
