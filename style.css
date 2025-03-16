@@ -117,11 +117,13 @@ header {
 }
 
 site-header {
+    --transparency: 0.85;
+
     position: sticky;
     top: 0;
-    background-color: rgba(from var(--bg) r g b / 0.85);
-    padding-top: 2em;
-    padding-bottom: 2em;
+
+    background-color: rgba(from var(--bg) r g b / var(--transparency));
+    padding: 2em 0;
 
     display: flex;
     justify-content: center;
@@ -177,18 +179,21 @@ site-header {
     }
 }
 
-site-footer{
+site-footer {
     margin-top: 3em;
     padding-bottom: 3em;
     padding-top: 3em;
-    background-color: color-mix(in srgb,var(--bg),var(--fg) 25%);
-    footer{
+    background-color: color-mix(in srgb, var(--bg), var(--fg) 25%);
+
+    footer {
         width: var(--width);
         margin: auto;
     }
 }
 
 #hero {
+    --grid-size: 3;
+
     display: flex;
     flex-direction: column;
     height: 80dvh;
@@ -199,12 +204,15 @@ site-footer{
         display: grid;
         align-items: end;
         overflow: hidden;
-        grid-template-columns: 1fr 1fr 1fr;
-        grid-template-rows: 1fr 1fr 1fr;
+        grid-template-columns: repeat(var(--grid-size), 1fr);
+        grid-template-rows: repeat(var(--grid-size), 1fr);
 
-        scroll-image,scroll-image *,.scrolling-container,.scrolling-container * {
-            grid-column: 4 / 1;
-            grid-row: 4 / 1;
+        scroll-image,
+        scroll-image *,
+        .scrolling-container,
+        .scrolling-container * {
+            grid-column: calc(var(--grid-size) + 1) / 1;
+            grid-row: calc(var(--grid-size) + 1) / 1;
             object-fit: cover;
         }
 
@@ -214,13 +222,14 @@ site-footer{
             /* padding: 1em 2ch;
             border-radius: 2em;
             background-color: rgba(120, 120, 120, 0.2); */
-            grid-column: 3;
-            grid-row: 3;
+            grid-column: var(--grid-size);
+            grid-row: var(--grid-size);
         }
     }
 }
 
-.scrolling-container, scroll-image {
+.scrolling-container,
+scroll-image {
     width: 100%;
     height: 100%;
     /* Höhe der Anzeige, je nach Bedarf anpassen */
@@ -258,13 +267,16 @@ site-footer{
     background-image: url("./assets/Design der Mensch Maschiene Schnittstelle/WatchOut/app bg.png");
 } */
 #DMMS-Title {
+    --grid-size: 3;
+
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(var(--grid-size), 1fr);
 }
 
 .flex {
     display: flex;
-    &.column{
+
+    &.column {
         flex-direction: column;
     }
 }

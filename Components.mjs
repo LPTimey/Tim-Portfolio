@@ -150,12 +150,12 @@ class ScrollImage extends HTMLElement {
     }
     constructor() {
         super();
-        
+
         this.classList.add("scrolling-container");
 
         let src = this.getAttribute("src") ?? "";
         let alt = this.getAttribute("alt") ?? "";
-        
+
         this.innerHTML = `
             <img src="${src}" alt="${alt}" class="scrolling-image">
             <img src="${src}" alt="" class="scrolling-image">
