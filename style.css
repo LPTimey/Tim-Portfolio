@@ -262,27 +262,38 @@ scroll-image {
     }
 }
 
-/* #DMMS{
+@keyframes scrollHorizontal {
+    0% {
+        translate: 0 0;
+    }
+
+    100% {
+        translate: 100% 0;
+        /* Zweites Bild kommt an die Stelle des ersten Bildes */
+    }
+}
+
+@keyframes scrollBoth {
+    0% {
+        translate: 0 0;
+    }
+
+    100% {
+        translate: 100% -100%;
+        /* Zweites Bild kommt an die Stelle des ersten Bildes */
+    }
+}
+
+#DMMS {
     color: var(--dark);
     background-image: url("./assets/Design der Mensch Maschiene Schnittstelle/WatchOut/app bg.png");
-} */
+}
+
 #DMMS-Title {
     --grid-size: 3;
 
     display: grid;
     grid-template-columns: repeat(var(--grid-size), 1fr);
-}
-
-.flex {
-    display: flex;
-
-    &.column {
-        flex-direction: column;
-    }
-}
-
-.grow {
-    flex-grow: 1;
 }
 
 .button {
@@ -306,4 +317,16 @@ scroll-image {
     &[active]:hover {
         background-color: color-mix(in srgb, var(--accent), var(--dark) 25%);
     }
+}
+
+.flex {
+    display: flex;
+
+    &.column {
+        flex-direction: column;
+    }
+}
+
+.grow {
+    flex-grow: 1;
 }
