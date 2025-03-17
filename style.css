@@ -15,6 +15,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    /* border: 2px solid red; */
 }
 
 :root {
@@ -91,12 +92,7 @@ body {
 
 .detail {
     min-height: 100dvh;
-    display: grid;
-    align-items: center;
-    padding: 10rem;
-    grid-template-areas:
-        "Heading"
-        "content";
+    max-width: 100dvw;
 }
 
 .button {
@@ -380,6 +376,7 @@ scroll-image {
 #DMMS,
 #DMMS-Dialog-Head {
     color: var(--dark);
+    background-size: cover;
     background-image: url("./assets/Design der Mensch Maschiene Schnittstelle/WatchOut/app bg.png");
 }
 
