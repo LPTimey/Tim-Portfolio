@@ -20,12 +20,13 @@
 
 :root {
     --dark: #181818;
-    --light: #eee;
+    --light: #ddd;
     --accent: #6060ff;
     /* --accent-2: color-mix(in srgb, color-mix(in srgb, var(--bg), var(--fg) 0%), var(--accent) 50%); */
     --accent-2: #4141bd;
 
-    --width: 80dvw;
+    --outer-width: 80dvw;
+    --content-width: calc(var(--outer-width) - 5dvw);
     --border-r: 1rem;
 
     font-family: "JetBrains Mono", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -61,7 +62,7 @@ dialog {
     padding: revert;
     color: var(--fg);
     background-color: rgba(from var(--bg) r g b / 0.8);
-    max-width: var(--width);
+    max-width: var(--outer-width);
 }
 
 img {
@@ -158,9 +159,22 @@ body {
     flex-grow: 1;
 }
 
+.heading {
+    grid-area: Heading;
+    column-span: all;
+    display: block;
+    margin: auto;
+    width: var(--outer-width);
+
+    .title-image {
+        height: 25em;
+        width: 100%;
+    }
+}
+
 .content {
     grid-area: content;
-    width: var(--width);
+    width: var(--content-width);
     margin: 0 auto;
 }
 
@@ -168,15 +182,19 @@ body {
     --pad: 1ch;
     padding: var(--pad);
     margin: 0.25em;
-    background-color: var(--accent-2);
+    background-color: color-mix(in srgb, var(--bg), var(--fg) 10%);
+    border: 0.2ch solid rgba(from var(--fg) r g b / 0.25);
     border-radius: var(--border-r);
     grid-row: span 5;
     display: grid;
     grid-template-rows: subgrid;
-    color: var(--light);
+
+    h3 {
+        margin-top: 0.25em;
+    }
 
     h4 {
-        margin-top: -3%;
+        margin-top: -0.5em;
     }
 
     img {
@@ -188,18 +206,8 @@ body {
 
     &:hover {
         background-color: var(--accent);
-    }
-}
-
-.heading {
-    grid-area: Heading;
-    column-span: all;
-    display: block;
-    width: 100%;
-
-    .title-image {
-        height: 25em;
-        width: 100%;
+        color: var(--light);
+        border-color: rgba(255, 255, 255, 0);
     }
 }
 
@@ -214,7 +222,7 @@ header {
     align-items: center;
     justify-content: center;
     gap: 1ch;
-    width: var(--width);
+    width: var(--outer-width);
 }
 
 site-header {
@@ -394,7 +402,7 @@ site-footer {
     background-color: color-mix(in srgb, var(--bg), var(--fg) 25%);
 
     footer {
-        width: var(--width);
+        width: var(--outer-width);
         margin: auto;
     }
 }
