@@ -381,6 +381,10 @@ scroll-image {
     }
 }
 
+#projectgrid{
+    padding-top: 8rem;
+}
+
 #DMMS,
 #DMMS-Dialog-Head {
     color: var(--dark);
