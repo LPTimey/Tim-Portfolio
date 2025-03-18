@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tim Ruland - </title>
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="Components.mjs"></script>
+    <script type="module" async src="script.mjs"></script>
+</head>
+
+<body>
+    <site-header></site-header>
+    <main>
+        <section class="detail" id="Tetris">
+            <div class="heading">
+                <img>
+                <h2>Tetris</h2>
+                <h3>C & Arduino</h3>
+            </div>
+            <div class="content">
+                <!-- TODO: Arduino stuff -->
+                <p>Das Tetris-Spiel wurde in C programmiert und auf einem Arduino ausgeführt. Die Anzeige erfolgt auf
+                    dessen
+                    eingebauten
+                    LED-Matrix, während die Steuerung durch externe Tasten ermöglicht wird. Bei der Gestaltung der
+                    Verbindungen wurde
+                    besonderes Augenmerk auf die Kompaktheit und Benutzerfreundlichkeit gelegt. Die Verbindungskabel
+                    wurden
+                    so verlegt, dass
+                    sie nicht vertikal aus dem Breadboard herausragen und die Buttons verdecken. Sie sind kompakt und an
+                    einer Stelle
+                    zusammengeführt welche vom Breadboard zum Arduino führt, um eine effiziente und übersichtliche
+                    Verkabelung zu
+                    gewährleisten.
+                </p>
+                <p>Das eindimensionale Button-Layout wurde so gestaltet, dass die Eingabe intuitiv erfolgt: Links
+                    entspricht
+                    „links“,
+                    rechts entspricht „rechts“ und der vertikale Button befindet sich in der Mitte. Ebenso sind die
+                    Rotationen neben der
+                    jeweiligen Bewegung.
+                </p>
+                <!-- TODO: Code und explainer animation -->
+                <p>Das Spielfeld wurde als eindimensionales Array gespeichert, um im Stack zu bleiben und eine möglichst
+                    effiziente Nutzung
+                    des CPU-Caches zu ermöglichen. Alle Zeilen wurden hintereinander angeordnet, sodass der Index
+                    i=x+x*y
+                    gilt, wobei alle
+                    Variablen positive ganze Zahlen, einschließlich 0, sein können. Zudem müssen die Werte für x kleiner
+                    als
+                    die
+                    Spielfeldbreite und y kleiner als die Spielfeldhöhe sein.
+                </p>
+                <p>Ein Bitflag-System ermöglicht es, mehrere Tasten in einem einzelnen Byte (8 Bits) zu speichern und zu
+                    verwalten, wobei
+                    jeder Bitwert eine bestimmte Taste repräsentiert. Dies wird durch die Verwendung von Bitmasken
+                    erreicht,
+                    bei denen jede
+                    Taste mit einem einzelnen Bit im Byte verknüpft ist.
+                </p>
+                <p>Im gegebenen Code wurde ein enum für die Tastenbelegungen definiert. Dabei bekommt jede Taste einen
+                    Wert,
+                    der eine
+                    Potenz von 2 darstellt. Dadurch wird jeder Wert einer einzigen Bitposition im Byte zugewiesen:
+                </p>
+            </div>
+        </section>
+    </main>
+    <site-footer></site-footer>
+</body>
+
+</html>
