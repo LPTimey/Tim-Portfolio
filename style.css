@@ -21,9 +21,9 @@
 :root {
     --dark: #181818;
     --light: #ddd;
-    --accent: #6060ff;
+    --accent-2: #6060ff;
     /* --accent-2: color-mix(in srgb, color-mix(in srgb, var(--bg), var(--fg) 0%), var(--accent) 50%); */
-    --accent-2: #4141bd;
+    --accent: #4141bd;
 
     --outer-width: 80dvw;
     --content-width: calc(var(--outer-width) - 5dvw);
