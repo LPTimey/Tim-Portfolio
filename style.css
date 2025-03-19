@@ -194,6 +194,7 @@ a {
     column-span: all;
     display: block;
     margin: auto;
+    margin-bottom: 2rem;
     width: var(--outer-width);
 
     .title-image {

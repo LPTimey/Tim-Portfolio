@@ -69,7 +69,7 @@ class SiteHeader extends HTMLElement {
         <header>
             <a href="./">Home</a> 
             |
-            <a href="about.html">About</a>
+            <a href="skills.html">Fähigkeiten</a>
             <div class="grow"></div>
             ${old ?
                 `<multi-state-button ids="theme_dark;theme_system;theme_light">
