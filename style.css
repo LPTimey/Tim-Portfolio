@@ -34,8 +34,7 @@
 }
 
 
-:root:has(#theme_system:checked),
-:root:has(#ThemeSelect option[value="theme_system"]:checked) {
+:root:has(#theme_system:checked) {
 
     @media screen and (prefers-color-scheme: light) {
         --bg: var(--light);
@@ -48,14 +47,12 @@
     }
 }
 
-:root:has(#theme_dark:checked),
-:root:has(#ThemeSelect option[value="theme_dark"]:checked) {
+:root:has(#theme_dark:checked) {
     --bg: var(--dark);
     --fg: var(--light);
 }
 
-:root:has(#theme_light:checked),
-:root:has(#ThemeSelect option[value="theme_light"]:checked) {
+:root:has(#theme_light:checked) {
     --bg: var(--light);
     --fg: var(--dark);
 }
