@@ -151,8 +151,9 @@ body {
 
     &.auto,
     &.default {
-        grid-template-columns: repeat(auto-fit, minmax(var(--min-col), 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(var(--min-col), 1fr));
         justify-content: center;
+        grid-auto-flow: dense;
     }
 
     &.default {
@@ -320,11 +321,6 @@ site-header {
     display: flex;
     flex-direction: column;
     height: 80vh;
-
-    img {
-        height: 100%;
-        width: 100%;
-    }
 
     .spread {
         margin: 2em 0;
