@@ -175,9 +175,9 @@ class ThemeSelect extends HTMLElement {
         super();
         const str = `
         <select id="ThemeSelect">
-            <option value="theme_light">Licht-Modus</option>
-            <option value="theme_system" selected>System-Modus</option>
-            <option value="theme_dark">Dunkel-Modus</option>
+            <option value="theme_light">Licht-Thema</option>
+            <option value="theme_system" selected>System-Thema</option>
+            <option value="theme_dark">Dunkel-Thema</option>
         </select>
         `
         this.innerHTML = str;
