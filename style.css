@@ -66,7 +66,6 @@ select {
     color: var(--fg);
     cursor: pointer;
     font-size: 1rem;
-    text-decoration: underline;
 }
 
 dialog {
@@ -94,6 +93,10 @@ body {
     margin: auto;
     display: flex;
     flex-direction: column;
+}
+
+a{
+    text-decoration: none;
 }
 
 .center {
@@ -272,7 +275,6 @@ site-header {
 
         &:hover {
             color: var(--accent);
-            text-decoration: underline;
 
             svg {
                 fill: var(--accent);
