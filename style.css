@@ -34,7 +34,8 @@
 }
 
 
-:root:has(#theme_system:checked) {
+:root:has(#theme_system:checked),
+:root:has(#ThemeSelect option[value="theme_system"]:checked) {
 
     @media screen and (prefers-color-scheme: light) {
         --bg: var(--light);
@@ -47,14 +48,24 @@
     }
 }
 
-:root:has(#theme_dark:checked) {
+:root:has(#theme_dark:checked),
+:root:has(#ThemeSelect option[value="theme_dark"]:checked) {
     --bg: var(--dark);
     --fg: var(--light);
 }
 
-:root:has(#theme_light:checked) {
+:root:has(#theme_light:checked),
+:root:has(#ThemeSelect option[value="theme_light"]:checked) {
     --bg: var(--light);
     --fg: var(--dark);
+}
+
+select {
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+    color: var(--fg);
+    cursor: pointer;
+    font-size: 1rem;
 }
 
 dialog {
@@ -101,7 +112,7 @@ body {
     margin: var(--i-size) 2ch;
     padding: calc(var(--i-size)*0.5) calc(var(--i-size)*0.75);
     border-radius: var(--border-r);
-    border: 0.05em solid var(--fg);
+    border: 0.1em solid var(--fg);
     color: var(--fg);
     background-color: var(--bg);
     height: fit-content;
@@ -119,6 +130,16 @@ body {
         color: var(--light);
         border-color: rgba(255, 255, 255, 0);
         background-color: var(--accent);
+    }
+
+    &[passive] {
+        margin: calc(var(--i-size) / 2) 0;
+
+        &:hover {
+            color: var(--dark);
+            border-color: rgba(255, 255, 255, 0);
+            background-color: var(--light);
+        }
     }
 }
 
@@ -208,13 +229,18 @@ body {
         background-color: var(--accent);
         color: var(--light);
         border-color: rgba(255, 255, 255, 0);
+
+        ::selection {
+            color: var(--accent);
+            background-color: var(--light);
+        }
     }
 }
 
 [modal-target],
 [dialog-target],
 [popover-target] {
-    cursor: pointer;
+    /* cursor: pointer; */
 }
 
 header {
@@ -294,6 +320,11 @@ site-header {
     display: flex;
     flex-direction: column;
     height: 80vh;
+
+    img {
+        height: 100%;
+        width: 100%;
+    }
 
     .spread {
         margin: 2em 0;
@@ -381,7 +412,7 @@ scroll-image {
     }
 }
 
-#projectgrid{
+#projectgrid {
     padding-top: 8rem;
 }
 

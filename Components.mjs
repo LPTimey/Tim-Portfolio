@@ -59,22 +59,26 @@ class SiteHeader extends HTMLElement {
         // fetch("header.html")
         //     .then(req => req.text())
         //     .then((text) => this.innerHTML = text.toString())
+        const old = false;
         this.innerHTML = `
-        <div hidden>
+        ${old ?  `<div hidden>
         <input type="radio" name="theme" value="system" id="theme_system" checked>
         <input type="radio" name="theme" value="dark" id="theme_dark">
         <input type="radio" name="theme" value="light" id="theme_light">
-        </div>
+        </div>`:""}
         <header>
             <a href="./">Home</a> 
             |
             <a href="about.html">About</a>
             <div class="grow"></div>
-            <multi-state-button ids="theme_dark;theme_system;theme_light">
+            ${old ?
+                `<multi-state-button ids="theme_dark;theme_system;theme_light">
                 <span class="link" id="dark">${dark_mode}</span>
                 <span class="link" id="system">${system_mode}</span>
                 <span class="link" id="light">${light_mode}</span>
-            </multi-state-button>
+            </multi-state-button>`
+                : "<theme-selector></theme-selector>"
+            }
             |
             <a href="https://github.com/LPTimey/Tim-Portfolio" target="_blank" class="center">${"" ?? "Source "}${gh_logo}</a>
         </header>`;
@@ -165,3 +169,19 @@ class ScrollImage extends HTMLElement {
     }
 }
 customElements.define("scroll-image", ScrollImage);
+
+class ThemeSelect extends HTMLElement {
+    constructor() {
+        super();
+        const str = `
+        <select id="ThemeSelect">
+            <option value="theme_light">Licht-Modus</option>
+            <option value="theme_system" selected>System-Modus</option>
+            <option value="theme_dark">Dunkel-Modus</option>
+        </select>
+        `
+        this.innerHTML = str;
+        console.log(str)
+    }
+}
+customElements.define("theme-selector", ThemeSelect);
