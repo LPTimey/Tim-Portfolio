@@ -21,7 +21,7 @@
 :root {
     --dark: #181818;
     --light: #ddd;
-    --accent-2: #6060ff;
+    --accent-light: #6060ff;
     /* --accent-2: color-mix(in srgb, color-mix(in srgb, var(--bg), var(--fg) 0%), var(--accent) 50%); */
     --accent: #4141bd;
 
@@ -68,7 +68,7 @@ select {
     font-size: 1rem;
 
     &:hover {
-        color: var(--accent);
+        color: var(--accent-light);
     }
 }
 
@@ -129,7 +129,7 @@ a {
     text-decoration: none;
 
     &[active] {
-        background-color: var(--accent-2);
+        background-color: var(--accent-light);
         border-color: rgba(255, 255, 255, 0);
         color: var(--light);
     }
@@ -279,10 +279,10 @@ site-header {
         cursor: pointer;
 
         &:hover {
-            color: var(--accent);
+            color: var(--accent-light);
 
             svg {
-                fill: var(--accent);
+                fill: var(--accent-light);
             }
         }
     }
