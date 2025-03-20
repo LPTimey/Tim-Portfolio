@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 function main() {
 
@@ -8,9 +9,11 @@ function main() {
     const fov = 75;
     const aspect = 2; // the canvas default
     const near = 0.1;
-    const far = 50;
+    const far = 5000;
     const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-    camera.position.z = 2;
+    camera.position.z = 4;
+    camera.position.x = 1;
+    camera.position.y = 1;
 
     const scene = new THREE.Scene();
 
@@ -59,6 +62,18 @@ function main() {
         makeInstance(geometry, 0x8844aa, - 2, THREE.MeshPhysicalMaterial),
         makeInstance(geometry, 0xaa8844, 2, THREE.MeshLambertMaterial),
     ];
+
+    const loader = new GLTFLoader();
+
+    loader.load('./assets/Design%20der%20Mensch%20Maschiene%20Schnittstelle/WatchOut/TimUhr.glb', function (gltf) {
+
+        scene.add(gltf.scene);
+
+    }, undefined, function (error) {
+
+        console.error(error);
+
+    });
 
     function resizeRendererToDisplaySize(renderer) {
 
