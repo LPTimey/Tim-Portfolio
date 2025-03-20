@@ -1,75 +1,7 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
-const loader = new GLTFLoader();
-
-const watchCanvas = document.querySelector('#c');
-const watchRenderer = new THREE.WebGLRenderer({ antialias: true, canvas: watchCanvas });
-const watchCamera = setupCamera();
-const watchScene = new THREE.Scene();
-const watch = loader.load('./assets/Design%20der%20Mensch%20Maschine%20Schnittstelle/WatchOut/TimUhr.glb', function (gltf) {
-
-    scene.add(gltf.scene);
-
-}, undefined, function (error) {
-
-    console.error(error);
-
-});
-
-function setupCamera() {
-    const fov = 75;
-    const aspect = 2; // the canvas default
-    const near = 0.1;
-    const far = 5000;
-    const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-    camera.position.z = 4;
-    camera.position.x = 1;
-    camera.position.y = 0.25;
-    return camera
-}
-
-/**
-     * 
-     * @param {THREE.Scene} scene 
-     * @param {{x:number,y:number,z:number}} position 
-     */
-function addLight(scene, position) {
-
-    const color = 0xFFFFFF;
-    const intensity = 2;
-    const light = new THREE.DirectionalLight(color, intensity);
-    light.position.set(position.x, position.y, position.z);
-    scene.add(light);
-
-}
-/**
- * 
- * @param {THREE.Scene} scene 
- * @param {*} geometry 
- * @param {*} color 
- * @param {{x:number,y:number,z:number}} position 
- * @param {*} materialConstructor 
- * @returns {THREE.Mesh<any, any, THREE.Object3DEventMap>}
- */
-function makeInstance(scene, geometry, color, position, materialConstructor) {
-
-    // const material = new THREE.MeshPhongMaterial({ color });
-    const material = new materialConstructor({ color });
-
-    const cube = new THREE.Mesh(geometry, material);
-    scene.add(cube);
-
-    cube.position.x = position.x;
-
-    return cube;
-
-}
-
-function main() {
-}
-
-function main2() {
+async function main() {
 
     const canvas = document.querySelector('#c');
     const renderer = new THREE.WebGLRenderer({ antialias: true, canvas });
@@ -190,4 +122,4 @@ function main2() {
 
 }
 
-main2();
+main();
