@@ -1,0 +1,25 @@
+.heading-img {
+    color: var(--dark);
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    justify-items: center;
+    margin: 2rem 0;
+    height: 75dvh;
+
+    * {
+        grid-column: 1 / -1;
+        grid-row: 1 / -1;
+    }
+
+    > :not(img) {
+        width: 80dvw;
+        margin-top: 2em;
+    }
+
+    >img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
