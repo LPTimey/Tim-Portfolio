@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
-async function main() {
+function main() {
 
     const canvas = document.querySelector('#c');
     const renderer = new THREE.WebGLRenderer({ antialias: true, canvas });
