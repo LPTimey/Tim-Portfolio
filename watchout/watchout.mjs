@@ -1,10 +1,59 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
-function main() {
+/** @type {HTMLCanvasElement|null} */
+const watchCanvas = document.getElementById("3dWatch");
+const watchPath = `./assets/Design%20der%20Mensch%20Maschine%20Schnittstelle/WatchOut/TimUhr.glb`;
+const loader = new GLTFLoader();
+const watch = await loader.loadAsync(watchPath);
 
-    const canvas = document.querySelector('#c');
-    const renderer = new THREE.WebGLRenderer({ antialias: true, canvas });
+function render(time, renderer, scene, camera) {
+    time *= 0.001;
+    // console.log("Hello");
+    if (rendererNeedsResize(renderer)) {
+        renderer.setSize(renderer.domElement.clientWidth, renderer.domElement.clientHeight, false);
+
+        const canvas = renderer.domElement;
+        camera.aspect = canvas.clientWidth / canvas.clientHeight;
+        camera.updateProjectionMatrix();
+    }
+
+    // TODO: Turn Watch
+
+    renderer.render(scene, camera);
+    requestAnimationFrame((time) => render(time, renderer, scene, camera));
+}
+/**
+ * 
+ * @param {THREE.WebGLRenderer} renderer 
+ * @returns 
+ */
+function rendererNeedsResize(renderer) {
+    return renderer.domElement.width !== renderer.domElement.clientWidth
+        || renderer.domElement.height !== renderer.domElement.clientHeight;
+}
+
+/**
+ * 
+ * @param {THREE.Scene} scene 
+ * @param {{x:number,y:number,z:number}} position 
+ */
+function addLight(scene, position) {
+
+    const color = 0xFFFFFF;
+    const intensity = 2;
+    const light = new THREE.DirectionalLight(color, intensity);
+    light.position.set(position.x, position.y, position.z);
+    scene.add(light);
+
+}
+
+/**
+ * start rendering
+*/
+async function init() {
+    const renderer = new THREE.WebGLRenderer({ antialias: true, canvas: watchCanvas, alpha: true });
+    const scene = new THREE.Scene();
 
     const fov = 75;
     const aspect = 2; // the canvas default
@@ -12,114 +61,19 @@ function main() {
     const far = 5000;
     const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
     camera.position.z = 4;
-    camera.position.x = 1;
+    camera.position.x = 0;
     camera.position.y = 0.25;
 
-    const scene = new THREE.Scene();
-
-    /**
-     * 
-     * @param {{x:number,y:number,z:number}} position 
-     */
-    function addLight(position) {
-
-        const color = 0xFFFFFF;
-        const intensity = 2;
-        const light = new THREE.DirectionalLight(color, intensity);
-        light.position.set(position.x, position.y, position.z);
-        scene.add(light);
-
-    }
-
-    addLight({
+    addLight(scene, {
         x: - 1, y: 2, z: 4
     });
-    addLight({
+    addLight(scene, {
         x: 1, y: -2, z: 1
     });
 
-    const boxWidth = 1;
-    const boxHeight = 1;
-    const boxDepth = 1;
-    const geometry = new THREE.BoxGeometry(boxWidth, boxHeight, boxDepth);
+    scene.add(watch.scene);
 
-    function makeInstance(geometry, color, x, materialConstructor) {
-
-        // const material = new THREE.MeshPhongMaterial({ color });
-        const material = new materialConstructor({ color });
-
-        const cube = new THREE.Mesh(geometry, material);
-        scene.add(cube);
-
-        cube.position.x = x;
-
-        return cube;
-
-    }
-
-    const cubes = [
-        makeInstance(geometry, 0x44aa88, 0, THREE.MeshPhongMaterial),
-        makeInstance(geometry, 0x8844aa, - 2, THREE.MeshPhysicalMaterial),
-        makeInstance(geometry, 0xaa8844, 2, THREE.MeshLambertMaterial),
-    ];
-
-    const loader = new GLTFLoader();
-
-    loader.load('./assets/Design%20der%20Mensch%20Maschine%20Schnittstelle/WatchOut/TimUhr.glb', function (gltf) {
-
-        scene.add(gltf.scene);
-
-    }, undefined, function (error) {
-
-        console.error(error);
-
-    });
-
-    function resizeRendererToDisplaySize(renderer) {
-
-        const canvas = renderer.domElement;
-        const width = canvas.clientWidth;
-        const height = canvas.clientHeight;
-        const needResize = canvas.width !== width || canvas.height !== height;
-        if (needResize) {
-
-            renderer.setSize(width, height, false);
-
-        }
-
-        return needResize;
-
-    }
-
-    function render(time) {
-
-        time *= 0.001;
-
-        if (resizeRendererToDisplaySize(renderer)) {
-
-            const canvas = renderer.domElement;
-            camera.aspect = canvas.clientWidth / canvas.clientHeight;
-            camera.updateProjectionMatrix();
-
-        }
-
-        cubes.forEach((cube, ndx) => {
-
-            const speed = 1 + ndx * .1;
-            const rot = time * speed;
-            cube.rotation.x = rot;
-            cube.rotation.y = rot;
-
-        });
-
-        renderer.render(scene, camera);
-
-        requestAnimationFrame(render);
-
-    }
-
-    requestAnimationFrame(render);
-
+    requestAnimationFrame((time) => render(time, renderer, scene, camera));
 }
 
-main();
+await init();
