@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "three": [
+                "./vendor/three.js r174/build/three.module.js"
+            ],
+            "three/addons/*": [
+                "./vendor/three.js r174/examples/jsm/*"
+            ]
+        }
+    },
+    "include": [
+        "**/*.js",
+        "**/*.mjs"
+    ]
+}
