@@ -40,22 +40,26 @@
     @media screen and (prefers-color-scheme: light) {
         --bg: var(--light);
         --fg: var(--dark);
+        color-scheme: light;
     }
 
     @media screen and (prefers-color-scheme: dark) {
         --bg: var(--dark);
         --fg: var(--light);
+        color-scheme: dark;
     }
 }
 
 :root:has(#theme_dark:checked) {
     --bg: var(--dark);
     --fg: var(--light);
+    color-scheme: dark;
 }
 
 :root:has(#theme_light:checked) {
     --bg: var(--light);
     --fg: var(--dark);
+    color-scheme: light;
 }
 
 select {

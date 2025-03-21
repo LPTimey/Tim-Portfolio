@@ -6,8 +6,16 @@ const watchCanvas = document.getElementById("3dWatch");
 const watchPath = `./assets/Design%20der%20Mensch%20Maschine%20Schnittstelle/WatchOut/TimUhr.glb`;
 const loader = new GLTFLoader();
 const watch = await loader.loadAsync(watchPath);
+/** @type {THREE.Object3D} */
+const watchScene = watch.scene;
+watchScene.traverse((o) => {
+    console.info(o)
+    if (o.name == "GlassShield001" && o.isMesh) {
+        console.log("glas",o.material)
+    }
+});
 
-function render(time, renderer, scene, camera) {
+function renderWatch(time, renderer, scene, camera) {
     time *= 0.001;
     // console.log("Hello");
     if (rendererNeedsResize(renderer)) {
@@ -18,11 +26,12 @@ function render(time, renderer, scene, camera) {
         camera.updateProjectionMatrix();
     }
 
-    // TODO: Turn Watch
+    watchScene.rotateY(0.01);
 
     renderer.render(scene, camera);
-    requestAnimationFrame((time) => render(time, renderer, scene, camera));
+    requestAnimationFrame((time) => renderWatch(time, renderer, scene, camera));
 }
+
 /**
  * 
  * @param {THREE.WebGLRenderer} renderer 
@@ -51,18 +60,19 @@ function addLight(scene, position) {
 /**
  * start rendering
 */
-async function init() {
+async function initWatch() {
     const renderer = new THREE.WebGLRenderer({ antialias: true, canvas: watchCanvas, alpha: true });
     const scene = new THREE.Scene();
 
-    const fov = 75;
+    const fov = 35;
     const aspect = 2; // the canvas default
     const near = 0.1;
-    const far = 5000;
+    const far = 2000;
     const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-    camera.position.z = 4;
+
+    camera.position.z = 6;
     camera.position.x = 0;
-    camera.position.y = 0.25;
+    camera.position.y = 0;
 
     addLight(scene, {
         x: - 1, y: 2, z: 4
@@ -71,9 +81,13 @@ async function init() {
         x: 1, y: -2, z: 1
     });
 
-    scene.add(watch.scene);
+    scene.add(watchScene);
 
-    requestAnimationFrame((time) => render(time, renderer, scene, camera));
+    requestAnimationFrame((time) => renderWatch(time, renderer, scene, camera));
 }
 
-await init();
+function init() {
+    initWatch();
+}
+
+init();

@@ -23,3 +23,21 @@
         object-fit: cover;
     }
 }
+
+section {
+    max-width: var(--outer-width);
+    margin: auto;
+    height: 50dvh;
+}
+
+.ThreeD.Text {
+    display: grid;
+    /* grid-template-columns: repeat(clamp(1, auto-fill, 2), minmax(var(--min-col), 1fr)); */
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    height: 100%;
+}
+canvas{
+    width: 100%;
+    height: 100%;
+}
