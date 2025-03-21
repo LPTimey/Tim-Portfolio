@@ -9,8 +9,21 @@ const watch = await loader.loadAsync(watchPath);
 /** @type {THREE.Object3D} */
 const watchScene = watch.scene;
 
-function renderWatch(time, renderer, scene, camera) {
-    time *= 0.001;
+function DOMTSToMicroSecs(time) {
+    return time / 100;
+}
+const secs = DOMTSToMicroSecs
+
+/**
+ * 
+ * @param {DOMHighResTimeStamp} time in ms
+ * @param {THREE.WebGLRenderer} renderer 
+ * @param {THREE.Scene} scene 
+ * @param {THREE.Camera} camera 
+ * @param {DOMHighResTimeStamp?} lastTime in ms
+ */
+function renderWatch(time, renderer, scene, camera, lastTime) {
+    const deltaTime = time - (lastTime ?? 0);
     // console.log("Hello");
     if (rendererNeedsResize(renderer)) {
         renderer.setSize(renderer.domElement.clientWidth, renderer.domElement.clientHeight, false);
@@ -20,16 +33,16 @@ function renderWatch(time, renderer, scene, camera) {
         camera.updateProjectionMatrix();
     }
 
-    watchScene.rotateY(0.01);
+    watchScene.rotateY(0.05 * secs(deltaTime));
 
     renderer.render(scene, camera);
-    requestAnimationFrame((time) => renderWatch(time, renderer, scene, camera));
+    requestAnimationFrame((newTime) => renderWatch(newTime, renderer, scene, camera, time));
 }
 
 /**
  * 
  * @param {THREE.WebGLRenderer} renderer 
- * @returns 
+ * @returns true if renderer needs resizing
  */
 function rendererNeedsResize(renderer) {
     return renderer.domElement.width !== renderer.domElement.clientWidth
