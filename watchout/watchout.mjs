@@ -8,12 +8,6 @@ const loader = new GLTFLoader();
 const watch = await loader.loadAsync(watchPath);
 /** @type {THREE.Object3D} */
 const watchScene = watch.scene;
-watchScene.traverse((o) => {
-    console.info(o)
-    if (o.name == "GlassShield001" && o.isMesh) {
-        console.log("glas",o.material)
-    }
-});
 
 function renderWatch(time, renderer, scene, camera) {
     time *= 0.001;
