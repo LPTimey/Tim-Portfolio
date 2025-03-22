@@ -51,7 +51,8 @@ section {
     @media screen and (width < 1100px) {
         grid-template-columns: 1fr;
     }
-    img{
+
+    img {
         height: 90dvh;
     }
 }

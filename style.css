@@ -35,31 +35,51 @@
 }
 
 
-:root:has(#theme_system:checked) {
+@media screen {
+    :root:has(#theme_system:checked) {
 
-    @media screen and (prefers-color-scheme: light) {
+        @media (prefers-color-scheme: light) {
+            --bg: var(--light);
+            --fg: var(--dark);
+            color-scheme: light;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            --bg: var(--dark);
+            --fg: var(--light);
+            color-scheme: dark;
+        }
+    }
+
+    :root:has(#theme_dark:checked) {
+        --bg: var(--dark);
+        --fg: var(--light);
+        color-scheme: dark;
+    }
+
+    :root:has(#theme_light:checked) {
         --bg: var(--light);
         --fg: var(--dark);
         color-scheme: light;
     }
 
-    @media screen and (prefers-color-scheme: dark) {
-        --bg: var(--dark);
-        --fg: var(--light);
-        color-scheme: dark;
+    .print {
+        display: none;
     }
 }
 
-:root:has(#theme_dark:checked) {
-    --bg: var(--dark);
-    --fg: var(--light);
-    color-scheme: dark;
-}
+@media print {
+    :root {
+        --bg: var(--light);
+        --fg: var(--dark);
+        color-scheme: light;
+    }
 
-:root:has(#theme_light:checked) {
-    --bg: var(--light);
-    --fg: var(--dark);
-    color-scheme: light;
+    .no_print,
+    .no_print * {
+        display: none;
+        color: red;
+    }
 }
 
 select,
