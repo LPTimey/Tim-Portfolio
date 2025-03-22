@@ -123,7 +123,7 @@ class TitleImage extends HTMLElement {
         let alt = this.getAttribute("alt");
 
         this.innerHTML = `
-        <img src="${src ?? ""}" alt="${alt}" />
+        <picture><img src="${src ?? ""}" alt="${alt}" /></picture>
         `;
     }
 }
@@ -161,10 +161,10 @@ class ScrollImage extends HTMLElement {
         let alt = this.getAttribute("alt") ?? "";
 
         this.innerHTML = `
-            <img src="${src}" alt="${alt}" class="scrolling-image">
-            <img src="${src}" alt="" class="scrolling-image">
-            <img src="${src}" alt="" class="scrolling-image">
-            <img src="${src}" alt="" class="scrolling-image">
+            <picture><img src="${src}" alt="${alt}" class="scrolling-image"></picture>
+            <picture><img src="${src}" alt="" class="scrolling-image"></picture>
+            <picture><img src="${src}" alt="" class="scrolling-image"></picture>
+            <picture><img src="${src}" alt="" class="scrolling-image"></picture>
         `;
     }
 }
