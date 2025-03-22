@@ -64,7 +64,7 @@
 
 select,
 ::picker(select) {
-    appearance: base-select;
+    /* appearance: base-select; */
 }
 
 select {
@@ -84,9 +84,12 @@ dialog {
 }
 
 img {
-    max-width: 100%;
+    display: block;
     max-height: 100%;
-    object-fit: scale-down;
+    max-width: 100%;
+    height: auto;
+    width: auto;
+    object-fit: cover;
 }
 
 svg {
@@ -327,7 +330,6 @@ site-header {
 }
 
 site-footer {
-    margin-top: 3em;
     padding-bottom: 3em;
     padding-top: 3em;
     background-color: color-mix(in srgb, var(--bg), var(--fg) 25%);

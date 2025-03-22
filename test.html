@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        *{
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
+        /* enter custom select mode */
+        select,
+        ::picker(select) {
+            appearance: base-select;
+            font: -webkit-small-control;
+        }
+
+        /* remove default UA styles */
+        option::checkmark,
+        select::picker-icon {
+            display: none;
+        }
+
+        ::picker(select) {
+            border: none;
+            box-shadow: 0px 12.8px 28.8px rgba(0, 0, 0, 0.13), 0px 0px 9.2px rgba(0, 0, 0, 0.11);
+            /*  remove when patch is in  */
+            place-items: start;
+        }
+
+        select {
+            border: none;
+            border-radius: 5px;
+            padding: 0.5rem 0.75rem;
+            transition-duration: 0.25s;
+            align-items: center;
+        }
+
+        option {
+            font-size: 1rem;
+            display: grid;
+            grid-template-columns: 2rem auto;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            transition-duration: 0.25s;
+            width: 100%;
+        }
+
+        option:hover {
+            background: lightgray;
+        }
+
+        option:not(:has(.material-symbols-outlined)) span {
+            grid-column: 2;
+        }
+
+        .material-symbols-outlined svg {
+            opacity: 0.75;
+            width: 1.2rem;
+            height: 1.5rem;
+        }
+
+        selectedcontent .text {
+            display: none;
+        }
+
+        hr {
+            height: 1px;
+            background-color: lightgray;
+            border: none;
+        }
+
+        .arrow {
+            border-left: 0.3rem solid transparent;
+            border-right: 0.3rem solid transparent;
+            border-top: 0.3rem solid;
+        }
+
+        datalist {
+            border: none;
+            padding: 0.5rem 0;
+        }
+
+        select:has(:popover-open) button {
+            background: lightgray;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <select>
+        <button>
+            <selectedcontent></selectedcontent>
+            <span class="arrow"></span>
+        </button>
+        <option value="reply">
+            <span class="material-symbols-outlined">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                    fill="#5f6368">
+                    <path
+                        d="M760-200v-160q0-50-35-85t-85-35H273l144 144-57 56-240-240 240-240 57 56-144 144h367q83 0 141.5 58.5T840-360v160h-80Z" />
+                </svg>
+            </span>
+            <span class="text">Reply</span>
+        </option>
+        <option value="reply-all">
+            <span class="material-symbols-outlined">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                    fill="#5f6368">
+                    <path
+                        d="M320-280 80-520l240-240 57 56-184 184 184 184-57 56Zm480 80v-160q0-50-35-85t-85-35H433l144 144-57 56-240-240 240-240 57 56-144 144h247q83 0 141.5 58.5T880-360v160h-80Z" />
+                </svg>
+            </span>
+            <span class="text">Reply all</span>
+        </option>
+        <option value="forward">
+            <span class="material-symbols-outlined">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                    fill="#5f6368">
+                    <path
+                        d="m640-280-57-56 184-184-184-184 57-56 240 240-240 240ZM80-200v-160q0-83 58.5-141.5T280-560h247L383-704l57-56 240 240-240 240-57-56 144-144H280q-50 0-85 35t-35 85v160H80Z" />
+                </svg>
+            </span>
+            <span class="text">Forward</span>
+        </option>
+        <hr>
+        <option value="edit">
+            <span class="text">Edit subject</span>
+        </option>
+        <option value="pop-out">
+            <span class="text">Pop out reply</span>
+        </option>
+    </select>
+</body>
+
+</html>
