@@ -1,0 +1,11 @@
+.white {
+    background-color: white;
+}
+
+#stipped{
+    background-color: white;
+    border-bottom-right-radius: 11% 5%;
+    border-bottom-left-radius: 11% 5%;
+    border-top-right-radius: 11% 5%;
+    border-top-left-radius: 11% 5%;
+}

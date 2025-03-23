@@ -1,0 +1,9 @@
+:root {
+    --dark: #11111b;
+}
+main {
+    padding: 3rem 0;
+    color: var(--light);
+    background-color: var(--dark);
+    color-scheme: dark;
+}

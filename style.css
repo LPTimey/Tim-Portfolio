@@ -27,7 +27,7 @@
     --accent: #4141bd;
 
     --outer-width: 80dvw;
-    --content-width: calc(var(--outer-width) - 5dvw);
+    --inner-width: calc(var(--outer-width) - 10dvw);
     --border-r: 1rem;
 
     font-family: "JetBrains Mono", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -127,6 +127,10 @@ body {
 
 a {
     text-decoration: none;
+}
+
+.span {
+    grid-column: span 2;
 }
 
 .center {
@@ -231,7 +235,7 @@ a {
 
 .content {
     grid-area: content;
-    width: var(--content-width);
+    width: var(--inner-width);
     margin: 0 auto;
 }
 
