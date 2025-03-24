@@ -29,6 +29,7 @@
     --outer-width: 80dvw;
     --inner-width: calc(var(--outer-width) - 10dvw);
     --border-r: 1rem;
+    --transparency: 0.85;
 
     font-family: "JetBrains Mono", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     scroll-behavior: smooth;
@@ -79,6 +80,32 @@
     .no_print * {
         display: none;
         color: red;
+    }
+}
+
+#toTop {
+    visibility: hidden;
+    color: var(--fg);
+    position: fixed;
+    bottom: 3dvh;
+    right: 5dvw;
+    border-radius: 100%;
+    border: 2px solid var(--fg);
+    height: 3em;
+    width: 3em;
+    display: grid;
+    place-items: center;
+    background-color: rgba(from var(--bg) r g b / var(--transparency));
+
+    &:hover {
+        color: var(--light);
+        border-color: var(--light);
+        svg {
+            stroke: var(--light);
+            fill: var(--light);
+        }
+
+        background-color: var(--accent);
     }
 }
 
@@ -240,7 +267,7 @@ a {
 }
 
 .card {
-    --pad: 1ch;
+    --pad: 1.5ch;
     padding: var(--pad);
     margin: 0.25em;
     background-color: color-mix(in srgb, var(--bg), var(--fg) 10%);
@@ -292,7 +319,6 @@ header {
 }
 
 site-header {
-    --transparency: 0.85;
 
     position: sticky;
     top: 0;

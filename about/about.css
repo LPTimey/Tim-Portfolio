@@ -1,0 +1,12 @@
+section {
+    width: var(--outer-width);
+    margin: 3rem auto;
+    &:first-child{
+        margin-top: 0;
+    }
+}
+
+.card {
+    width: var(--inner-width);
+    margin: auto;
+}

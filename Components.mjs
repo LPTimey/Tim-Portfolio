@@ -16,6 +16,11 @@ const system_mode = `
 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
     <path d="M80-160v-120h80v-440q0-33 23.5-56.5T240-800h600v80H240v440h240v120H80Zm520 0q-17 0-28.5-11.5T560-200v-400q0-17 11.5-28.5T600-640h240q17 0 28.5 11.5T880-600v400q0 17-11.5 28.5T840-160H600Zm40-120h160v-280H640v280Zm0 0h160-160Z"/>
 </svg>`;
+const toTop = `
+<svg xmlns="http://www.w3.org/2000/svg" height="24px" width="24px" viewBox="0 -960 960 960" width="24px">
+    <path d="M160-760v-80h640v80H160Zm280 640v-408L336-424l-56-56 200-200 200 200-56 56-104-104v408h-80Z"/>
+</svg>
+`;
 
 class MultiStateButton extends HTMLElement {
     static get observedAttributes() {
@@ -61,15 +66,15 @@ class SiteHeader extends HTMLElement {
         //     .then((text) => this.innerHTML = text.toString())
         const old = false;
         this.innerHTML = `
-        ${old ?  `<div hidden>
+        ${old ? `<div hidden>
         <input type="radio" name="theme" value="system" id="theme_system" checked>
         <input type="radio" name="theme" value="dark" id="theme_dark">
         <input type="radio" name="theme" value="light" id="theme_light">
-        </div>`:""}
+        </div>`: ""}
         <header>
-            <a href="./">Home</a> 
+            <a href="./">Home</a>
             |
-            <a href="skills.html">Fähigkeiten</a>
+            <a href="about.html">Über Mich</a>
             <div class="grow"></div>
             ${old ?
                 `<multi-state-button ids="theme_dark;theme_system;theme_light">
@@ -106,6 +111,7 @@ class SiteFooter extends HTMLElement {
     constructor() {
         super();
         this.innerHTML = `
+        <a href="#" id="toTop">${toTop}</a>
         <footer>
             Created by Tim Ruland
         </footer>`;
@@ -128,25 +134,6 @@ class TitleImage extends HTMLElement {
     }
 }
 customElements.define("title-img", TitleImage);
-
-class ProjectSection extends HTMLElement {
-    static get observedAttributes() {
-        return ['title', 'subtitle', 'img-src'];
-    }
-    constructor() {
-        super();
-        let title = this.getAttribute("title");
-        let subtitle = this.getAttribute("subtitle");
-        let img_src = this.getAttribute("img-src");
-        this.innerHTML = `
-            <title-img src="${img_src ?? ""}" alt="${subtitle}-image"></title-img>
-            <h2>${title ?? ""}</h2>
-            <h3>${subtitle ?? ""}</h3>
-            <div>${this.innerHTML}</div>
-        `;
-    }
-}
-customElements.define("project-section", ProjectSection);
 
 class ScrollImage extends HTMLElement {
     static get observedAttributes() {
