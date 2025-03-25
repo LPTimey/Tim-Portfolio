@@ -2,5 +2,7 @@
     "cSpell.words": [
         "gltf",
         "Ruland"
-    ]
+    ],
+    "liveServer.settings.host": "0.0.0.0",
+    "liveServer.settings.port": 80,
 }
