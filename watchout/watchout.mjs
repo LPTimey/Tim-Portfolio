@@ -28,28 +28,11 @@ function wRotate(speed = 0.05) {
  * @returns {Animation}
  */
 function wTurnToButtons(duration = 1000) {
-    let timeLeft = duration;
-
     const quaternion = new THREE.Quaternion();
     quaternion.setFromEuler(new THREE.Euler(0, 1, 0));
     const target = { pos: new THREE.Vector3(-0.6), rot: quaternion };
 
-    const minFloatDelta = 0.1;
-
-    return function (deltaTime) {
-        timeLeft = timeLeft - deltaTime
-
-        if (watchScene.position.distanceTo(target.pos) < minFloatDelta
-            && watchScene.quaternion.equals(target.rot)) {
-            console.log("done")
-            watchState = NoOp();
-            return;
-        }
-
-        watchScene.position.lerp(target.pos, (duration - timeLeft) / duration)
-
-        watchScene.quaternion.slerp(target.rot, (duration - timeLeft) / duration)
-    };
+    return getAnimation(duration, target, watchScene);
 }
 
 /**
@@ -57,83 +40,63 @@ function wTurnToButtons(duration = 1000) {
  * @returns {Animation}
  */
 function wTurnToCrown(duration = 1000) {
-    let timeLeft = duration;
-
     const quaternion = new THREE.Quaternion();
     quaternion.setFromEuler(new THREE.Euler(0, 4.9, 0));
     const target = { pos: new THREE.Vector3(0.6), rot: quaternion };
-
-    const minFloatDelta = 0.1;
-
-    return function (deltaTime) {
-        timeLeft = timeLeft - deltaTime
-
-        if (watchScene.position.distanceTo(target.pos) < minFloatDelta
-            && watchScene.quaternion.equals(target.rot)) {
-            console.log("done")
-            watchState = NoOp();
-            return;
-        }
-
-        watchScene.position.lerp(target.pos, (duration - timeLeft) / duration)
-
-        watchScene.quaternion.slerp(target.rot, (duration - timeLeft) / duration)
-    };
+    return getAnimation(duration, target, watchScene);
 }
 /**
  * 
  * @returns {Animation}
  */
 function wTurnToFace(duration = 1000) {
-    let timeLeft = duration;
-
     const quaternion = new THREE.Quaternion();
     quaternion.setFromEuler(new THREE.Euler(0, 0, 0));
     const target = { pos: new THREE.Vector3(0, 0, 0), rot: quaternion };
 
-    const minFloatDelta = 0.1;
-
-    return function (deltaTime) {
-        timeLeft = timeLeft - deltaTime
-
-        if (watchScene.position.distanceTo(target.pos) < minFloatDelta
-            && watchScene.quaternion.equals(target.rot)) {
-            console.log("done")
-            watchState = NoOp();
-            return;
-        }
-
-        watchScene.position.lerp(target.pos, (duration - timeLeft) / duration)
-
-        watchScene.quaternion.slerp(target.rot, (duration - timeLeft) / duration)
-    };
+    return getAnimation(duration, target, watchScene);
 }
 /**
  * 
  * @returns {Animation}
  */
 function wTurnToWristBandBack(duration = 1000) {
-    let timeLeft = duration;
-
     const quaternion = new THREE.Quaternion();
     quaternion.setFromEuler(new THREE.Euler(0, 3.25, 0));
     const target = { pos: new THREE.Vector3(0, 0, 0), rot: quaternion };
 
+    return getAnimation(duration,target,watchScene);
+}
+
+/**
+ * 
+ * @param {number} duration 
+ * @param {{pos:THREE.Vector3,rot:THREE.Quaternion|THREE.Euler}} target 
+ * @param {THREE.Scene} scene 
+ * @returns {Animation}
+ */
+function getAnimation(duration, target, scene) {
+    let timeLeft = duration;
     const minFloatDelta = 0.1;
+    if (target.rot.isEuler) {
+        const quaternion = new THREE.Quaternion();
+        quaternion.setFromEuler(target.rot);
+        target.rot = quaternion;
+    }
 
     return function (deltaTime) {
         timeLeft = timeLeft - deltaTime
 
-        if (watchScene.position.distanceTo(target.pos) < minFloatDelta
-            && watchScene.quaternion.equals(target.rot)) {
+        if (scene.position.distanceTo(target.pos) < minFloatDelta
+            && scene.quaternion.equals(target.rot)) {
             console.log("done")
             watchState = NoOp();
             return;
         }
 
-        watchScene.position.lerp(target.pos, (duration - timeLeft) / duration)
+        scene.position.lerp(target.pos, (duration - timeLeft) / duration)
 
-        watchScene.quaternion.slerp(target.rot, (duration - timeLeft) / duration)
+        scene.quaternion.slerp(target.rot, (duration - timeLeft) / duration)
     };
 }
 /**
