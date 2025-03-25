@@ -93,10 +93,10 @@ function getAnimation(target, scene, duration = 1000, callback = () => { }) {
     }
 
     return function (deltaTime) {
-        timeLeft = timeLeft - deltaTime
+        timeLeft = timeLeft - Math.min(deltaTime, 100);
 
         if (scene.position.distanceTo(target.pos) < minFloatDelta
-            && scene.quaternion.equals(target.rot)) {
+            && scene.quaternion.angleTo(target.rot) < minFloatDelta) {
             console.log("done")
             watchState = NoOp();
             callback();
