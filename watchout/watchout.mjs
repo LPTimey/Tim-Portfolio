@@ -17,35 +17,6 @@ var watchState = wRotate();
 
 /**
  * 
- * @param {Quaternion} q 
- */
-function quaternionToEuler(q) {
-    var angles = {};
-
-    // roll (x-axis rotation)
-    var sinr_cosp = 2 * (q.w * q.x + q.y * q.z);
-    var cosr_cosp = 1 - 2 * (q.x * q.x + q.y * q.y);
-    angles.roll = Math.atan2(sinr_cosp, cosr_cosp);
-
-    // pitch (y-axis rotation)
-    var sinp = sqrt(1 + 2 * (q.w * q.y - q.x * q.z));
-    var cosp = sqrt(1 - 2 * (q.w * q.y - q.x * q.z));
-    angles.pitch = 2 * Math.atan2(sinp, cosp) - Math.PI / 2;
-
-    // yaw (z-axis rotation)
-    var siny_cosp = 2 * (q.w * q.z + q.x * q.y);
-    var cosy_cosp = 1 - 2 * (q.y * q.y + q.z * q.z);
-    angles.yaw = Math.atan2(siny_cosp, cosy_cosp);
-
-    return {
-        x: angles.roll,
-        y: angles.pitch,
-        z: angles.yaw
-    }
-}
-
-/**
- * 
  * @returns {Animation}
  */
 function wRotate(speed = 0.05) {
@@ -53,16 +24,31 @@ function wRotate(speed = 0.05) {
 }
 /**
  * 
+ * @param {number} [duration=1000] in milliseconds
  * @returns {Animation}
  */
-function wTurnToButtons(speed = 0.05) {
-    const target = { pos: new THREE.Vector3(-0.6), q: new THREE.Euler(0,1) };
+function wTurnToButtons(duration = 1000) {
+    let timeLeft = duration;
+
+    const quaternion = new THREE.Quaternion();
+    quaternion.setFromEuler(new THREE.Euler(0, 1, 0));
+    const target = { pos: new THREE.Vector3(-0.6), rot: quaternion };
+
+    const minFloatDelta = 0.1;
+
     return function (deltaTime) {
-        
-        watchScene.translateX(watchScene.position.add(target.pos).x)
-        watchScene.setRotationFromEuler(target.q);
-        console.log(watchScene.position);
-        watchState = NoOp();
+        timeLeft = timeLeft - deltaTime
+
+        if (watchScene.position.distanceTo(target.pos) < minFloatDelta
+            && watchScene.quaternion.equals(target.rot)) {
+            console.log("done")
+            watchState = NoOp();
+            return;
+        }
+
+        watchScene.position.lerp(target.pos, (duration - timeLeft) / duration)
+
+        watchScene.quaternion.slerp(target.rot, (duration - timeLeft) / duration)
     };
 }
 
@@ -70,22 +56,85 @@ function wTurnToButtons(speed = 0.05) {
  * 
  * @returns {Animation}
  */
-function wTurnToCrown(speed = 0.05) {
-    return function (deltaTime) { watchState = NoOp(); };
+function wTurnToCrown(duration = 1000) {
+    let timeLeft = duration;
+
+    const quaternion = new THREE.Quaternion();
+    quaternion.setFromEuler(new THREE.Euler(0, 4.9, 0));
+    const target = { pos: new THREE.Vector3(0.6), rot: quaternion };
+
+    const minFloatDelta = 0.1;
+
+    return function (deltaTime) {
+        timeLeft = timeLeft - deltaTime
+
+        if (watchScene.position.distanceTo(target.pos) < minFloatDelta
+            && watchScene.quaternion.equals(target.rot)) {
+            console.log("done")
+            watchState = NoOp();
+            return;
+        }
+
+        watchScene.position.lerp(target.pos, (duration - timeLeft) / duration)
+
+        watchScene.quaternion.slerp(target.rot, (duration - timeLeft) / duration)
+    };
 }
 /**
  * 
  * @returns {Animation}
  */
-function wTurnToFace(speed = 0.05) {
-    return function (deltaTime) { watchState = NoOp(); };
+function wTurnToFace(duration = 1000) {
+    let timeLeft = duration;
+
+    const quaternion = new THREE.Quaternion();
+    quaternion.setFromEuler(new THREE.Euler(0, 0, 0));
+    const target = { pos: new THREE.Vector3(0, 0, 0), rot: quaternion };
+
+    const minFloatDelta = 0.1;
+
+    return function (deltaTime) {
+        timeLeft = timeLeft - deltaTime
+
+        if (watchScene.position.distanceTo(target.pos) < minFloatDelta
+            && watchScene.quaternion.equals(target.rot)) {
+            console.log("done")
+            watchState = NoOp();
+            return;
+        }
+
+        watchScene.position.lerp(target.pos, (duration - timeLeft) / duration)
+
+        watchScene.quaternion.slerp(target.rot, (duration - timeLeft) / duration)
+    };
 }
 /**
  * 
  * @returns {Animation}
  */
-function wTurnToWristBandBack(speed = 0.05) {
-    return function (deltaTime) { watchState = NoOp(); };
+function wTurnToWristBandBack(duration = 1000) {
+    let timeLeft = duration;
+
+    const quaternion = new THREE.Quaternion();
+    quaternion.setFromEuler(new THREE.Euler(0, 3.25, 0));
+    const target = { pos: new THREE.Vector3(0, 0, 0), rot: quaternion };
+
+    const minFloatDelta = 0.1;
+
+    return function (deltaTime) {
+        timeLeft = timeLeft - deltaTime
+
+        if (watchScene.position.distanceTo(target.pos) < minFloatDelta
+            && watchScene.quaternion.equals(target.rot)) {
+            console.log("done")
+            watchState = NoOp();
+            return;
+        }
+
+        watchScene.position.lerp(target.pos, (duration - timeLeft) / duration)
+
+        watchScene.quaternion.slerp(target.rot, (duration - timeLeft) / duration)
+    };
 }
 /**
  * 
@@ -189,5 +238,5 @@ init();
 
 const next_Button = document.getElementById("next")
 next_Button.addEventListener("click", () => {
-    watchState = wTurnToButtons();
+    watchState = wTurnToWristBandBack();
 })
