@@ -83,38 +83,6 @@
     }
 }
 
-#toTop {
-    visibility: hidden;
-    color: var(--fg);
-    position: fixed;
-    bottom: 3dvh;
-    right: 5dvw;
-    border-radius: 100%;
-    border: 2px solid var(--fg);
-    height: 3em;
-    width: 3em;
-    display: grid;
-    place-items: center;
-    background-color: rgba(from var(--bg) r g b / var(--transparency));
-
-    &:hover {
-        color: var(--light);
-        border-color: var(--light);
-
-        svg {
-            stroke: var(--light);
-            fill: var(--light);
-        }
-
-        background-color: var(--accent);
-    }
-}
-
-select,
-::picker(select) {
-    /* appearance: base-select; */
-}
-
 select {
     background-color: rgba(255, 255, 255, 0);
     border: none;
