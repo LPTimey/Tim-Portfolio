@@ -276,7 +276,7 @@ a {
 [modal-target],
 [dialog-target],
 [popover-target] {
-    /* cursor: pointer; */
+    cursor: pointer;
 }
 
 header {
