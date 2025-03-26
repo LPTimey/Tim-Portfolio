@@ -133,10 +133,10 @@ class ScrollImage extends HTMLElement {
         let alt = this.getAttribute("alt") ?? "";
 
         this.innerHTML = `
-            <picture><img loading="lazy" decoding="async" src="${src}" alt="${alt}" class="scrolling-image"></picture>
-            <picture><img loading="lazy" decoding="async" src="${src}" alt="" class="scrolling-image"></picture>
-            <picture><img loading="lazy" decoding="async" src="${src}" alt="" class="scrolling-image"></picture>
-            <picture><img loading="lazy" decoding="async" src="${src}" alt="" class="scrolling-image"></picture>
+            <picture><img  src="${src}" alt="${alt}" class="scrolling-image"></picture>
+            <picture><img  src="${src}" alt="" class="scrolling-image"></picture>
+            <picture><img  src="${src}" alt="" class="scrolling-image"></picture>
+            <picture><img  src="${src}" alt="" class="scrolling-image"></picture>
         `;
     }
 }
@@ -164,15 +164,15 @@ class PhoneImage extends HTMLElement {
     }
     get template() {
         let phone = document.createElement("img");
-        phone.loading = "lazy";
-        phone.decoding = "async";
+        // phone.loading = "lazy";
+        // phone.decoding = "async";
         phone.src = "assets/iPhone Template [Konvertiert] noBG.png";
         phone.alt = "";
         phone.classList.add("phone");
 
         let screen = document.createElement("img");
-        screen.loading = "lazy";
-        screen.decoding = "async";
+        // screen.loading = "lazy";
+        // screen.decoding = "async";
         screen.src = this.getAttribute("src");
         screen.alt = this.getAttribute("alt");
         screen.classList.add("screen");
