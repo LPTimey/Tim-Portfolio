@@ -179,6 +179,7 @@ class ToTop extends HTMLElement {
         this.shadowRoot.appendChild(style);
         this.shadowRoot.appendChild(this.template);
         window.addEventListener("scroll", (ev) => this.toTopButtonDisplay(window));
+        this.toTopButtonDisplay(window);
     }
     constructor() {
         super();
