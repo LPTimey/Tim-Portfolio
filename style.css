@@ -329,7 +329,7 @@ site-header {
 
     display: flex;
     justify-content: center;
-    z-index: 1000000;
+    z-index: 100;
 
     a,
     .link {
