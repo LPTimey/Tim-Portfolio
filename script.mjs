@@ -88,23 +88,3 @@ dialogs.forEach(dialog => {
 });
 
 //#endregion dialogs
-
-
-/******************************\
- *                            *
- *        toTopButton         *
- *                            *
-\******************************/
-//#region toTopButton
-const toTopButtonDelta = 100;
-
-const toTopButtonDisplay =  (window) => {
-    const toTopButton = document.getElementById("toTop");
-    if (window.pageYOffset < toTopButtonDelta) {
-        toTopButton.style.visibility = "hidden"
-    } else {
-        toTopButton.style.visibility = "visible"
-    }
-}
-window.addEventListener("scroll", (ev) => toTopButtonDisplay(window));
-//#endregion toTopButton

@@ -111,7 +111,7 @@ class SiteFooter extends HTMLElement {
     constructor() {
         super();
         this.innerHTML = `
-        <a href="#" id="toTop">${toTop}</a>
+        <to-top></to-top>
         <footer>
             Created by Tim Ruland
         </footer>`;
@@ -119,6 +119,72 @@ class SiteFooter extends HTMLElement {
 }
 customElements.define("site-footer", SiteFooter);
 
+
+class ToTop extends HTMLElement {
+    static toTopButtonDelta = 100;
+
+    toTopButtonDisplay(window) {
+        const toTopButton = this.shadowRoot.querySelector("#toTop");
+
+        if (window.pageYOffset < ToTop.toTopButtonDelta) {
+            toTopButton.style.visibility = "hidden"
+        } else {
+            toTopButton.style.visibility = "visible"
+        }
+    }
+    get template() {
+        let link = document.createElement("a");
+        link.innerHTML = toTop
+        link.id = "toTop";
+        link.href = "#"
+        return link;
+    }
+    get styleSheet() {
+        return `
+#toTop {
+    visibility: hidden;
+    color: var(--fg);
+    fill: var(--fg);
+    stroke: var(--fg);
+    position: fixed;
+    bottom: 3dvh;
+    right: 5dvw;
+    border-radius: 100%;
+    border: 2px solid var(--fg);
+    height: 3em;
+    width: 3em;
+    display: grid;
+    place-items: center;
+    background-color: rgba(from var(--bg) r g b / var(--transparency));
+
+    &:hover {
+        color: var(--light);
+        border-color: var(--light);
+
+        svg {
+            stroke: var(--light);
+            fill: var(--light);
+        }
+
+        background-color: var(--accent);
+    }
+}`;
+    }
+
+    connectedCallback() {
+        this.attachShadow({ mode: "open" })
+        let [style] = [document.createElement("style")]
+        style.innerHTML = this.styleSheet;
+
+        this.shadowRoot.appendChild(style);
+        this.shadowRoot.appendChild(this.template);
+        window.addEventListener("scroll", (ev) => this.toTopButtonDisplay(window));
+    }
+    constructor() {
+        super();
+    }
+}
+customElements.define("to-top", ToTop);
 
 class ScrollImage extends HTMLElement {
     static get observedAttributes() {
