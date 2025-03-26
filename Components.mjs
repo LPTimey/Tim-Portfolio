@@ -119,21 +119,6 @@ class SiteFooter extends HTMLElement {
 }
 customElements.define("site-footer", SiteFooter);
 
-class TitleImage extends HTMLElement {
-    static get observedAttributes() {
-        return ['alt', 'src'];
-    }
-    constructor() {
-        super();
-        let src = this.getAttribute("src");
-        let alt = this.getAttribute("alt");
-
-        this.innerHTML = `
-        <picture><img loading="lazy" decoding="async" src="${src ?? ""}" alt="${alt}" /></picture>
-        `;
-    }
-}
-customElements.define("title-img", TitleImage);
 
 class ScrollImage extends HTMLElement {
     static get observedAttributes() {
@@ -172,3 +157,66 @@ class ThemeSelect extends HTMLElement {
     }
 }
 customElements.define("theme-selector", ThemeSelect);
+
+class PhoneImage extends HTMLElement {
+    static get observedAttributes() {
+        return ['src', 'alt', "bg"];
+    }
+    get template() {
+        let phone = document.createElement("img");
+        phone.loading = "lazy";
+        phone.decoding = "async";
+        phone.src = "assets/iPhone Template [Konvertiert] noBG.png";
+        phone.alt = "";
+        phone.classList.add("phone");
+
+        let screen = document.createElement("img");
+        screen.loading = "lazy";
+        screen.decoding = "async";
+        screen.src = this.getAttribute("src");
+        screen.alt = this.getAttribute("alt");
+        screen.classList.add("screen");
+
+        return [screen, phone]
+    }
+    get styleSheet() {
+        return `
+:host{
+    --iphone16PM-aspect: 1320 / 2868;
+    display: grid;
+    place-items: center;
+    max-width: 100%;
+    max-height: 100%;
+    aspect-ratio: var(--iphone16PM-aspect);
+    >* {
+        grid-column: 1 / -1;
+        grid-row: 1 / -1;
+        max-width:100%;
+    }
+    .screen {
+        height: 96%;
+        aspect-ratio: var(--iphone16PM-aspect);
+        border-radius: 10% / 5% ;
+        ${this.getAttribute("bg") ? `background: ${this.getAttribute("bg")}` : ""};
+    }
+    .phone{
+        height: 100%;
+        aspect-ratio: var(--iphone16PM-aspect);
+    }
+}
+        `;
+    }
+    connectedCallback() {
+        this.attachShadow({ mode: "open" })
+
+        let style = document.createElement("style");
+        style.innerHTML = this.styleSheet;
+
+        this.shadowRoot.appendChild(style);
+        this.template.forEach((node) => this.shadowRoot.appendChild(node));
+    }
+    constructor() {
+        super();
+    }
+}
+customElements.define("phone-image", PhoneImage)

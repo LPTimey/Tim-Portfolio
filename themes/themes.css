@@ -1,11 +1,10 @@
-.white {
-    background-color: white;
-}
-
-#stipped{
-    background-color: white;
-    border-bottom-right-radius: 11% 5%;
-    border-bottom-left-radius: 11% 5%;
-    border-top-right-radius: 11% 5%;
-    border-top-left-radius: 11% 5%;
+.phone-grid{
+    display: flex;
+    max-width: 100%;
+    max-height: 70vh;
+    gap: 1ch;
+    margin: 2rem auto;
+    >*{
+        border: 1px solid red;
+    }
 }

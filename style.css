@@ -100,6 +100,7 @@
     &:hover {
         color: var(--light);
         border-color: var(--light);
+
         svg {
             stroke: var(--light);
             fill: var(--light);
@@ -214,15 +215,15 @@ a {
     grid-template-rows: repeat(var(--grid-height, auto-fit), var(--row-height, 1fr));
     gap: var(--gap);
 
+    &.default {
+        --gap: 1ch;
+    }
+
     &.auto,
     &.default {
         grid-template-columns: repeat(auto-fill, minmax(var(--min-col), 1fr));
         justify-content: center;
         grid-auto-flow: dense;
-    }
-
-    &.default {
-        --gap: 1ch;
     }
 }
 
@@ -377,6 +378,10 @@ site-header {
         position: relative;
         top: 10%;
     }
+}
+
+main {
+    padding-bottom: 5rem;
 }
 
 site-footer {
