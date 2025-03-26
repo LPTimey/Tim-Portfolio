@@ -4,7 +4,4 @@
     max-height: 70vh;
     gap: 1ch;
     margin: 2rem auto;
-    >*{
-        border: 1px solid red;
-    }
 }

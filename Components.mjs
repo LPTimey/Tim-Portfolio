@@ -183,19 +183,25 @@ class PhoneImage extends HTMLElement {
         return `
 :host{
     --iphone16PM-aspect: 1320 / 2868;
-    display: grid;
-    place-items: center;
-    max-width: 100%;
+    display: block;
+    position: relative;
+    width: 100%;
     max-height: 100%;
     aspect-ratio: var(--iphone16PM-aspect);
-    >* {
-        grid-column: 1 / -1;
-        grid-row: 1 / -1;
-        max-width:100%;
+    img{
+        position: absolute;
+        display: block;
+        max-height: 100%;
+        max-width: 100%;
+        height: auto;
+        width: auto;
+        object-fit: scale-down;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
     .screen {
-        height: 96%;
-        aspect-ratio: var(--iphone16PM-aspect);
+        height: 91%;
         border-radius: 10% / 5% ;
         ${this.getAttribute("bg") ? `background: ${this.getAttribute("bg")}` : ""};
     }
