@@ -3,6 +3,6 @@
         "gltf",
         "Ruland"
     ],
-    "liveServer.settings.host": "0.0.0.0",
-    "liveServer.settings.port": 80,
+    "fiveServer.host": "0.0.0.0",
+    "fiveServer.port": 80
 }
