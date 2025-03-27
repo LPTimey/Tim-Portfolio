@@ -255,7 +255,7 @@ class PhoneImage extends HTMLElement {
     width: 100%;
     max-height: 100%;
     aspect-ratio: var(--iphone16PM-aspect);
-    z-index: -1;
+    z-index: 0;
     img{
         position: absolute;
         display: block;
