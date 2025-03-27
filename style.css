@@ -8,6 +8,7 @@
 * {
     transition: color 0.2s ease-in-out,
         background-color 0.2s ease-in-out,
+        background 0.2s ease-in-out,
         border-color 0.2s ease-in-out,
         stroke 0.2s ease-in-out,
         fill 0.2s ease-in-out;
