@@ -210,35 +210,35 @@ class ScrollImage extends HTMLElement {
     get styleSheet() {
         return `
 *{
-    margin:0;
-    padding:0;
+    margin:  0;
+    padding: 0;
     box-sizing: border-box;
 }
 :host{
-    display: grid;
+    display:  grid;
     grid-template-columns: repeat(${this.getAttribute("cols")},1fr);
     position: relative;
-    width: calc(100% * ${this.getAttribute("cols")});
-    height: 100%;
+    width:    calc(100% * ${this.getAttribute("cols")});
+    height:   100%;
     overflow: hidden;
-    z-index: -1;
-    left: -100%;
+    z-index:  -1;
+    left:     -100%;
     background: ${this.getAttribute("bg")};
 
-    animation: scrollGrid ${this.getAttribute("time")} linear infinite;
+    animation:  scrollGrid ${this.getAttribute("time")} linear infinite;
 }
 img {
     display: block;
-    width: 101%;
-    height: 101%;
+    width:   100%;
+    height:  100%;
 }
 .scrolling-image {
-    display: block;
+    display:    block;
     object-fit: cover;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: auto;
+    margin:   0;
+    padding:  0;
+    width:    100%;
+    height:   auto;
     position: relative;
     top: 0;
     animation: scrollImage ${this.getAttribute("time")} linear infinite;
@@ -281,7 +281,7 @@ img {
 
         this.setAttribute("cols", this.getAttribute("cols") ?? 2);
         this.setAttribute("rows", this.getAttribute("rows") ?? 3);
-        this.setAttribute("time", this.getAttribute("time") ?? "20s");
+        this.setAttribute("time", this.getAttribute("time") ?? "25s");
     }
 }
 customElements.define("scroll-image", ScrollImage);
@@ -327,33 +327,33 @@ class PhoneImage extends HTMLElement {
         return `
 :host{
     --iphone16PM-aspect: 1320 / 2868;
-    display: block;
-    position: relative;
-    width: 100%;
-    max-height: 100%;
     aspect-ratio: var(--iphone16PM-aspect);
-    z-index: 0;
-    img{
-        position: absolute;
-        display: block;
-        max-height: 100%;
-        max-width: 100%;
-        height: auto;
-        width: auto;
-        object-fit: scale-down;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-    .screen {
-        height: 91%;
-        border-radius: 10% / 5% ;
-        ${this.getAttribute("bg") ? `background: ${this.getAttribute("bg")}` : ""};
-    }
-    .phone{
-        height: 100%;
-        aspect-ratio: var(--iphone16PM-aspect);
-    }
+    max-height: 100%;
+    position: relative;
+    display:  block;
+    z-index:  0;
+    width: 100%;
+}
+img{
+    object-fit: scale-down;
+    max-height: 100%;
+    max-width: 100%;
+    position: absolute;
+    display: block;
+    height: auto;
+    width: auto;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+.screen {
+    border-radius: 10% / 5% ;
+    height: 91%;
+    ${this.getAttribute("bg") ? `background: ${this.getAttribute("bg")}` : ""};
+}
+.phone{
+    height: 100%;
+    aspect-ratio: var(--iphone16PM-aspect);
 }
         `;
     }

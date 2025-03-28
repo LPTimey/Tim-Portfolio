@@ -14,22 +14,23 @@
         grid-template-columns: repeat(var(--grid-size), 1fr);
         grid-template-rows: repeat(var(--grid-size), 1fr);
 
-        scroll-image,
-        scroll-image *,
-        .scrolling-container,
-        .scrolling-container * {
-            grid-column: calc(var(--grid-size) + 1) / 1;
-            grid-row: calc(var(--grid-size) + 1) / 1;
-            object-fit: cover;
+        * {
+            grid-column: 1 / -1;
+            grid-row: 1 / -1;
+
         }
 
         #heroButtons {
-            width: fit-content;
-            height: fit-content;
+            width: var(--outer-width);
+            display: flex;
+            justify-content: end;
+            align-items: end;
+            margin: auto;
+            height: 100%;
             /* padding: 1em 2ch;
             border-radius: var(--border-r);
             background-color: rgba(120, 120, 120, 0.2); */
-            grid-column: var(--grid-size);
+            /* grid-column: var(--grid-size); */
             grid-row: var(--grid-size);
         }
     }
