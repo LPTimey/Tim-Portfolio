@@ -157,7 +157,7 @@ class ToTop extends HTMLElement {
     place-items: center;
     background-color: rgba(from var(--bg) r g b / var(--transparency));
 
-    &:hover {
+    &:hover  {
         color: var(--light);
         border-color: var(--light);
 
@@ -189,22 +189,96 @@ customElements.define("to-top", ToTop);
 
 class ScrollImage extends HTMLElement {
     static get observedAttributes() {
-        return ['src', 'alt'];
+        return ['src', 'alt', "bg"];
+    }
+    get template() {
+        /*
+         *    <picture><img  src="${src}" alt="${alt}" class="scrolling-image"></picture>
+         *    <picture><img  src="${src}" alt="" class="scrolling-image"></picture>
+         *    <picture><img  src="${src}" alt="" class="scrolling-image"></picture>
+         *    <picture><img  src="${src}" alt="" class="scrolling-image"></picture>
+         */
+        const imgNr = this.cols * this.rows;
+        // const imgNr = 2 * 3;
+        let elements = [...Array(imgNr).keys()].map(() => {
+            let img = document.createElement("img");
+            // img.loading = "lazy";
+            // img.decoding = "async";
+            img.src = this.getAttribute("src");
+            img.alt = this.getAttribute("alt");
+            img.classList.add("scrolling-image");
+            return img;
+        })
+
+        return elements
+    }
+    get styleSheet() {
+        return `
+:host{
+    display: grid;
+    grid-template-columns: repeat(${this.cols},1fr);
+    position: relative;
+    width: calc(100% * ${this.cols});
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+    left: -100%;
+
+    animation: scrollGrid ${this.time} linear infinite;
+}
+img {
+    display: block;
+    width: 100%;
+}
+.scrolling-image {
+    display: block;
+    object-fit: cover;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: auto;
+    position: relative;
+    top: 0;
+    animation: scrollImage ${this.time} linear infinite;
+}
+
+@keyframes scrollImage {
+    0% {
+        translate: 0 0;
+    }
+
+    100% {
+        translate: 0 -100%;
+        /* Zweites Bild kommt an die Stelle des ersten Bildes */
+    }
+}
+
+@keyframes scrollGrid {
+    0% {
+        translate: 0 0;
+    }
+
+    100% {
+        translate: calc(100% / ${this.cols}) 0;
+        /* Zweites Bild kommt an die Stelle des ersten Bildes */
+    }
+}
+        `;
+    }
+    connectedCallback() {
+        this.attachShadow({ mode: "open" })
+
+        let style = document.createElement("style");
+        style.innerHTML = this.styleSheet;
+
+        this.shadowRoot.appendChild(style);
+        this.template.forEach((node) => this.shadowRoot.appendChild(node));
     }
     constructor() {
         super();
-
-        this.classList.add("scrolling-container");
-
-        let src = this.getAttribute("src") ?? "";
-        let alt = this.getAttribute("alt") ?? "";
-
-        this.innerHTML = `
-            <picture><img  src="${src}" alt="${alt}" class="scrolling-image"></picture>
-            <picture><img  src="${src}" alt="" class="scrolling-image"></picture>
-            <picture><img  src="${src}" alt="" class="scrolling-image"></picture>
-            <picture><img  src="${src}" alt="" class="scrolling-image"></picture>
-        `;
+        this.cols = 2;
+        this.rows = 3;
+        this.time = "20s";
     }
 }
 customElements.define("scroll-image", ScrollImage);

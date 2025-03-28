@@ -2,6 +2,7 @@
     font-family: "JetBrains Mono";
     src: local("JetBrains Mono"), url(/assets/JetBrains_Mono/JetBrainsMono-VariableFont_wght.ttf);
 }
+
 @font-face {
     font-family: "Roboto";
     src: local("Roboto"), url(/assets/Roboto/Roboto-VariableFont_wdth\,wght.ttf);
@@ -20,6 +21,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    scroll-margin: 20dvh;
     /* border: 2px solid red; */
 }
 
@@ -147,7 +149,7 @@ a {
 }
 
 .detail {
-    min-height: 100dvh;
+    min-height: 80dvh;
     max-width: 100dvw;
 }
 
@@ -271,7 +273,7 @@ a {
         border-radius: calc(var(--border-r) - var(--pad) / 2);
     }
 
-    &:hover {
+    &.hover:hover {
         background-color: var(--accent);
         color: var(--light);
         border-color: rgba(255, 255, 255, 0);
