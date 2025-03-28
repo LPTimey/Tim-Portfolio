@@ -21,7 +21,6 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    scroll-margin: 10dvh;
     /* border: 2px solid red; */
 }
 
@@ -139,6 +138,9 @@ a {
 
 .span {
     grid-column: span 2;
+    .all{
+        grid-column: 1 / -1;
+    }
 }
 
 .center {

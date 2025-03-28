@@ -1,12 +1,86 @@
 section {
     width: var(--outer-width);
     margin: 3rem auto;
-    &:first-child{
+
+    &:first-child {
         margin-top: 0;
     }
 }
 
+h2 {
+    margin: 1em 0;
+}
+
+/* 
+progress {
+    &[value] {
+        appearance: none;
+
+        place-self: center;
+        height: 0.5rem;
+        border-radius: 0.5rem;
+        border: 1px solid darkgray;
+
+        &::-webkit-progress-bar {
+            height: 0.5rem;
+            border-radius: 0.5rem;
+            border: none;
+        }
+
+        &::-webkit-progress-value {
+            background: var(--accent-light);
+            height: 0.5rem;
+            border-radius: 0.5rem;
+        }
+    }
+} 
+*/
+
 .card {
-    width: var(--inner-width);
+    max-width: var(--inner-width);
     margin: auto;
+}
+
+#About {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    align-items: center;
+    justify-items: center;
+    #Title{
+        width: 100%;
+    }
+
+    .card {
+        margin: 0 calc(calc(var(--outer-width) - var(--inner-width)) / 2);
+    }
+}
+
+#SkillsCard {
+    display: flex;
+    /* funktioniert aber ist nicht schön */
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 3ch;
+}
+
+.category {
+    display: block;
+    height: 100%;
+}
+
+.categoryTitle {
+    margin: 1em 0;
+}
+
+.skills {
+    margin: 1em 2ch;
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 0.5em 2ch;
+}
+
+.skill {
+    grid-column: span 2;
+    display: grid;
+    grid-template-columns: subgrid;
 }

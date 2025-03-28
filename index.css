@@ -1,6 +1,6 @@
 #hero {
     --grid-size: 3;
-
+    padding-top: 0;
     display: flex;
     flex-direction: column;
     height: 80vh;
@@ -36,8 +36,7 @@
     }
 }
 
-#projectgrid {
+section {
     padding-top: 8rem;
     margin-bottom: 5rem;
 }
-
