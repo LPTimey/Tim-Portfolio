@@ -2,6 +2,10 @@
     font-family: "JetBrains Mono";
     src: local("JetBrains Mono"), url(/assets/JetBrains_Mono/JetBrainsMono-VariableFont_wght.ttf);
 }
+@font-face {
+    font-family: "Roboto";
+    src: local("Roboto"), url(/assets/Roboto/Roboto-VariableFont_wdth\,wght.ttf);
+}
 
 *::before,
 *::after,
@@ -32,7 +36,12 @@
     --border-r: 1rem;
     --transparency: 0.85;
 
-    font-family: "JetBrains Mono", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --backup-fonts: 'Segoe UI',
+        Tahoma,
+        Geneva,
+        Verdana,
+        sans-serif;
+    font-family: "JetBrains Mono", var(--backup-fonts);
     scroll-behavior: smooth;
 }
 
