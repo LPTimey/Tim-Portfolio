@@ -189,16 +189,11 @@ customElements.define("to-top", ToTop);
 
 class ScrollImage extends HTMLElement {
     static get observedAttributes() {
-        return ['src', 'alt', "bg"];
+        return ['src', 'alt', "bg", "cols", "rows", "time"];
     }
     get template() {
-        /*
-         *    <picture><img  src="${src}" alt="${alt}" class="scrolling-image"></picture>
-         *    <picture><img  src="${src}" alt="" class="scrolling-image"></picture>
-         *    <picture><img  src="${src}" alt="" class="scrolling-image"></picture>
-         *    <picture><img  src="${src}" alt="" class="scrolling-image"></picture>
-         */
-        const imgNr = this.cols * this.rows;
+
+        const imgNr = this.getAttribute("cols") * this.getAttribute("rows");
         // const imgNr = 2 * 3;
         let elements = [...Array(imgNr).keys()].map(() => {
             let img = document.createElement("img");
@@ -214,21 +209,28 @@ class ScrollImage extends HTMLElement {
     }
     get styleSheet() {
         return `
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
 :host{
     display: grid;
-    grid-template-columns: repeat(${this.cols},1fr);
+    grid-template-columns: repeat(${this.getAttribute("cols")},1fr);
     position: relative;
-    width: calc(100% * ${this.cols});
+    width: calc(100% * ${this.getAttribute("cols")});
     height: 100%;
     overflow: hidden;
     z-index: -1;
     left: -100%;
+    background: ${this.getAttribute("bg")};
 
-    animation: scrollGrid ${this.time} linear infinite;
+    animation: scrollGrid ${this.getAttribute("time")} linear infinite;
 }
 img {
     display: block;
-    width: 100%;
+    width: 101%;
+    height: 101%;
 }
 .scrolling-image {
     display: block;
@@ -239,7 +241,8 @@ img {
     height: auto;
     position: relative;
     top: 0;
-    animation: scrollImage ${this.time} linear infinite;
+    animation: scrollImage ${this.getAttribute("time")} linear infinite;
+    ${this.getAttribute("bg") ? `background: ${this.getAttribute("bg")}` : ""};
 }
 
 @keyframes scrollImage {
@@ -259,8 +262,7 @@ img {
     }
 
     100% {
-        translate: calc(100% / ${this.cols}) 0;
-        /* Zweites Bild kommt an die Stelle des ersten Bildes */
+        translate: calc(100% / ${this.getAttribute("cols")}) 0;
     }
 }
         `;
@@ -276,9 +278,10 @@ img {
     }
     constructor() {
         super();
-        this.cols = 2;
-        this.rows = 3;
-        this.time = "20s";
+
+        this.setAttribute("cols", this.getAttribute("cols") ?? 2);
+        this.setAttribute("rows", this.getAttribute("rows") ?? 3);
+        this.setAttribute("time", this.getAttribute("time") ?? "20s");
     }
 }
 customElements.define("scroll-image", ScrollImage);
