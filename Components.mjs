@@ -370,3 +370,123 @@ img{
     }
 }
 customElements.define("phone-image", PhoneImage)
+
+class CmpImages extends HTMLElement {
+    static get observedAttributes() {
+        return ['src1', 'alt1', 'src2', 'alt2', "bg"];
+    }
+    get template() {
+
+        this.image2Div.classList.add("img-comp-overlay")
+
+        this.img1.onload = () => {
+            var height = this.img1.height;
+            var width = this.img1.width;
+            this.img1.style.aspectRatio = width / height;
+        }
+        this.img2.onload = () => {
+            var height = this.img2.height;
+            var width = this.img2.width;
+            this.img2.style.aspectRatio = width / height;
+        }
+
+        this.img1.src = this.getAttribute("src1");
+        this.img2.src = this.getAttribute("src2");
+        this.img1.alt = this.getAttribute("alt1");
+        this.img2.alt = this.getAttribute("alt2");
+
+        this.input.type = "range";
+        this.input.min = "0";
+        this.input.max = "100";
+        this.input.value = "50";
+        this.input.style.width = "100%"
+
+        this.image1Div.appendChild(this.img1);
+        this.image2Div.appendChild(this.img2);
+        this.inputDiv.appendChild(this.input);
+
+        return [this.image1Div, this.image2Div, this.inputDiv]
+    }
+    get styleSheet() {
+        return `
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:host{
+    position: relative;
+    display:  grid;
+    width: 100%;
+    >*{
+        grid-column: 1 / -1;
+        grid-row: 1 / -1;
+    }
+    overflow:hidden;
+}
+img{
+    display: block;
+    width: 100%;
+}
+
+.img-comp-overlay {
+    position: relative;
+    overflow: hidden;
+    img{
+        position: absolute;
+        left: 0;
+        height: 100%;
+        z-index: 0;
+        object-fit: cover;
+        object-position: left;
+    }
+}
+input[type="range"] {
+    position: relative;
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+        `;
+    }
+    initComparisons() {
+        const clip = (target) => {
+            this.image2Div.style.width = `${target.value}%`
+        }
+        clip(this.input);
+        this.input.addEventListener("input", (ev) => clip(ev.target))
+    }
+    connectedCallback() {
+        this.attachShadow({ mode: "open" })
+
+        let style = document.createElement("style");
+        style.innerHTML = this.styleSheet;
+
+        this.shadowRoot.appendChild(style);
+        this.template.forEach((node) => this.shadowRoot.appendChild(node));
+        this.initComparisons();
+    }
+    constructor() {
+        super();
+        /** @type {HTMLDivElement} */
+        this.image1Div = document.createElement("div");
+        /** @type {HTMLDivElement} */
+        this.image2Div = document.createElement("div");
+        /** @type {HTMLDivElement} */
+        this.inputDiv = document.createElement("div");
+        /** @type {HTMLDivElement} */
+        this.div4 = document.createElement("div");
+        /** @type {HTMLImageElement} */
+        this.img1 = document.createElement("img");
+        /** @type {HTMLImageElement} */
+        this.img2 = document.createElement("img");
+        /** @type {HTMLInputElement} */
+        this.input = document.createElement("input");
+    }
+}
+customElements.define("cmp-img", CmpImages)
