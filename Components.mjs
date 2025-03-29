@@ -397,8 +397,8 @@ class CmpImages extends HTMLElement {
 
         this.input.type = "range";
         this.input.min = "0";
-        this.input.max = "100";
-        this.input.value = "50";
+        this.input.max = "1000";
+        this.input.value = "500";
         this.input.style.width = "100%"
 
         this.image1Div.appendChild(this.img1);
@@ -456,7 +456,7 @@ input[type="range"] {
     }
     initComparisons() {
         const clip = (target) => {
-            this.image2Div.style.width = `${target.value}%`
+            this.image2Div.style.width = `${target.value / 10}%`
         }
         clip(this.input);
         this.input.addEventListener("input", (ev) => clip(ev.target))
