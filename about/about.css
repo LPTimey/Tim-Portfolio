@@ -40,6 +40,9 @@ progress {
     max-width: var(--inner-width);
     margin: auto;
 }
+#AboutMeText{
+    line-height: 175%;
+}
 
 #About {
     display: grid;
@@ -83,4 +86,9 @@ progress {
     grid-column: span 2;
     display: grid;
     grid-template-columns: subgrid;
+}
+
+#WerdeCanvas{
+    width: 100%;
+    height: 100%;
 }

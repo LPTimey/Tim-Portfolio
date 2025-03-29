@@ -297,7 +297,6 @@ class ThemeSelect extends HTMLElement {
         </select>
         `
         this.innerHTML = str;
-        console.log(str)
     }
 }
 customElements.define("theme-selector", ThemeSelect);
