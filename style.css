@@ -34,6 +34,7 @@
 
     --outer-width: 80dvw;
     --inner-width: calc(var(--outer-width) - 10dvw);
+    --inner-width: var(--outer-width);
     --border-r: 1rem;
     --transparency: 0.85;
 
