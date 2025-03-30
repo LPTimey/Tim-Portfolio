@@ -334,7 +334,7 @@ class PhoneImage extends HTMLElement {
     width: 100%;
 }
 img{
-    object-fit: scale-down;
+    object-fit: fill;
     max-height: 100%;
     max-width: 100%;
     position: absolute;
@@ -347,7 +347,7 @@ img{
 }
 .screen {
     border-radius: 10% / 5% ;
-    height: 91%;
+    height: 96%;
     ${this.getAttribute("bg") ? `background: ${this.getAttribute("bg")}` : ""};
 }
 .phone{

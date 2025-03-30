@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
+const watchTextP = document.getElementById("WatchText");
 /** @type {HTMLCanvasElement|null} */
 const watchCanvas = document.getElementById("3dWatch");
 const watchPath = `./assets/Design%20der%20Mensch%20Maschine%20Schnittstelle/WatchOut/TimUhr.glb`;
@@ -12,6 +13,17 @@ const watchScene = watch.scene;
 var watchState = wRotate();
 /** @type {(speed?: number)=>Animation} */
 var watchNextState = wRotate;
+setWatchState(wRotate)
+
+/**
+ * 
+ * @param {(speed?: number)=>Animation} state 
+ */
+function setWatchState(state) {
+    watchState = state();
+    const text = getWatchText();
+    watchTextP.innerHTML = text;
+}
 
 const minFloatDelta = 0.01;
 
@@ -68,7 +80,7 @@ function wReset(duration) {
 
     return getAnimation(target, watchScene, duration, () => {
         watchNextState = wRotate;
-        watchState = wRotate();
+        setWatchState(wRotate);
     });
 }
 /**
@@ -101,7 +113,7 @@ function getAnimation(target, scene, duration = 1000, callback = () => { }) {
         if (scene.position.distanceTo(target.pos) < minFloatDelta
             && scene.quaternion.angleTo(target.rot) < minFloatDelta) {
             console.log("done")
-            watchState = NoOp();
+            setWatchState(NoOp);
             callback();
             return;
         }
@@ -223,10 +235,11 @@ next_Button.addEventListener("click", () => {
             watchNextState = wReset;
             break;
         default:
+            console.error()
             break;
     }
 
-    watchState = watchNextState();
+    setWatchState(watchNextState);
 })
 
 const back_Button = document.getElementById("back")
@@ -248,8 +261,38 @@ back_Button.addEventListener("click", () => {
             watchNextState = wTurnToFace;
             break;
         default:
+            console.error()
             break;
     }
 
-    watchState = watchNextState();
+    setWatchState(watchNextState);
 })
+
+function getWatchText() {
+    switch (watchNextState) {
+        case wRotate:
+            return `
+            Da Demenz oft die vertrauten Gewohnheiten und Erinnerungen der Betroffenen am längsten bewahrt, 
+            wurde die Uhr im klassischen, analogen Design gestaltet. Die Gestaltung zielt darauf ab, 
+            der Uhr eine vertraute Bedeutung zu verleihen. 
+            <br/><br/>
+            Um den Bedürfnissen der oft älteren Zielgruppe gerecht zu werden, 
+            sind sowohl die Ziffern als auch die Zeiger gut lesbar und groß. 
+            Zudem ist die Uhr ergonomisch abgerundet und aus einem weichen Material gefertigt, um Verletzungen vorzubeugen.
+            <br/><br/>
+            Die Uhr sendet GPS-Daten, verfügt über eine aktive Fallerkennung und eine Notruffunktion. 
+            Zusätzlich behält sie ihre Funktion als gewöhnliche Analoguhr mit Krone bei. 
+            `;
+        case wTurnToButtons:
+            return `TODO:`;
+        case wTurnToCrown:
+            return `TODO:`;
+        case wTurnToFace:
+            return `TODO:`;
+        case wTurnToWristBandBack:
+            return `TODO:`;
+        default:
+            console.error()
+            return `ERROR`;
+    }
+}
