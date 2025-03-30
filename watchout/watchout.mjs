@@ -13,6 +13,8 @@ var watchState = wRotate();
 /** @type {(speed?: number)=>Animation} */
 var watchNextState = wRotate;
 
+const minFloatDelta = 0.01;
+
 /**
  * @typedef {(deltaTime:DOMHighResTimeStamp)=>void} Animation
  */
@@ -87,7 +89,6 @@ function NoOp() {
  */
 function getAnimation(target, scene, duration = 1000, callback = () => { }) {
     let timeLeft = duration;
-    const minFloatDelta = 0.1;
     if (target.rot.isEuler) {
         const quaternion = new THREE.Quaternion();
         quaternion.setFromEuler(target.rot);
