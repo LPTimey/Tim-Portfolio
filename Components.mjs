@@ -72,17 +72,17 @@ class SiteHeader extends HTMLElement {
         <input type="radio" name="theme" value="light" id="theme_light">
         </div>`: ""}
         <header>
-            <a href="./">Home</a>
+            <a href="./" class="underline">Home</a>
             |
-            <a href="about.html">Über Mich</a>
+            <a href="about.html" class="underline">Über Mich</a>
             <div class="grow"></div>
             ${old ?
-                `<multi-state-button ids="theme_dark;theme_system;theme_light">
+                `<multi-state-button ids="theme_dark;theme_system;theme_light" class="underline">
                 <span class="link" id="dark">${dark_mode}</span>
                 <span class="link" id="system">${system_mode}</span>
                 <span class="link" id="light">${light_mode}</span>
             </multi-state-button>`
-                : "<theme-selector></theme-selector>"
+                : "<theme-selector></theme-selector class='underline'>"
             }
             |
             <a href="https://github.com/LPTimey/Tim-Portfolio" target="_blank" class="center">${"" ?? "Source "}${gh_logo}</a>

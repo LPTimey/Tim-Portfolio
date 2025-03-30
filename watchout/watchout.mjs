@@ -10,6 +10,8 @@ const watch = await loader.loadAsync(watchPath);
 const watchScene = watch.scene;
 /** @type {Animation} */
 var watchState = wRotate();
+/** @type {(speed?: number)=>Animation} */
+var watchNextState = wRotate;
 
 /**
  * @typedef {(deltaTime:DOMHighResTimeStamp)=>void} Animation
@@ -63,7 +65,7 @@ function wReset(duration) {
     const target = { pos: new THREE.Vector3(0, 0, 0), rot: new THREE.Euler(0, 0, 0) };
 
     return getAnimation(target, watchScene, duration, () => {
-        next_BState = wRotate;
+        watchNextState = wRotate;
         watchState = wRotate();
     });
 }
@@ -202,27 +204,51 @@ function init() {
 init();
 
 const next_Button = document.getElementById("next")
-var next_BState = wRotate;
 next_Button.addEventListener("click", () => {
-    switch (next_BState) {
+    switch (watchNextState) {
         case wRotate:
-            next_BState = wTurnToButtons;
+            watchNextState = wTurnToButtons;
             break;
         case wTurnToButtons:
-            next_BState = wTurnToCrown;
+            watchNextState = wTurnToCrown;
             break;
         case wTurnToCrown:
-            next_BState = wTurnToFace;
+            watchNextState = wTurnToFace;
             break;
         case wTurnToFace:
-            next_BState = wTurnToWristBandBack;
+            watchNextState = wTurnToWristBandBack;
             break;
         case wTurnToWristBandBack:
-            next_BState = wReset;
+            watchNextState = wReset;
             break;
         default:
             break;
     }
 
-    watchState = next_BState();
+    watchState = watchNextState();
+})
+
+const back_Button = document.getElementById("back")
+back_Button.addEventListener("click", () => {
+    switch (watchNextState) {
+        case wRotate:
+            watchNextState = wTurnToWristBandBack;
+            break;
+        case wTurnToButtons:
+            watchNextState = wReset;
+            break;
+        case wTurnToCrown:
+            watchNextState = wTurnToButtons;
+            break;
+        case wTurnToFace:
+            watchNextState = wTurnToCrown;
+            break;
+        case wTurnToWristBandBack:
+            watchNextState = wTurnToFace;
+            break;
+        default:
+            break;
+    }
+
+    watchState = watchNextState();
 })

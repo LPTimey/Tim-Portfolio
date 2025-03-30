@@ -133,13 +133,45 @@ body {
     flex-direction: column;
 }
 
-a {
+a, .link {
     text-decoration: none;
+    padding: 0.1em;
+    color: var(--fg);
+    cursor: pointer;
+
+    &:hover {
+        color: var(--accent-light);
+
+        svg {
+            fill: var(--accent-light);
+        }
+    }
+}
+
+.underline {
+    --transition-time: 400ms;
+
+    background:
+        /* default */
+        linear-gradient(to right, rgb(from var(--bg) r g b / 0), rgb(from var(--bg) r g b / 0)),
+        /* hover */
+        linear-gradient(to right, var(--accent), var(--accent-light), var(--accent));
+
+    background-size: 100% 0.1em, 0 0.1em;
+    background-position: 100% 100%, 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size var(--transition-time);
+
+    &:hover,
+    &:focus {
+        background-size: 0 0.1em, 100% 0.1em;
+    }
 }
 
 .span {
     grid-column: span 2;
-    .all{
+
+    .all {
         grid-column: 1 / -1;
     }
 }
@@ -158,7 +190,7 @@ a {
 
 .button {
     --i-size: var(--size, 2em);
-    margin: var(--i-size) 2ch;
+    margin: var(--i-size) 0;
     padding: calc(var(--i-size)*0.5) calc(var(--i-size)*0.75);
     border-radius: var(--border-r);
     border: 0.1em solid var(--fg);
@@ -208,6 +240,20 @@ a {
         justify-content: center;
         grid-auto-flow: dense;
     }
+
+    &.layer {
+        place-items: center;
+
+        * {
+            grid-column: 1 / -1;
+            grid-row: 1 / -1;
+        }
+    }
+}
+
+.full {
+    width: 100%;
+    height: 100%;
 }
 
 .masonry {
@@ -308,25 +354,13 @@ site-header {
     top: 0;
 
     background-color: rgba(from var(--bg) r g b / var(--transparency));
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
     padding: 2em 0;
 
     display: flex;
     justify-content: center;
     z-index: 100;
-
-    a,
-    .link {
-        color: var(--fg);
-        cursor: pointer;
-
-        &:hover {
-            color: var(--accent-light);
-
-            svg {
-                fill: var(--accent-light);
-            }
-        }
-    }
 
     &:has(#theme_dark:checked) {
         #dark {
