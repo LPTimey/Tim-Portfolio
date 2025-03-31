@@ -325,7 +325,7 @@ class PhoneImage extends HTMLElement {
     get styleSheet() {
         return `
 :host{
-    --iphone16PM-aspect: 1320 / 2868;
+    --iphone16PM-aspect: 1420 / 2868;
     aspect-ratio: var(--iphone16PM-aspect);
     max-height: 100%;
     position: relative;

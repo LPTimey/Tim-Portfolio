@@ -113,10 +113,7 @@ dialog {
 
 img {
     display: block;
-    max-height: 100%;
-    max-width: 100%;
-    height: auto;
-    width: auto;
+    width: 100%;
     object-fit: cover;
 }
 
@@ -133,7 +130,8 @@ body {
     flex-direction: column;
 }
 
-a, .link {
+a,
+.link {
     text-decoration: none;
     padding: 0.1em;
     color: var(--fg);
@@ -176,13 +174,6 @@ a, .link {
     }
 }
 
-.center {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1ch;
-}
-
 .detail {
     min-height: 80dvh;
     max-width: 100dvw;
@@ -193,7 +184,7 @@ a, .link {
     margin: var(--i-size) 0;
     padding: calc(var(--i-size)*0.5) calc(var(--i-size)*0.75);
     border-radius: var(--border-r);
-    border: 0.1em solid var(--fg);
+    border: max(1px, 0.1em) solid var(--fg);
     color: var(--fg);
     background-color: var(--bg);
     height: fit-content;
@@ -303,9 +294,12 @@ a, .link {
     background-color: color-mix(in srgb, var(--bg), var(--fg) 10%);
     border: 0.2ch solid rgba(from var(--fg) r g b / 0.25);
     border-radius: var(--border-r);
-    grid-row: span 5;
-    display: grid;
-    grid-template-rows: subgrid;
+
+    &.in-grid {
+        grid-row: span 5;
+        display: grid;
+        grid-template-rows: subgrid;
+    }
 
     h3 {
         margin-top: 0.25em;
