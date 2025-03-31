@@ -28,9 +28,9 @@
     --dark: #181818;
     --light: #ddd;
     --light: #eee;
-    --accent-light: #6060ff;
+    --accent: #6060ff;
     /* --accent-2: color-mix(in srgb, color-mix(in srgb, var(--bg), var(--fg) 0%), var(--accent) 50%); */
-    --accent: #4141bd;
+    --accent-dark: #4141bd;
 
     --outer-width: 80dvw;
     --inner-width: calc(var(--outer-width) - 10dvw);
@@ -140,10 +140,10 @@ a, .link {
     cursor: pointer;
 
     &:hover {
-        color: var(--accent-light);
+        color: var(--accent);
 
         svg {
-            fill: var(--accent-light);
+            fill: var(--accent);
         }
     }
 }
@@ -155,7 +155,7 @@ a, .link {
         /* default */
         linear-gradient(to right, rgb(from var(--bg) r g b / 0), rgb(from var(--bg) r g b / 0)),
         /* hover */
-        linear-gradient(to right, var(--accent), var(--accent-light), var(--accent));
+        linear-gradient(to right, var(--accent-dark), var(--accent), var(--accent-dark));
 
     background-size: 100% 0.1em, 0 0.1em;
     background-position: 100% 100%, 0 100%;
@@ -202,7 +202,7 @@ a, .link {
     text-decoration: none;
 
     &[active] {
-        background-color: var(--accent-light);
+        background-color: var(--accent);
         border-color: rgba(255, 255, 255, 0);
         color: var(--light);
     }
@@ -210,7 +210,7 @@ a, .link {
     &:hover {
         color: var(--light);
         border-color: rgba(255, 255, 255, 0);
-        background-color: var(--accent);
+        background-color: var(--accent-dark);
     }
 
     &[passive] {
@@ -323,12 +323,12 @@ a, .link {
     }
 
     &.hover:hover {
-        background-color: var(--accent);
+        background-color: var(--accent-dark);
         color: var(--light);
         border-color: rgba(255, 255, 255, 0);
 
         ::selection {
-            color: var(--accent);
+            color: var(--accent-dark);
             background-color: var(--light);
         }
     }
@@ -367,7 +367,7 @@ site-header {
             cursor: default;
 
             svg {
-                fill: var(--accent);
+                fill: var(--accent-dark);
             }
         }
     }
@@ -377,7 +377,7 @@ site-header {
             cursor: default;
 
             svg {
-                fill: var(--accent);
+                fill: var(--accent-dark);
             }
         }
     }
@@ -387,7 +387,7 @@ site-header {
             cursor: default;
 
             svg {
-                fill: var(--accent);
+                fill: var(--accent-dark);
             }
         }
     }
