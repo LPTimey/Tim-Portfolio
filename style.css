@@ -1,11 +1,11 @@
 @font-face {
     font-family: "JetBrains Mono";
-    src: local("JetBrains Mono"), url(/assets/JetBrains_Mono/JetBrainsMono-VariableFont_wght.ttf);
+    src: local("JetBrains Mono"), url("./assets/JetBrains_Mono/JetBrainsMono-VariableFont_wght.ttf");
 }
 
 @font-face {
     font-family: "Roboto";
-    src: local("Roboto"), url(/assets/Roboto/Roboto-VariableFont_wdth\,wght.ttf);
+    src: local("Roboto"), url("./assets/Roboto/Roboto-VariableFont_wdth\,wght.ttf");
 }
 
 *::before,
