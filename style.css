@@ -408,6 +408,10 @@ header {
     width: var(--outer-width);
 }
 
+@media (width<650px) {
+    /*TODO: make topbar into burger*/
+}
+
 site-header {
 
     position: sticky;
