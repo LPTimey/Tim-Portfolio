@@ -66,10 +66,21 @@ export class SiteHeader extends HTMLElement {
         //     .then((text) => this.innerHTML = text.toString())
         const old = false;
         this.innerHTML = `
+        <dialog id="projectsDialog" popover>
+            <a href="watchout.html" class="underline">Watch Out</a>
+            <a href="printer.html" class="underline">Touch Screen</a>
+            <a href="themes.html" class="underline">Themen & Stile</a>
+            <a href="tetris.html" class="underline">Arduino Tetris</a>
+            <a href="webdev.html" class="underline">Website Design</a>
+        </dialog>
         <header>
             <a href="./" class="underline">Home</a>
             |
             <a href="about.html" class="underline">Über Mich</a>
+            |
+            <p popover-target="#projectsDialog" popover-hover class="underline link">
+                Projekte &#709;
+            </p>
             <div class="grow"></div>
             <theme-selector id="Theme" class="underline"></theme-selector>
             |
