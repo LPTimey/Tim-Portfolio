@@ -450,7 +450,7 @@ export class ToTop extends HTMLElement {
     static toTopButtonDelta = 100;
 
     toTopButtonDisplay(window) {
-        const toTopButton = this.shadowRoot.querySelector("#toTop");
+        const toTopButton = this.shadowRoot.querySelector("#ToTop");
 
         if (window.pageYOffset < ToTop.toTopButtonDelta) {
             toTopButton.style.visibility = "hidden"

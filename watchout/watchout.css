@@ -10,6 +10,12 @@
         linear-gradient(336deg, var(--purple), transparent 70%);
 }
 
+canvas {
+    width: 100%;
+    aspect-ratio: 1.2 / 1;
+    z-index: 0;
+}
+
 main {
     font-family: "Roboto", var(--backup-fonts);
 }
@@ -59,7 +65,12 @@ section {
     margin: 2rem auto;
 }
 
-.ThreeD.Text {
+.section-title {
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+}
+
+.three-d.text {
     display: grid;
     grid-template-columns: 1fr 1fr;
     justify-content: center;
@@ -79,7 +90,18 @@ section {
     }
 }
 
-.ThreeDButtons {
+#ThreeDWrapper {
+    background: url("../assets/Design der Mensch Maschine Schnittstelle/WatchOut/app\ bg.png");
+    border-radius: var(--border-r);
+    color: var(--dark);
+}
+
+.card {
+    height: 100%;
+    place-content: center;
+}
+
+#ThreeDButtons {
     height: 100%;
     width: 100%;
     display: flex;
@@ -93,16 +115,4 @@ phone-image {
     max-height: 100%;
     aspect-ratio: 16 / 13;
     /* grid-column: span 2; */
-}
-
-#ThreeDWrapper {
-    background: url("../assets/Design der Mensch Maschine Schnittstelle/WatchOut/app\ bg.png");
-    border-radius: var(--border-r);
-    color: var(--dark);
-}
-
-canvas {
-    width: 100%;
-    aspect-ratio: 1.2 / 1;
-    z-index: 0;
 }
