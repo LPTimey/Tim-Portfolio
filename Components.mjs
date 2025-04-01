@@ -22,7 +22,7 @@ const toTop = `
 </svg>
 `;
 
-class MultiStateButton extends HTMLElement {
+export class MultiStateButton extends HTMLElement {
     static get observedAttributes() {
         return ["ids"];
     }
@@ -46,7 +46,7 @@ class MultiStateButton extends HTMLElement {
 }
 customElements.define("multi-state-button", MultiStateButton);
 
-class SiteHeader extends HTMLElement {
+export class SiteHeader extends HTMLElement {
     static get observedAttributes() {
         return [];
     }
@@ -66,24 +66,12 @@ class SiteHeader extends HTMLElement {
         //     .then((text) => this.innerHTML = text.toString())
         const old = false;
         this.innerHTML = `
-        ${old ? `<div hidden>
-        <input type="radio" name="theme" value="system" id="theme_system" checked>
-        <input type="radio" name="theme" value="dark" id="theme_dark">
-        <input type="radio" name="theme" value="light" id="theme_light">
-        </div>`: ""}
         <header>
             <a href="./" class="underline">Home</a>
             |
             <a href="about.html" class="underline">Über Mich</a>
             <div class="grow"></div>
-            ${old ?
-                `<multi-state-button ids="theme_dark;theme_system;theme_light" class="underline">
-                <span class="link" id="dark">${dark_mode}</span>
-                <span class="link" id="system">${system_mode}</span>
-                <span class="link" id="light">${light_mode}</span>
-            </multi-state-button>`
-                : "<theme-selector></theme-selector class='underline'>"
-            }
+            <theme-selector id="Theme" class="underline"></theme-selector>
             |
             <a href="https://github.com/LPTimey/Tim-Portfolio" target="_blank" class="center">${"" ?? "Source "}${gh_logo}</a>
         </header>`;
@@ -91,7 +79,7 @@ class SiteHeader extends HTMLElement {
 }
 customElements.define("site-header", SiteHeader);
 
-class SiteFooter extends HTMLElement {
+export class SiteFooter extends HTMLElement {
     static get observedAttributes() {
         return [];
     }
@@ -120,7 +108,7 @@ class SiteFooter extends HTMLElement {
 customElements.define("site-footer", SiteFooter);
 
 
-class ToTop extends HTMLElement {
+export class ToTop extends HTMLElement {
     static toTopButtonDelta = 100;
 
     toTopButtonDisplay(window) {
@@ -187,7 +175,7 @@ class ToTop extends HTMLElement {
 }
 customElements.define("to-top", ToTop);
 
-class ScrollImage extends HTMLElement {
+export class ScrollImage extends HTMLElement {
     static get observedAttributes() {
         return ['src', 'alt', "bg", "cols", "rows", "time"];
     }
@@ -286,7 +274,23 @@ img {
 }
 customElements.define("scroll-image", ScrollImage);
 
-class ThemeSelect extends HTMLElement {
+export class ThemeSelect extends HTMLElement {
+    get theme() {
+        return this.querySelector("#ThemeSelect").value
+    }
+    /**
+     * @param {any} theme
+     */
+    set theme(theme) {
+        this.querySelector("#ThemeSelect").value = theme
+    }
+    static getLocalStorageTheme() {
+        return window.localStorage.getItem("theme");
+    }
+    static setLocalStorageTheme(theme) {
+        window.localStorage.setItem("theme", theme);
+    }
+
     constructor() {
         super();
         const str = `
@@ -297,11 +301,15 @@ class ThemeSelect extends HTMLElement {
         </select>
         `
         this.innerHTML = str;
+        this.theme = ThemeSelect.getLocalStorageTheme();
+        this.addEventListener("change", (ev) => {
+            ThemeSelect.setLocalStorageTheme(this.theme)
+        })
     }
 }
 customElements.define("theme-selector", ThemeSelect);
 
-class PhoneImage extends HTMLElement {
+export class PhoneImage extends HTMLElement {
     static get observedAttributes() {
         return ['src', 'alt', "bg"];
     }
@@ -371,7 +379,7 @@ img{
 }
 customElements.define("phone-image", PhoneImage)
 
-class CmpImages extends HTMLElement {
+export class CmpImages extends HTMLElement {
     static get observedAttributes() {
         return ['src1', 'alt1', 'src2', 'alt2', "bg"];
     }

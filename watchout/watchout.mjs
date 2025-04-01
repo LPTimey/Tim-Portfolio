@@ -268,9 +268,15 @@ back_Button.addEventListener("click", () => {
     setWatchState(watchNextState);
 })
 
+/**
+ * Returns Text fitting to watchState
+ * TODO: put text into print version and get it from there
+ * @returns {string} HTMLString for watchText
+ */
 function getWatchText() {
     switch (watchNextState) {
         case wRotate:
+        case wReset:
             return `
             Da Demenz oft die vertrauten Gewohnheiten und Erinnerungen der Betroffenen am längsten bewahrt, 
             wurde die Uhr im klassischen, analogen Design gestaltet. Die Gestaltung zielt darauf ab, 
@@ -278,21 +284,34 @@ function getWatchText() {
             <br/><br/>
             Um den Bedürfnissen der oft älteren Zielgruppe gerecht zu werden, 
             sind sowohl die Ziffern als auch die Zeiger gut lesbar und groß. 
-            Zudem ist die Uhr ergonomisch abgerundet und aus einem weichen Material gefertigt, um Verletzungen vorzubeugen.
+            Zudem ist die Uhr ergonomisch abgerundet und aus einem weichen Material gefertigt, 
+            um Verletzungen vorzubeugen.
             <br/><br/>
             Die Uhr sendet GPS-Daten, verfügt über eine aktive Fallerkennung und eine Notruffunktion. 
             Zusätzlich behält sie ihre Funktion als gewöhnliche Analoguhr mit Krone bei. 
             `;
         case wTurnToButtons:
-            return `TODO:`;
+            return `
+            Die beiden Knöpfe sind Teil der Notfallerkennung
+            <br/><br/>
+            Wenn sie gedrückt werden, wird eine Nachricht an die App gesendet und ein Notruf
+            gestartet.
+            <br/><br/>
+            TODO:
+            `;
         case wTurnToCrown:
-            return `TODO:`;
+            return `
+            Die Krone hat die Funktion einer normalen Krone einer normalen analogen Uhr.
+            Dies dient 
+            <br/><br/>
+            TODO:
+            `;
         case wTurnToFace:
             return `TODO:`;
         case wTurnToWristBandBack:
             return `TODO:`;
         default:
-            console.error()
+            console.error("Unknown State Encountered", watchNextState);
             return `ERROR`;
     }
 }

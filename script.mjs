@@ -89,12 +89,34 @@ dialogs.forEach(dialog => {
 
 //#endregion dialogs
 
+/******************************\
+ *                            *
+ *       LocalStorage         *
+ *                            *
+\******************************/
+//#region LocalStorage
+
+// window.localStorage.setItem("theme","dark");
+
+
+//#endregion LocalStorage
+
+
+/******************************\
+ *                            *
+ *           Utils            *
+ *                            *
+\******************************/
+//#region Utils
+
 /**
  * 
  * @param {string} hex 
  * @param {number} [alpha=100] 
  * @returns 
  */
-export function hexToRGB_CSS(hex,alpha = 100) {
+export function hexToRGB_CSS(hex, alpha = 100) {
     return `rgb(from ${hex} r g b / ${alpha}%)`;
 }
+
+//#endregion Utils
