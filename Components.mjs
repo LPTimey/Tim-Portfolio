@@ -287,13 +287,22 @@ img {
 customElements.define("scroll-image", ScrollImage);
 
 export class ThemeSelect extends HTMLElement {
+    static values = [
+        { val: "theme_light", display: "Licht" },
+        { val: "theme_system", display: "System", default: true },
+        { val: "theme_dark", display: "Dunkel" }];
+
     get theme() {
         return this.querySelector("#ThemeSelect").value
     }
     /**
-     * @param {any} theme
+     * @param {string} theme
      */
     set theme(theme) {
+        if (!ThemeSelect.values.map((va)=>va.val).includes(theme)) {
+            this.querySelector("#ThemeSelect").value = ThemeSelect.values.find(va => va.default)?.val || ThemeSelect.values[0].val
+            return;
+        }
         this.querySelector("#ThemeSelect").value = theme
     }
     static getLocalStorageTheme() {
@@ -307,9 +316,7 @@ export class ThemeSelect extends HTMLElement {
         super();
         const str = `
         <select id="ThemeSelect">
-            <option id="theme_light" value="theme_light">Licht-Thema</option>
-            <option id="theme_system" value="theme_system" selected>System-Thema</option>
-            <option id="theme_dark" value="theme_dark">Dunkel-Thema</option>
+        ${ThemeSelect.values.map(opt => `<option id="${opt.val}" value="${opt.val}">${opt.display}-Thema</option>`).reduce((carry, curr) => carry + '\n' + curr)}
         </select>
         `
         this.innerHTML = str;
