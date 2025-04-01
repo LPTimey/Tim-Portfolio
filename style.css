@@ -149,6 +149,15 @@
     flex-direction: column-reverse;
 }
 
+[popover] {
+    inset: unset
+}
+
+/* Stil für fokussierte Elemente */
+:focus-visible {
+    outline: none;
+}
+
 select {
     background-color: rgba(255, 255, 255, 0);
     border: none;
@@ -157,25 +166,14 @@ select {
     font-size: 1rem;
 }
 
-dialog:not([popover]) {
-    margin: revert;
-    padding: revert;
-    color: var(--fg);
-    background-color: rgba(from var(--bg) r g b / 0.8);
-    max-width: var(--outer-width);
-}
-
-[popover] {
-    border: none;
-
-    overlay: none;
-    /* this alone would do the trick, but its not supported yet in all major browsers*/
-}
-
 img {
     display: block;
     width: 100%;
     object-fit: cover;
+}
+
+button {
+    border: none;
 }
 
 svg {
@@ -192,13 +190,15 @@ body {
 }
 
 a,
-.link {
+.link,
+:focus-visible {
     text-decoration: none;
     padding: 0.1em;
     color: var(--fg);
     cursor: pointer;
 
-    &:hover {
+    &:hover,
+    &:active {
         color: var(--accent);
 
         svg {
@@ -207,7 +207,8 @@ a,
     }
 }
 
-.underline {
+.underline,
+:focus-visible {
     --transition-time: 400ms;
 
     background:
@@ -222,6 +223,7 @@ a,
     transition: background-size var(--transition-time);
 
     &:hover,
+    &:active,
     &:focus {
         background-size: 0 0.1em, 100% 0.1em;
     }
@@ -259,7 +261,8 @@ a,
         color: var(--light);
     }
 
-    &:hover {
+    &:hover,
+    &:active {
         color: var(--light);
         border-color: rgba(255, 255, 255, 0);
         background-color: var(--accent-dark);
@@ -268,7 +271,8 @@ a,
     &[passive] {
         margin: calc(var(--i-size) / 2) 0;
 
-        &:hover {
+        &:hover,
+        &:active {
             color: var(--dark);
             border-color: rgba(255, 255, 255, 0);
             background-color: var(--light);
@@ -377,7 +381,8 @@ a,
         border-radius: calc(var(--border-r) - var(--pad) / 2);
     }
 
-    &.hover:hover {
+    &.hover:hover,
+    &.hover:active {
         background-color: var(--accent-dark);
         color: var(--light);
         border-color: rgba(255, 255, 255, 0);
@@ -450,6 +455,54 @@ site-header {
     multi-state-button {
         position: relative;
         top: 10%;
+    }
+}
+
+.popover-wrapper {
+    position: relative;
+    /* Um sicherzustellen, dass das Popover relativ zum Button positioniert wird */
+}
+
+#ProjectAnchor {
+    anchor-name: --project-anchor;
+}
+
+#Projects {
+    position: fixed;
+    position-anchor: --project-anchor;
+    margin: 0;
+    inset: auto;
+    /* fix for no anchor*/
+    top: 4.5rem;
+    top: anchor(bottom);
+    left: anchor(left);
+
+    z-index: 999;
+    border: none;
+    padding: 1rem 2ch;
+    width: max-content;
+    border-radius: var(--border-r);
+    background-color: rgba(from var(--bg) r g b / var(--transparency));
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+
+    &:popover-open {
+        display: grid;
+        gap: 1ch;
+
+        #ProjectsGrid {
+            width: 100%;
+            display: grid;
+            gap: 1ch;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        >* {
+            width: max-content;
+        }
     }
 }
 

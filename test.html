@@ -7,11 +7,12 @@
     <title>Document</title>
 
     <style>
-        *{
+        * {
             box-sizing: border-box;
             padding: 0;
             margin: 0;
         }
+
         /* enter custom select mode */
         select,
         ::picker(select) {
@@ -90,6 +91,11 @@
         }
     </style>
 
+    <script type="module">
+        if (!("anchorName" in document.documentElement.style)) {
+            import("https://unpkg.com/@oddbird/css-anchor-positioning");
+        }
+    </script>
 </head>
 
 <body>

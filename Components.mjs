@@ -71,16 +71,18 @@ export class SiteHeader extends HTMLElement {
             |
             <a href="about.html" class="underline">Über Mich</a>
             |
-            <div>
-                <p popover-target="#projectsDialog" popover-hover class="underline link"> Projekte &#709; </p>
+            <div class="popover-wrapper">
+                <button id="ProjectAnchor" popovertarget="Projects" popover-hover class="underline link"> Projekte &#709; </button>
 
-                <dialog id="projectsDialog" popover>
-                    <a href="watchout.html" class="underline">Watch Out</a>
-                    <a href="printer.html" class="underline">Touch Screen</a>
-                    <a href="themes.html" class="underline">Themen & Stile</a>
-                    <a href="tetris.html" class="underline">Arduino Tetris</a>
-                    <a href="webdev.html" class="underline">Website Design</a>
-                </dialog>
+                <div id="Projects" popover>
+                    <ul id="ProjectsGrid">
+                        <li><a href="watchout.html" class="underline">Watch Out</a></li>
+                        <li><a href="printer.html" class="underline">Touch Screen</a></li>
+                        <li><a href="themes.html" class="underline">Themen & Stile</a></li>
+                        <li><a href="tetris.html" class="underline">Arduino Tetris</a></li>
+                        <li><a href="webdev.html" class="underline">Website Design</a></li>
+                    </ul>
+                </div>
             </div>
             <div class="grow"></div>
             <theme-selector id="Theme" class="underline"></theme-selector>
