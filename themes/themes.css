@@ -5,3 +5,16 @@
     gap: 1ch;
     margin: 2rem auto;
 }
+
+.title-wrapper {
+    background: white;
+    background: center / cover url("../assets/Screendesign/Styles/title-img.png");
+
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: white;
+        z-index: -1;
+    }
+}

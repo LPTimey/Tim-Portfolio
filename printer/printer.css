@@ -1,9 +1,16 @@
 :root {
     --dark: #11111b;
 }
-main {
-    padding: 3rem 0;
-    color: var(--light);
-    background-color: var(--dark);
-    color-scheme: dark;
+
+.title-wrapper {
+    background: white;
+    background: center / cover url("../assets/Screendesign/Drucker/title-img.png");
+
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: white;
+        z-index: -1;
+    }
 }

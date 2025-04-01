@@ -32,9 +32,12 @@
     <site-header></site-header>
     <main>
         <div class="heading-img">
-            <h2>Design der Mensch Maschine Schnittstelle</h2>
-            <div class="grow"></div>
+            <div class="reverse">
+                <h1 class="title">WatchOut</h1>
+                <h2>Design der Mensch Maschine Schnittstelle</h2>
+            </div>
 
+            <div class="grow"></div>
             <div class="title-wrapper">
                 <div class="title-img">
                     <picture><img id="TitleWatch"
@@ -52,6 +55,7 @@
         </div>
 
         <section>
+            <h3 class="section-title">Das Problem</h3>
             <p> Demenz hat tiefgreifende Auswirkungen auf das Leben der Betroffenen und ihrer Familienangehörigen.
                 Watch
                 out unterstützt
@@ -63,6 +67,7 @@
         </section>
 
         <section id="Watch">
+            <h3 class="section-title">Watch</h3>
             <div class="ThreeD Text no_print">
                 <div class="grid layer full" id="ThreeDWrapper">
                     <canvas id="3dWatch"></canvas>
@@ -71,56 +76,118 @@
                         <button id="next" class="button">Weiter</button>
                     </div>
                 </div>
-                <div class="card">
-                    <h2>Uhr</h2>
-                    <p id="WatchText"> Da Demenz oft die vertrauten Gewohnheiten und Erinnerungen der Betroffenen am
-                        längsten bewahrt,
-                        wurde
-                        die Uhr im
-                        klassischen, analogen Design gestaltet. Die Gestaltung zielt darauf ab, der Uhr eine vertraute
-                        Bedeutung
-                        zu verleihen.
-                        Um den Bedürfnissen der oft älteren Zielgruppe gerecht zu werden, sind sowohl die Ziffern als
-                        auch
-                        die
-                        Zeiger gut lesbar
-                        und groß. Zudem ist die Uhr ergonomisch abgerundet und aus einem weichen Material gefertigt, um
-                        Verletzungen
-                        vorzubeugen.
-                        Die Uhr sendet GPS-Daten, verfügt über eine aktive Fallerkennung und eine Notruffunktion.
-                        Zusätzlich
-                        behält sie ihre
-                        Funktion als gewöhnliche Analoguhr mit Krone bei.
-                    </p>
+                <div id="WatchText" class="card"> Da Demenz oft die vertrauten Gewohnheiten und Erinnerungen der
+                    Betroffenen am
+                    längsten bewahrt,
+                    wurde
+                    die Uhr im
+                    klassischen, analogen Design gestaltet. Die Gestaltung zielt darauf ab, der Uhr eine vertraute
+                    Bedeutung
+                    zu verleihen.
+                    Um den Bedürfnissen der oft älteren Zielgruppe gerecht zu werden, sind sowohl die Ziffern als
+                    auch
+                    die
+                    Zeiger gut lesbar
+                    und groß. Zudem ist die Uhr ergonomisch abgerundet und aus einem weichen Material gefertigt, um
+                    Verletzungen
+                    vorzubeugen.
+                    Die Uhr sendet GPS-Daten, verfügt über eine aktive Fallerkennung und eine Notruffunktion.
+                    Zusätzlich
+                    behält sie ihre
+                    Funktion als gewöhnliche Analoguhr mit Krone bei.
+
                 </div>
             </div>
             <div class="print">
+
                 <div>
-                    <h2>Uhr</h2>
-                    <p> Da Demenz oft die vertrauten Gewohnheiten und Erinnerungen der Betroffenen am längsten bewahrt,
-                        wurde die Uhr im klassischen, analogen Design gestaltet. Die Gestaltung zielt darauf ab, der Uhr
-                        eine vertraute Bedeutung zu verleihen.
-                        Um den Bedürfnissen der oft älteren Zielgruppe gerecht zu werden, sind sowohl die Ziffern als
-                        auch
-                        die
-                        Zeiger gut lesbar
-                        und groß. Zudem ist die Uhr ergonomisch abgerundet und aus einem weichen Material gefertigt, um
-                        Verletzungen
-                        vorzubeugen.
-                    </p>
-                    <p> Die Uhr sendet GPS-Daten, verfügt über eine aktive Fallerkennung und eine Notruffunktion.
-                        Zusätzlich
-                        behält sie ihre
-                        Funktion als gewöhnliche Analoguhr mit Krone bei.
-                    </p>
+                    <div class="card">
+                        <h2>Uhr</h2>
+                        <div id="WatchTextDefault">
+                            <p> Da Demenz oft die vertrauten Gewohnheiten und Erinnerungen der Betroffenen am längsten
+                                bewahrt,
+                                wurde die Uhr im klassischen, analogen Design gestaltet. Die Gestaltung zielt darauf ab,
+                                der
+                                Uhr
+                                eine vertraute Bedeutung zu verleihen.
+                                Um den Bedürfnissen der oft älteren Zielgruppe gerecht zu werden, sind sowohl die
+                                Ziffern
+                                als
+                                auch
+                                die
+                                Zeiger gut lesbar
+                                und groß. Zudem ist die Uhr ergonomisch abgerundet und aus einem weichen Material
+                                gefertigt,
+                                um
+                                Verletzungen
+                                vorzubeugen.
+                            </p>
+                            <p> Die Uhr sendet GPS-Daten, verfügt über eine aktive Fallerkennung und eine
+                                Notruffunktion.
+                                Zusätzlich
+                                behält sie ihre
+                                Funktion als gewöhnliche Analoguhr mit Krone bei.
+                            </p>
+                        </div>
+                    </div>
                 </div>
+
+                <div>
+                    <div class="card">
+                        <h2>Uhr</h2>
+                        <div id="WatchTextButtons">
+                            <p>
+                                Die beiden Knöpfe sind Teil der Notfallerkennung
+                            </p>
+                            <p>
+                                Wenn sie gedrückt werden, wird eine Nachricht an die App gesendet und ein Notruf
+                                gestartet.
+                            </p>
+                            TODO:
+
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="card">
+                        <h2>Uhr</h2>
+                        <div id="WatchTextCrown">
+                            <p>
+                                Die Krone hat die Funktion einer normalen Krone einer normalen analogen Uhr.
+                                Dies dient
+                            </p>
+                            TODO:
+
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="card">
+                        <h2>Uhr</h2>
+                        <div id="WatchTextFace">
+                            TODO:
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="card">
+                        <h2>Uhr</h2>
+                        <div id="WatchTextBandBack">
+                            TODO:
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
 
         <section id="App">
+            <h3 class="section-title">Watch</h3>
             <div class="ThreeD Text no_print">
                 <div class="card">
-                    <h2>App</h2>
                     <p>
                         Die mit der Uhr verbundene App wurde nach dem Prinzip der Schlichtheit gestaltet.
                     </p>

@@ -22,6 +22,7 @@
     margin: 0;
     padding: 0;
     /* border: 2px solid red; */
+    font: inherit;
 }
 
 :root {
@@ -44,9 +45,23 @@
         Verdana,
         sans-serif;
     font-family: "JetBrains Mono", var(--backup-fonts);
+    --fs-small: 0.8rem;
+    --fs-medium: 1rem;
+    --fs-large: 1.75rem;
+    --fs-gigantic: 2.5rem;
+
+    --fw-thin: 200;
+    --fw-medium: 400;
+    --fw-large: 700;
+    --fw-gigantic: 900;
+
+    --lh-small: 0.8em;
+    --lh-medium: 1em;
+    --lh-large: 1.5em;
+    --lh-gigantic: 2em;
+
     scroll-behavior: smooth;
 }
-
 
 @media screen {
     :root:has(#theme_system:checked) {
@@ -93,6 +108,45 @@
         display: none;
         color: red;
     }
+}
+
+.title {
+    font-family: "JetBrains Mono";
+}
+
+.title,
+.gigantic {
+    font-size: var(--fs-gigantic);
+    font-weight: var(--fw-gigantic);
+    line-height: var(--lh-small);
+    margin-block: var(--lh-small);
+}
+
+.section-title,
+.large {
+    font-size: var(--fs-large);
+    font-weight: var(--fw-large);
+    line-height: var(--lh-medium);
+    margin-block: var(--lh-medium);
+}
+
+.medium {
+    font-size: var(--fs-medium);
+    font-weight: var(--fw-medium);
+    line-height: var(--lh-large);
+    margin-block: var(--lh-large);
+}
+
+.light {
+    font-size: var(--fs-small);
+    font-weight: var(--fw-thin);
+    line-height: var(--lh-gigantic);
+    margin-block: var(--lh-gigantic);
+}
+
+.reverse {
+    display: inline-flex;
+    flex-direction: column-reverse;
 }
 
 select {
@@ -394,6 +448,41 @@ site-header {
 
 main {
     padding-bottom: 5rem;
+}
+
+.heading-img {
+    display: flex;
+    flex-direction: column;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    justify-content: start;
+    align-items: start;
+    margin: 2rem 0 10rem 0;
+    height: 80vh;
+    overflow: hidden;
+
+    >:not(.title-wrapper) {
+        width: var(--outer-width);
+        margin: auto;
+    }
+}
+
+.title-wrapper {
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 70dvh;
+    padding: 1rem 0;
+    /* background: url("../assets/Design der Mensch Maschine Schnittstelle/WatchOut/app bg.png"); */
+    place-items: center;
+
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: white;
+        z-index: -1;
+    }
 }
 
 site-footer {

@@ -277,39 +277,15 @@ function getWatchText() {
     switch (watchNextState) {
         case wRotate:
         case wReset:
-            return `
-            Da Demenz oft die vertrauten Gewohnheiten und Erinnerungen der Betroffenen am längsten bewahrt, 
-            wurde die Uhr im klassischen, analogen Design gestaltet. Die Gestaltung zielt darauf ab, 
-            der Uhr eine vertraute Bedeutung zu verleihen. 
-            <br/><br/>
-            Um den Bedürfnissen der oft älteren Zielgruppe gerecht zu werden, 
-            sind sowohl die Ziffern als auch die Zeiger gut lesbar und groß. 
-            Zudem ist die Uhr ergonomisch abgerundet und aus einem weichen Material gefertigt, 
-            um Verletzungen vorzubeugen.
-            <br/><br/>
-            Die Uhr sendet GPS-Daten, verfügt über eine aktive Fallerkennung und eine Notruffunktion. 
-            Zusätzlich behält sie ihre Funktion als gewöhnliche Analoguhr mit Krone bei. 
-            `;
+            return document.querySelector("#WatchTextDefault").innerHTML;
         case wTurnToButtons:
-            return `
-            Die beiden Knöpfe sind Teil der Notfallerkennung
-            <br/><br/>
-            Wenn sie gedrückt werden, wird eine Nachricht an die App gesendet und ein Notruf
-            gestartet.
-            <br/><br/>
-            TODO:
-            `;
+            return document.querySelector("#WatchTextButtons").innerHTML;
         case wTurnToCrown:
-            return `
-            Die Krone hat die Funktion einer normalen Krone einer normalen analogen Uhr.
-            Dies dient 
-            <br/><br/>
-            TODO:
-            `;
+            return document.querySelector("#WatchTextCrown").innerHTML;
         case wTurnToFace:
-            return `TODO:`;
+            return document.querySelector("#WatchTextFace").innerHTML;
         case wTurnToWristBandBack:
-            return `TODO:`;
+            return document.querySelector("#WatchTextBandBack").innerHTML;
         default:
             console.error("Unknown State Encountered", watchNextState);
             return `ERROR`;
