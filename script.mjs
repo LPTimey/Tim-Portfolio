@@ -46,7 +46,7 @@ modal_buttons.forEach(button => {
     activate_button(button, "modal-target", (targetElement) => targetElement.showModal());
 });
 popover_buttons.forEach(button => {
-    activate_button(button, "popover-target", (targetElement) => targetElement.showPopover({source:button}));
+    activate_button(button, "popover-target", (targetElement) => targetElement.togglePopover({source:button}));
 });
 
 dialogs.forEach(dialog => {
