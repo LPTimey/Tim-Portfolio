@@ -381,41 +381,6 @@ site-header {
     display: flex;
     justify-content: center;
     z-index: 100;
-
-    &:has(#theme_dark:checked) {
-        #dark {
-            cursor: default;
-
-            svg {
-                fill: var(--accent-dark);
-            }
-        }
-    }
-
-    &:has(#theme_system:checked) {
-        #system {
-            cursor: default;
-
-            svg {
-                fill: var(--accent-dark);
-            }
-        }
-    }
-
-    &:has(#theme_light:checked) {
-        #light {
-            cursor: default;
-
-            svg {
-                fill: var(--accent-dark);
-            }
-        }
-    }
-
-    multi-state-button {
-        position: relative;
-        top: 10%;
-    }
 }
 
 .popover-wrapper {
