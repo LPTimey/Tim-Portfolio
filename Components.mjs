@@ -1,6 +1,6 @@
 "use strict";
 
-import { gh_logo, light_mode, dark_mode, system_mode, toTop } from "./script.mjs"
+import { gh_logo, burger_icon, light_mode_icon, dark_mode_icon, system_mode_icon, toTop_icon, close_icon } from "./script.mjs"
 
 //#region CmpImages
 export class CmpImages extends HTMLElement {
@@ -305,53 +305,73 @@ export class SiteHeader extends HTMLElement {
         return [];
     }
     get template() {
+        let burger = document.createElement("div");
+        burger.innerHTML = `
+            <input type="checkbox" name="NavBarOpen" id="NavBarOpen" hidden>
+            <div>
+                <label id="Burger" class="nav-button" for="NavBarOpen">${burger_icon}</label>
+                <label id="Close" class="nav-button" for="NavBarOpen">${close_icon}</label>
+            </div>
+        `;
+        burger.classList.add("mobile");
+        burger.classList.add("nav-buttons");
         let header = document.createElement("header");
         header.innerHTML = `
-            <a href="./" class="underline">Home</a>
-            |
-            <a href="about.html" class="underline">Über Mich</a>
-            |
-            <div class="popover-wrapper">
-                <button id="ProjectAnchor" popovertarget="Projects" popover-hover class="underline link"> Projekte &#709; </button>
+            <ul>
+                <li><a href="./" class="underline">Home</a></li>
+                <li><span class="separator"></span></li>
+                <li><a href="about.html" class="underline">Über Mich</a></li>
+                <li><span class="separator"></span></li>
+                <li><div class="popover-wrapper">
+                    <button id="ProjectAnchor" popovertarget="Projects" popover-hover class="underline link"> Projekte &#709; </button>
 
-                <div id="Projects" popover>
-                    <ul id="ProjectsGrid">
-                        <li><a href="watchout.html" class="underline">Watch Out</a></li>
-                        <li><a href="printer.html" class="underline">Touch Screen</a></li>
-                        <li><a href="themes.html" class="underline">Themen & Stile</a></li>
-                        <li><a href="tetris.html" class="underline">Arduino Tetris</a></li>
-                        <li><a href="webdev.html" class="underline">Website Design</a></li>
-                    </ul>
+                    <div id="Projects" popover>
+                        <ul id="ProjectsGrid">
+                            <li><a href="watchout.html" class="underline">Watch Out</a></li>
+                            <li><a href="printer.html" class="underline">Touch Screen</a></li>
+                            <li><a href="themes.html" class="underline">Themen & Stile</a></li>
+                            <li><a href="tetris.html" class="underline">Arduino Tetris</a></li>
+                            <li><a href="webdev.html" class="underline">Website Design</a></li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-            <div class="grow"></div>
-            <theme-selector id="Theme" class="underline"></theme-selector>
-            |
-            <a href="https://github.com/LPTimey/Tim-Portfolio" target="_blank" class="center">${gh_logo}</a>`;
-        return [header];
+                </li>
+                <div class="grow"></div>
+                <li><theme-selector id="Theme" class="underline"></theme-selector></li>
+                <li><span class="separator"></span></li>
+                <li><a href="https://github.com/LPTimey/Tim-Portfolio" target="_blank" class="center flex"><span class="center ">Source</span> ${gh_logo}</a></li>
+            </ul>
+            `;
+        return [burger, header];
     }
-    get styleSheet(){
+    get styleSheet() {
         return `
-@media (width<650px) {
-    /*TODO: make topbar into burger*/
-}
 
 site-header {
+    min-height: 5rem;
+    header{
+        position: sticky;
+        top: 0;
 
-    position: sticky;
-    top: 0;
+        background-color: rgba(from var(--bg) r g b / var(--transparency));
+        -webkit-backdrop-filter: blur(6px);
+        backdrop-filter: blur(6px);
+        padding: 2em 0;
 
-    background-color: rgba(from var(--bg) r g b / var(--transparency));
-    -webkit-backdrop-filter: blur(6px);
-    backdrop-filter: blur(6px);
-    padding: 2em 0;
+        display: flex;
+        justify-content: center;
+        z-index: 100;
 
-    display: flex;
-    justify-content: center;
-    z-index: 100;
+        li {
+            list-style: none;
+            margin: 0;
+            padding:0;
+        }
+
+    }
 }
 
-header {
+header > ul {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -384,8 +404,8 @@ header {
     width: max-content;
     border-radius: var(--border-r);
     background-color: rgba(from var(--bg) r g b / var(--transparency));
-    -webkit-backdrop-filter: blur(6px);
-    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
 
     &:popover-open {
         display: grid;
@@ -404,6 +424,75 @@ header {
         >* {
             width: max-content;
         }
+    }
+}
+
+@media (width<740px) {
+    /*TODO: make topbar into burger*/
+    
+    site-header {
+        max-width:100%;
+        overflow: hidden;
+        header{
+            position: fixed;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            transition: transform 0.2s ease-in-out;
+        }
+        .nav-button{
+            position: fixed;
+            display: grid;
+            width:fit-content;
+            height:fit-content;
+            place-items: center;
+            cursor:pointer;
+            padding: 1ch;
+            top:5%;
+            right:10%;
+            z-index: 1000;
+            svg{
+                width: 2rem;
+                height: 2rem;
+            }
+        }
+        #Burger{
+            border-radius: var(--border-r);
+            background-color: rgba(from var(--bg) r g b / var(--transparency));
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+        }
+
+        &:has(#NavBarOpen:checked){
+            header{
+                transform: translateX(100%);
+            }
+            #Burger{
+                visibility: visible;
+            }
+            #Close{
+                visibility: hidden;
+            }
+        }
+        &:has(#NavBarOpen:not(:checked)){
+            #Burger{
+                visibility: hidden;
+            }
+            #Close{
+                visibility: visible;
+            }
+        }
+    }
+    .separator{
+        display: none;
+    }
+    header > ul {
+        flex-direction: column;
+        gap: 1.75rem;
+        /* left align text but element centered
+        align-items: start;
+        width: fit-content;
+        */
     }
 }
         `;
@@ -522,7 +611,7 @@ export class ToTop extends HTMLElement {
     }
     get template() {
         let link = document.createElement("a");
-        link.innerHTML = toTop
+        link.innerHTML = toTop_icon
         link.id = "ToTop";
         link.href = "#"
         return link;

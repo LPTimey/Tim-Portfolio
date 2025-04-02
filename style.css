@@ -170,6 +170,17 @@ select {
     }
 }
 
+.mobile {
+    display: none;
+}
+
+@media screen and (width<740px) {
+    .mobile {
+        display: block;
+    }
+}
+
+
 /* #endregion setup */
 
 /********************************
@@ -293,8 +304,13 @@ select {
     }
 }
 
+.center {
+    place-self: center;
+}
+
 .flex {
     display: flex;
+    gap: var(--gap, 1ch);
 
     &.column {
         flex-direction: column;
@@ -367,6 +383,11 @@ a,
 .reverse {
     display: inline-flex;
     flex-direction: column-reverse;
+}
+
+.separator::before {
+    content: "|";
+    place-self: center;
 }
 
 .span {
