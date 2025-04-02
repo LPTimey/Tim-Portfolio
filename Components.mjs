@@ -444,7 +444,7 @@ header > ul {
             position: fixed;
             display: grid;
             width:fit-content;
-            height:fit-content;
+            aspect-ratio: 1;
             place-items: center;
             cursor:pointer;
             padding: 1ch;
