@@ -356,14 +356,6 @@ export class SiteHeader extends HTMLElement {
     }
     get styleSheet(){
         return `
-header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1ch;
-    width: var(--outer-width);
-}
-
 @media (width<650px) {
     /*TODO: make topbar into burger*/
 }
@@ -381,6 +373,14 @@ site-header {
     display: flex;
     justify-content: center;
     z-index: 100;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1ch;
+    width: var(--outer-width);
 }
 
 .popover-wrapper {
