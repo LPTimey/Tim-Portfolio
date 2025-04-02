@@ -354,6 +354,119 @@ export class SiteHeader extends HTMLElement {
             <a href="https://github.com/LPTimey/Tim-Portfolio" target="_blank" class="center">${gh_logo}</a>`;
         return [header];
     }
+    get styleSheet(){
+        return `
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1ch;
+    width: var(--outer-width);
+}
+
+@media (width<650px) {
+    /*TODO: make topbar into burger*/
+}
+
+site-header {
+
+    position: sticky;
+    top: 0;
+
+    background-color: rgba(from var(--bg) r g b / var(--transparency));
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    padding: 2em 0;
+
+    display: flex;
+    justify-content: center;
+    z-index: 100;
+
+    &:has(#theme_dark:checked) {
+        #dark {
+            cursor: default;
+
+            svg {
+                fill: var(--accent-dark);
+            }
+        }
+    }
+
+    &:has(#theme_system:checked) {
+        #system {
+            cursor: default;
+
+            svg {
+                fill: var(--accent-dark);
+            }
+        }
+    }
+
+    &:has(#theme_light:checked) {
+        #light {
+            cursor: default;
+
+            svg {
+                fill: var(--accent-dark);
+            }
+        }
+    }
+
+    multi-state-button {
+        position: relative;
+        top: 10%;
+    }
+}
+
+.popover-wrapper {
+    position: relative;
+    /* Um sicherzustellen, dass das Popover relativ zum Button positioniert wird */
+}
+
+#ProjectAnchor {
+    anchor-name: --project-anchor;
+}
+
+#Projects {
+    position: fixed;
+    position-anchor: --project-anchor;
+    margin: 0;
+    inset: auto;
+    /* fix for no anchor*/
+    top: 4.5rem;
+    top: anchor(bottom);
+    left: anchor(left);
+
+    z-index: 999;
+    border: none;
+    padding: 1rem 2ch;
+    width: max-content;
+    border-radius: var(--border-r);
+    background-color: rgba(from var(--bg) r g b / var(--transparency));
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+
+    &:popover-open {
+        display: grid;
+        gap: 1ch;
+
+        #ProjectsGrid {
+            width: 100%;
+            display: grid;
+            gap: 1ch;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        >* {
+            width: max-content;
+        }
+    }
+}
+        `;
+    }
     /**
      * 
      * @param {string} name name of attribute
@@ -364,6 +477,9 @@ export class SiteHeader extends HTMLElement {
         return;
     }
     connectedCallback() {
+        let style = document.createElement("style");
+        style.innerHTML = this.styleSheet;
+        this.appendChild(style)
         this.template.forEach(el => this.appendChild(el));
     }
     constructor() {
