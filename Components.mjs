@@ -307,7 +307,7 @@ export class SiteHeader extends HTMLElement {
     get template() {
         let burger = document.createElement("div");
         burger.innerHTML = `
-            <input type="checkbox" name="NavBarOpen" id="NavBarOpen" hidden>
+            <input type="checkbox" name="NavBarOpen" id="NavBarOpen" hidden checked>
             <div>
                 <label id="Burger" class="nav-button" for="NavBarOpen">${burger_icon}</label>
                 <label id="Close" class="nav-button" for="NavBarOpen">${close_icon}</label>
