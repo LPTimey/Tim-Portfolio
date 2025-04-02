@@ -348,7 +348,7 @@ export class SiteHeader extends HTMLElement {
         return `
 
 site-header {
-    min-height: 5rem;
+    min-height: 1.5rem;
     header{
         position: sticky;
         top: 0;

@@ -454,7 +454,7 @@ body {
 }
 
 .detail {
-    min-height: 80dvh;
+    min-height: 80vh;
     max-width: 100dvw;
 }
 
@@ -485,8 +485,7 @@ body {
     display: flex;
     position: relative;
     width: 100%;
-    height: 70dvh;
-    aspect-ratio: 10 / 4;
+    height: 70vh;
     padding: 1rem 0;
     background-position: center;
     /* background: url("../assets/Design der Mensch Maschine Schnittstelle/WatchOut/app bg.png"); */
