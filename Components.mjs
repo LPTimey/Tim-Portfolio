@@ -328,20 +328,9 @@ export class SiteHeader extends HTMLElement {
     static get observedAttributes() {
         return [];
     }
-    /**
-     * 
-     * @param {string} name name of attribute
-     * @param {*} oldValue old value of attribute
-     * @param {*} newValue new value of attribute
-     */
-    attributeChangedCallback(name, oldValue, newValue) {
-        return;
-    }
-    constructor() {
-        super()
-
-        this.innerHTML = `
-        <header>
+    get template() {
+        let header = document.createElement("header");
+        header.innerHTML = `
             <a href="./" class="underline">Home</a>
             |
             <a href="about.html" class="underline">Über Mich</a>
@@ -362,8 +351,23 @@ export class SiteHeader extends HTMLElement {
             <div class="grow"></div>
             <theme-selector id="Theme" class="underline"></theme-selector>
             |
-            <a href="https://github.com/LPTimey/Tim-Portfolio" target="_blank" class="center">${gh_logo}</a>
-        </header>`;
+            <a href="https://github.com/LPTimey/Tim-Portfolio" target="_blank" class="center">${gh_logo}</a>`;
+        return [header];
+    }
+    /**
+     * 
+     * @param {string} name name of attribute
+     * @param {*} oldValue old value of attribute
+     * @param {*} newValue new value of attribute
+     */
+    attributeChangedCallback(name, oldValue, newValue) {
+        return;
+    }
+    connectedCallback() {
+        this.template.forEach(el => this.appendChild(el));
+    }
+    constructor() {
+        super()
     }
 }
 customElements.define("site-header", SiteHeader);
