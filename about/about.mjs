@@ -4,14 +4,19 @@ import { addLight, rendererNeedsResize, resize, THREE } from "../three_utils.mjs
 
 /** @type {HTMLCanvasElement|null} */
 const WerdeCanvas = document.getElementById("WerdeCanvas");
-let dark = getComputedStyle(WerdeCanvas).getPropertyValue("--dark");
-let light = getComputedStyle(WerdeCanvas).getPropertyValue("--light");
-let accent = getComputedStyle(WerdeCanvas).getPropertyValue("--accent");
-let fg = getComputedStyle(WerdeCanvas).getPropertyValue("--fg");
-let bg = getComputedStyle(WerdeCanvas).getPropertyValue("--bg");
+class Vars {
+    static get dark() { return getComputedStyle(WerdeCanvas).getPropertyValue("--dark"); }
+    static get light() { return getComputedStyle(WerdeCanvas).getPropertyValue("--light"); }
+    static get accent() { return getComputedStyle(WerdeCanvas).getPropertyValue("--accent"); }
+    static get fg() { return getComputedStyle(WerdeCanvas).getPropertyValue("--fg"); }
+    static get bg() { return getComputedStyle(WerdeCanvas).getPropertyValue("--bg"); }
+    static hexToColor(hex){
+        return new THREE.Color(Vars.fg);
+    }
+}
 
 const geometry = new THREE.PlaneGeometry(100, 100); // Ein Quadrat mit 100x100
-const material = new THREE.MeshBasicMaterial({ color: accent });
+const material = new THREE.MeshBasicMaterial({ color: Vars.fg });
 const square = new THREE.Mesh(geometry, material);
 
 
@@ -19,6 +24,7 @@ function renderWerdegang(time, renderer, scene, camera, lastTime) {
     const deltaTime = time - (lastTime ?? 0);
     resize(renderer, camera);
     square.rotation.z += 0.005 * deltaTime;
+    material.color = new THREE.Color(Vars.fg)
 
     renderer.render(scene, camera);
     requestAnimationFrame(newTime => renderWerdegang(newTime, renderer, scene, camera, time))
