@@ -1,6 +1,6 @@
 "use strict";
 
-import { gh_logo, burger_icon, light_mode_icon, dark_mode_icon, system_mode_icon, toTop_icon, close_icon } from "./script.mjs"
+import { gh_logo, burger_icon, light_mode_icon, dark_mode_icon, system_mode_icon, to_top_icon, close_icon } from "./script.mjs"
 
 //#region CmpImages
 export class CmpImages extends HTMLElement {
@@ -614,7 +614,7 @@ export class ToTop extends HTMLElement {
     }
     get template() {
         let link = document.createElement("a");
-        link.innerHTML = toTop_icon
+        link.innerHTML = to_top_icon
         link.id = "ToTop";
         link.href = "#"
         return link;
