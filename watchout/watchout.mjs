@@ -1,4 +1,4 @@
-import * as THREE from 'three';
+import { addLight, rendererNeedsResize, resize, THREE } from "../three_utils.mjs";
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 const watchTextP = document.getElementById("WatchText");
@@ -142,43 +142,12 @@ function DOMTSToSecs(time) {
 function renderWatch(time, renderer, scene, camera, lastTime) {
     const deltaTime = time - (lastTime ?? 0);
     // console.log("Hello");
-    if (rendererNeedsResize(renderer)) {
-        renderer.setSize(renderer.domElement.clientWidth, renderer.domElement.clientHeight, false);
-
-        const canvas = renderer.domElement;
-        camera.aspect = canvas.clientWidth / canvas.clientHeight;
-        camera.updateProjectionMatrix();
-    }
+    resize(renderer,camera);
 
     watchState(deltaTime);
 
     renderer.render(scene, camera);
     requestAnimationFrame((newTime) => renderWatch(newTime, renderer, scene, camera, time));
-}
-
-/**
- * 
- * @param {THREE.WebGLRenderer} renderer 
- * @returns true if renderer needs resizing
- */
-function rendererNeedsResize(renderer) {
-    return renderer.domElement.width !== renderer.domElement.clientWidth
-        || renderer.domElement.height !== renderer.domElement.clientHeight;
-}
-
-/**
- * 
- * @param {THREE.Scene} scene 
- * @param {{x:number,y:number,z:number}} position 
- */
-function addLight(scene, position) {
-
-    const color = 0xFFFFFF;
-    const intensity = 2;
-    const light = new THREE.DirectionalLight(color, intensity);
-    light.position.set(position.x, position.y, position.z);
-    scene.add(light);
-
 }
 
 /**

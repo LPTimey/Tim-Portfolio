@@ -352,6 +352,7 @@ site-header {
 
     position: sticky;
     top: 0;
+    z-index: 100;
     header{
         position: sticky;
         top: 0;
@@ -363,7 +364,6 @@ site-header {
 
         display: flex;
         justify-content: center;
-        z-index: 100;
 
         li {
             list-style: none;
@@ -546,7 +546,7 @@ export class SiteFooter extends HTMLElement {
         this.innerHTML = `
         <to-top></to-top>
         <footer>
-            Created by Tim Ruland
+            Created with HTML, CSS & JS by Tim Ruland © 2025
         </footer>`;
     }
 }

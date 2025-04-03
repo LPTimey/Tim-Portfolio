@@ -1,48 +1,43 @@
 "use strict";
-import {hexToRGB_CSS} from "../script.mjs"
+import { hexToRGB_CSS } from "../script.mjs"
+import { addLight, rendererNeedsResize, resize, THREE } from "../three_utils.mjs";
 
 /** @type {HTMLCanvasElement|null} */
 const WerdeCanvas = document.getElementById("WerdeCanvas");
+let dark = getComputedStyle(WerdeCanvas).getPropertyValue("--dark");
+let light = getComputedStyle(WerdeCanvas).getPropertyValue("--light");
+let accent = getComputedStyle(WerdeCanvas).getPropertyValue("--accent");
+let fg = getComputedStyle(WerdeCanvas).getPropertyValue("--fg");
+let bg = getComputedStyle(WerdeCanvas).getPropertyValue("--bg");
 
-function draw() {
-    if (!WerdeCanvas.getContext) {
-        console.error("ahhhh");
-        return;
-    }
-    const ctx = WerdeCanvas.getContext("2d");
-    if (ctx == null) {
-        console.error("ahhhh");
-        return;
-    }
-
-    // Get the DPR and size of the canvas
-    const dpr = window.devicePixelRatio;
-    const rect = WerdeCanvas.getBoundingClientRect();
-
-    // Set the "actual" size of the canvas
-    WerdeCanvas.width = rect.width * dpr;
-    WerdeCanvas.height = rect.height * dpr;
-
-    // Scale the context to ensure correct drawing operations
-    ctx.scale(dpr, dpr);
-
-    // Set the "drawn" size of the canvas
-    WerdeCanvas.style.width = `${rect.width}px`;
-    WerdeCanvas.style.height = `${rect.height}px`;
+const geometry = new THREE.PlaneGeometry(100, 100); // Ein Quadrat mit 100x100
+const material = new THREE.MeshBasicMaterial({ color: accent });
+const square = new THREE.Mesh(geometry, material);
 
 
-    let dark = getComputedStyle(WerdeCanvas).getPropertyValue("--dark");
-    let light = getComputedStyle(WerdeCanvas).getPropertyValue("--light");
-    let accent_light = getComputedStyle(WerdeCanvas).getPropertyValue("--accent-light");
-    let accent = getComputedStyle(WerdeCanvas).getPropertyValue("--accent");
-    let fg = getComputedStyle(WerdeCanvas).getPropertyValue("--fg");
-    let bg = getComputedStyle(WerdeCanvas).getPropertyValue("--bg");
+function renderWerdegang(time, renderer, scene, camera, lastTime) {
+    const deltaTime = time - (lastTime ?? 0);
+    resize(renderer, camera);
+    square.rotation.z += 0.005 * deltaTime;
 
-    ctx.fillStyle = hexToRGB_CSS(fg);
-    ctx.fillRect(10, 10, 500, 500);
-
-    ctx.fillStyle = hexToRGB_CSS(accent_light,50);
-    ctx.fillRect(300, 300, 500, 500);
-    requestAnimationFrame(draw)
+    renderer.render(scene, camera);
+    requestAnimationFrame(newTime => renderWerdegang(newTime, renderer, scene, camera, time))
 }
-window.addEventListener("load", draw);
+
+function init() {
+    const renderer = new THREE.WebGLRenderer({ antialias: true, canvas: WerdeCanvas, alpha: true });
+    const scene = new THREE.Scene();
+
+    const camera = new THREE.OrthographicCamera(
+        -window.innerWidth / 2, window.innerWidth / 2,   // left, right
+        window.innerHeight / 2, -window.innerHeight / 2, // top, bottom
+        1, 1000  // near, far
+    );
+    camera.position.z = 10; // Die Kamera befindet sich auf der Z-Achse
+
+    scene.add(square); // Füge das Quadrat der Szene hinzu
+
+    requestAnimationFrame(time => renderWerdegang(time, renderer, scene, camera));
+}
+
+init();
