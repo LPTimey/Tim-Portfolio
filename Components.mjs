@@ -339,7 +339,7 @@ export class SiteHeader extends HTMLElement {
                 <div class="grow"></div>
                 <li><theme-selector id="Theme" class="underline"></theme-selector></li>
                 <li><span class="separator"></span></li>
-                <li><a href="https://github.com/LPTimey/Tim-Portfolio" target="_blank" class="center flex"><span class="center ">Source</span> ${gh_logo}</a></li>
+                <li><a href="https://github.com/LPTimey/Tim-Portfolio" target="_blank" class="center flex"><span class="center mobile">Source</span> ${gh_logo}</a></li>
             </ul>
             `;
         return [burger, header];
