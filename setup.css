@@ -10,20 +10,33 @@
 *::after,
 * {
     box-sizing: border-box;
-    transition: color 0.2s ease-in-out,
+    transition:
+        /* color 0.2s ease-in-out,
         background-color 0.2s ease-in-out,
         background 0.2s ease-in-out,
         border-color 0.2s ease-in-out,
         stroke 0.2s ease-in-out,
-        fill 0.2s ease-in-out;
+        transform 0.2s ease-in-out,
+        fill 0.2s ease-in-out, */
+        all var(--transition-time, 0.2s) ease-in-out;
     /* 2. Remove default margin */
     margin: 0;
     padding: 0;
     /* 7. Inherit fonts for example form controls */
     font: inherit;
+    scroll-behavior: smooth;
 }
 
+ol,
+ul,
+li {
+    list-style: none;
+}
 
+:focus-visible {
+    outline: none;
+    outline: 0.15rem solid rgb(from var(--accent) r g b / 0.5);
+}
 
 /* 3. Enable keyword animations */
 @media (prefers-reduced-motion: no-preference) {
@@ -52,11 +65,17 @@ svg {
     max-width: 100%;
 }
 
+svg {
+    fill: var(--fg);
+    /* stroke: var(--fg); */
+}
+
 button {
     border: none;
 }
 
 /* 8. Avoid text overflows */
+a,
 p,
 h1,
 h2,
@@ -65,9 +84,12 @@ h4,
 h5,
 h6 {
     overflow-wrap: break-word;
+    color: var(--fg);
+    text-decoration: none;
 }
 
 /* 9. Improve line wrapping */
+a,
 p {
     text-wrap: pretty;
 }
@@ -79,6 +101,22 @@ h4,
 h5,
 h6 {
     text-wrap: balance;
+}
+
+select {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: var(--fg);
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+option {
+    outline: none;
+    border: none;
+    background-color: var(--bg);
+    color: var(--fg);
 }
 
 /*
@@ -107,11 +145,6 @@ h6 {
 }
 
 @media print {
-    :root {
-        --bg: var(--light);
-        --fg: var(--dark);
-        color-scheme: light;
-    }
 
     .no_print,
     .no_print * {
@@ -133,6 +166,10 @@ h6 {
     place-self: center;
 }
 
+.content {
+    padding-inline: var(--inner-pad-inline);
+}
+
 .flex {
     display: flex;
     gap: var(--gap, 1ch);
@@ -147,13 +184,62 @@ h6 {
     height: 100%;
 }
 
+.grid {
+    display: grid;
+    grid-template-columns: repeat(var(--grid-width), 1fr);
+    grid-template-rows: repeat(var(--grid-height, auto-fit), var(--row-height, 1fr));
+    gap: var(--gap);
+
+    &.default {
+        --gap: 1ch;
+    }
+
+    &.auto,
+    &.default {
+        grid-template-columns: repeat(auto-fill, minmax(var(--min-col), 1fr));
+        justify-content: center;
+        grid-auto-flow: dense;
+    }
+
+    &.layer {
+        place-items: center;
+
+        * {
+            grid-column: 1 / -1;
+            grid-row: 1 / -1;
+        }
+    }
+}
+
 .grow {
     flex-grow: 1;
+}
+
+.link,
+:focus-visible {
+    text-decoration: none;
+    /* padding: 0.1em; */
+    color: var(--fg);
+    cursor: pointer;
+
+    &:hover,
+    &:active {
+        color: var(--accent);
+
+        svg {
+            fill: var(--accent);
+        }
+    }
 }
 
 .reverse {
     display: inline-flex;
     flex-direction: column-reverse;
+}
+
+.separator::before {
+    content: "|";
+    place-self: center;
 }
 
 .underline,

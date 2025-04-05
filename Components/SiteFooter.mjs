@@ -7,7 +7,7 @@ const style = css`
 @import "setup.css";
 `;
 
-export default class x extends HTMLElement {
+export default class SiteFooter extends HTMLElement {
     static get observedAttributes() {
         return [];
     }
@@ -28,4 +28,4 @@ export default class x extends HTMLElement {
         this.attachShadow({ mode: "open" })
     }
 }
-customElements.define("x-x", x);
+customElements.define("site-footer", SiteFooter);

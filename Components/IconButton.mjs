@@ -1,4 +1,4 @@
-import { css, html } from "../script.mjs";
+import { css, html, changeEvent } from "../script.mjs";
 const template = (id) => html`
 <div hidden>
     <input type="checkbox" name="${id}" id="${id}" />
@@ -8,7 +8,7 @@ const template = (id) => html`
 `;
 
 const style = css`
-@import url("setup.css");
+@import "setup.css";
     `;
 
 export default class IconButton extends HTMLElement {
@@ -25,17 +25,22 @@ export default class IconButton extends HTMLElement {
          * @param {*} newValue new value of attribute
          */
     attributeChangedCallback(name, oldValue, newValue) {
+        switch (name) {
+            case "id":
+                this.shadowRoot.innerHTML = style + template(newValue + "box");
+                break;
+        }
         return;
     }
+
     connectedCallback() {
-        this.attachShadow({ mode: "open" })
-        let temp = template(this.id + "box");
-        debugger
-        this.shadowRoot.innerHTML = style + temp;
+        this.shadowRoot.innerHTML = style + template(this.id + "box");
+        this.shadowRoot.querySelector("input").addEventListener("change", (ev) => { this.dispatchEvent(changeEvent) });
 
     }
     constructor() {
         super()
+        this.attachShadow({ mode: "open" })
     }
 }
 customElements.define("icon-button", IconButton);

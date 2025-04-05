@@ -1,4 +1,4 @@
-@import url("setup.css");
+@import "setup.css";
 /********************************
  *                              *
  *            fonts             *
@@ -35,6 +35,8 @@
     --outer-width: 80dvw;
     /* --inner-width: calc(var(--outer-width) - 10dvw); */
     --inner-width: var(--outer-width);
+    --outer-pad-inline: calc((100dvw - var(--outer-width)) / 2);
+    --inner-pad-inline: calc((100dvw - var(--inner-width)) / 2);
     --border-r: 1rem;
     --transparency: 0.85;
 
@@ -63,5 +65,45 @@
     scroll-behavior: smooth;
 }
 
+@media screen {
+    :root:has(#ThemeSystem:checked) {
+
+        @media (prefers-color-scheme: light) {
+            --bg: var(--light);
+            --fg: var(--dark);
+            color-scheme: light;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            --bg: var(--dark);
+            --fg: var(--light);
+            color-scheme: dark;
+        }
+    }
+
+    :root:has(#ThemeDark:checked) {
+        --bg: var(--dark);
+        --fg: var(--light);
+        color-scheme: dark;
+    }
+
+    :root:has(#ThemeLight:checked) {
+        --bg: var(--light);
+        --fg: var(--dark);
+        color-scheme: light;
+    }
+}
+
+@media print {
+    :root {
+        --bg: var(--light);
+        --fg: var(--dark);
+        color-scheme: light;
+    }
+}
+
 /* #endregion Setup */
 
+section {
+    width: 100dvw;
+}

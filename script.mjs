@@ -9,11 +9,17 @@ export function noOpTag(strings, ...values) {
 }
 
 export function css(strings, ...values) {
-    return "<style>" + noOpTag(strings, values) + "</style>";
+    return "<style>" + noOpTag(strings, ...values) + "</style>";
 }
 export function html(strings, ...values) {
-    return  noOpTag(strings, values);
+    return  noOpTag(strings, ...values);
 }
+
+export const changeEvent = new Event('change', {
+    bubbles: true,
+    cancelable: true,
+    composed: true,
+});
 
 /******************************\
  *                            *

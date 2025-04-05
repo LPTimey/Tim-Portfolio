@@ -8,14 +8,59 @@
     <link rel="stylesheet" href="style.css">
     <script type="module" src="./Components/IconButton.mjs"></script>
     <script type="module" src="./Components/Header.mjs"></script>
+    <script type="module" src="./Components/HeroImg.mjs"></script>
+    <script type="module" src="./Components/ProjectCard.mjs"></script>
+    <script type="module" src="./Components/SiteFooter.mjs"></script>
 </head>
 
 <body>
-    <icon-button id="test">
-        <p>hallo</p>
-        <p>hallo</p>
-    </icon-button>
     <site-header></site-header>
+    <main>
+        <section>
+            <h1></h1>
+            <hero-img src="./assets/Title-img.png" alt="Scrolling Image" id="HeroImage" time="35s" cols="2" rows="3">
+                <div><a href="#Projects" class="button">Projekte</a></div>
+            </hero-img>
+        </section>
+        <section id="Projects">
+            <h2></h2>
+            <div class="grid auto default content" id="ProjectsGrid" style="--min-col:30ch;--gap:2rem;">
+                <project-card src="./assets/Design der Mensch Maschine Schnittstelle/WatchOut/title-img-flipp-bg.png" alt="" href="#">
+                    <h3>DMMS
+                        Watch Out</h3>
+                    <p>
+                        Eine Uhr und eine App um Menschen mit Demenz und deren Familie zu helfen ein sorgloseres Leben
+                        zu leben.
+                    </p>
+                </project-card>
+                <project-card src="./assets/Screendesign/Drucker/title-img-zoomed.png" alt="" href="#">
+                    <h3>Screendesign
+                        Kleine Touchscreens</h3>
+                    <p>Anpassung des Hochschuldrucker UIs für bessere Les- und Bedienbarkeit ohne den Verlust von
+                        Features.</p>
+                </project-card>
+                <project-card src="./assets/Screendesign/Styles/title-img.png" alt="" href="#">
+                    <h3>Screendesign
+                        Themen & Stile</h3>
+                    <p>Ein Experiment, welches die Wichtigkeit eines Ansprechenden Visual Designs zeigt indem einem
+                        Original das Design
+                        genommen wird und andere Stil aufgetragen werden.</p>
+                </project-card>
+                <project-card src="https://placehold.co/600x400" alt="" href="#">
+                    <h3>Programmieren
+                        Tetris in Arduino & C</h3>
+                    <p>Spiele-Entwicklung auf embedded systems mit manueller Input Hardware Eingabe und simpler LED
+                        Ausgabe.</p>
+                </project-card>
+                <project-card src="https://placehold.co/600x400" alt="" href="#">
+                    <h3>Programmieren
+                        Website Development</h3>
+                    <p>Die Geschichte der Entwicklung dieser Website</p>
+                </project-card>
+            </div>
+        </section>
+    </main>
+    <site-footer></site-footer>
 </body>
 
 </html>
