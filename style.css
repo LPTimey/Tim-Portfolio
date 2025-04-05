@@ -86,9 +86,9 @@ select {
 /* #region setup */
 
 :root {
-    --dark: #181818;
+    --dark: #181819;
     --light: #ddd;
-    --light: #eee;
+    --light: #FBFFF1;
     --accent: #6060ff;
     /* --accent-2: color-mix(in srgb, color-mix(in srgb, var(--bg), var(--fg) 0%), var(--accent) 50%); */
     --accent-dark: #4141bd;
@@ -372,7 +372,7 @@ a,
     }
 }
 
-.m-b-2{
+.m-b-2 {
     margin-bottom: 2rem;
 }
 
