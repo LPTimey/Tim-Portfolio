@@ -11,6 +11,9 @@ const template = (src, alt, href) => html`
 const style = css`
 @import "setup.css";
 :host{
+    --x:0.5rem;
+    --y:0.5rem;
+    --blur:0.5rem;
     position:relative;
     display: grid;
     grid-template-rows: subgrid;
@@ -19,10 +22,12 @@ const style = css`
     border-radius: var(--border-r);
     border: 1px solid var(--fg);
     overflow: hidden;
-    filter: drop-shadow(0.25rem 0.25rem 0.25rem rgb(from var(--fg) r g b / 0.2));
+    filter: drop-shadow(var(--x) var(--y) var(--blur) rgb(from var(--fg) r g b / 0.1));
 }
 :host(:hover){
-    transform: translateY(-0.75rem);
+    --translate-y: -0.75rem;
+    transform: translateY(var(--translate-y));
+    filter: drop-shadow(var(--x) calc(var(--y) - var(--translate-y)) var(--blur) rgb(from var(--fg) r g b / 0.1));
 }
 img{
     width: 100%;
