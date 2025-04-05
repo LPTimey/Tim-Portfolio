@@ -1,3 +1,20 @@
+export function noOpTag(strings, ...values) {
+    // Füge alle Strings zusammen und setze Werte in den Platzhalter ein
+    let res = strings.reduce((result, string, i) => {
+        // Wenn es einen Wert gibt, füge ihn hinzu, andernfalls füge einfach den String hinzu
+        let new_res = result + string + (values[i] !== undefined ? values[i] : '');
+        return new_res;
+    }, '');
+    return res;
+}
+
+export function css(strings, ...values) {
+    return "<style>" + noOpTag(strings, values) + "</style>";
+}
+export function html(strings, ...values) {
+    return  noOpTag(strings, values);
+}
+
 /******************************\
  *                            *
  *            svg             *
