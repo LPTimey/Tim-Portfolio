@@ -19,82 +19,113 @@
 
 /********************************
  *                              *
- *            reset             *
+ *            Reset             *
  *                              *
  *******************************/
-/* #region reset */
-
+/* #region Reset */
+/* adapted from https://www.joshwcomeau.com/css/custom-css-reset/?from=newsletter*/
+/* 1. Use a more-intuitive box-sizing model */
 *::before,
 *::after,
 * {
+    box-sizing: border-box;
     transition: color 0.2s ease-in-out,
         background-color 0.2s ease-in-out,
         background 0.2s ease-in-out,
         border-color 0.2s ease-in-out,
         stroke 0.2s ease-in-out,
         fill 0.2s ease-in-out;
-
-    box-sizing: border-box;
+    /* 2. Remove default margin */
     margin: 0;
     padding: 0;
-    /* border: 2px solid red; */
+    /* 7. Inherit fonts for example form controls */
     font: inherit;
 }
 
-:focus-visible {
-    outline: none;
+
+
+/* 3. Enable keyword animations */
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        interpolate-size: allow-keywords;
+    }
 }
 
-[popover] {
-    inset: unset
+body {
+    /* 4. Add accessible line-height */
+    line-height: 1.5;
+    /* 5. Improve text rendering */
+    -webkit-font-smoothing: antialiased;
+    min-height: 100dvh;
+    color: var(--fg);
+    background-color: var(--bg);
+}
+
+/* 6. Improve media defaults */
+img,
+picture,
+video,
+canvas,
+svg {
+    display: block;
+    max-width: 100%;
 }
 
 button {
     border: none;
 }
 
-img {
-    display: block;
-    width: 100%;
-    object-fit: cover;
+/* 8. Avoid text overflows */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    overflow-wrap: break-word;
 }
 
-main {
-    padding-bottom: 5rem;
+/* 9. Improve line wrapping */
+p {
+    text-wrap: pretty;
 }
 
-select {
-    background-color: transparent;
-    border: none;
-    color: var(--fg);
-    cursor: pointer;
-    font-size: 1rem;
-
-    option {
-        background: var(--bg);
-        color: var(--fg);
-    }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    text-wrap: balance;
 }
 
-/* #endregion reset */
+/*
+  10. Create a root stacking context
+*/
+#root,
+#__next {
+    isolation: isolate;
+}
+
+/* #endregion Reset */
 
 /********************************
  *                              *
- *            setup             *
+ *            Setup             *
  *                              *
  *******************************/
-/* #region setup */
+/* #region Setup */
 
 :root {
     --dark: #181819;
     --light: #ddd;
     --light: #FBFFF1;
     --accent: #6060ff;
-    /* --accent-2: color-mix(in srgb, color-mix(in srgb, var(--bg), var(--fg) 0%), var(--accent) 50%); */
     --accent-dark: #4141bd;
 
     --outer-width: 80dvw;
-    --inner-width: calc(var(--outer-width) - 10dvw);
+    /* --inner-width: calc(var(--outer-width) - 10dvw); */
     --inner-width: var(--outer-width);
     --border-r: 1rem;
     --transparency: 0.85;
@@ -125,34 +156,9 @@ select {
 }
 
 @media screen {
-    :root:has(#ThemeSystem:checked) {
 
-        @media (prefers-color-scheme: light) {
-            --bg: var(--light);
-            --fg: var(--dark);
-            color-scheme: light;
-        }
-
-        @media (prefers-color-scheme: dark) {
-            --bg: var(--dark);
-            --fg: var(--light);
-            color-scheme: dark;
-        }
-    }
-
-    :root:has(#ThemeDark:checked) {
-        --bg: var(--dark);
-        --fg: var(--light);
-        color-scheme: dark;
-    }
-
-    :root:has(#ThemeLight:checked) {
-        --bg: var(--light);
-        --fg: var(--dark);
-        color-scheme: light;
-    }
-
-    .print {
+    .print,
+    .print * {
         display: none;
     }
 }
@@ -180,130 +186,15 @@ select {
     }
 }
 
+/* #endregion Setup */
 
-/* #endregion setup */
 
 /********************************
  *                              *
- *            helper            *
+ *           Helpers            *
  *                              *
  *******************************/
-/* #region helper */
-
-/************ Text *************/
-/* #region Text */
-.title {
-    font-family: "JetBrains Mono";
-}
-
-.title,
-.gigantic {
-    font-size: var(--fs-gigantic);
-    font-weight: var(--fw-gigantic);
-    line-height: var(--lh-small);
-}
-
-.section-title,
-.large {
-    font-size: var(--fs-large);
-    font-weight: var(--fw-large);
-    line-height: var(--lh-normal);
-}
-
-.medium {
-    font-size: var(--fs-medium);
-    font-weight: var(--fw-medium);
-    line-height: var(--lh-large);
-}
-
-.normal {
-    font-size: var(--fs-normal);
-    font-weight: var(--fw-normal);
-    line-height: var(--lh-gigantic);
-}
-
-/* #endregion Text */
-
-.button.button {
-    --i-size: var(--size, 2em);
-    margin: var(--i-size) 0;
-    padding: calc(var(--i-size)*0.5) calc(var(--i-size)*0.75);
-    border-radius: var(--border-r);
-    border: max(1px, 0.1em) solid var(--fg);
-    color: var(--fg);
-    background-color: var(--bg);
-    height: fit-content;
-    width: fit-content;
-    cursor: pointer;
-    text-decoration: none;
-
-    &[active] {
-        background-color: var(--accent);
-        border-color: rgba(255, 255, 255, 0);
-        color: var(--light);
-    }
-
-    &:hover,
-    &:active {
-        color: var(--light);
-        border-color: rgba(255, 255, 255, 0);
-        background-color: var(--accent-dark);
-    }
-
-    &[passive] {
-        margin: calc(var(--i-size) / 2) 0;
-
-        &:hover,
-        &:active {
-            color: var(--dark);
-            border-color: rgba(255, 255, 255, 0);
-            background-color: var(--light);
-        }
-    }
-}
-
-.card {
-    --pad: 1.5ch;
-    padding: var(--pad);
-    margin: 0.25em;
-    background-color: color-mix(in srgb, var(--bg), var(--fg) 10%);
-    border: 0.2ch solid rgba(from var(--fg) r g b / 0.25);
-    border-radius: var(--border-r);
-
-    &.in-grid {
-        grid-row: span 5;
-        display: grid;
-        grid-template-rows: subgrid;
-    }
-
-    h3 {
-        margin-top: 0.25em;
-    }
-
-    h4 {
-        margin-top: -0.5em;
-    }
-
-    img {
-        width: 100%;
-        height: 15rem;
-        object-fit: cover;
-        border-radius: calc(var(--border-r) - var(--pad) / 2);
-    }
-
-    &.hover:hover,
-    &.hover:active {
-        background-color: var(--accent-dark);
-        color: var(--light);
-        border-color: rgba(255, 255, 255, 0);
-
-        ::selection {
-            color: var(--accent-dark);
-            background-color: var(--light);
-        }
-    }
-}
-
+/* #region Helpers*/
 .center {
     place-self: center;
 }
@@ -322,84 +213,13 @@ select {
     height: 100%;
 }
 
-
-.grid {
-    display: grid;
-    grid-template-columns: repeat(var(--grid-width), 1fr);
-    grid-template-rows: repeat(var(--grid-height, auto-fit), var(--row-height, 1fr));
-    gap: var(--gap);
-
-    &.default {
-        --gap: 1ch;
-    }
-
-    &.auto,
-    &.default {
-        grid-template-columns: repeat(auto-fill, minmax(var(--min-col), 1fr));
-        justify-content: center;
-        grid-auto-flow: dense;
-    }
-
-    &.layer {
-        place-items: center;
-
-        * {
-            grid-column: 1 / -1;
-            grid-row: 1 / -1;
-        }
-    }
-}
-
 .grow {
     flex-grow: 1;
-}
-
-.link,
-a,
-:focus-visible {
-    text-decoration: none;
-    padding: 0.1em;
-    color: var(--fg);
-    cursor: pointer;
-
-    &:hover,
-    &:active {
-        color: var(--accent);
-
-        svg {
-            fill: var(--accent);
-        }
-    }
-}
-
-.m-b-2 {
-    margin-bottom: 2rem;
-}
-
-.masonry {
-    &.default {
-        --column-width: 20ch;
-    }
-
-    columns: var(--column-width);
 }
 
 .reverse {
     display: inline-flex;
     flex-direction: column-reverse;
-}
-
-.separator::before {
-    content: "|";
-    place-self: center;
-}
-
-.span {
-    grid-column: span 2;
-
-    &.all {
-        grid-column: 1 / -1;
-    }
 }
 
 .underline,
@@ -424,89 +244,4 @@ a,
     }
 }
 
-/* #endregion helper */
-
-svg {
-    fill: var(--fg);
-}
-
-body {
-    background-color: var(--bg);
-    color: var(--fg);
-    min-height: 100dvh;
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-}
-
-.heading {
-    grid-area: Heading;
-    column-span: all;
-    display: block;
-    margin: auto;
-    margin-bottom: 2rem;
-    width: var(--outer-width);
-
-    .title-image {
-        height: 25em;
-        width: 100%;
-    }
-}
-
-.detail {
-    min-height: 80vh;
-    max-width: 100dvw;
-}
-
-.content {
-    grid-area: content;
-    width: var(--inner-width);
-    margin: 0 auto;
-}
-
-.heading-img {
-    display: flex;
-    flex-direction: column;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr;
-    justify-content: start;
-    align-items: start;
-    margin: 2rem 0 10rem 0;
-
-    overflow: hidden;
-
-    >:not(.title-wrapper) {
-        width: var(--outer-width);
-        margin-inline: auto;
-    }
-}
-
-.title-wrapper {
-    display: flex;
-    position: relative;
-    width: 100%;
-    height: 70vh;
-    padding: 1rem 0;
-    background-position: center;
-    /* background: url("../assets/Design der Mensch Maschine Schnittstelle/WatchOut/app bg.png"); */
-    place-items: center;
-
-    &::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: white;
-        z-index: -1;
-    }
-}
-
-site-footer {
-    padding-bottom: 3em;
-    padding-top: 3em;
-    background-color: color-mix(in srgb, var(--bg), var(--fg) 25%);
-
-    footer {
-        width: var(--outer-width);
-        margin: auto;
-    }
-}
+/* #endregion Helpers*/
