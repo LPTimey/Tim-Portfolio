@@ -1,9 +1,8 @@
 import { burger_icon, close_icon, css, gh_logo, html } from "../script.mjs"
 
 const template = html`
-<icon-button id="Theme">${burger_icon} ${close_icon}</icon-button>
 <header>
-    <nav>
+    <nav class="content">
         <ul>
             <li><a href="/#" class="underline link">Home</a></li>
             <div class="separator"></div>
@@ -13,14 +12,67 @@ const template = html`
             <div class="grow"></div>
             <li><slot></slot></li>
             <div class="separator"></div>
-            <li><a href="" class="link"> <span class="underline mobile">Source</span> ${gh_logo}</a></li>
+            <li class="flex"><a href="" class="link flex center"> <span class="underline mobile center">Source</span> ${gh_logo}</a></li>
         </ul>
     </nav>
 </header>
+<icon-button id="Theme" class="mobile">${close_icon} ${burger_icon}</icon-button>
 `;
 
 const style = css`
 @import "setup.css";
+:host{
+    position: fixed;
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000000000;
+}
+header{
+    position: relative;
+    background-color: rgba(from var(--bg) r g b / var(--transparency));
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+}
+header,nav,ul{
+    height: 100%;
+    width: 100%;
+}
+ul{
+    padding-block:2rem;
+    display: flex;
+    gap: 1ch;
+    justify-content: center;
+    align-items: center
+}
+
+@media(width < 740px) {
+    :host{
+        inset: 0;
+    }
+    ul {
+        flex-direction: column;
+        gap: 3rem;
+
+        .separator,.grow{
+            display:none;
+        }
+    }
+    icon-button{
+        position: fixed;
+        padding: 1rem;
+        right: 2rem;
+        top: 2rem;
+        aspect-ratio: 1;
+        width: 5rem;
+    }
+    header:has(+ icon-button[checked]) {
+        transform: translateX(100%);
+    }
+}
 `;
 
 export default class SiteHeader extends HTMLElement {
@@ -45,10 +97,10 @@ export default class SiteHeader extends HTMLElement {
     }
 }
 customElements.define("my-site-header", SiteHeader);
-customElements.define("site-header", class extends HTMLElement{
-    constructor(){
+customElements.define("site-header", class extends HTMLElement {
+    constructor() {
         super();
-        this.outerHTML =`<my-site-header><select id="ThemeSelect">
+        this.outerHTML = `<my-site-header><select id="ThemeSelect">
         <option id="ThemeLight" value="ThemeLight">Licht-Thema</option>
         <option id="ThemeSystem" value="ThemeSystem" selected>System-Thema</option>
         <option id="ThemeDark" value="ThemeDark">Dunkel-Thema</option>

@@ -162,8 +162,46 @@ option {
     }
 }
 
+/************ Text *************/
+/* #region Text */
+.title {
+    font-family: "JetBrains Mono";
+}
+
+.title,
+.gigantic {
+    font-size: var(--fs-gigantic);
+    font-weight: var(--fw-gigantic);
+    line-height: var(--lh-small);
+}
+
+.section-title,
+.large {
+    font-size: var(--fs-large);
+    font-weight: var(--fw-large);
+    line-height: var(--lh-normal);
+}
+
+.medium {
+    font-size: var(--fs-medium);
+    font-weight: var(--fw-medium);
+    line-height: var(--lh-large);
+}
+
+.normal {
+    font-size: var(--fs-normal);
+    font-weight: var(--fw-normal);
+    line-height: var(--lh-gigantic);
+}
+
+/* #endregion Text */
+
 .center {
     place-self: center;
+}
+
+.heading {
+    padding-inline: var(--outer-pad-inline);
 }
 
 .content {
@@ -215,15 +253,13 @@ option {
     flex-grow: 1;
 }
 
-.link,
-:focus-visible {
+.link {
     text-decoration: none;
     /* padding: 0.1em; */
     color: var(--fg);
     cursor: pointer;
 
-    &:hover,
-    &:active {
+    &:hover {
         color: var(--accent);
 
         svg {
@@ -257,9 +293,8 @@ option {
     background-repeat: no-repeat;
     transition: background-size var(--transition-time);
 
-    &:hover,
-    &:active,
-    &:focus {
+    &:hover:not(active),
+    :focus-visible {
         background-size: 0 0.1em, 100% 0.1em;
     }
 }

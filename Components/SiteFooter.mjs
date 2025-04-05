@@ -1,6 +1,7 @@
 import { css, html } from "../script.mjs";
 
 const template = html`
+<a href="#" class="link underline">ToTop</a>
 `;
 
 const style = css`
