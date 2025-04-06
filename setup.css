@@ -8,9 +8,9 @@
 @layer reset {
 
     /* 1. Use a more-intuitive box-sizing model */
-    *::before,
-    *::after,
-    * {
+    :where(*::before,
+        *::after,
+        *) {
         box-sizing: border-box;
         transition:
             /* color 0.2s ease-in-out,
@@ -29,25 +29,25 @@
         scroll-behavior: smooth;
     }
 
-    ol,
-    ul,
-    li {
+    :where(ol,
+        ul,
+        li) {
         list-style: none;
     }
 
-    :focus-visible {
+    :where(:focus-visible) {
         outline: none;
         outline: 0.15rem solid rgb(from var(--accent) r g b / 0.5);
     }
 
     /* 3. Enable keyword animations */
     @media (prefers-reduced-motion: no-preference) {
-        html {
+        :where(html) {
             interpolate-size: allow-keywords;
         }
     }
 
-    body {
+    :where(body) {
         /* 4. Add accessible line-height */
         line-height: 1.5;
         /* 5. Improve text rendering */
@@ -58,54 +58,54 @@
     }
 
     /* 6. Improve media defaults */
-    img,
-    picture,
-    video,
-    canvas,
-    svg {
+    :where(img,
+        picture,
+        video,
+        canvas,
+        svg) {
         display: block;
         max-width: 100%;
     }
 
-    svg {
+    :where(svg) {
         fill: var(--fg);
         /* stroke: var(--fg); */
     }
 
-    button {
+    :where(button) {
         border: none;
     }
 
     /* 8. Avoid text overflows */
-    a,
-    p,
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
+    :where(a,
+        p,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6) {
         overflow-wrap: break-word;
         color: var(--fg);
         text-decoration: none;
     }
 
     /* 9. Improve line wrapping */
-    a,
-    p {
+    :where(a,
+        p) {
         text-wrap: pretty;
     }
 
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
+    :where(h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6) {
         text-wrap: balance;
     }
 
-    select {
+    :where(select) {
         background-color: transparent;
         border: none;
         outline: none;
@@ -114,7 +114,7 @@
         font-size: 1rem;
     }
 
-    option {
+    :where(option) {
         outline: none;
         border: none;
         background-color: var(--bg);
@@ -124,8 +124,8 @@
     /*
   10. Create a root stacking context
 */
-    #root,
-    #__next {
+    :where(#root,
+        #__next) {
         isolation: isolate;
     }
 }
@@ -142,14 +142,14 @@
 
     @media screen {
 
-        .print,
-        .print * {
+        :where(.print,
+            .print *) {
             visibility: hidden;
             position: absolute;
         }
 
-        .no_print,
-        .no_print * {
+        :where(.no_print,
+            .no_print *) {
             visibility: unset;
             position: unset;
         }
@@ -157,29 +157,29 @@
 
     @media print {
 
-        .print,
-        .print * {
+        :where(.print,
+            .print *) {
             visibility: unset;
             position: unset;
         }
 
-        .no_print,
-        .no_print * {
+        :where(.no_print,
+            .no_print *) {
             visibility: hidden;
             position: absolute;
         }
     }
 
-    .mobile,
-    .mobile * {
+    :where(.mobile,
+        .mobile *) {
         visibility: hidden;
         position: absolute;
     }
 
     @media screen and (width<740px) {
 
-        .mobile,
-        .mobile * {
+        :where(.mobile,
+            .mobile *) {
             visibility: unset;
             position: unset;
         }
@@ -187,55 +187,55 @@
 
     /************ Text *************/
     /* #region Text */
-    .title {
+    :where(.title) {
         font-family: "JetBrains Mono";
     }
 
-    .title,
-    .gigantic {
+    :where(.title,
+        .gigantic) {
         font-size: var(--fs-gigantic);
         font-weight: var(--fw-gigantic);
         line-height: var(--lh-small);
 
-        &.margin-b {
+        :where(&.margin-b) {
             margin-block: var(--fmb-gigantic);
         }
     }
 
-    .section-title,
-    .large {
+    :where(.section-title,
+        .large) {
         font-size: var(--fs-large);
         font-weight: var(--fw-large);
         line-height: var(--lh-normal);
 
-        &.margin-b {
+        :where(&.margin-b) {
             margin-block: var(--fmb-large);
         }
     }
 
-    .medium {
+    :where(.medium) {
         font-size: var(--fs-medium);
         font-weight: var(--fw-medium);
         line-height: var(--lh-large);
 
-        &.margin-b {
+        :where(&.margin-b) {
             margin-block: var(--fmb-medium);
         }
     }
 
-    .normal {
+    :where(.normal) {
         font-size: var(--fs-normal);
         font-weight: var(--fw-normal);
         line-height: var(--lh-gigantic);
 
-        &.margin-b {
+        :where(&.margin-b) {
             margin-block: var(--fmb-normal);
         }
     }
 
     /* #endregion Text */
 
-    .button {
+    :where(.button) {
         display: block;
         cursor: pointer;
         width: max-content;
@@ -243,109 +243,109 @@
         border: 1px solid var(--fg);
         border-radius: var(--border-r);
 
-        &:hover {
+        :where(&:hover) {
             color: var(--accent);
         }
     }
 
-    .center {
+    :where(.center) {
         place-self: center;
     }
 
-    .heading {
+    :where(.heading) {
         padding-inline: var(--outer-pad-inline);
     }
 
-    .content {
+    :where(.content) {
         padding-inline: var(--inner-pad-inline);
     }
 
-    .flex {
+    :where(.flex) {
         display: flex;
         gap: var(--gap, 1ch);
 
-        &.column {
+        :where(&.column) {
             flex-direction: column;
         }
     }
 
-    .full {
+    :where(.full) {
         width: 100%;
         height: 100%;
 
-        &.children>* {
+        :where(&.children>*) {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
     }
 
-    .grid {
+    :where(.grid) {
         display: grid;
         grid-template-columns: repeat(var(--grid-width), 1fr);
         grid-template-rows: repeat(var(--grid-height, auto-fit), var(--row-height, 1fr));
         gap: var(--gap);
 
-        &.default {
+        :where(&.default) {
             --gap: 1ch;
         }
 
-        &.auto,
-        &.default {
+        :where(&.auto,
+            &.default) {
             grid-template-columns: repeat(auto-fill, minmax(var(--min-col), 1fr));
             justify-content: center;
             grid-auto-flow: dense;
         }
 
-        &.layer {
+        :where(&.layer) {
             place-items: center;
 
-            * {
+            :where(*) {
                 grid-column: 1 / -1;
                 grid-row: 1 / -1;
             }
         }
     }
 
-    .grow {
+    :where(.grow) {
         flex-grow: 1;
     }
 
-    .left {
+    :where(.left) {
         margin-right: auto;
     }
 
-    .link {
+    :where(.link) {
         text-decoration: none;
         /* padding: 0.1em; */
         color: var(--fg);
         cursor: pointer;
 
-        &:hover {
+        :where(&:hover) {
             color: var(--accent);
 
-            svg {
+            :where(svg) {
                 fill: var(--accent);
             }
         }
     }
 
-    .reverse {
+    :where(.reverse) {
         display: inline-flex;
         flex-direction: column-reverse;
     }
 
-    .right {
+    :where(.right) {
         margin-left: auto;
     }
 
-    .separator::before {
+    :where(.separator::before) {
         content: "|";
         place-self: center;
     }
 
-    .underline,
-    :focus-visible {
+    :where(.underline,
+        :focus-visible) {
         --transition-time: 400ms;
 
         background:
@@ -359,8 +359,8 @@
         background-repeat: no-repeat;
         transition: background-size var(--transition-time);
 
-        &:hover:not(active),
-        :focus-visible {
+        :where(&:hover:not(active),
+            :focus-visible) {
             background-size: 0 0.1em, 100% 0.1em;
         }
     }
