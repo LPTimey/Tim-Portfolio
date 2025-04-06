@@ -48,6 +48,10 @@ ul{
     justify-content: center;
     align-items: center
 }
+svg {
+    fill: var(--fg);
+    /* stroke: var(--fg); */
+}
 
 @media(width < 740px) {
     header{
