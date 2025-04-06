@@ -1,12 +1,13 @@
 import { css, html, to_top_icon } from "../script.mjs";
 
 const template = html`
-<a href="#">${to_top_icon}</a>
+<a href="#" class="button">${to_top_icon}</a>
 `;
 
 const style = css`
 @import "setup.css";
 a {
+    --b-bg: rgba(from var(--bg) r g b / var(--transparency));
     position: fixed;
     bottom: 3rem;
     right: calc(var(--outer-pad-inline) / 2);
@@ -16,7 +17,6 @@ a {
     border-radius: 50%;
     border: 1px solid var(--fg);
 
-    background-color: rgba(from var(--bg) r g b / var(--transparency));
     -webkit-backdrop-filter: blur(var(--blur-r));
     backdrop-filter: blur(var(--blur-r));
 }
@@ -25,20 +25,20 @@ a {
 `;
 
 export default class ToTop extends HTMLElement {
-    static get observedAttributes() {
-        return [];
-    }
-    /**
-         * 
-         * @param {string} name name of attribute
-         * @param {*} oldValue old value of attribute
-         * @param {*} newValue new value of attribute
-         */
-    attributeChangedCallback(name, oldValue, newValue) {
-        return;
+    static toTopButtonDelta = 125;
+
+    toTopButtonDisplay(window) {
+        if (window.pageYOffset < ToTop.toTopButtonDelta) {
+            this.style.visibility = "hidden"
+        } else {
+            this.style.visibility = "visible"
+        }
     }
     connectedCallback() {
         this.shadowRoot.innerHTML = style + template;
+
+        window.addEventListener("scroll", (ev) => this.toTopButtonDisplay(window));
+        this.toTopButtonDisplay(window);
     }
     constructor() {
         super()

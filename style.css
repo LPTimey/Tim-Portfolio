@@ -42,7 +42,7 @@
         --inner-pad-inline: calc((100dvw - var(--inner-width)) / 2);
         --border-r: 1rem;
         --blur-r: 6px;
-        --transparency: 0.85;
+        --transparency: 0.75;
 
         --backup-fonts: 'Segoe UI',
             Tahoma,
@@ -119,8 +119,10 @@
         margin-block: var(--margin-b);
         scroll-margin: var(--margin-b);
 
-        &:nth-child(1) {
-            margin-top: calc(var(--margin-b) / 2);
+        @media (width < 740px) {
+            &:nth-child(1) {
+                margin-top: calc((var(--margin-b) / 2) + 1rem);
+            }
         }
     }
 }
