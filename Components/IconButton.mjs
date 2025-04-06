@@ -76,9 +76,9 @@ export default class IconButton extends HTMLElement {
         this.shadowRoot.querySelector("input").addEventListener("change", (ev) => {
             // this.setAttribute("checked", ev.target.checked);
             // this.checked = !!ev.target.checked
-            if (ev.target.checked){
-                this.setAttribute("checked","");
-            }else{
+            if (ev.target.checked) {
+                this.setAttribute("checked", "");
+            } else {
                 this.removeAttribute("checked");
             }
             this.dispatchEvent(changeEvent)

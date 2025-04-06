@@ -1,4 +1,5 @@
 import { burger_icon, close_icon, css, gh_logo, html } from "../script.mjs"
+import IconButton from "./IconButton.mjs";
 
 const template = html`
 <header>
@@ -21,7 +22,8 @@ const template = html`
 
 const style = css`
 @import "setup.css";
-:host{
+
+header{
     position: fixed;
     display: block;
     width: 100%;
@@ -30,9 +32,6 @@ const style = css`
     left: 0;
     right: 0;
     z-index: 1000000000;
-}
-header{
-    position: relative;
     background-color: rgba(from var(--bg) r g b / var(--transparency));
     -webkit-backdrop-filter: blur(var(--blur-r));
     backdrop-filter: blur(var(--blur-r));
@@ -50,9 +49,6 @@ ul{
 }
 
 @media(width < 740px) {
-    :host{
-        inset: 0;
-    }
     ul {
         flex-direction: column;
         gap: 3rem;
@@ -67,7 +63,8 @@ ul{
         right: 2rem;
         top: 2rem;
         aspect-ratio: 1;
-        width: 4.5rem;
+        width: 4rem;
+        z-index: 1000000000;
 
         &:not([checked]){
             background-color: rgba(from var(--bg) r g b / var(--transparency));

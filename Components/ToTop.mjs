@@ -1,15 +1,30 @@
-import { css, html } from "../script.mjs";
-import ToTop from "./ToTop.mjs"
+import { css, html, to_top_icon } from "../script.mjs";
 
 const template = html`
-<to-top></to-top>
+<a href="#">${to_top_icon}</a>
 `;
 
 const style = css`
 @import "setup.css";
+a {
+    position: fixed;
+    bottom: 3rem;
+    right: 5dvw;
+
+    padding: 1.5ch;
+
+    border-radius: 50%;
+    border: 1px solid var(--fg);
+
+    background-color: rgba(from var(--bg) r g b / var(--transparency));
+    -webkit-backdrop-filter: blur(var(--blur-r));
+    backdrop-filter: blur(var(--blur-r));
+}
+
+
 `;
 
-export default class SiteFooter extends HTMLElement {
+export default class ToTop extends HTMLElement {
     static get observedAttributes() {
         return [];
     }
@@ -30,4 +45,4 @@ export default class SiteFooter extends HTMLElement {
         this.attachShadow({ mode: "open" })
     }
 }
-customElements.define("site-footer", SiteFooter);
+customElements.define("to-top", ToTop);
