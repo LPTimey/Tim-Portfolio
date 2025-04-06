@@ -9,7 +9,7 @@ const style = css`
 a {
     position: fixed;
     bottom: 3rem;
-    right: 5dvw;
+    right: calc(var(--outer-pad-inline) / 2);
 
     padding: 1.5ch;
 
