@@ -1,10 +1,10 @@
 import { css, html, changeEvent } from "../script.mjs";
 const template = (id) => html`
 <div hidden>
-    <input type="checkbox" name="${id}" id="${id}" checked />
+    <input type="checkbox" name="${id}" id="${id}" />
 </div>
-<label for="${id}"><slot></slot></label>
-<label for="${id}"><slot></slot></label>
+<label for="${id}"><slot name="activated"></slot></label>
+<label for="${id}"><slot name="deactivated"></slot></label>
 `;
 
 const style = css`
@@ -13,6 +13,8 @@ const style = css`
     display: grid;
     place-items: center;
      * {
+        width: 100%;
+        height: 100%;
         grid-column: 1 / -1;
         grid-row: 1 / -1;
     }
@@ -21,6 +23,22 @@ const style = css`
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+:host([checked]){
+    [name="deactivated"]{
+        visibility: hidden;
+    }
+    [name="activated"]{
+        visibility: visible;
+    }
+}
+:host(:not([checked])){
+    [name="deactivated"]{
+        visibility: visible
+    }
+    [name="activated"]{
+        visibility: hidden
+    }
 }
     `;
 

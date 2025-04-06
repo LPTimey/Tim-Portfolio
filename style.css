@@ -38,6 +38,7 @@
     --outer-pad-inline: calc((100dvw - var(--outer-width)) / 2);
     --inner-pad-inline: calc((100dvw - var(--inner-width)) / 2);
     --border-r: 1rem;
+    --blur-r: 6px;
     --transparency: 0.85;
 
     --backup-fonts: 'Segoe UI',

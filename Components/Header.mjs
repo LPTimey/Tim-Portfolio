@@ -16,7 +16,7 @@ const template = html`
         </ul>
     </nav>
 </header>
-<icon-button id="Theme" class="mobile">${close_icon} ${burger_icon}</icon-button>
+<icon-button id="Theme" class="mobile"><div slot="activated" class="full children">${close_icon}</div> <div slot="deactivated" class="full children">${burger_icon}</div></icon-button>
 `;
 
 const style = css`
@@ -34,8 +34,8 @@ const style = css`
 header{
     position: relative;
     background-color: rgba(from var(--bg) r g b / var(--transparency));
-    -webkit-backdrop-filter: blur(6px);
-    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(var(--blur-r));
+    backdrop-filter: blur(var(--blur-r));
 }
 header,nav,ul{
     height: 100%;
@@ -67,9 +67,16 @@ ul{
         right: 2rem;
         top: 2rem;
         aspect-ratio: 1;
-        width: 5rem;
+        width: 4.5rem;
+
+        &:not([checked]){
+            background-color: rgba(from var(--bg) r g b / var(--transparency));
+            -webkit-backdrop-filter: blur(var(--blur-r));
+            backdrop-filter: blur(var(--blur-r));
+            border-radius: var(--border-r);
+        }
     }
-    header:has(+ icon-button[checked]) {
+    header:not(:has(+ icon-button[checked])) {
         transform: translateX(100%);
     }
 }
