@@ -59,6 +59,8 @@
         min-height: 100dvh;
         color: var(--fg);
         background-color: var(--bg);
+        display: flex;
+        flex-direction: column;
     }
 
     /* 6. Improve media defaults */
