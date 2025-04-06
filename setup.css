@@ -235,6 +235,19 @@
 
     /* #endregion Text */
 
+    .button {
+        display: block;
+        cursor: pointer;
+        width: max-content;
+        padding: 1ch;
+        border: 1px solid var(--fg);
+        border-radius: var(--border-r);
+
+        &:hover {
+            color: var(--accent);
+        }
+    }
+
     .center {
         place-self: center;
     }
@@ -298,6 +311,10 @@
         flex-grow: 1;
     }
 
+    .left {
+        margin-right: auto;
+    }
+
     .link {
         text-decoration: none;
         /* padding: 0.1em; */
@@ -316,6 +333,10 @@
     .reverse {
         display: inline-flex;
         flex-direction: column-reverse;
+    }
+
+    .right {
+        margin-left: auto;
     }
 
     .separator::before {

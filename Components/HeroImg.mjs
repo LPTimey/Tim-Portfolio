@@ -13,6 +13,7 @@ const style = (time) => css`
     height: 70vh;
     display: grid;
     overflow: hidden;
+    align-items: end;
     * {
         grid-column: 1 / -1;
         grid-row: 1 / -1;
