@@ -197,7 +197,7 @@
         font-weight: var(--fw-gigantic);
         line-height: var(--lh-small);
 
-        :where(&.margin-b) {
+        &:where(.margin-b) {
             margin-block: var(--fmb-gigantic);
         }
     }
@@ -208,7 +208,7 @@
         font-weight: var(--fw-large);
         line-height: var(--lh-normal);
 
-        :where(&.margin-b) {
+        &:where(.margin-b) {
             margin-block: var(--fmb-large);
         }
     }
@@ -218,7 +218,7 @@
         font-weight: var(--fw-medium);
         line-height: var(--lh-large);
 
-        :where(&.margin-b) {
+        &:where(.margin-b) {
             margin-block: var(--fmb-medium);
         }
     }
@@ -228,7 +228,7 @@
         font-weight: var(--fw-normal);
         line-height: var(--lh-gigantic);
 
-        :where(&.margin-b) {
+        &:where(.margin-b) {
             margin-block: var(--fmb-normal);
         }
     }
@@ -243,7 +243,7 @@
         border: 1px solid var(--fg);
         border-radius: var(--border-r);
 
-        :where(&:hover) {
+        &:where(:hover) {
             color: var(--accent);
         }
     }
@@ -264,7 +264,7 @@
         display: flex;
         gap: var(--gap, 1ch);
 
-        :where(&.column) {
+        &:where(.column) {
             flex-direction: column;
         }
     }
@@ -273,7 +273,7 @@
         width: 100%;
         height: 100%;
 
-        :where(&.children>*) {
+        &:where(.children>*) {
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -286,18 +286,18 @@
         grid-template-rows: repeat(var(--grid-height, auto-fit), var(--row-height, 1fr));
         gap: var(--gap);
 
-        :where(&.default) {
+        &:where(.default) {
             --gap: 1ch;
         }
 
-        :where(&.auto,
+        &:where(.auto,
             &.default) {
             grid-template-columns: repeat(auto-fill, minmax(var(--min-col), 1fr));
             justify-content: center;
             grid-auto-flow: dense;
         }
 
-        :where(&.layer) {
+        &:where(.layer) {
             place-items: center;
 
             :where(*) {
@@ -321,7 +321,7 @@
         color: var(--fg);
         cursor: pointer;
 
-        :where(&:hover) {
+        &:where(:hover) {
             color: var(--accent);
 
             :where(svg) {
@@ -359,7 +359,7 @@
         background-repeat: no-repeat;
         transition: background-size var(--transition-time);
 
-        :where(&:hover:not(active),
+        &:where(:hover:not(active),
             :focus-visible) {
             background-size: 0 0.1em, 100% 0.1em;
         }
