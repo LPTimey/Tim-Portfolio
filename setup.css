@@ -8,9 +8,9 @@
 @layer reset {
 
     /* 1. Use a more-intuitive box-sizing model */
-    :where(*::before,
-        *::after,
-        *) {
+    :where(*),
+    :where(*)::after,
+    :where(*)::before {
         box-sizing: border-box;
         transition:
             /* color 0.2s ease-in-out,
@@ -21,12 +21,16 @@
         transform 0.2s ease-in-out,
         fill 0.2s ease-in-out, */
             all var(--transition-time, 0.2s) ease-in-out;
-        /* 2. Remove default margin */
-        margin: 0;
-        padding: 0;
+
         /* 7. Inherit fonts for example form controls */
         font: inherit;
         scroll-behavior: smooth;
+    }
+
+    :where(*) {
+        /* 2. Remove default margin */
+        margin: 0;
+        padding: 0;
     }
 
     :where(ol,
@@ -339,9 +343,13 @@
         margin-left: auto;
     }
 
-    :where(.separator::before) {
-        content: "|";
-        place-self: center;
+    :where(.separator) {
+        display: inline-flex;
+
+        &::before {
+            content: "|";
+            place-self: center;
+        }
     }
 
     :where(.underline,
