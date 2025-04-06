@@ -250,7 +250,7 @@
         display: block;
         cursor: pointer;
         width: max-content;
-        padding: 1ch;
+        padding: 1.5ch;
         border: 1px solid var(--b-fg);
         border-radius: var(--border-r);
 

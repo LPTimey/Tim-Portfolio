@@ -17,7 +17,8 @@ const style = css`
     position:relative;
     display: grid;
     grid-template-rows: subgrid;
-    grid-row: span 5;
+    grid-row: span 4;
+    gap: 1rem;
     background-color: color-mix(in srgb, var(--bg), gray 10%);
     border-radius: var(--border-r);
     border: 1px solid var(--fg);
@@ -43,6 +44,7 @@ img{
 }
 .button{
     margin-inline: 2ch;
+    margin-bottom: 1rem;
 }
 `;
 
