@@ -31,12 +31,13 @@ header{
     top: 0;
     left: 0;
     right: 0;
+    height: fit-content;
     z-index: 1000000000;
     background-color: rgba(from var(--bg) r g b / var(--transparency));
     -webkit-backdrop-filter: blur(var(--blur-r));
     backdrop-filter: blur(var(--blur-r));
 }
-header,nav,ul{
+nav,ul{
     height: 100%;
     width: 100%;
 }
@@ -49,6 +50,9 @@ ul{
 }
 
 @media(width < 740px) {
+    header{
+        height: 100%;
+    }
     ul {
         flex-direction: column;
         gap: 3rem;

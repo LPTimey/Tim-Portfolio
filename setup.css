@@ -170,13 +170,16 @@
         }
     }
 
-    .mobile {
+    .mobile,
+    .mobile * {
         visibility: hidden;
         position: absolute;
     }
 
     @media screen and (width<740px) {
-        .mobile {
+
+        .mobile,
+        .mobile * {
             visibility: unset;
             position: unset;
         }
@@ -193,6 +196,7 @@
         font-size: var(--fs-gigantic);
         font-weight: var(--fw-gigantic);
         line-height: var(--lh-small);
+
         &.margin-b {
             margin-block: var(--fmb-gigantic);
         }
@@ -203,6 +207,7 @@
         font-size: var(--fs-large);
         font-weight: var(--fw-large);
         line-height: var(--lh-normal);
+
         &.margin-b {
             margin-block: var(--fmb-large);
         }
@@ -212,6 +217,7 @@
         font-size: var(--fs-medium);
         font-weight: var(--fw-medium);
         line-height: var(--lh-large);
+
         &.margin-b {
             margin-block: var(--fmb-medium);
         }
@@ -221,6 +227,7 @@
         font-size: var(--fs-normal);
         font-weight: var(--fw-normal);
         line-height: var(--lh-gigantic);
+
         &.margin-b {
             margin-block: var(--fmb-normal);
         }
