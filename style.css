@@ -118,5 +118,9 @@
         width: 100%;
         margin-block: var(--margin-b);
         scroll-margin: var(--margin-b);
+
+        &:nth-child(1) {
+            margin-top: calc(var(--margin-b) / 2);
+        }
     }
 }

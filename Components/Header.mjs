@@ -63,11 +63,11 @@ ul{
     }
     icon-button{
         position: fixed;
-        padding: 1rem;
+        padding: 0.5rem;
         right: 2rem;
         top: 2rem;
         aspect-ratio: 1;
-        width: 4rem;
+        width: 3.5rem;
         z-index: 1000000000;
 
         &:not([checked]){

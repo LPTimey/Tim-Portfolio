@@ -19,11 +19,13 @@ const style = css`
         grid-row: 1 / -1;
     }
 }
-::slotted(*){
+label{
+    cursor: pointer;
+    *{
     width: 100%;
     height: 100%;
     object-fit: cover;
-}
+}}
 :host([checked]){
     [name="deactivated"]{
         visibility: hidden;

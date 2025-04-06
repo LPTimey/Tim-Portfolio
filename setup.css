@@ -200,10 +200,11 @@
         font-size: var(--fs-gigantic);
         font-weight: var(--fw-gigantic);
         line-height: var(--lh-small);
+    }
 
-        &:where(.margin-b) {
-            margin-block: var(--fmb-gigantic);
-        }
+    :where(.title.margin-b, .gigantic.margin-b),
+    :where(.margin-b-gigantic) {
+        margin-block: var(--fmb-gigantic);
     }
 
     :where(.section-title,
@@ -211,44 +212,59 @@
         font-size: var(--fs-large);
         font-weight: var(--fw-large);
         line-height: var(--lh-normal);
+    }
 
-        &:where(.margin-b) {
-            margin-block: var(--fmb-large);
-        }
+    :where(.section-title.margin-b, .large.margin-b),
+    :where(.margin-b-large) {
+        margin-block: var(--fmb-large);
     }
 
     :where(.medium) {
         font-size: var(--fs-medium);
         font-weight: var(--fw-medium);
         line-height: var(--lh-large);
+    }
 
-        &:where(.margin-b) {
-            margin-block: var(--fmb-medium);
-        }
+    :where(.medium.margin-b),
+    :where(.margin-b-medium) {
+        margin-block: var(--fmb-medium);
     }
 
     :where(.normal) {
         font-size: var(--fs-normal);
         font-weight: var(--fw-normal);
         line-height: var(--lh-gigantic);
+    }
 
-        &:where(.margin-b) {
-            margin-block: var(--fmb-normal);
-        }
+    :where(.normal.margin-b),
+    :where(.margin-b-normal) {
+        margin-block: var(--fmb-normal);
     }
 
     /* #endregion Text */
 
     :where(.button) {
+        --b-hover: var(--accent);
+        --b-fg: var(--fg);
+        --b-bg: var(--bg);
         display: block;
         cursor: pointer;
         width: max-content;
         padding: 1ch;
-        border: 1px solid var(--fg);
+        border: 1px solid var(--b-fg);
         border-radius: var(--border-r);
 
+        color: var(--b-fg);
+        background-color: var(--b-bg);
+
         &:where(:hover) {
-            color: var(--accent);
+            background-color: var(--b-hover);
+        }
+
+        &:where(.accent) {
+            --b-hover: var(--accent-dark);
+            --b-fg: var(--fg);
+            --b-bg: var(--accent);
         }
     }
 
@@ -277,7 +293,7 @@
         width: 100%;
         height: 100%;
 
-        &:where(.children>*) {
+        &:where(.children) > :where(*) {
             width: 100%;
             height: 100%;
             object-fit: cover;
