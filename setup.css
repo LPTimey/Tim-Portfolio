@@ -73,6 +73,10 @@
         max-width: 100%;
     }
 
+    :where(img) {
+        object-fit: cover;
+    }
+
     :where(button) {
         border: none;
     }

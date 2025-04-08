@@ -1,12 +1,14 @@
 import { css, html } from "../script.mjs";
 import ScrollImage from "./ScrollImg.mjs";
 
-const template = (src, alt, cols, rows) => html`
+const template = (src, alt, time, cols, rows) => html`
 <slot></slot>
-<scroll-img src="./assets/Title-img.png" alt="Scrolling Image" id="HeroImage" time="35s" cols="2" rows="3" bg="white"></scroll-img>
+${time && cols && rows ?
+        html`<scroll-img src="${src}" alt="${alt}" id="HeroImage" time="${time}" cols="${cols}" rows="${rows}" bg="white"></scroll-img>`
+    : html`<img src="${src}" alt="${alt}"/>`}
 `;
 
-const style = (time) => css`
+const style = css`
 @import "setup.css";
 :host{
     width: 100%;
@@ -19,6 +21,10 @@ const style = (time) => css`
         grid-row: 1 / -1;
     }
 }
+img{
+    height: 100%;
+    width: 100%;
+}
 ::slotted(*) {
     grid-column: 1 / -1;
     grid-row: 1 / -1;
@@ -30,7 +36,7 @@ export default class HeroImg extends HTMLElement {
         return ["src", "alt", "time", "cols", "rows"];
     }
     connectedCallback() {
-        this.shadowRoot.innerHTML = style(this.getAttribute("time")) + template(this.getAttribute("src"), this.getAttribute("alt"), this.getAttribute("cols"), this.getAttribute("rows"));
+        this.shadowRoot.innerHTML = style + template(this.getAttribute("src"), this.getAttribute("alt"), this.getAttribute("time"), this.getAttribute("cols"), this.getAttribute("rows"));
     }
     constructor() {
         super()
