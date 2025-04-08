@@ -1,5 +1,6 @@
 import { burger_icon, close_icon, css, gh_logo, html } from "../script.mjs"
 import IconButton from "./IconButton.mjs";
+import ThemeSelect from "./ThemeSelect.mjs";
 
 const template = html`
 <header>
@@ -11,7 +12,7 @@ const template = html`
             <div class="separator"></div>
             <li>Projects</li>
             <div class="grow"></div>
-            <li><slot></slot></li>
+            <li><theme-select></theme-select></li>
             <div class="separator"></div>
             <li class="flex"><a href="" class="link flex center"> <span class="underline mobile center">Source</span> ${gh_logo}</a></li>
         </ul>
@@ -111,14 +112,4 @@ export default class SiteHeader extends HTMLElement {
         this.attachShadow({ mode: "open" })
     }
 }
-customElements.define("my-site-header", SiteHeader);
-customElements.define("site-header", class extends HTMLElement {
-    constructor() {
-        super();
-        this.outerHTML = `<my-site-header><select id="ThemeSelect">
-        <option id="ThemeLight" value="ThemeLight">Licht-Thema</option>
-        <option id="ThemeSystem" value="ThemeSystem" selected>System-Thema</option>
-        <option id="ThemeDark" value="ThemeDark">Dunkel-Thema</option>
-    </select></my-site-header>`;
-    }
-});
+customElements.define("site-header", SiteHeader);

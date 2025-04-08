@@ -31,7 +31,7 @@
     :root {
         --dark: #181819;
         --light: #ddd;
-        --light: #FBFFF1;
+        --light: #fefffd;
         --accent: #6060ff;
         --accent-dark: #4141bd;
 
@@ -52,7 +52,7 @@
         font-family: "JetBrains Mono", var(--backup-fonts);
 
         --fs-normal: 1rem;
-        --fs-medium: 1.5rem;
+        --fs-medium: 1.25rem;
         --fs-large: 1.75rem;
         --fs-gigantic: 2.5rem;
 
@@ -75,7 +75,7 @@
     }
 
     @media screen {
-        :root:has(#ThemeSystem:checked) {
+        .system{
 
             @media (prefers-color-scheme: light) {
                 --bg: var(--light);
@@ -90,13 +90,13 @@
             }
         }
 
-        :root:has(#ThemeDark:checked) {
+        .dark {
             --bg: var(--dark);
             --fg: var(--light);
             color-scheme: dark;
         }
 
-        :root:has(#ThemeLight:checked) {
+        .light {
             --bg: var(--light);
             --fg: var(--dark);
             color-scheme: light;
