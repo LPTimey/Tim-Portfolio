@@ -11,8 +11,9 @@ ${time && cols && rows ?
 const style = css`
 @import "setup.css";
 :host{
+    --height: 70vh;
     width: 100%;
-    height: 70vh;
+    height: var(--height);
     display: grid;
     overflow: hidden;
     align-items: end;
@@ -22,7 +23,7 @@ const style = css`
     }
 }
 img{
-    height: 100%;
+    height: var(--height);
     width: 100%;
 }
 ::slotted(*) {
