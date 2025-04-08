@@ -19,7 +19,7 @@ const style = css`
     grid-template-rows: subgrid;
     grid-row: span 4;
     gap: 1rem;
-    background-color: color-mix(in srgb, var(--bg), gray 10%);
+    background-color: color-mix(in srgb, var(--bg), gray 0%);
     border-radius: var(--border-r);
     border: 1px solid var(--fg);
     overflow: hidden;
