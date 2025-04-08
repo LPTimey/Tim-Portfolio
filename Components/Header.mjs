@@ -51,6 +51,9 @@ ul{
 svg {
     fill: var(--fg);
     /* stroke: var(--fg); */
+    &:hover{
+        fill: var(--accent);
+    }
 }
 
 @media(width < 740px) {
