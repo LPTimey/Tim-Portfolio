@@ -2,30 +2,41 @@
 <html lang="de">
 
 <head>
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "./vendor/three.js r174/build/three.module.js",
+                "three/addons/": "./vendor/three.js r174/examples/jsm/"
+            }
+        }
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WatchOut - Tim Ruland</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="./watchout/watchout.css">
+    <script type="module" src="watchout/watchout.mjs"></script>
     <script type="module" src="./Components/Header.mjs"></script>
     <script type="module" src="./Components/SiteFooter.mjs"></script>
     <script type="module" src="./Components/HeroImg.mjs"></script>
 </head>
 
 <body>
-    <canvas></canvas>
     <site-header></site-header>
     <main>
         <section id="Hero">
             <h1 class="heading" style="margin-bottom: 1rem;">
-                <div>Willkommen, hier</div>
-                <div class="title">Wo die Details Scheinen</div>
+                <div>Design der Mensch Maschine Schnittstelle</div>
+                <div class="title">WatchOut</div>
             </h1>
-            <hero-img src="./assets/Design der Mensch Maschine Schnittstelle/WatchOut/title-img-flipp-bg.png" alt="Scrolling Image" id="HeroImage">
-            <p>why</p>
+            <!-- <hero-img src="./assets/Design der Mensch Maschine Schnittstelle/WatchOut/title-img-flipp-bg.png" alt="Scrolling Image" id="HeroImage"> -->
+            <hero-img id="HeroImage" src="./assets/Design der Mensch Maschine Schnittstelle/WatchOut/app bg.png" alt="">
+                <canvas id="HeroCanvas"></canvas>
+                <div class="content margin-b-gigantic"><button id="StartAnimation" class="button accent right margin-b-normal"></button></div>
             </hero-img>
         </section>
-        <section></section>
+        <section>
+        </section>
     </main>
     <div class="grow"></div>
     <site-footer></site-footer>

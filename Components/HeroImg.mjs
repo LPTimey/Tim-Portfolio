@@ -2,10 +2,10 @@ import { css, html } from "../script.mjs";
 import ScrollImage from "./ScrollImg.mjs";
 
 const template = (src, alt, time, cols, rows) => html`
-<slot></slot>
 ${time && cols && rows ?
-        html`<scroll-img src="${src}" alt="${alt}" id="HeroImage" time="${time}" cols="${cols}" rows="${rows}" bg="white"></scroll-img>`
-    : html`<img src="${src}" alt="${alt}"/>`}
+        html`<scroll-img src="${src}" alt="${alt ?? ""}" id="HeroImage" time="${time}" cols="${cols}" rows="${rows}" bg="white"></scroll-img>`
+        : src || alt ? html`<img src="${src}" alt="${alt ?? ""}"/>` : html``}
+<slot></slot>
 `;
 
 const style = css`
