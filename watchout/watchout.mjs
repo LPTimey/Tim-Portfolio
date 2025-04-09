@@ -1,5 +1,4 @@
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
-import { USDZLoader } from "three/addons/loaders/USDZLoader.js";
 import { THREE, addLight, combine, easeIn, easeInOut, easeOut, easeOutCirc, hide, lerp, resize, show } from "../three_utils.mjs";
 /** @import {Animation, AnimationState} from "../three_utils.mjs" */
 
@@ -15,10 +14,33 @@ const watchPath = `./assets/Design%20der%20Mensch%20Maschine%20Schnittstelle/Wat
 const watch = await loader.loadAsync(watchPath);
 /** @type {THREE.Object3D} */
 const watchScene = watch.scene;
+// const phonePath = `./assets/Design%20der%20Mensch%20Maschine%20Schnittstelle/WatchOut/Iphone/iphone spin.gltf`;
 const phonePath = `./assets/Design%20der%20Mensch%20Maschine%20Schnittstelle/WatchOut/iphone.glb`;
 const phone = await loader.loadAsync(phonePath);
 /** @type {THREE.Object3D} */
 const phoneScene = phone.scene;
+const texPathPrefix = "../assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/"
+const phoneTextures = [
+    // 'Artboard – 1.png',
+    // 'Call List Expanded.png',
+    'History  – 1 Log.png',
+    'History  – 2 Err.png',
+    'History  – 2 Warn.png',
+    'Map – 1.png',
+    'Map – 2.png',
+    // 'Map Overlay – 1 – Event.png',
+    // 'Map Overlay – 1 – Warn.png',
+    // 'Map Overlay – 2 – Gunther.png',
+    // 'Map Overlay – 2 – Joe.png',
+    // 'Message Overlay – new.png',
+    // 'Message Overlay seen.png',
+    'Recent Events  – log.png',
+    'Recent Events – 0.png',
+    'Recent Events – error.png',
+    'Recent Events – warn.png',
+    'Settings – 1.png',
+];
+const phones = []
 
 /**
  * @param {THREE.Scene} scene 
@@ -83,7 +105,44 @@ async function main() {
 
     scene.add(phoneScene);
 
-    phoneScene.position.set(0, 0, 0);
+    console.info(phone)
+    console.info(phoneScene)
+    console.info(phoneScene.children[0].children[1].material)
+
+    phoneTextures.forEach((path, i) => {
+        let newScene = phoneScene.clone();
+
+        newScene.traverse(child => {
+            if (child.material && child.material.name === 'iphone-x-screenshot') {
+
+                // Klone das Material und weise es dem Kind zu
+                let clonedMaterial = child.material.clone();
+                child.material = clonedMaterial;
+
+                console.log("b", clonedMaterial);
+
+                // Lade die Textur und weise sie zu
+                const textureLoader = new THREE.TextureLoader();
+                const texture = textureLoader.load(texPathPrefix + path, () => {
+                    texture.flipY = false;
+                    texture.minFilter = THREE.LinearFilter;  // Deaktiviere Mipmaps
+                    texture.magFilter = THREE.LinearFilter;  // Mipmap-Filter anpassen
+                    texture.needsUpdate = true;
+                });
+
+                // Weise der Textur der geklonten Material-Map eine neue Textur zu
+                clonedMaterial.map = texture;
+                console.log("a", clonedMaterial);
+                clonedMaterial.map.needsUpdate = true;
+                clonedMaterial.needsUpdate = true;
+
+            }
+        });
+        phones.push(newScene);
+        scene.add(newScene);
+        newScene.translateX((i-5.5) * 1.75);
+    })
+    phoneScene.position.set(0, 0, 1);
 
     addLight(scene, {
         x: - 1, y: 2, z: 4

@@ -34,6 +34,8 @@ export function addLight(scene, position) {
  */
 export function resize(renderer, camera) {
     if (rendererNeedsResize(renderer)) {
+        const pixelRatio = window.devicePixelRatio;
+        renderer.setPixelRatio(pixelRatio);
         renderer.setSize(renderer.domElement.clientWidth, renderer.domElement.clientHeight, false);
 
         const canvas = renderer.domElement;
