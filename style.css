@@ -3,10 +3,10 @@
 
 @layer global {
     /********************************
- *                              *
- *            fonts             *
- *                              *
- *******************************/
+     *                              *
+     *            fonts             *
+     *                              *
+     *******************************/
     /* #region fonts */
 
     @font-face {
@@ -22,10 +22,10 @@
     /* #endregion fonts */
 
     /********************************
- *                              *
- *            Setup             *
- *                              *
- *******************************/
+     *                              *
+     *            Setup             *
+     *                              *
+     *******************************/
     /* #region Setup */
 
     :root {
@@ -75,7 +75,7 @@
     }
 
     @media screen {
-        .system{
+        .system {
 
             @media (prefers-color-scheme: light) {
                 --bg: var(--light);
