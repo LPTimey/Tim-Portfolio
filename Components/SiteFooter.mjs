@@ -13,7 +13,7 @@ const style = css`
 footer {
     padding-block: 3em;
     padding-inline: var(--outer-pad-inline);
-    background-color: color-mix(in srgb, var(--bg), var(--fg) 25%);
+    background-color: color-mix(in srgb, var(--bg), var(--fg) 7.5%);
     margin: auto;
 }
 
