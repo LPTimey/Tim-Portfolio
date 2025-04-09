@@ -319,7 +319,11 @@
 
         &:where(.auto,
             &.default) {
-            grid-template-columns: repeat(auto-fill, minmax(var(--min-col), 1fr));
+            --_grid-max-col-count: var(--grid-max-col-count, -1);
+            --col-width: min(max(calc((100% - var(--gap) * var(--_grid-max-col-count)) / var(--_grid-max-col-count)),
+                        var(--min-col, 40ch)),
+                    100%);
+            grid-template-columns: repeat(auto-fill, minmax(var(--col-width), 1fr));
             justify-content: center;
             grid-auto-flow: dense;
         }
