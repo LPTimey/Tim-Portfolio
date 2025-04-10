@@ -3,7 +3,7 @@ import { THREE, addLight, combine, easeIn, easeInOut, easeOut, easeOutCirc, hide
 /** @import {Animation, AnimationState} from "../three_utils.mjs" */
 
 /**
- * @type {Array<Animation|null>}
+ * @type {Animation|null}
  */
 let animation = null;
 const loader = new GLTFLoader();
@@ -84,7 +84,7 @@ function tiltWatch(scene) {
  * @returns {Animation}
  */
 function HeroAnimation() {
-    let children = [hide(phoneScene), tiltWatch(watchScene), combine(hide(watchScene), show(phoneScene)),]
+    let children = [hide(phoneScene, ...phones), tiltWatch(watchScene), combine(hide(watchScene), show(phoneScene, ...phones)),]
     let next = (delta) => {
         let cur = children.shift()
         if (cur?.next(delta)) { children.unshift(cur) }
@@ -104,11 +104,6 @@ async function main() {
     watchScene.quaternion.set(-0.48, 0.48, 0.52, 0.52);
 
     scene.add(phoneScene);
-
-    console.info(phone)
-    console.info(phoneScene)
-    console.info(phoneScene.children[0].children[1].material)
-
     phoneTextures.forEach((path, i) => {
         let newScene = phoneScene.clone();
 
@@ -140,7 +135,7 @@ async function main() {
         });
         phones.push(newScene);
         scene.add(newScene);
-        newScene.translateX((i-5.5) * 1.75);
+        newScene.translateX((i - 5.5) * 1.75);
     })
     phoneScene.position.set(0, 0, 1);
 
@@ -159,12 +154,12 @@ async function main() {
 
         resize(renderer, cam);
 
-        animation?.next(deltaTime)
+        animation?.next(deltaTime);
 
         renderer.render(scene, cam);
         requestAnimationFrame((newTime) => render(newTime, time));
     }
-    animation = hide(phoneScene);
+    animation = hide(phoneScene, ...phones);
     requestAnimationFrame(render);
 }
 

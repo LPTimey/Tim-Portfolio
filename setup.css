@@ -31,6 +31,7 @@
         /* 2. Remove default margin */
         margin: 0;
         padding: 0;
+        color: inherit;
     }
 
     :where(ol,
@@ -91,7 +92,6 @@
         h5,
         h6) {
         overflow-wrap: break-word;
-        color: var(--fg);
         text-decoration: none;
     }
 

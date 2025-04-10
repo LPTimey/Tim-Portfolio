@@ -14,7 +14,7 @@ const template = html`
             <div class="grow"></div>
             <li><theme-select></theme-select></li>
             <div class="separator"></div>
-            <li class="flex"><a href="" class="link flex center"> <span class="underline mobile center">Source</span> ${gh_logo}</a></li>
+            <li class="flex"><a href="https://github.com/LPTimey/Tim-Portfolio" class="link flex center underline"> <span class="underline mobile center">Source</span> ${gh_logo}</a></li>
         </ul>
     </nav>
 </header>
