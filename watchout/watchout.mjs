@@ -1,6 +1,9 @@
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { THREE, add, addLight, combine, easeIn, easeInOut, easeOut, easeOutCirc, hide, lerp, remove, resize, show } from "../three_utils.mjs";
+import { pause_icon, play_icon } from "../script.mjs";
 /** @import {Animation, AnimationState} from "../three_utils.mjs" */
+
+const startButton = document.getElementById("StartAnimation");
 
 /**
  * @type {Animation|null}
@@ -94,7 +97,7 @@ function slidePhones(primary, phones) {
         rot: new THREE.Quaternion().normalize(),
         scale: new THREE.Vector3(1, 1, 1),
     }
-    const next = function (deltaTime) { 
+    const next = function (deltaTime) {
         _internalState.cur_duration += deltaTime;
         _internalState.cur_duration = Math.min(_internalState.cur_duration, duration);
         const percent = _internalState.cur_duration / duration;
@@ -108,10 +111,14 @@ function slidePhones(primary, phones) {
  * @returns {Animation}
  */
 function HeroAnimation(scene) {
-    let children = [remove(scene, phoneScene, ...phones), tiltWatch(watchScene), combine(remove(scene, watchScene), add(scene, phoneScene, ...phones)),]
+    let children = [combine(add(scene, watchScene), remove(scene, phoneScene, ...phones)), tiltWatch(watchScene), combine(remove(scene, watchScene), add(scene, phoneScene, ...phones)),]
     let next = function (delta) {
-        let cur = children.shift()
-        if (cur?.next(delta)) { children.unshift(cur) }
+        let cur = children.shift();
+        if (cur?.next(delta)) { children.unshift(cur); }
+        if (children.length === 0) {
+            return false;
+        }
+        return true;
     }
     return { next }
 }
@@ -178,7 +185,21 @@ async function main() {
 
         resize(renderer, cam);
 
-        animation?.next(deltaTime);
+        const buttonState = startButton.getAttribute("data-state");
+
+        if (animation) {
+            if (!animation.next(deltaTime)) { animation = null; }
+
+            if (!buttonState || buttonState == "play") {
+                startButton.innerHTML = pause_icon
+                startButton.setAttribute("data-state","pause")
+            };
+        } else {
+            if (!buttonState || buttonState == "pause") {
+                startButton.innerHTML = play_icon
+                startButton.setAttribute("data-state", "play")
+            };
+        }
 
         renderer.render(scene, cam);
         requestAnimationFrame((newTime) => render(newTime, time));
@@ -186,8 +207,9 @@ async function main() {
     animation = remove(scene, phoneScene, ...phones);
     requestAnimationFrame(render);
 
-    document.getElementById("StartAnimation").addEventListener("click", function () {
-        animation = HeroAnimation(scene);
+    startButton.innerHTML = play_icon;
+    startButton.addEventListener("click", function () {
+        if (!animation) { animation = HeroAnimation(scene); }
     })
 }
 
