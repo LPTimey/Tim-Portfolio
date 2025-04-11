@@ -94,7 +94,11 @@ function slidePhones(primary, phones) {
         rot: new THREE.Quaternion().normalize(),
         scale: new THREE.Vector3(1, 1, 1),
     }
-    const next = function (deltaTime) { };
+    const next = function (deltaTime) { 
+        _internalState.cur_duration += deltaTime;
+        _internalState.cur_duration = Math.min(_internalState.cur_duration, duration);
+        const percent = _internalState.cur_duration / duration;
+    };
     return { next }
 }
 

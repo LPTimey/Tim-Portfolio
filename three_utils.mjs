@@ -131,7 +131,7 @@ export function add(scene, ...scenes) {
 export function combine(...animations) {
     return {
         // _internalState:,
-        next: (deltaTime) => {
+        next: function(deltaTime) {
             let results = [];
             for (let i = 0; i < animations.length; i++) {
                 results[i] = animations[i].next(deltaTime);
