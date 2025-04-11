@@ -1,5 +1,5 @@
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
-import { THREE, addLight, combine, easeIn, easeInOut, easeOut, easeOutCirc, hide, lerp, resize, show } from "../three_utils.mjs";
+import { THREE, add, addLight, combine, easeIn, easeInOut, easeOut, easeOutCirc, hide, lerp, remove, resize, show } from "../three_utils.mjs";
 /** @import {Animation, AnimationState} from "../three_utils.mjs" */
 
 /**
@@ -61,7 +61,7 @@ function tiltWatch(scene) {
         rot: new THREE.Quaternion(-0.4, 0.4, 0.6, 0.6).normalize(),
         scale: new THREE.Vector3(1, 1, 1),
     }
-    let next = (deltaTime) => {
+    const next = function (deltaTime) {
         _internalState.cur_duration += deltaTime;
         _internalState.cur_duration = Math.min(_internalState.cur_duration, duration);
         const percent = _internalState.cur_duration / duration;
@@ -78,14 +78,34 @@ function tiltWatch(scene) {
     return { _internalState, beginState, endState, next }
 }
 
+//TODO
+function slidePhones(primary, phones) {
+    const duration = 1000;
+    let _internalState = {
+        cur_duration: 0,
+    };
+    let beginState = {
+        pos: new THREE.Vector3(),
+        rot: new THREE.Quaternion().normalize(),
+        scale: new THREE.Vector3(1, 1, 1),
+    }
+    let endState = {
+        pos: new THREE.Vector3(),
+        rot: new THREE.Quaternion().normalize(),
+        scale: new THREE.Vector3(1, 1, 1),
+    }
+    const next = function (deltaTime) { };
+    return { next }
+}
 
 /**
  * 
+ * @param {THREE.Scene} scene 
  * @returns {Animation}
  */
-function HeroAnimation() {
-    let children = [hide(phoneScene, ...phones), tiltWatch(watchScene), combine(hide(watchScene), show(phoneScene, ...phones)),]
-    let next = (delta) => {
+function HeroAnimation(scene) {
+    let children = [remove(scene, phoneScene, ...phones), tiltWatch(watchScene), combine(remove(scene, watchScene), add(scene, phoneScene, ...phones)),]
+    let next = function (delta) {
         let cur = children.shift()
         if (cur?.next(delta)) { children.unshift(cur) }
     }
@@ -104,7 +124,7 @@ async function main() {
     watchScene.quaternion.set(-0.48, 0.48, 0.52, 0.52);
 
     scene.add(phoneScene);
-    phoneTextures.forEach((path, i) => {
+    phoneTextures.forEach(function (path, i) {
         let newScene = phoneScene.clone();
 
         newScene.traverse(child => {
@@ -127,7 +147,7 @@ async function main() {
 
                 // Weise der Textur der geklonten Material-Map eine neue Textur zu
                 clonedMaterial.map = texture;
-                console.log("a", clonedMaterial);
+
                 clonedMaterial.map.needsUpdate = true;
                 clonedMaterial.needsUpdate = true;
 
@@ -149,7 +169,7 @@ async function main() {
     const axesHelper = new THREE.AxesHelper(5);
     // scene.add(axesHelper);
 
-    const render = (time, lastTime) => {
+    const render = function (time, lastTime) {
         const deltaTime = time - (lastTime ?? 0);
 
         resize(renderer, cam);
@@ -159,12 +179,12 @@ async function main() {
         renderer.render(scene, cam);
         requestAnimationFrame((newTime) => render(newTime, time));
     }
-    animation = hide(phoneScene, ...phones);
+    animation = remove(scene, phoneScene, ...phones);
     requestAnimationFrame(render);
+
+    document.getElementById("StartAnimation").addEventListener("click", function () {
+        animation = HeroAnimation(scene);
+    })
 }
 
 await main();
-
-document.getElementById("StartAnimation").addEventListener("click", () => {
-    animation = HeroAnimation();
-})

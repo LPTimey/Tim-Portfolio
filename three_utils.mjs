@@ -69,7 +69,7 @@ export function resize(renderer, camera) {
  */
 export function hide(...scenes) {
     return {
-        next: () => {
+        next: function () {
             for (const scene of scenes) {
                 scene.scale.set(0, 0, 0)
             }
@@ -83,13 +83,46 @@ export function hide(...scenes) {
  */
 export function show(...scenes) {
     return {
-        next: () => {
+        next: function() {
             for (const scene of scenes) {
                 scene.scale.set(1, 1, 1)
             }
         }
     }
 }
+
+/**
+ * 
+ * @param {THREE.Scene} scene 
+ * @param  {...THREE.Scene} scenes 
+ * @returns {Animation}
+ */
+export function remove(scene, ...scenes){
+    return {
+        next: function(){
+            for (const nextScene of scenes) {
+                scene.remove(nextScene);
+            }
+        }
+    }
+}
+
+/**
+ * 
+ * @param {THREE.Scene} scene 
+ * @param  {...THREE.Scene} scenes 
+ * @returns {Animation}
+ */
+export function add(scene, ...scenes) {
+    return {
+        next: function () {
+            for (const nextScene of scenes) {
+                scene.add(nextScene);
+            }
+        }
+    }
+}
+
 /**
  * 
  * @param  {...Animation} animations 
