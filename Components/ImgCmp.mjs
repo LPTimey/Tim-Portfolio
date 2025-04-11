@@ -69,7 +69,7 @@ div{
 
 export default class ImgCmp extends HTMLElement {
     static get observedAttributes() {
-        return ["src1", "alt1", "src2", "alt2"];
+        return ["src1", "alt1", "src2", "alt2" /*, "angle" */];
     }
     /**
          * 
@@ -82,6 +82,7 @@ export default class ImgCmp extends HTMLElement {
     }
     initComparisons() {
         const clip = (target) => {
+            //TODO: add a way to make cut-of angled like for example / or \ instead of just |
             this.shadowRoot.querySelector(".img-comp-overlay > img").style.clipPath = `inset(0 ${100 - target.value / 10}% 0 0)`
         }
         clip(this.shadowRoot.querySelector("input"));
