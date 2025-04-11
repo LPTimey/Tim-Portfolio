@@ -82,7 +82,7 @@ export default class ImgCmp extends HTMLElement {
     }
     initComparisons() {
         const clip = (target) => {
-            this.shadowRoot.querySelector(".img-comp-overlay").style.width = `${target.value / 10}%`
+            this.shadowRoot.querySelector(".img-comp-overlay > img").style.clipPath = `inset(0 ${100 - target.value / 10}% 0 0)`
         }
         clip(this.shadowRoot.querySelector("input"));
         this.shadowRoot.querySelector("input").addEventListener("input", (ev) => clip(ev.target))
