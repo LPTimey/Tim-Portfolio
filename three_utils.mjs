@@ -52,7 +52,7 @@ export function resize(renderer, camera) {
  * @prop {any} [_internalState?]
  * @prop {AnimationState} [beginState?]
  * @prop {AnimationState} [endState?]
- * @prop {(deltaTime:DOMHighResTimeStamp)=>bool} next
+ * @prop {(deltaTime:DOMHighResTimeStamp)=>bool|undefined} next returns false or undefined when done and true if not
  */
 
 /**
@@ -61,6 +61,23 @@ export function resize(renderer, camera) {
  * @prop {THREE.Quaternion} rot
  * @prop {THREE.Vector3} scale
  */
+
+/**
+ * 
+ * @param {DOMHighResTimeStamp} duration 
+ * @returns {Animation}
+ */
+export function wait(duration) {
+    const _internalState = {
+        cur_duration: 0,
+    }
+    return {
+        next: function(deltaTime){
+            _internalState.cur_duration += deltaTime;
+            return _internalState.cur_duration < duration;
+        }
+    }
+}
 
 /**
  * 

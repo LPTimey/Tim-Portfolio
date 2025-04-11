@@ -1,5 +1,5 @@
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
-import { THREE, add, addLight, combine, easeIn, easeInOut, easeOut, easeOutCirc, hide, lerp, remove, resize, show } from "../three_utils.mjs";
+import { THREE, add, addLight, combine, easeIn, easeInCirc, easeInOut, easeOut, easeOutCirc, hide, lerp, remove, resize, show, wait } from "../three_utils.mjs";
 import { pause_icon, play_icon } from "../script.mjs";
 /** @import {Animation, AnimationState} from "../three_utils.mjs" */
 
@@ -45,21 +45,36 @@ const phoneTextures = [
 ];
 const phones = []
 
+function initAnimation(scene, watch, phone, ...phones) {
+    watch.position.set(0, -1.5, 3.5);
+    watch.quaternion.set(-0.48, 0.48, 0.52, 0.52);
+
+    // phone.position.set(0, 0, 0.25);
+
+    // phones.forEach((phone, i) =>
+    //     phone.translateX((i - 6.5) * 5)
+    // )
+
+    remove(scene, phone, ...phones).next(0);
+
+    animation = null;
+}
+
 /**
  * @param {THREE.Scene} scene 
  * @returns {Animation}
  */
 function tiltWatch(scene) {
-    const duration = 1000;
-    let _internalState = {
+    const duration = 2000;
+    const _internalState = {
         cur_duration: 0,
     };
-    let beginState = {
+    const beginState = {
         pos: new THREE.Vector3(0, -1.5, 3.5),
         rot: new THREE.Quaternion(-0.48, 0.48, 0.52, 0.52).normalize(),
         scale: new THREE.Vector3(1, 1, 1),
     }
-    let endState = {
+    const endState = {
         pos: new THREE.Vector3(0, -1.5, 3.5),
         rot: new THREE.Quaternion(-0.4, 0.4, 0.6, 0.6).normalize(),
         scale: new THREE.Vector3(1, 1, 1),
@@ -81,26 +96,80 @@ function tiltWatch(scene) {
     return { _internalState, beginState, endState, next }
 }
 
-//TODO
-function slidePhones(primary, phones) {
-    const duration = 1000;
-    let _internalState = {
+/**
+ * 
+ * @param {THREE.Scene} scene 
+ */
+function moveWatchAway(scene) {
+    const duration = 2000;
+    const _internalState = {
         cur_duration: 0,
     };
-    let beginState = {
-        pos: new THREE.Vector3(),
-        rot: new THREE.Quaternion().normalize(),
+    let beginState = null;
+    const endState = {
+        pos: new THREE.Vector3(0, -2.5, 5),
+        rot: new THREE.Quaternion(-0.0, 0.0, 1, 1).normalize(),
         scale: new THREE.Vector3(1, 1, 1),
     }
-    let endState = {
+    const next = function (deltaTime) {
+        beginState = beginState ?? {
+            pos: scene.position.clone(),
+            rot: scene.quaternion.clone(),
+            scale: scene.scale.clone(),
+        }
+        _internalState.cur_duration += deltaTime;
+        _internalState.cur_duration = Math.min(_internalState.cur_duration, duration);
+        const percent = _internalState.cur_duration / duration;
+
+        scene.position.lerpVectors(beginState.pos, endState.pos, easeInCirc(percent));
+        scene.quaternion.slerpQuaternions(beginState.rot, endState.rot, easeInCirc(percent));
+        scene.scale.lerpVectors(beginState.scale, endState.scale, easeInOut(percent));
+
+        if (Math.abs(duration - _internalState.cur_duration) < 0.1) {
+            return false
+        }
+        return true
+    };
+    return { _internalState, next }
+}
+
+/**
+ * 
+ * @param {THREE.Scene} primary 
+ * @param {...THREE.Scene} phones 
+ * @returns 
+ */
+function slidePhonesIn(primary, ...phones) {
+    const duration = 1000;
+    const _internalState = {
+        cur_duration: 0,
+    };
+    const beginState = {
+        pos: new THREE.Vector3(0, 5, 0),
+        rot: new THREE.Quaternion().normalize(),
+        scale: new THREE.Vector3(1,1,1),
+    };
+    const endState = {
         pos: new THREE.Vector3(),
         rot: new THREE.Quaternion().normalize(),
-        scale: new THREE.Vector3(1, 1, 1),
-    }
+        scale: new THREE.Vector3(1,1,1),
+    };
     const next = function (deltaTime) {
         _internalState.cur_duration += deltaTime;
         _internalState.cur_duration = Math.min(_internalState.cur_duration, duration);
         const percent = _internalState.cur_duration / duration;
+        console.log(percent)
+
+        primary.position.lerpVectors(beginState.pos, endState.pos, easeInOut(percent));
+        primary.quaternion.slerpQuaternions(beginState.rot, endState.rot, easeInOut(percent));
+        primary.scale.lerpVectors(beginState.scale, endState.scale, easeInOut(percent));
+
+        //TODO: move other phones relatively
+
+        if (Math.abs(duration - _internalState.cur_duration) < 0.1) {
+            return false
+        }
+        return true
     };
     return { next }
 }
@@ -111,7 +180,14 @@ function slidePhones(primary, phones) {
  * @returns {Animation}
  */
 function HeroAnimation(scene) {
-    let children = [combine(add(scene, watchScene), remove(scene, phoneScene, ...phones)), tiltWatch(watchScene), combine(remove(scene, watchScene), add(scene, phoneScene, ...phones)),]
+    let children = [
+        combine(add(scene, watchScene), remove(scene, phoneScene, ...phones)),
+        tiltWatch(watchScene),
+        wait(500),
+        moveWatchAway(watchScene),
+        combine(remove(scene, watchScene), add(scene, phoneScene, ...phones)),
+        slidePhonesIn(phoneScene, ...phones)
+    ]
     let next = function (delta) {
         let cur = children.shift();
         if (cur?.next(delta)) { children.unshift(cur); }
@@ -131,8 +207,6 @@ async function main() {
     const cam = new THREE.PerspectiveCamera(35);
     cam.position.z = 6;
     scene.add(watchScene);
-    watchScene.position.set(0, -1.5, 3.5);
-    watchScene.quaternion.set(-0.48, 0.48, 0.52, 0.52);
 
     scene.add(phoneScene);
     phoneTextures.forEach(function (path, i) {
@@ -144,8 +218,6 @@ async function main() {
                 // Klone das Material und weise es dem Kind zu
                 let clonedMaterial = child.material.clone();
                 child.material = clonedMaterial;
-
-                console.log("b", clonedMaterial);
 
                 // Lade die Textur und weise sie zu
                 const textureLoader = new THREE.TextureLoader();
@@ -166,9 +238,7 @@ async function main() {
         });
         phones.push(newScene);
         scene.add(newScene);
-        newScene.translateX((i - 5.5) * 1.75);
     })
-    phoneScene.position.set(0, 0, 1);
 
     addLight(scene, {
         x: - 1, y: 2, z: 4
@@ -192,7 +262,7 @@ async function main() {
 
             if (!buttonState || buttonState == "play") {
                 startButton.innerHTML = pause_icon
-                startButton.setAttribute("data-state","pause")
+                startButton.setAttribute("data-state", "pause")
             };
         } else {
             if (!buttonState || buttonState == "pause") {
@@ -204,7 +274,7 @@ async function main() {
         renderer.render(scene, cam);
         requestAnimationFrame((newTime) => render(newTime, time));
     }
-    animation = remove(scene, phoneScene, ...phones);
+    initAnimation(scene, watchScene, phoneScene, ...phones);
     requestAnimationFrame(render);
 
     startButton.innerHTML = play_icon;
