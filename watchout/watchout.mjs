@@ -158,7 +158,6 @@ function slidePhonesIn(primary, ...phones) {
         _internalState.cur_duration += deltaTime;
         _internalState.cur_duration = Math.min(_internalState.cur_duration, duration);
         const percent = _internalState.cur_duration / duration;
-        console.log(percent)
 
         primary.position.lerpVectors(beginState.pos, endState.pos, easeInOut(percent));
         primary.quaternion.slerpQuaternions(beginState.rot, endState.rot, easeInOut(percent));
