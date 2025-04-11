@@ -29,6 +29,7 @@ img{
 ::slotted(*) {
     grid-column: 1 / -1;
     grid-row: 1 / -1;
+    max-height: var(--height);
 }
 `;
 

@@ -6,15 +6,15 @@ const template = html`
 <header>
     <nav class="content">
         <ul>
-            <li><a href="/#" class="underline link">Home</a></li>
-            <div class="separator"></div>
-            <li><a href="/about.html" class="underline link">Über mich</a></li>
-            <div class="separator"></div>
+            <li><a href="/#" class="underline link" aria-label="Navigiert zur HomePage">Home</a></li>
+            <li><div class="separator"></div></li>
+            <li><a href="/about.html" class="underline link" aria-label="Navigiert zur AboutPage">Über mich</a></li>
+            <li><div class="separator"></div></li>
             <li>Projects</li>
-            <div class="grow"></div>
+            <li class="grow"></li>
             <li><theme-select></theme-select></li>
-            <div class="separator"></div>
-            <li class="flex"><a href="https://github.com/LPTimey/Tim-Portfolio" class="link flex center"> <span class="underline mobile center">Source</span> ${gh_logo}</a></li>
+            <li><div class="separator"></div></li>
+            <li class="flex"><a href="https://github.com/LPTimey/Tim-Portfolio" class="link flex center" target="_blank" aria-label="Navigiert zum GitHub Repo"> <span class="underline mobile center">Source</span> ${gh_logo}</a></li>
         </ul>
     </nav>
 </header>

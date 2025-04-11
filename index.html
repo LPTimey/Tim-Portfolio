@@ -4,7 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Die Homepage meiner PortfolioSeite">
     <title>Portfolio - Tim Ruland</title>
+    <link rel="preload" href="./assets/Title-img.webp" as="image">
+    <link rel="preload" href="./assets/Design der Mensch Maschine Schnittstelle/WatchOut/title-img-flipp-bg.webp" as="image">
+    <link rel="preload" href="./assets/Screendesign/Drucker/title-img-zoomed.webp" as="image">
+    <link rel="preload" href="./assets/Screendesign/Styles/title-img.webp" as="image">
+    <link rel="preload" href="setup.css" as="style">
+    <link rel="preload" href="style.css" as="style">
     <link rel="stylesheet" href="style.css">
     <script type="module" src="./Components/IconButton.mjs"></script>
     <script type="module" src="./Components/Header.mjs"></script>
@@ -21,7 +28,7 @@
                 <div>Willkommen, hier</div>
                 <div class="title">Wo die Details Scheinen</div>
             </h1>
-            <hero-img src="./assets/Title-img.png" alt="Scrolling Image" id="HeroImage" time="35s" cols="2" rows="3">
+            <hero-img src="./assets/Title-img.webp" alt="Scrolling Image" id="HeroImage" time="35s" cols="2" rows="3">
                 <div class="content margin-b-gigantic"><a href="#Projects"
                         class="button accent right margin-b-normal">Zu den Projekten</a></div>
             </hero-img>
@@ -29,7 +36,7 @@
         <section id="Projects">
             <h2 class="heading large margin-b">Projekte</h2>
             <div class="grid auto default content" id="ProjectsGrid" style="--min-col:40ch;--gap:2rem;">
-                <project-card src="./assets/Design der Mensch Maschine Schnittstelle/WatchOut/title-img-flipp-bg.png"
+                <project-card src="./assets/Design der Mensch Maschine Schnittstelle/WatchOut/title-img-flipp-bg.webp"
                     alt="" href="watchout.html">
                     <h3>DMMS
                         Watch Out</h3>
@@ -38,13 +45,13 @@
                         zu leben.
                     </p>
                 </project-card>
-                <project-card src="./assets/Screendesign/Drucker/title-img-zoomed.png" alt="" href="#">
+                <project-card src="./assets/Screendesign/Drucker/title-img-zoomed.webp" alt="" href="#">
                     <h3>Screendesign
                         Kleine Touchscreens</h3>
                     <p>Anpassung des Hochschuldrucker UIs für bessere Les- und Bedienbarkeit ohne den Verlust von
                         Features.</p>
                 </project-card>
-                <project-card src="./assets/Screendesign/Styles/title-img.png" alt="" href="#">
+                <project-card src="./assets/Screendesign/Styles/title-img.webp" alt="" href="#">
                     <h3>Screendesign
                         Themen & Stile</h3>
                     <p>

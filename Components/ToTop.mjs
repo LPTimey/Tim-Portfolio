@@ -1,7 +1,7 @@
 import { css, html, to_top_icon } from "../script.mjs";
 
 const template = html`
-<a href="#" class="button">${to_top_icon}</a>
+<a href="#" class="button" aria-label="Hoch scrollen">${to_top_icon}</a>
 `;
 
 const style = css`

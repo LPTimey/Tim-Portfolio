@@ -12,11 +12,13 @@
     @font-face {
         font-family: "JetBrains Mono";
         src: local("JetBrains Mono"), url("./assets/JetBrains_Mono/JetBrainsMono-VariableFont_wght.ttf");
+        font-display: swap;
     }
 
     @font-face {
         font-family: "Roboto";
         src: local("Roboto"), url("./assets/Roboto/Roboto-VariableFont_wdth\,wght.ttf");
+        font-display: swap;
     }
 
     /* #endregion fonts */
