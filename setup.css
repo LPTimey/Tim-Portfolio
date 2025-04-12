@@ -294,6 +294,12 @@
         &:where(.column) {
             flex-direction: column;
         }
+        &:where(.wrap){
+            flex-wrap: wrap;
+            > :where(*) {
+                min-width: var(--min-width,30ch);
+            }
+        }
     }
 
     :where(.full) {

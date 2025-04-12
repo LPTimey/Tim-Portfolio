@@ -1,0 +1,17 @@
+:root {
+    --dark: #11111b;
+}
+
+.printer-border {
+    border-radius: 2.5% / 4.35%;
+
+    --border: 1rem;
+    /* border: var(--border) solid black;
+    background-color: black; */
+}
+
+#VSOriginal {
+    height: 75vh;
+    width: 68%;
+    margin: auto;
+}

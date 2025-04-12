@@ -14,7 +14,8 @@ const template = function (src1, alt1, src2, alt2) {
 `;
 }
 
-const style = css`
+// TODO: Fix width when no-clip
+const style = (noClip) => css`
 @import "setup.css";
 
 *{
@@ -36,6 +37,7 @@ img{
     display: block;
     width: 100%;
     height:100%;
+    object-fit: ${noClip? "contain":"cover"}
 }
 
 div{
@@ -50,7 +52,6 @@ div{
         left: 0;
         height: 100%;
         z-index: 1;
-        object-fit: cover;
         /* object-position: left; */
     }
 }
@@ -69,7 +70,7 @@ div{
 
 export default class ImgCmp extends HTMLElement {
     static get observedAttributes() {
-        return ["src1", "alt1", "src2", "alt2" /*, "angle" */];
+        return ["src1", "alt1", "src2", "alt2", "no-clip" /*, "angle" */];
     }
     /**
          * 
@@ -90,7 +91,7 @@ export default class ImgCmp extends HTMLElement {
     }
     connectedCallback() {
         this.shadowRoot.innerHTML =
-            style
+            style(this.hasAttribute("no-clip"))
             + template(this.getAttribute("src1"), this.getAttribute("alt1"),
                 this.getAttribute("src2"), this.getAttribute("alt2"));
 

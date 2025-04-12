@@ -19,6 +19,9 @@ a {
 
     -webkit-backdrop-filter: blur(var(--blur-r));
     backdrop-filter: blur(var(--blur-r));
+    &:hover{
+        border-color: transparent;
+    }
 }
 
 
