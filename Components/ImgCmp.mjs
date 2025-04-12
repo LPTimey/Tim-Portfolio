@@ -9,7 +9,7 @@ const template = function (src1, alt1, src2, alt2) {
     <img src="${src2}" alt="${alt2}">
 </div>
 <div>
-    <input type="range" name="" id="" min="0" max="1000" value="500" class="slider">
+    <input type="range" name="" id="" min="0" max="1000" value="500" class="slider" aria-label="Slider der Sichtbarkeit vom vergleichsbild steuert">
 </div>
 `;
 }
