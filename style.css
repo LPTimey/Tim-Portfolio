@@ -116,15 +116,13 @@
     /* #endregion Setup */
 
     section {
-        --margin-b: 7rem;
+        --margin-b: 10rem;
         width: 100%;
         margin-block: var(--margin-b);
         scroll-margin: var(--margin-b);
 
-        @media (width < 740px) {
-            &:nth-child(1) {
-                margin-top: calc((var(--margin-b) / 2) + 1rem);
-            }
+        &:nth-child(1) {
+            margin-top: calc((var(--margin-b) / 2) + 1rem);
         }
     }
 }

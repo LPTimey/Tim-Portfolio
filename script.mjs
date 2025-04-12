@@ -21,6 +21,15 @@ export const changeEvent = new Event('change', {
     composed: true,
 });
 
+const tooltips = document.querySelectorAll("[data-tooltip]")
+tooltips.forEach((el) => {
+    let tooltip = document.createElement("div");
+    tooltip.classList.add("tooltip");
+    tooltip.innerHTML = el.getAttribute("data-tooltip");
+    el.appendChild(tooltip);
+});
+console.log(tooltips)
+
 /******************************\
  *                            *
  *            svg             *

@@ -294,10 +294,12 @@
         &:where(.column) {
             flex-direction: column;
         }
-        &:where(.wrap){
+
+        &:where(.wrap) {
             flex-wrap: wrap;
+
             > :where(*) {
-                min-width: var(--min-width,30ch);
+                min-width: var(--min-width, 30ch);
             }
         }
     }
@@ -404,6 +406,31 @@
         &:where(:hover:not(active),
             :focus-visible) {
             background-size: 0 0.1em, 100% 0.1em;
+        }
+    }
+
+    :where([data-tooltip]) {
+        position: relative;
+
+        .tooltip {
+            display: none;
+            color: var(--fg);
+            bottom: 0;
+            width: fit-content;
+            width: 100%;
+            position: absolute;
+            background-color: rgba(from var(--bg) r g b / calc(var(--transparency) / 2));
+            -webkit-backdrop-filter: blur(calc(var(--blur-r) / 2));
+            backdrop-filter: blur(calc(var(--blur-r) / 2));
+            z-index: 2;
+            text-wrap: balance;
+            padding: 2ch;
+            border-radius: var(--border-r) var(--border-r) 0 0;
+            place-items: center;
+        }
+
+        &:hover .tooltip {
+            display: grid;
         }
     }
 }
