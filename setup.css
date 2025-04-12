@@ -427,11 +427,19 @@
             padding: 2ch;
             border-radius: var(--border-r) var(--border-r) 0 0;
             place-items: center;
+            text-align: center;
         }
 
         &:hover .tooltip {
             display: grid;
+            opacity: 1;
         }
+    }
+}
+
+@starting-style {
+    .tooltip {
+        opacity: 0;
     }
 }
 
