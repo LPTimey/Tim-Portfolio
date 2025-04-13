@@ -13,8 +13,8 @@
     :where(*)::before {
         box-sizing: border-box;
         transition:
-            all var(--transition-time, 0.2s) ease-in-out,
-            visibility none;
+            all var(--transition-time, 0.2s) ease-in-out allow-discrete,
+            visibility 0s;
 
         /* 7. Inherit fonts for example form controls */
         font: inherit;
