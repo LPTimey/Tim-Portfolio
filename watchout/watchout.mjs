@@ -22,7 +22,7 @@ const phonePath = `./assets/Design%20der%20Mensch%20Maschine%20Schnittstelle/Wat
 const phone = await loader.loadAsync(phonePath);
 /** @type {THREE.Object3D} */
 const phoneScene = phone.scene;
-const texPathPrefix = "../assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/"
+const texPathPrefix = "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/"
 const phoneTextures = [
     // 'Artboard – 1.png',
     // 'Call List Expanded.png',
