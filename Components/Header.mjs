@@ -6,9 +6,9 @@ const template = html`
 <header>
     <nav class="content">
         <ul id="GeneralNav">
-            <li><a href="/#" class="underline link" aria-label="Navigiert zur HomePage">Home</a></li>
+            <li><a href="./#" class="underline link" aria-label="Navigiert zur HomePage">Home</a></li>
             <li><div class="separator"></div></li>
-            <li><a href="/about.html" class="underline link" aria-label="Navigiert zur AboutPage">Über mich</a></li>
+            <li><a href="./about.html" class="underline link" aria-label="Navigiert zur AboutPage">Über mich</a></li>
             <li><div class="separator"></div></li>
             <li><button id="ProjectsButton" popovertarget="ProjectsPopover" class="link underline">Projects</button></li>
             <li class="grow"></li>
@@ -17,15 +17,15 @@ const template = html`
             <li class="flex"><a href="https://github.com/LPTimey/Tim-Portfolio" class="link flex center" target="_blank" aria-label="Navigiert zum GitHub Repo"> <span class="underline mobile center">Source</span> ${gh_logo}</a></li>
         </ul>
         <ul id="ProjectsPopover" class="popover">
-            <li><a href="/watchout.html" class="underline link" aria-label="Navigiert zu WatchOut">WatchOut</a></li>
+            <li><a href="./watchout.html" class="underline link" aria-label="Navigiert zu WatchOut">WatchOut</a></li>
             <li><div class="separator"></div></li>
-            <li><a href="/printer.html" class="underline link" aria-label="Navigiert zur TouchScreen">TouchScreen</a></li>
+            <li><a href="./printer.html" class="underline link" aria-label="Navigiert zur TouchScreen">TouchScreen</a></li>
             <li><div class="separator"></div></li>
-            <li><a href="/styles.html" class="underline link" aria-label="Navigiert zur Themen & Stile">Themen & Stile</a></li>
+            <li><a href="./styles.html" class="underline link" aria-label="Navigiert zur Themen & Stile">Themen & Stile</a></li>
             <li><div class="separator"></div></li>
-            <li><a href="/tetris.html" class="underline link" aria-label="Navigiert zur Tetris in Arduino & C">Tetris in Arduino & C</a></li>
+            <li><a href="./tetris.html" class="underline link" aria-label="Navigiert zur Tetris in Arduino & C">Tetris in Arduino & C</a></li>
             <li><div class="separator"></div></li>
-            <li><a href="/webdesign.html" class="underline link" aria-label="Navigiert zur Website Development">Website Development</a></li>
+            <li><a href="./webdesign.html" class="underline link" aria-label="Navigiert zur Website Development">Website Development</a></li>
         </ul>
     </nav>
 </header>
