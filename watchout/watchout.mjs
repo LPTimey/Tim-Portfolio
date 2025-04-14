@@ -46,8 +46,8 @@ const phoneTextures = [
 const phones = []
 
 function initAnimation(scene, watch, phone, ...phones) {
-    watch.position.set(0, -1.5, 3.5);
-    watch.quaternion.set(-0.48, 0.48, 0.52, 0.52);
+    watch.position.set(-4.4, 0, -4.75);
+    watch.quaternion.setFromEuler(new THREE.Euler(0, 0.6, 0));
 
     // phone.position.set(0, 0, 0.25);
 
@@ -58,6 +58,12 @@ function initAnimation(scene, watch, phone, ...phones) {
     remove(scene, phone, ...phones).next(0);
 
     animation = null;
+}
+
+function fadeOutBGImg() {
+    return {
+        next: function () { }
+    }
 }
 
 /**
@@ -218,7 +224,7 @@ function slidePhonesIn(primary, ...phones) {
 function HeroAnimation(scene) {
     let children = [
         // show(scene),
-        combine(add(scene, watchScene), remove(scene, phoneScene, ...phones)),
+        combine(fadeOutBGImg(), add(scene, watchScene), remove(scene, phoneScene, ...phones)),
         startWatch(watchScene),
         interpolate(watchScene, startWatch, tiltWatch),
         tiltWatch(watchScene),
