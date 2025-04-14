@@ -151,8 +151,12 @@ export function combine(...animations) {
         next: function (deltaTime) {
             let results = [];
             for (let i = 0; i < animations.length; i++) {
-                results[i] = animations[i].next(deltaTime);
+                results[i] = animations[i]?.next(deltaTime);
             }
+            if (results.includes(true)){
+                return true;
+            }
+            return false;
         }
     }
 }
