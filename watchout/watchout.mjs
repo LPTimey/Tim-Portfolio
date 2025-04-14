@@ -277,8 +277,10 @@ async function main() {
 
                 // Weise der Textur der geklonten Material-Map eine neue Textur zu
                 clonedMaterial.map = texture;
+                clonedMaterial.emissiveMap = texture;
 
                 clonedMaterial.map.needsUpdate = true;
+                clonedMaterial.emissiveMap.needsUpdate = true;
                 clonedMaterial.needsUpdate = true;
 
             }
