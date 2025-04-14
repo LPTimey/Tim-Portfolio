@@ -125,6 +125,69 @@ export function remove(scene, ...scenes) {
 }
 
 /**
+ * @typedef FadeType
+ * @prop {{start: 0, end: 1}} In
+ * @prop {{start: 1, end: 0}} Out
+ */
+
+/**
+ * @template {keyof FadeType} K
+ * @param {K} type 
+ * @param {THREE.Scene} scene 
+ * @param {number} [duration=1000] 
+ * @returns {Animation}
+ * @returns {{next: FadeType[K]}}
+ */
+export function fade(type, scene, duration = 1000) {
+    const start = type === "In" ? 0 : 1;
+    const end = type === "In" ? 1 : 0;
+    let opacity = start;
+    let cur_duration = 0;
+
+    setOriginalAlpha(scene);
+
+    return {
+        next: function (deltaTime) {
+            cur_duration += deltaTime;
+            cur_duration = Math.min(cur_duration, duration);
+            const percent = cur_duration / duration;
+
+            opacity = lerp(start, end, percent);
+            //TODO: set opacity to scene
+            scene.traverse((child) => {
+                if (child.isMesh && child.material) {
+                    /** @type {THREE.Material[]} */
+                    const materials = Array.isArray(child.material) ? child.material : [child.material];
+
+                    materials.filter(mat => mat.userData !== undefined).forEach((mat) => {
+                        mat.transparent = true;
+                        mat.opacity = mat.userData.originalOpacity * opacity; // z.B. opacity = 0.5
+                    });
+                }
+            });
+
+            if (Math.abs(duration - cur_duration) < 0.1) {
+                return false
+            }
+            return true
+        }
+    }
+}
+export function setOriginalAlpha(scene) {
+    scene.traverse((child) => {
+        if (child.isMesh && child.material) {
+            const materials = Array.isArray(child.material) ? child.material : [child.material];
+
+            materials.forEach((mat) => {
+                if (mat.userData.originalOpacity === undefined) {
+                    mat.userData.originalOpacity = mat.opacity;
+                }
+            });
+        }
+    });
+}
+
+/**
  * 
  * @param {THREE.Scene} scene 
  * @param  {...THREE.Scene} scenes 

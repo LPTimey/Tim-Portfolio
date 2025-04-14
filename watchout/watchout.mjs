@@ -1,7 +1,7 @@
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
-import { THREE, add, addLight, combine, easeIn, easeInCirc, easeInOut, easeOut, easeOutCirc, hide, interpolate, lerp, remove, resize, show, wait } from "../three_utils.mjs";
+import { THREE, add, addLight, combine, easeIn, easeInCirc, easeInOut, easeOut, easeOutCirc, fade, hide, interpolate, lerp, remove, resize, show, wait } from "../three_utils.mjs";
 import { pause_icon, play_icon } from "../script.mjs";
-/** @import {Animation, AnimationState} from "../three_utils.mjs" */
+/** @import {Animation, AnimationState, FadeType} from "../three_utils.mjs" */
 
 const startButton = document.getElementById("StartAnimation");
 const heroImage = document.getElementById("HeroImage");
@@ -63,8 +63,14 @@ function initAnimation(scene, watch, phone, ...phones) {
     }
 
 }
-
-function fadeBGImg(start = 1, end = 0) {
+/**
+ * @template {keyof FadeType} K
+ * @param {K} [type="Out"] 
+ * @returns {Animation}
+ */
+function fadeBGImg(type="Out") {
+    const start = type === "In" ? 0 : 1;
+    const end = type === "In" ? 1 : 0;
     let duration = 1000;
     let cur_duration = 0;
 
@@ -252,6 +258,11 @@ function slidePhonesIn(primary, ...phones) {
         primary.scale.lerpVectors(beginState.scale, endState.scale, easeInOut(percent));
 
         //TODO: move other phones relatively
+        phones.forEach((phone, i) => {
+            phone.position.lerpVectors(beginState.pos, endState.pos, easeInOut(percent));
+            phone.quaternion.slerpQuaternions(beginState.rot, endState.rot, easeInOut(percent));
+            phone.scale.lerpVectors(beginState.scale, endState.scale, easeInOut(percent));
+        });
 
         if (Math.abs(duration - _internalState.cur_duration) < 0.1) {
             return false
@@ -270,7 +281,7 @@ function HeroAnimation(scene) {
     let children = [
         initAnimation(scene, watchScene, phoneScene, ...phones),
         show(scene),
-        combine(fadeBGImg(), add(scene, watchScene), remove(scene, phoneScene, ...phones)),
+        combine(fadeBGImg("Out"), fade("In", watchScene), add(scene, watchScene), remove(scene, phoneScene, ...phones)),
         startWatch(watchScene),
         interpolate(watchScene, startWatch, tiltWatch),
         tiltWatch(watchScene),
@@ -280,7 +291,7 @@ function HeroAnimation(scene) {
         slidePhonesIn(phoneScene, ...phones),
         wait(5000),
         hide(scene),
-        fadeBGImg(0, 1),
+        fadeBGImg("In"),
     ]
     let next = function (delta) {
         let cur = children.shift();
