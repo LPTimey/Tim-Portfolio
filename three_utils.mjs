@@ -72,7 +72,7 @@ export function wait(duration) {
         cur_duration: 0,
     }
     return {
-        next: function(deltaTime){
+        next: function (deltaTime) {
             _internalState.cur_duration += deltaTime;
             return _internalState.cur_duration < duration;
         }
@@ -100,7 +100,7 @@ export function hide(...scenes) {
  */
 export function show(...scenes) {
     return {
-        next: function() {
+        next: function () {
             for (const scene of scenes) {
                 scene.scale.set(1, 1, 1)
             }
@@ -114,9 +114,9 @@ export function show(...scenes) {
  * @param  {...THREE.Scene} scenes 
  * @returns {Animation}
  */
-export function remove(scene, ...scenes){
+export function remove(scene, ...scenes) {
     return {
-        next: function(){
+        next: function () {
             for (const nextScene of scenes) {
                 scene.remove(nextScene);
             }
@@ -148,13 +148,48 @@ export function add(scene, ...scenes) {
 export function combine(...animations) {
     return {
         // _internalState:,
-        next: function(deltaTime) {
+        next: function (deltaTime) {
             let results = [];
             for (let i = 0; i < animations.length; i++) {
                 results[i] = animations[i].next(deltaTime);
             }
         }
     }
+}
+
+/**
+ * 
+ * @param {THREE.Scene} scene 
+ * @param  {(scene:THREE.Scene)=>Animation} begin 
+ * @param  {(scene:THREE.Scene)=>Animation} end 
+ * @param {Object} [options?]
+ * @param {number} [options.duration=1000] 
+ * @param {(t: any) => any} [options.pos_easing=easeInOut] 
+ * @param {(t: any) => any} [options.rot_easing=easeInOut] 
+ * @param {(t: any) => any} [options.scale_easing=easeInOut] 
+ * @returns {Animation}
+ */
+export function interpolate(scene, begin, end, { duration = 1000, pos_easing = easeInOut, rot_easing = easeInOut, scale_easing = easeInOut } = {}) {
+    const _internalState = {
+        cur_duration: 0,
+    };
+    const beginState = begin(scene).endState;
+    const endState = end(scene).beginState;
+    const next = function (deltaTime) {
+        _internalState.cur_duration += deltaTime;
+        _internalState.cur_duration = Math.min(_internalState.cur_duration, duration);
+        const percent = _internalState.cur_duration / duration;
+
+        scene.position.lerpVectors(beginState.pos, endState.pos, pos_easing(percent));
+        scene.quaternion.slerpQuaternions(beginState.rot, endState.rot, rot_easing(percent));
+        scene.scale.lerpVectors(beginState.scale, endState.scale, scale_easing(percent));
+
+        if (Math.abs(duration - _internalState.cur_duration) < 0.1) {
+            return false
+        }
+        return true
+    };
+    return { _internalState, beginState, endState, next }
 }
 
 
@@ -170,8 +205,8 @@ export function cube(x) {
     return x * x * x;
 }
 
-export function pow(x){
-    return Math.pow(x,x);
+export function pow(x) {
+    return Math.pow(x, x);
 }
 
 export function flip(x) {

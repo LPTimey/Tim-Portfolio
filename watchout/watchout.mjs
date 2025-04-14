@@ -1,5 +1,5 @@
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
-import { THREE, add, addLight, combine, easeIn, easeInCirc, easeInOut, easeOut, easeOutCirc, hide, lerp, remove, resize, show, wait } from "../three_utils.mjs";
+import { THREE, add, addLight, combine, easeIn, easeInCirc, easeInOut, easeOut, easeOutCirc, hide, interpolate, lerp, remove, resize, show, wait } from "../three_utils.mjs";
 import { pause_icon, play_icon } from "../script.mjs";
 /** @import {Animation, AnimationState} from "../three_utils.mjs" */
 
@@ -64,8 +64,45 @@ function initAnimation(scene, watch, phone, ...phones) {
  * @param {THREE.Scene} scene 
  * @returns {Animation}
  */
+function startWatch(scene) {
+    const duration = 1500;
+    const _internalState = {
+        cur_duration: 0,
+    };
+    const beginState = {
+        pos: new THREE.Vector3(-4.4, 0, -4.75),
+        rot: new THREE.Quaternion().setFromEuler(new THREE.Euler(0, 0.6, 0)),
+        scale: new THREE.Vector3(1, 1, 1),
+    }
+    let endState = {
+        pos: new THREE.Vector3(),
+        rot: new THREE.Quaternion().normalize(),
+        scale: new THREE.Vector3(1, 1, 1),
+    }
+    endState = beginState;
+    const next = function (deltaTime) {
+        _internalState.cur_duration += deltaTime;
+        _internalState.cur_duration = Math.min(_internalState.cur_duration, duration);
+        const percent = _internalState.cur_duration / duration;
+
+        scene.position.lerpVectors(beginState.pos, endState.pos, easeOut(percent));
+        scene.quaternion.slerpQuaternions(beginState.rot, endState.rot, lerp(easeIn(percent), easeOutCirc(percent), percent));
+        scene.scale.lerpVectors(beginState.scale, endState.scale, easeInOut(percent));
+
+        if (Math.abs(duration - _internalState.cur_duration) < 0.1) {
+            return false
+        }
+        return true
+    };
+    return { _internalState, beginState, endState, next }
+}
+
+/**
+ * @param {THREE.Scene} scene 
+ * @returns {Animation}
+ */
 function tiltWatch(scene) {
-    const duration = 2000;
+    const duration = 1500;
     const _internalState = {
         cur_duration: 0,
     };
@@ -101,7 +138,7 @@ function tiltWatch(scene) {
  * @param {THREE.Scene} scene 
  */
 function moveWatchAway(scene) {
-    const duration = 2000;
+    const duration = 1000;
     const _internalState = {
         cur_duration: 0,
     };
@@ -147,12 +184,12 @@ function slidePhonesIn(primary, ...phones) {
     const beginState = {
         pos: new THREE.Vector3(0, 5, 0),
         rot: new THREE.Quaternion().normalize(),
-        scale: new THREE.Vector3(1,1,1),
+        scale: new THREE.Vector3(1, 1, 1),
     };
     const endState = {
         pos: new THREE.Vector3(),
         rot: new THREE.Quaternion().normalize(),
-        scale: new THREE.Vector3(1,1,1),
+        scale: new THREE.Vector3(1, 1, 1),
     };
     const next = function (deltaTime) {
         _internalState.cur_duration += deltaTime;
@@ -180,12 +217,17 @@ function slidePhonesIn(primary, ...phones) {
  */
 function HeroAnimation(scene) {
     let children = [
+        // show(scene),
         combine(add(scene, watchScene), remove(scene, phoneScene, ...phones)),
+        startWatch(watchScene),
+        interpolate(watchScene, startWatch, tiltWatch),
         tiltWatch(watchScene),
         wait(500),
         moveWatchAway(watchScene),
         combine(remove(scene, watchScene), add(scene, phoneScene, ...phones)),
-        slidePhonesIn(phoneScene, ...phones)
+        slidePhonesIn(phoneScene, ...phones),
+        // wait(500),
+        // hide(scene),
     ]
     let next = function (delta) {
         let cur = children.shift();
@@ -199,6 +241,12 @@ function HeroAnimation(scene) {
 }
 
 async function main() {
+
+    startButton.removeEventListener("click", main);
+    startButton.addEventListener("click", function () {
+        if (!animation) { animation = HeroAnimation(scene); }
+    })
+
     const renderer = new THREE.WebGLRenderer(
         { alpha: true, canvas: heroCanvas, antialias: true }
     );
@@ -260,13 +308,13 @@ async function main() {
             if (!animation.next(deltaTime)) { animation = null; }
 
             if (!buttonState || buttonState == "play") {
-                startButton.innerHTML = pause_icon
-                startButton.setAttribute("data-state", "pause")
+                startButton.innerHTML = pause_icon;
+                startButton.setAttribute("data-state", "pause");
             };
         } else {
             if (!buttonState || buttonState == "pause") {
-                startButton.innerHTML = play_icon
-                startButton.setAttribute("data-state", "play")
+                startButton.innerHTML = play_icon;
+                startButton.setAttribute("data-state", "play");
             };
         }
 
@@ -276,10 +324,9 @@ async function main() {
     initAnimation(scene, watchScene, phoneScene, ...phones);
     requestAnimationFrame(render);
 
-    startButton.innerHTML = play_icon;
-    startButton.addEventListener("click", function () {
-        if (!animation) { animation = HeroAnimation(scene); }
-    })
+    animation = HeroAnimation(scene);
 }
 
-await main();
+startButton.innerHTML = play_icon;
+startButton.setAttribute("data-state", "play");
+startButton.addEventListener("click", main)
