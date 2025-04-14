@@ -18,6 +18,7 @@ export default class x extends HTMLElement {
          * @param {*} newValue new value of attribute
          */
     attributeChangedCallback(name, oldValue, newValue) {
+        this.shadowRoot.innerHTML = style + template;
         return;
     }
     connectedCallback() {
