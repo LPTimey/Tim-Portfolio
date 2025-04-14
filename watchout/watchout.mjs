@@ -4,6 +4,7 @@ import { pause_icon, play_icon } from "../script.mjs";
 /** @import {Animation, AnimationState} from "../three_utils.mjs" */
 
 const startButton = document.getElementById("StartAnimation");
+const heroImage = document.getElementById("HeroImage");
 
 /**
  * @type {Animation|null}
@@ -46,23 +47,67 @@ const phoneTextures = [
 const phones = []
 
 function initAnimation(scene, watch, phone, ...phones) {
-    watch.position.set(-4.4, 0, -4.75);
-    watch.quaternion.setFromEuler(new THREE.Euler(0, 0.6, 0));
+    return {
+        next: () => {
+            watch.position.set(-4.4, 0, -4.75);
+            watch.quaternion.setFromEuler(new THREE.Euler(0, 0.6, 0));
 
-    // phone.position.set(0, 0, 0.25);
+            phone.position.set(0, 0, 0.25);
 
-    // phones.forEach((phone, i) =>
-    //     phone.translateX((i - 6.5) * 5)
-    // )
+            phones.forEach((phone, i) =>
+                phone.translateX((i - 6.5) * 3.5)
+            )
 
-    remove(scene, phone, ...phones).next(0);
+            remove(scene, phone, ...phones).next(0);
+        }
+    }
 
-    animation = null;
 }
 
-function fadeOutBGImg() {
+function fadeBGImg(start = 1, end = 0) {
+    let duration = 1000;
+    let cur_duration = 0;
+
     return {
-        next: function () { }
+        next: function (deltaTime) {
+            cur_duration += deltaTime;
+            cur_duration = Math.min(cur_duration, duration);
+            const percent = cur_duration / duration;
+
+            let imgStyle = heroImage.getAttribute('img-style');
+            // img-style in ein Objekt umwandeln
+            let styleObj = {};
+            imgStyle.split(';').forEach(style => {
+                if (style.trim() !== '') {
+                    let [key, value] = style.split(':');
+                    styleObj[key.trim()] = value.trim();
+                }
+            });
+
+            // Aktuellen Opacity-Wert ausgeben
+            console.log('Vorherige Opacity:', styleObj['opacity']);
+
+            // Opacity-Wert ändern
+            styleObj['opacity'] = `${lerp(start, end, easeInOut(percent))}`;
+
+            // Objekt zurück in einen CSS-String umwandeln
+            let newStyle = Object.entries(styleObj)
+                .map(([key, value]) => `${key}:${value}`)
+                .join(';');
+
+            // Neuen Wert wieder in img-style schreiben
+            heroImage.setAttribute('img-style', newStyle);
+
+            console.log('Neue img-style:', heroImage.getAttribute('img-style'));
+
+            if (Math.abs(duration - cur_duration) < 0.1) {
+                console.log(`done with ${duration - cur_duration}ms left`)
+                return false
+            }
+
+            console.log(`${duration - cur_duration}ms left`)
+            return true
+        }
     }
 }
 
@@ -223,8 +268,9 @@ function slidePhonesIn(primary, ...phones) {
  */
 function HeroAnimation(scene) {
     let children = [
-        // show(scene),
-        combine(fadeOutBGImg(), add(scene, watchScene), remove(scene, phoneScene, ...phones)),
+        initAnimation(scene, watchScene, phoneScene, ...phones),
+        show(scene),
+        combine(fadeBGImg(), add(scene, watchScene), remove(scene, phoneScene, ...phones)),
         startWatch(watchScene),
         interpolate(watchScene, startWatch, tiltWatch),
         tiltWatch(watchScene),
@@ -232,8 +278,9 @@ function HeroAnimation(scene) {
         moveWatchAway(watchScene),
         combine(remove(scene, watchScene), add(scene, phoneScene, ...phones)),
         slidePhonesIn(phoneScene, ...phones),
-        // wait(500),
-        // hide(scene),
+        wait(5000),
+        hide(scene),
+        fadeBGImg(0, 1),
     ]
     let next = function (delta) {
         let cur = children.shift();
@@ -329,7 +376,7 @@ async function main() {
         renderer.render(scene, cam);
         requestAnimationFrame((newTime) => render(newTime, time));
     }
-    initAnimation(scene, watchScene, phoneScene, ...phones);
+    initAnimation(scene, watchScene, phoneScene, ...phones).next(0);
     requestAnimationFrame(render);
 
     animation = HeroAnimation(scene);

@@ -153,7 +153,7 @@ export function combine(...animations) {
             for (let i = 0; i < animations.length; i++) {
                 results[i] = animations[i]?.next(deltaTime);
             }
-            if (results.includes(true)){
+            if (results.includes(true)) {
                 return true;
             }
             return false;
@@ -251,4 +251,7 @@ export function easeOutCirc(t) {
 }
 export function easeInOutCirc(t) {
     return lerp(easeInCirc(t), easeOutCirc(t), t);
+}
+export function easeInOutQuad(x) {
+    return x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2;
 }

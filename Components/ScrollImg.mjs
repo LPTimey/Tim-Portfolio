@@ -65,6 +65,43 @@ export default class ScrollImage extends HTMLElement {
          * @param {*} newValue new value of attribute
          */
     attributeChangedCallback(name, oldValue, newValue) {
+        // console.log(name, oldValue, newValue);
+        switch (name) {
+            case "src": {
+                let heroes = this.shadowRoot.querySelectorAll("img");
+                heroes.forEach((el) => el.setAttribute("src", newValue));
+                break;
+            }
+            case "alt": {
+                let heroes = this.shadowRoot.querySelectorAll("img");
+                heroes.forEach((el) => el.setAttribute("alt", newValue));
+                break;
+            }
+            case "time": {
+                let styleEl = this.shadowRoot.querySelector("style");
+                styleEl.outerHTML = style(this.getAttribute("time"), this.getAttribute("cols"), newValue);
+                //TODO: html changes
+                break;
+            }
+            case "cols": {
+                let styleEl = this.shadowRoot.querySelector("style");
+                styleEl.outerHTML = style(this.getAttribute("time"), this.getAttribute("cols"), newValue);
+                //TODO: html changes
+                break;
+            }
+            case "rows": {
+                //TODO: html changes
+                break;
+            }
+            case "bg": {
+                let styleEl = this.shadowRoot.querySelector("style");
+                styleEl.outerHTML = style(this.getAttribute("time"), this.getAttribute("cols"), newValue);
+                break;
+            }
+            default: {
+                break;
+            }
+        }
         return;
     }
     connectedCallback() {

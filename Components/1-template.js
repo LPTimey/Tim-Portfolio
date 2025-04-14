@@ -18,7 +18,18 @@ export default class x extends HTMLElement {
          * @param {*} newValue new value of attribute
          */
     attributeChangedCallback(name, oldValue, newValue) {
-        this.shadowRoot.innerHTML = style + template;
+        // this.shadowRoot.innerHTML = style + template;
+        // console.log(name, oldValue, newValue);
+        switch (name) {
+            case "X": {
+                let hero = this.shadowRoot.querySelector("Y");
+                hero?.setAttribute("X", newValue);
+                break;
+            }
+            default: {
+                break;
+            }
+        }
         return;
     }
     connectedCallback() {
