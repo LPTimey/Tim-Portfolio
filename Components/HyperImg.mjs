@@ -94,13 +94,13 @@ const template = (datas) => {
     return el.outerHTML;
 };
 
-const style = css`
+const style = (debug) => css`
 @import "setup.css";
 .hyper-img-link {
     position: absolute;
     background: none;
     color: transparent;
-    border: 1px solid red;
+    ${debug ? `border: 1px solid red;` : ''};
     cursor: pointer;
 }
 .wrapper{
@@ -146,7 +146,8 @@ export default class HyperImg extends HTMLElement {
             data = parseJSONC(this.innerHTML);
         }
 
-        this.shadowRoot.innerHTML = style + template(data.data);
+        this.shadowRoot.innerHTML = style(true) + template(data.data);
+
         // Listen to Buttons
         this.addEventListener(PressEvent.name, this.handlePress);
         // set EventListener for buttons
