@@ -78,13 +78,13 @@ export default class ScrollImage extends HTMLElement {
                 break;
             }
             case "time": {
-                let styleEl = this.shadowRoot.querySelector("style");
+                let styleEl = this.shadowRoot.querySelector("style") ?? {};
                 styleEl.outerHTML = style(this.getAttribute("time"), this.getAttribute("cols"), newValue);
                 //TODO: html changes
                 break;
             }
             case "cols": {
-                let styleEl = this.shadowRoot.querySelector("style");
+                let styleEl = this.shadowRoot.querySelector("style") ?? {};
                 styleEl.outerHTML = style(this.getAttribute("time"), this.getAttribute("cols"), newValue);
                 //TODO: html changes
                 break;
@@ -94,7 +94,7 @@ export default class ScrollImage extends HTMLElement {
                 break;
             }
             case "bg": {
-                let styleEl = this.shadowRoot.querySelector("style");
+                let styleEl = this.shadowRoot.querySelector("style") ?? {};
                 styleEl.outerHTML = style(this.getAttribute("time"), this.getAttribute("cols"), newValue);
                 break;
             }

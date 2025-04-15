@@ -277,6 +277,21 @@
         padding-inline: var(--outer-pad-inline);
     }
 
+    :where(.card) {
+        --x: 0.5rem;
+        --y: 0.5rem;
+        --blur: 0.5rem;
+        --i-border-c: var(--border-c, var(--fg, gray));
+        position: relative;
+        display: grid;
+        padding: 0.5em 1ch;
+        background-color: color-mix(in srgb, var(--bg), gray 0%);
+        border-radius: var(--border-r);
+        border: 1px solid var(--i-border-c);
+        overflow: hidden;
+        filter: drop-shadow(var(--x) var(--y) var(--blur) rgb(from var(--fg) r g b / 0.1));
+    }
+
     :where(.content) {
         padding-inline: var(--inner-pad-inline);
     }

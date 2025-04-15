@@ -39,12 +39,13 @@ img{
     display:grid;
     grid-template-rows: subgrid;
     grid-row: span 2;
-    gap: 0.5rem;
+    gap: 0.25rem;
     padding-inline: 2ch;
 }
 .button{
     margin-inline: 2ch;
     margin-bottom: 1rem;
+    margin-left: auto;
 }
 `;
 
