@@ -121,8 +121,12 @@ export default class HyperImg extends HTMLElement {
      * @param {PressEvent} ev 
      */
     handlePress(ev) {
-        console.log(ev.src);
-        console.log(ev.destination);
+        // console.log(ev.src);
+        // console.log(ev.destination);
+
+        // order is important 1st toggle dest. then as 2nd src
+        this.shadowRoot.querySelector(`div[name=${ev.destination}]`).toggleAttribute("active");
+        ev.src.parentElement.toggleAttribute("active");
     }
 
     async connectedCallback() {
@@ -133,14 +137,13 @@ export default class HyperImg extends HTMLElement {
         } else {
             data = parseJSONC(this.innerHTML);
         }
-        // console.log(data);
+
         this.shadowRoot.innerHTML = style + template(data.data);
         // Listen to Buttons
         this.addEventListener(PressEvent.name, this.handlePress);
         // set EventListener for buttons
         this.shadowRoot.querySelectorAll("button.hyper-img-link").forEach((link)=>{
             link.addEventListener("click", () => {
-                console.log("clicked");
                 this.dispatchEvent(new PressEvent({ bubbles: true, cancelable: true, composed: true, }, link, link.dataset.href));
             });
         })
