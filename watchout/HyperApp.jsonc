@@ -2,29 +2,29 @@
     "$schema": "../HyperImgSchema.jsonc",
     "data": [
         {
-            "name": "Historie",
-            "src": "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/History  – 1 Log.png",
+            "name": "News",
+            "src": "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/Recent Events  – log.png",
             "links": [
-                {
+                /* {
                     "name": "NewsIcon",
-                    "href": "TODO:",
+                    "href": "News",
                     "pos": {
                         "top": "90%",
                         "right": "75%",
                         "bottom": "2%",
                         "left": "10%"
                     }
+                }, */
+                {
+                    "name": "HistoryIcon",
+                    "href": "Historie",
+                    "pos": {
+                        "top": "90%",
+                        "right": "53%",
+                        "bottom": "2%",
+                        "left": "31%"
+                    }
                 },
-                // {
-                //     "name": "HistoryIcon",
-                //     "href": "Historie",
-                //     "pos": {
-                //         "top": "90%",
-                //         "right": "53%",
-                //         "bottom": "2%",
-                //         "left": "31%"
-                //     }
-                // },
                 {
                     "name": "MapIcon",
                     "href": "Map",
@@ -37,7 +37,7 @@
                 },
                 {
                     "name": "SettingsIcon",
-                    "href": "TODO:",
+                    "href": "Settings",
                     "pos": {
                         "top": "90%",
                         "right": "10%",
@@ -47,7 +47,63 @@
                 },
                 {
                     "name": "Call",
-                    "href": "TODO:",
+                    "href": "CallList#Overlay",
+                    "pos": {
+                        "top": "81%",
+                        "right": "7%",
+                        "bottom": "13.5%",
+                        "left": "7%"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Historie",
+            "src": "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/History  – 1 Log.png",
+            "links": [
+                {
+                    "name": "NewsIcon",
+                    "href": "News",
+                    "pos": {
+                        "top": "90%",
+                        "right": "75%",
+                        "bottom": "2%",
+                        "left": "10%"
+                    }
+                },
+                /* {
+                    "name": "HistoryIcon",
+                    "href": "Historie",
+                    "pos": {
+                        "top": "90%",
+                        "right": "53%",
+                        "bottom": "2%",
+                        "left": "31%"
+                    }
+                }, */
+                {
+                    "name": "MapIcon",
+                    "href": "Map",
+                    "pos": {
+                        "top": "90%",
+                        "right": "30%",
+                        "bottom": "2%",
+                        "left": "52%"
+                    }
+                },
+                {
+                    "name": "SettingsIcon",
+                    "href": "Settings",
+                    "pos": {
+                        "top": "90%",
+                        "right": "10%",
+                        "bottom": "2%",
+                        "left": "75%"
+                    }
+                },
+                {
+                    "name": "Call",
+                    "href": "CallList#Overlay",
                     "pos": {
                         "top": "81%",
                         "right": "7%",
@@ -61,19 +117,19 @@
             "name": "Map",
             "src": "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/Map – 1.png",
             "links": [
-                // {
-                //     "name": "Nav",
-                //     "href": "TODO:",
-                //     "pos": {
-                //         "top": "90%",
-                //         "right": "7%",
-                //         "bottom": "2%",
-                //         "left": "7%"
-                //     }
-                // },
+                /* {
+                    "name": "Nav",
+                    "href": "TODO:",
+                    "pos": {
+                        "top": "90%",
+                        "right": "7%",
+                        "bottom": "2%",
+                        "left": "7%"
+                    }
+                }, */
                 {
                     "name": "NewsIcon",
-                    "href": "TODO:",
+                    "href": "News",
                     "pos": {
                         "top": "90%",
                         "right": "75%",
@@ -91,19 +147,19 @@
                         "left": "31%"
                     }
                 },
-                // {
-                //     "name": "MapIcon",
-                //     "href": "Map",
-                //     "pos": {
-                //         "top": "90%",
-                //         "right": "30%",
-                //         "bottom": "2%",
-                //         "left": "52%"
-                //     }
-                // },
+                /* {
+                    "name": "MapIcon",
+                    "href": "Map",
+                    "pos": {
+                        "top": "90%",
+                        "right": "30%",
+                        "bottom": "2%",
+                        "left": "52%"
+                    }
+                }, */
                 {
                     "name": "SettingsIcon",
-                    "href": "TODO:",
+                    "href": "Settings",
                     "pos": {
                         "top": "90%",
                         "right": "10%",
@@ -113,7 +169,7 @@
                 },
                 {
                     "name": "Call",
-                    "href": "TODO:",
+                    "href": "CallList#Overlay",
                     "pos": {
                         "top": "81%",
                         "right": "7%",
@@ -149,6 +205,109 @@
                         "right": "62%",
                         "bottom": "28%",
                         "left": "23%"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Settings",
+            "src": "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/Settings – 1.png",
+            "links": [
+                {
+                    "name": "NewsIcon",
+                    "href": "News",
+                    "pos": {
+                        "top": "90%",
+                        "right": "75%",
+                        "bottom": "2%",
+                        "left": "10%"
+                    }
+                },
+                {
+                    "name": "HistoryIcon",
+                    "href": "Historie",
+                    "pos": {
+                        "top": "90%",
+                        "right": "53%",
+                        "bottom": "2%",
+                        "left": "31%"
+                    }
+                },
+                {
+                    "name": "MapIcon",
+                    "href": "Map",
+                    "pos": {
+                        "top": "90%",
+                        "right": "30%",
+                        "bottom": "2%",
+                        "left": "52%"
+                    }
+                }
+                /*, {
+                    "name": "SettingsIcon",
+                    "href": "Settings",
+                    "pos": {
+                        "top": "90%",
+                        "right": "10%",
+                        "bottom": "2%",
+                        "left": "75%"
+                    }
+                }, */
+            ]
+        },
+        {
+            "name": "CallList",
+            "src": "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/Call List Expanded.png",
+            "src2": "",
+            "links": [
+                {
+                    "name": "NewsIcon",
+                    "href": "News",
+                    "pos": {
+                        "top": "90%",
+                        "right": "75%",
+                        "bottom": "2%",
+                        "left": "10%"
+                    }
+                },
+                {
+                    "name": "HistoryIcon",
+                    "href": "Historie",
+                    "pos": {
+                        "top": "90%",
+                        "right": "53%",
+                        "bottom": "2%",
+                        "left": "31%"
+                    }
+                },
+                {
+                    "name": "MapIcon",
+                    "href": "Map",
+                    "pos": {
+                        "top": "90%",
+                        "right": "30%",
+                        "bottom": "2%",
+                        "left": "52%"
+                    }
+                },
+                {
+                    "name": "SettingsIcon",
+                    "href": "Settings",
+                    "pos": {
+                        "top": "90%",
+                        "right": "10%",
+                        "bottom": "2%",
+                        "left": "75%"
+                    }
+                },
+                {
+                    "name": "Back",
+                    "href": "Back",
+                    "pos": {
+                        "top": "0",
+                        "right": "0",
+                        "bottom": "53%",
+                        "left": "0"
                     }
                 }
             ]

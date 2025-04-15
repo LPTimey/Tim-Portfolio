@@ -52,6 +52,7 @@ const template = (datas) => {
             img.setAttribute("name", data.name)
             img.src = data.src;
             img.alt = "";
+            img.classList.add("display-img");
             return { img, links: data.links };
         })
         .map(data => {
@@ -105,7 +106,7 @@ const style = (debug) => css`
 }
 .wrapper{
     display: grid;
-    > * {
+    * {
         grid-column: 1 / -1;
         grid-row: 1 / -1;
     }
@@ -114,6 +115,7 @@ const style = (debug) => css`
     position: relative;
     width: fit-content;
     height: fit-content;
+    display: grid;
 }
 .img-wrapper:not([active]){
     display: none;
@@ -122,7 +124,7 @@ const style = (debug) => css`
 
 export default class HyperImg extends HTMLElement {
     static get observedAttributes() {
-        return ["src"];
+        return ["src", "start-name", "debug"];
     }
     /**
      * 
@@ -131,9 +133,28 @@ export default class HyperImg extends HTMLElement {
     handlePress(ev) {
         // console.log(ev.src);
         // console.log(ev.destination);
+        let isOverlay = null;
+
+        if (ev.destination.includes("#Overlay")) {
+            console.log("overlay detected");
+            isOverlay = true;
+            ev.destination = ev.destination.replace("#Overlay", "");
+        }
 
         // order is important 1st toggle dest. then as 2nd src
-        this.shadowRoot.querySelector(`div[name=${ev.destination}]`).toggleAttribute("active");
+        let destinationDiv = this.shadowRoot.querySelector(`div[name=${ev.destination}]`);
+
+        if (isOverlay) {
+            let bgImg = destinationDiv.querySelector("img.bg-img") ?? function () {
+                let img = document.createElement("img");
+                img.className = "bg-img";
+                destinationDiv.insertBefore(img, destinationDiv.firstElementChild);
+                return img;
+            }()
+            bgImg.src = ev.src.parentElement.querySelector(".display-img")?.src
+        }
+
+        destinationDiv.toggleAttribute("active");
         ev.src.parentElement.toggleAttribute("active");
     }
 
@@ -146,7 +167,7 @@ export default class HyperImg extends HTMLElement {
             data = parseJSONC(this.innerHTML);
         }
 
-        this.shadowRoot.innerHTML = style(true) + template(data.data);
+        this.shadowRoot.innerHTML = style(this.hasAttribute("debug")) + template(data.data);
 
         // Listen to Buttons
         this.addEventListener(PressEvent.name, this.handlePress);
@@ -156,6 +177,11 @@ export default class HyperImg extends HTMLElement {
                 this.dispatchEvent(new PressEvent({ bubbles: true, cancelable: true, composed: true, }, link, link.dataset.href));
             });
         })
+
+        if (this.hasAttribute("start-name")) {
+            this.shadowRoot.querySelectorAll(".img-wrapper[active]").forEach(el => el.removeAttribute("active"));
+            this.shadowRoot.querySelector(`[name="${this.getAttribute("start-name")}"]`).toggleAttribute("active");
+        }
     }
 
     constructor() {
