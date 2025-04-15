@@ -135,15 +135,22 @@ export default class HyperImg extends HTMLElement {
         // console.log(ev.destination);
         let isOverlay = null;
 
+        //#region pre-handle Commands
         if (ev.destination.includes("#Overlay")) {
             console.log("overlay detected");
             isOverlay = true;
             ev.destination = ev.destination.replace("#Overlay", "");
         }
+        if (ev.destination.includes("#Back")) {
+            console.log("Back detected");
+            let backName = ev.src.parentElement.querySelector(".bg-img").getAttribute("name");
+            ev.destination = ev.destination.replace("#Back", backName);
+        }
+        //#endregion pre-handle Commands
 
-        // order is important 1st toggle dest. then as 2nd src
         let destinationDiv = this.shadowRoot.querySelector(`div[name=${ev.destination}]`);
 
+        //#region post-handle Commands
         if (isOverlay) {
             let bgImg = destinationDiv.querySelector("img.bg-img") ?? function () {
                 let img = document.createElement("img");
@@ -151,9 +158,12 @@ export default class HyperImg extends HTMLElement {
                 destinationDiv.insertBefore(img, destinationDiv.firstElementChild);
                 return img;
             }()
+            bgImg.setAttribute("name", ev.src.parentNode.getAttribute("name"));
             bgImg.src = ev.src.parentElement.querySelector(".display-img")?.src
         }
+        //#endregion post-handle Commands
 
+        // order is important 1st toggle dest. then as 2nd src
         destinationDiv.toggleAttribute("active");
         ev.src.parentElement.toggleAttribute("active");
     }
