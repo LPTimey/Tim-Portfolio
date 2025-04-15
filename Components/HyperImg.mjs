@@ -62,7 +62,7 @@ const template = (datas) => {
                     console.log(link)
                     const htmlLink = document.createElement("button");
                     htmlLink.setAttribute("name", link.name);
-                    htmlLink.textContent = "t";
+                    htmlLink.textContent = "";
                     htmlLink.dataset.href = link.href;
                     htmlLink.style.top = link.pos.top;
                     htmlLink.style.right = link.pos.right;
