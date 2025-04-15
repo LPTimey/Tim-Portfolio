@@ -15,6 +15,17 @@ export function html(strings, ...values) {
     return noOpTag(strings, ...values);
 }
 
+export function parseJSONC(jsonc) {
+    // Entfernt einzeilige Kommentare: //
+    jsonc = jsonc.replace(/\/\/.*$/gm, '');
+
+    // Entfernt mehrzeilige Kommentare: /* ... */
+    jsonc = jsonc.replace(/\/\*[\s\S]*?\*\//g, '');
+
+    // JSON parsen
+    return JSON.parse(jsonc);
+}
+
 export const changeEvent = new Event('change', {
     bubbles: true,
     cancelable: true,

@@ -1,4 +1,42 @@
-import { css, html } from "../script.mjs";
+import { css, html, parseJSONC } from "../script.mjs";
+
+/**
+ * @typedef HyperImgData
+ * @prop {string} name
+ * @prop {string} src
+ * @prop {Array<LinkData>} links
+ */
+
+/**
+ * @typedef LinkData
+ * @prop {string} name
+ * @prop {string} href
+ * @prop {Object} pos
+ * @prop {0|string} pos.top
+ * @prop {0|string} pos.right
+ * @prop {0|string} pos.bottom
+ * @prop {0|string} pos.left
+*/
+
+/**
+ * @extends {Event}
+ */
+class PressEvent extends Event {
+    static name = "press-event"
+    /**
+     * @param {EventInit} options
+     * @param {HTMLButtonElement} src
+     * @param {string} destination
+     */
+    constructor(options, src, destination) {
+        super(PressEvent.name, options);
+        /** @type {HTMLButtonElement} */
+        this.src = src;
+        /** @type {string} */
+        this.destination = destination;
+    }
+}
+
 
 /** TODO: Impl This: A way to have multiple images wich link to each other through 
  * hidden interaction areas, emulating a Prototype
@@ -24,13 +62,14 @@ const template = (datas) => {
                     console.log(link)
                     const htmlLink = document.createElement("button");
                     htmlLink.setAttribute("name", link.name);
-                    htmlLink.href = link.href;
+                    htmlLink.textContent = "t";
+                    htmlLink.dataset.href = link.href;
                     htmlLink.style.top = link.pos.top;
                     htmlLink.style.right = link.pos.right;
                     htmlLink.style.bottom = link.pos.bottom;
                     htmlLink.style.left = link.pos.left;
-                    htmlLink.classList.add("hyper-img-link")
-                    return htmlLink
+                    htmlLink.classList.add("hyper-img-link");
+                    return htmlLink;
                 })
             }
         })
@@ -43,6 +82,9 @@ const template = (datas) => {
             return div;
         })
         .reduce((prev, cur, i) => {
+            if (i == 0) {
+                cur.toggleAttribute("active")
+            }
             prev.appendChild(cur);
             return prev;
         }, document.createElement("div"));
@@ -65,36 +107,49 @@ const style = css`
     width: fit-content;
     height: fit-content;
 }
+.img-wrapper:not([active]){
+    display: none;
+}
 `;
 
-/**
- * @typedef HyperImgData
- * @prop {string} name
- * @prop {URL} src
- * @prop {Array<LinkData>} links
- */
-
-/**
- * @typedef LinkData
- * @prop {string} name
- * @prop {URL} href
- * @prop {Object} pos
- * @prop {0|string} pos.top
- * @prop {0|string} pos.right
- * @prop {0|string} pos.bottom
- * @prop {0|string} pos.left
-*/
-
 export default class HyperImg extends HTMLElement {
-    connectedCallback() {
-        console.log(this.innerHTML);
-        const data = JSON.parse(this.innerHTML);
-        console.log(data);
-        this.shadowRoot.innerHTML = style + template(data);
+    static get observedAttributes() {
+        return ["src"];
     }
+    /**
+     * 
+     * @param {PressEvent} ev 
+     */
+    handlePress(ev) {
+        console.log(ev.src);
+        console.log(ev.destination);
+    }
+
+    async connectedCallback() {
+        // console.log(this.innerHTML);
+        let data;
+        if (this.getAttribute("src")) {
+            data = parseJSONC((await (await fetch(this.getAttribute("src"))).text()));
+        } else {
+            data = parseJSONC(this.innerHTML);
+        }
+        // console.log(data);
+        this.shadowRoot.innerHTML = style + template(data.data);
+        // Listen to Buttons
+        this.addEventListener(PressEvent.name, this.handlePress);
+        // set EventListener for buttons
+        this.shadowRoot.querySelectorAll("button.hyper-img-link").forEach((link)=>{
+            link.addEventListener("click", () => {
+                console.log("clicked");
+                this.dispatchEvent(new PressEvent({ bubbles: true, cancelable: true, composed: true, }, link, link.dataset.href));
+            });
+        })
+    }
+
     constructor() {
-        super()
-        this.attachShadow({ mode: "open" })
+        super();
+        this.attachShadow({ mode: "open" });
+
     }
 }
 customElements.define("hyper-img", HyperImg);

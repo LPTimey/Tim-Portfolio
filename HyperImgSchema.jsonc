@@ -1,0 +1,80 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "required": [
+        "data"
+    ],
+    "properties": {
+        "data": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "required": [
+                    "name",
+                    "src",
+                    "links"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Name des Screens oder Views"
+                    },
+                    "src": {
+                        "type": "string",
+                        "description": "Pfad zum Bild oder UI-Element"
+                    },
+                    "links": {
+                        "type": "array",
+                        "description": "Liste klickbarer Bereiche (Hotspots)",
+                        "items": {
+                            "type": "object",
+                            "required": [
+                                "name",
+                                "href",
+                                "pos"
+                            ],
+                            "properties": {
+                                "name": {
+                                    "type": "string",
+                                    "description": "Bezeichner des klickbaren Bereichs"
+                                },
+                                "href": {
+                                    "type": "string",
+                                    "description": "Ziel-URL oder Anker für Navigation"
+                                },
+                                "pos": {
+                                    "type": "object",
+                                    "description": "Position des Bereichs als z.B. Prozentwerte",
+                                    "required": [
+                                        "top",
+                                        "right",
+                                        "bottom",
+                                        "left"
+                                    ],
+                                    "properties": {
+                                        "top": {
+                                            "type": "string",
+                                            "description": "Oberer Abstand"
+                                        },
+                                        "right": {
+                                            "type": "string",
+                                            "description": "Rechter Abstand"
+                                        },
+                                        "bottom": {
+                                            "type": "string",
+                                            "description": "Unterer Abstand"
+                                        },
+                                        "left": {
+                                            "type": "string",
+                                            "description": "Linker Abstand"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
