@@ -88,9 +88,10 @@ const template = (datas) => {
             prev.appendChild(cur);
             return prev;
         }, document.createElement("div"));
+    el.className = "wrapper"
     console.log(el);
     console.log(el.innerHTML);
-    return el.innerHTML;
+    return el.outerHTML;
 };
 
 const style = css`
@@ -101,6 +102,13 @@ const style = css`
     color: transparent;
     border: 1px solid red;
     cursor: pointer;
+}
+.wrapper{
+    display: grid;
+    > * {
+        grid-column: 1 / -1;
+        grid-row: 1 / -1;
+    }
 }
 .img-wrapper{
     position: relative;
@@ -142,7 +150,7 @@ export default class HyperImg extends HTMLElement {
         // Listen to Buttons
         this.addEventListener(PressEvent.name, this.handlePress);
         // set EventListener for buttons
-        this.shadowRoot.querySelectorAll("button.hyper-img-link").forEach((link)=>{
+        this.shadowRoot.querySelectorAll("button.hyper-img-link").forEach((link) => {
             link.addEventListener("click", () => {
                 this.dispatchEvent(new PressEvent({ bubbles: true, cancelable: true, composed: true, }, link, link.dataset.href));
             });
