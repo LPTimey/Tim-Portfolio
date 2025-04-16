@@ -99,6 +99,8 @@ const style = (debug) => css`
 :host{
     display: block;
     overflow: hidden;
+    width: fit-content;
+    height: fit-content;
 }
 .hyper-img-link {
     position: absolute;
