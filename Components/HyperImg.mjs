@@ -125,6 +125,7 @@ const style = (debug) => css`
     position: relative;
     display: grid;
     height: 100%;
+    width: fit-content;
     overflow: hidden;
 }
 .img-wrapper:not([active]){
