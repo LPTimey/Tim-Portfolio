@@ -100,6 +100,7 @@ const style = (debug) => css`
 :host{
     display: block;
     width: fit-content;
+    height: fit-content;
 }
 .hyper-img-link {
     position: absolute;
@@ -110,6 +111,11 @@ const style = (debug) => css`
 }
 .wrapper{
     display: grid;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
     * {
         grid-column: 1 / -1;
         grid-row: 1 / -1;
@@ -118,12 +124,15 @@ const style = (debug) => css`
 .img-wrapper{
     position: relative;
     display: grid;
+    height: 100%;
+    overflow: hidden;
 }
 .img-wrapper:not([active]){
     display: none;
 }
 img{
-    width: 100%;
+    max-width: 100%;
+    max-height: 100%;
     object-fit: contain;
 }
 `;
