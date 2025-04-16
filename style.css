@@ -25,17 +25,23 @@
 
     /********************************
      *                              *
-     *            Setup             *
+     *         Setup Vars           *
      *                              *
      *******************************/
-    /* #region Setup */
+    /* #region Setup Vars */
 
     :root {
         --dark: #181819;
-        --light: #ddd;
         --light: #fefffd;
-        --accent: #6060ff;
+        --accent-light: #6060ff;
         --accent-dark: #4141bd;
+
+        --accent: light-dark(var(--accent-light), var(--accent-dark));
+        --accent-2: light-dark(var(--accent-dark), var(--accent-light));
+
+        --fg: light-dark(var(--dark), var(--light));
+        --bg: light-dark(var(--light), var(--dark));
+
 
         --outer-width: 80dvw;
         /* --inner-width: calc(var(--outer-width) - 10dvw); */
@@ -78,42 +84,28 @@
 
     @media screen {
         .system {
-
-            @media (prefers-color-scheme: light) {
-                --bg: var(--light);
-                --fg: var(--dark);
-                color-scheme: light;
-            }
-
-            @media (prefers-color-scheme: dark) {
-                --bg: var(--dark);
-                --fg: var(--light);
-                color-scheme: dark;
-            }
+            color-scheme: light dark;
         }
 
         .dark {
-            --bg: var(--dark);
-            --fg: var(--light);
             color-scheme: dark;
         }
 
         .light {
-            --bg: var(--light);
-            --fg: var(--dark);
             color-scheme: light;
         }
+
+
     }
 
     @media print {
         :root {
-            --bg: var(--light);
-            --fg: var(--dark);
-            color-scheme: light;
+            color-scheme: light !important;
         }
     }
 
-    /* #endregion Setup */
+
+    /* #endregion Setup Vars */
 
     section {
         --margin-b: 10rem;

@@ -262,7 +262,7 @@
         }
 
         &:where(.accent) {
-            --b-hover: var(--accent-dark);
+            --b-hover: var(--accent-2);
             --b-fg: var(--light);
             --b-bg: var(--accent);
             --b-b: transparent;
@@ -405,7 +405,7 @@
             /* default */
             linear-gradient(to right, rgb(from var(--bg) r g b / 0), rgb(from var(--bg) r g b / 0)),
             /* hover */
-            linear-gradient(to right, var(--accent-dark), var(--accent), var(--accent-dark));
+            linear-gradient(to right, var(--accent-2), var(--accent), var(--accent-2));
 
         background-size: 100% 0.1em, 0 0.1em;
         background-position: 100% 100%, 0 100%;
