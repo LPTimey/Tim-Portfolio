@@ -8,8 +8,11 @@ ${src || alt ? html`<img class="screen" src="${src}" alt="${alt}">` : html`<slot
 const style = (bg) => css`
 @import "setup.css";
 :host{
-    --iphone16PM-aspect: 1420 / 2868;
-    aspect-ratio: var(--iphone16PM-aspect);
+    --iphone16PM-h: 2900;
+    --iphone16PM-w: 1420;
+    --iphone16PM-aspect: var(--iphone16PM-w) / var(--iphone16PM-h);
+    --iphone16PM-aspect-outer: calc((var(--iphone16PM-w) + 75) / var(--iphone16PM-h));
+    aspect-ratio: var(--iphone16PM-aspect-outer);
     max-height: 100%;
     position: relative;
     display:  block;
@@ -30,13 +33,13 @@ img,::slotted(*){
 }
 .screen, ::slotted(*) {
     border-radius: 10% / 5% ;
-    height: 97.5%;
+    height: 97%;
     aspect-ratio: var(--iphone16PM-aspect);
     ${bg ? `background: ${bg}` : ""};
 }
 .phone{
     height: 100%;
-    aspect-ratio: var(--iphone16PM-aspect);
+    aspect-ratio: var(--iphone16PM-aspect-outer);
     pointer-events: none;
 }
 `;
