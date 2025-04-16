@@ -38,8 +38,7 @@ class PressEvent extends Event {
 }
 
 
-/** TODO: Impl This: A way to have multiple images wich link to each other through 
- * hidden interaction areas, emulating a Prototype
+/** TODO: Scaling the image
  * @type {(data: HyperImgData[])=>string}
  */
 const template = (datas) => {

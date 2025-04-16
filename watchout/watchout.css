@@ -1,10 +1,15 @@
-canvas{
+canvas {
     height: 100%;
     width: 100%;
     outline: none;
     border: none;
 }
-#StartAnimation{
+
+#StartAnimation {
     border-radius: 50%;
     padding: 1ch;
+}
+
+phone-img {
+    max-height: 70vh;
 }

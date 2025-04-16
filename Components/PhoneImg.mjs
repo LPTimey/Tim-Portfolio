@@ -17,7 +17,6 @@ const style = (bg) => css`
     position: relative;
     display:  block;
     z-index:  0;
-    width: 100%;
 }
 img,::slotted(*){
     object-fit: fill;
@@ -50,7 +49,8 @@ export class PhoneImage extends HTMLElement {
     }
 
     connectedCallback() {
-        this.shadowRoot.innerHTML = style(this.getAttribute("bg")) + template(this.getAttribute("src"), this.getAttribute("alt"), this.getAttribute("phonePrefix"))
+        this.shadowRoot.innerHTML = style(this.getAttribute("bg")) + template(this.getAttribute("src"), this.getAttribute("alt"), this.getAttribute("phonePrefix"));
+
     }
     constructor() {
         super();
