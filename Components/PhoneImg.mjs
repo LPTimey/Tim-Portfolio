@@ -31,6 +31,7 @@ img,::slotted(*){
 .screen, ::slotted(*) {
     border-radius: 10% / 5% ;
     height: 97.5%;
+    aspect-ratio: var(--iphone16PM-aspect);
     ${bg ? `background: ${bg}` : ""};
 }
 .phone{
