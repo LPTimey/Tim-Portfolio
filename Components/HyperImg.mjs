@@ -99,6 +99,7 @@ const style = (debug) => css`
 @import "setup.css";
 :host{
     display: block;
+    width: fit-content;
 }
 .hyper-img-link {
     position: absolute;
