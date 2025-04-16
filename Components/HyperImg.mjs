@@ -97,6 +97,9 @@ const template = (datas) => {
 
 const style = (debug) => css`
 @import "setup.css";
+:host{
+    display: block;
+}
 .hyper-img-link {
     position: absolute;
     background: none;
@@ -113,12 +116,14 @@ const style = (debug) => css`
 }
 .img-wrapper{
     position: relative;
-    width: fit-content;
-    height: fit-content;
     display: grid;
 }
 .img-wrapper:not([active]){
     display: none;
+}
+img{
+    width: 100%;
+    object-fit: contain;
 }
 `;
 
