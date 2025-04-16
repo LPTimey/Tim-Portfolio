@@ -14,6 +14,7 @@
     <script type="module" src="./Components/SiteFooter.mjs"></script>
     <script type="module" src="./Components/HeroImg.mjs"></script>
     <script type="module" src="./Components/ImgCmp.mjs"></script>
+    <script type="module" src="./Components/HyperImg.mjs"></script>
 </head>
 
 <body>
@@ -28,14 +29,14 @@
         </section>
         <section id="Login">
             <h2 class="heading large margin-b">Login</h2>
-            <div class="grid auto default content" style="--grid-max-col-count:2;">
+            <div class="grid auto default content" style="--grid-max-col-count:2;--gap:3rem;">
                 <div>
                     <img-cmp class="printer-border"
                         src1="./assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_05.png" alt1=""
                         src2="./assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_06.png" alt2="">
                     </img-cmp>
                 </div>
-                <div style="width: 100%;height: 100%;border:1px solid gray;">
+                <div class="center">
                     <p>Drucker sind leider oft dafür bekannt, nicht so zu funktionieren, wie es die Nutzer erwarten. Ein
                         großer
                         Teil dieses
@@ -55,27 +56,29 @@
         </section>
         <section id="Home">
             <h2 class="heading large margin-b">Home Screen</h2>
-            <div class="grid auto default content margin-b-medium" style="--grid-max-col-count:2;">
-                <div style="width: 100%;height: 100%;border:1px solid gray;">
+            <div class="grid auto default content margin-b-medium" style="--grid-max-col-count:2;--gap:3rem;">
+                <div class="grid center" style="--gap: 1rem;">
                     <p>Nach dem Login mit Passwort oder NFC-Karte wird
                         der Nutzername zusammen mit dem Kontostand in
                         der Anzeigeschablone angezeigt.
                     </p>
-                    <p>Die Druckoptionen sind groß, kontrastreich und mit
-                        klaren Icons versehen, um die Bedienung zu erleichtern.
-                    </p>
-                    <p>Das Abmelden erfolgt über das Nutzermenü, das über
-                        den Nutzernamen-Knopf erreichbar ist.
-                    </p>
-                    <p>Der Nutzer wird von einem klar strukturierten Leitfaden
-                        durch den gesamten Druckprozess geführt,
-                        sodass er stets weiß, wo er ist und welcher Schritt als
-                        nächstes kommt.
-                    </p>
-                    <p>Der aktuelle Schritt wird hervorgehoben, während
-                        noch nicht abgeschlossene Schritte ausgegraut bleiben,
-                        um Verwirrung zu vermeiden.
-                    </p>
+                    <ul class="list">
+                        <li>Die Druckoptionen sind groß, kontrastreich und mit
+                            klaren Icons versehen, um die Bedienung zu erleichtern.
+                        </li>
+                        <li>Das Abmelden erfolgt über das Nutzermenü, das über
+                            den Nutzernamen-Knopf erreichbar ist.
+                        </li>
+                        <li>Der Nutzer wird von einem klar strukturierten Leitfaden
+                            durch den gesamten Druckprozess geführt,
+                            sodass er stets weiß, wo er ist und welcher Schritt als
+                            nächstes kommt.
+                        </li>
+                        <li>Der aktuelle Schritt wird hervorgehoben, während
+                            noch nicht abgeschlossene Schritte ausgegraut bleiben,
+                            um Verwirrung zu vermeiden.
+                        </li>
+                    </ul>
                 </div>
                 <div>
                     <img class="printer-border"
@@ -91,12 +94,10 @@
                         src="./assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_13.png" alt=""></div>
             </div>
         </section>
-        <section id="Cmp">
-            <h2 class="heading large margin-b">Vergleich zum Original</h2>
-            <div class="content margin-b-medium">
-                <img-cmp id="VSOriginal" no-clip src1="https://placehold.co/600x400" alt1=""
-                    src2="https://placehold.co/600x400" alt2="">
-                    </img-cmp>
+        <section id="Proto">
+            <h2 class="heading large margin-b">Interactive Prototype</h2>
+            <div class="content">
+                <hyper-img src="printer/HyperPrinter.jsonc" class="printer-border"></hyper-img>
             </div>
         </section>
     </main>

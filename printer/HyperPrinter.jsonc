@@ -1,0 +1,55 @@
+{
+    "$schema": "../HyperImgSchema.jsonc",
+    "data": [
+        {
+            "name": "LoginPW",
+            "src": "./assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_05.png",
+            "links": []
+        },
+        {
+            "name": "LoginCard",
+            "src": "./assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_06.png",
+            "links": []
+        },
+        {
+            "name": "Home",
+            "src": "./assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_07.png",
+            "links": []
+        },
+        {
+            "name": "Auswahl",
+            "src": "./assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_08.png",
+            "links": []
+        },
+        {
+            "name": "Einstellen",
+            "src": "./assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_09.png",
+            "links": []
+        },
+        {
+            "name": "Auswahl",
+            "src": "./assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_13.png",
+            "links": []
+        },
+        {
+            "name": "After",
+            "src": "./assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_21.png",
+            "links": []
+        },
+        {
+            "name": "StyleSheet",
+            "src": "./assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_22.png",
+            "links": []
+        },
+        {
+            "name": "User",
+            "src": "./assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_01.png",
+            "links": []
+        },
+        {
+            "name": "Settings",
+            "src": "./assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_04.png",
+            "links": []
+        }
+    ]
+}

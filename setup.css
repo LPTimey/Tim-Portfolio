@@ -379,6 +379,18 @@
         }
     }
 
+    :where(.list) {
+        li {
+            /* margin: 0 0 0.5em 2ch; */
+            margin: 0 0 0.5em 3ch;
+            &::before {
+                content: "*";
+                padding-right: 1ch;
+                margin-left: -2ch;
+            }
+        }
+    }
+
     :where(.reverse) {
         display: inline-flex;
         flex-direction: column-reverse;

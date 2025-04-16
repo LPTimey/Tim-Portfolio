@@ -1,7 +1,7 @@
 import { css, html } from "../script.mjs";
 
 const template = (src, alt, phonePrefix) => html`
-<img class="screen" src="${src}" alt="${alt}">
+${src || alt ? html`<img class="screen" src="${src}" alt="${alt}">` : html`<slot></slot>`}
 <img class="phone" src="${phonePrefix ?? "./"}assets/iPhone Template [Konvertiert] noBG.png" alt="">
 `;
 
@@ -16,7 +16,7 @@ const style = (bg) => css`
     z-index:  0;
     width: 100%;
 }
-img{
+img,::slotted(*){
     object-fit: fill;
     max-height: 100%;
     max-width: 100%;
@@ -28,7 +28,7 @@ img{
     top: 50%;
     transform: translate(-50%, -50%);
 }
-.screen {
+.screen, ::slotted(*) {
     border-radius: 10% / 5% ;
     height: 97.5%;
     ${bg ? `background: ${bg}` : ""};
@@ -36,6 +36,7 @@ img{
 .phone{
     height: 100%;
     aspect-ratio: var(--iphone16PM-aspect);
+    pointer-events: none;
 }
 `;
 

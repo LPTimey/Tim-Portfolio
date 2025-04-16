@@ -6,12 +6,7 @@
     border-radius: 2.5% / 4.35%;
 
     --border: 1rem;
-    /* border: var(--border) solid black;
-    background-color: black; */
-}
-
-#VSOriginal {
-    height: 75vh;
-    width: 68%;
-    margin: auto;
+    /* border: var(--border) solid black; */
+    border: 2px solid light-dark(transparent, var(--fg));
+    /* background-color: black; */
 }
