@@ -215,7 +215,7 @@ export default class HyperImg extends HTMLElement {
     async connectedCallback() {
         // console.log(this.innerHTML);
         let data;
-        if (this.getAttribute("src")) {
+        if (this.hasAttribute("src")) {
             data = parseJSONC((await (await fetch(this.getAttribute("src"))).text()));
         } else {
             data = parseJSONC(this.innerHTML);
