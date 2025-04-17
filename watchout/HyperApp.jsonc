@@ -54,6 +54,16 @@
                         "bottom": "13.5%",
                         "left": "7%"
                     }
+                },
+                {
+                    "name": "new Message Overlay",
+                    "href": "MessageOverlayNew#Overlay",
+                    "pos": {
+                        "top": "40%",
+                        "right": "8%",
+                        "bottom": "49%",
+                        "left": "8%"
+                    }
                 }
             ]
         },
@@ -109,6 +119,238 @@
                         "right": "7%",
                         "bottom": "12%",
                         "left": "7%"
+                    }
+                },
+                {
+                    "name": "new Message Overlay",
+                    "href": "MessageOverlayNew#Overlay",
+                    "pos": {
+                        "top": "33.5%",
+                        "right": "8%",
+                        "bottom": "56%",
+                        "left": "8%"
+                    }
+                },
+                {
+                    "name": "old Message Overlay",
+                    "href": "MessageOverlaySeen#Overlay",
+                    "pos": {
+                        "top": "69%",
+                        "right": "8%",
+                        "bottom": "21%",
+                        "left": "8%"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "MessageOverlayNew",
+            "src": "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/Message Overlay – new.png",
+            "links": [
+                {
+                    "name": "Map",
+                    "href": "Map",
+                    "pos": {
+                        "top": "38.5%",
+                        "right": "15%",
+                        "bottom": "44%",
+                        "left": "15%"
+                    }
+                },
+                {
+                    "name": "NewsIcon",
+                    "href": "News",
+                    "pos": {
+                        "top": "90%",
+                        "right": "75%",
+                        "bottom": "2%",
+                        "left": "10%"
+                    }
+                },
+                {
+                    "name": "HistoryIcon",
+                    "href": "Historie",
+                    "pos": {
+                        "top": "90%",
+                        "right": "53%",
+                        "bottom": "2%",
+                        "left": "31%"
+                    }
+                },
+                {
+                    "name": "MapIcon",
+                    "href": "Map",
+                    "pos": {
+                        "top": "90%",
+                        "right": "30%",
+                        "bottom": "2%",
+                        "left": "52%"
+                    }
+                },
+                {
+                    "name": "SettingsIcon",
+                    "href": "Settings",
+                    "pos": {
+                        "top": "90%",
+                        "right": "10%",
+                        "bottom": "2%",
+                        "left": "75%"
+                    }
+                },
+                {
+                    "name": "Call",
+                    "href": "CallList#Overlay",
+                    "pos": {
+                        "top": "81%",
+                        "right": "7%",
+                        "bottom": "12%",
+                        "left": "7%"
+                    }
+                },
+                {
+                    "name": "BackTop",
+                    "href": "#Back",
+                    "pos": {
+                        "top": "0",
+                        "right": "0",
+                        "bottom": "76%",
+                        "left": "0"
+                    }
+                },
+                {
+                    "name": "BackLeft",
+                    "href": "#Back",
+                    "pos": {
+                        "top": "0",
+                        "right": "93.5%",
+                        "bottom": "21%",
+                        "left": "0"
+                    }
+                },
+                {
+                    "name": "BackRight",
+                    "href": "#Back",
+                    "pos": {
+                        "top": "0",
+                        "right": "0",
+                        "bottom": "21%",
+                        "left": "93.5%"
+                    }
+                },
+                {
+                    "name": "BackBottom",
+                    "href": "#Back",
+                    "pos": {
+                        "top": "66%",
+                        "right": "0",
+                        "bottom": "21%",
+                        "left": "0"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "MessageOverlaySeen",
+            "src": "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/Message Overlay seen.png",
+            "links": [
+                {
+                    "name": "Map",
+                    "href": "Map",
+                    "pos": {
+                        "top": "38.5%",
+                        "right": "15%",
+                        "bottom": "44%",
+                        "left": "15%"
+                    }
+                },
+                {
+                    "name": "NewsIcon",
+                    "href": "News",
+                    "pos": {
+                        "top": "90%",
+                        "right": "75%",
+                        "bottom": "2%",
+                        "left": "10%"
+                    }
+                },
+                {
+                    "name": "HistoryIcon",
+                    "href": "Historie",
+                    "pos": {
+                        "top": "90%",
+                        "right": "53%",
+                        "bottom": "2%",
+                        "left": "31%"
+                    }
+                },
+                {
+                    "name": "MapIcon",
+                    "href": "Map",
+                    "pos": {
+                        "top": "90%",
+                        "right": "30%",
+                        "bottom": "2%",
+                        "left": "52%"
+                    }
+                },
+                {
+                    "name": "SettingsIcon",
+                    "href": "Settings",
+                    "pos": {
+                        "top": "90%",
+                        "right": "10%",
+                        "bottom": "2%",
+                        "left": "75%"
+                    }
+                },
+                {
+                    "name": "Call",
+                    "href": "CallList#Overlay",
+                    "pos": {
+                        "top": "81%",
+                        "right": "7%",
+                        "bottom": "12%",
+                        "left": "7%"
+                    }
+                },
+                {
+                    "name": "BackTop",
+                    "href": "#Back",
+                    "pos": {
+                        "top": "0",
+                        "right": "0",
+                        "bottom": "76%",
+                        "left": "0"
+                    }
+                },
+                {
+                    "name": "BackLeft",
+                    "href": "#Back",
+                    "pos": {
+                        "top": "0",
+                        "right": "93.5%",
+                        "bottom": "21%",
+                        "left": "0"
+                    }
+                },
+                {
+                    "name": "BackRight",
+                    "href": "#Back",
+                    "pos": {
+                        "top": "0",
+                        "right": "0",
+                        "bottom": "21%",
+                        "left": "93.5%"
+                    }
+                },
+                {
+                    "name": "BackBottom",
+                    "href": "#Back",
+                    "pos": {
+                        "top": "66%",
+                        "right": "0",
+                        "bottom": "21%",
+                        "left": "0"
                     }
                 }
             ]

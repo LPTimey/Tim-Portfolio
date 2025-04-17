@@ -9,10 +9,10 @@ ${src || alt ? html`<img class="screen" src="${src}" alt="${alt}">` : html`<slot
 const style = (bg) => css`
 @import "setup.css";
 :host{
-    --iphone16PM-h: 2900;
-    --iphone16PM-w: 1420;
-    --iphone16PM-aspect: var(--iphone16PM-w) / var(--iphone16PM-h);
-    --iphone16PM-aspect-outer: calc((var(--iphone16PM-w) + 75) / var(--iphone16PM-h));
+    --i-iphone16PM-h: var(--iphone16PM-h, 3000);
+    --i-iphone16PM-w: var(--iphone16PM-w, 1420);
+    --iphone16PM-aspect: var(--i-iphone16PM-w) / var(--i-iphone16PM-h);
+    --iphone16PM-aspect-outer: calc((var(--i-iphone16PM-w) + 75) / var(--i-iphone16PM-h));
     aspect-ratio: var(--iphone16PM-aspect-outer);
     max-height: 100%;
     position: relative;
