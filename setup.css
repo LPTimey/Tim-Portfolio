@@ -371,10 +371,10 @@
         cursor: pointer;
 
         &:where(:hover) {
-            color: var(--accent);
+            color: var(--accent-2);
 
             :where(svg) {
-                fill: var(--accent);
+                fill: var(--accent-2);
             }
         }
     }
@@ -417,7 +417,7 @@
             /* default */
             linear-gradient(to right, rgb(from var(--bg) r g b / 0), rgb(from var(--bg) r g b / 0)),
             /* hover */
-            linear-gradient(to right, var(--accent-2), var(--accent), var(--accent-2));
+            linear-gradient(to right, var(--accent), var(--accent-2), var(--accent));
 
         background-size: 100% 0.1em, 0 0.1em;
         background-position: 100% 100%, 0 100%;

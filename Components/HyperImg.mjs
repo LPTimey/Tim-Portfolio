@@ -107,8 +107,9 @@ const style = (debug) => css`
     position: absolute;
     background: none;
     color: transparent;
-    ${debug ? `border: 1px solid red;` : ''};
+    /* border-color: transparent; */
     cursor: pointer;
+    ${debug ? `border: 1px solid red;` : ''};
 }
 .wrapper{
     position: relative;
@@ -139,6 +140,19 @@ img{
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
+}
+.button-glow-anim{
+    animation: button-glow 0.5s 2 alternate;
+}
+@keyframes button-glow{
+    from {
+        box-shadow: 0 0 5px -5px rgb( from var(--accent) r g b / 0.25),
+            inset 0 0 5px -5px rgb( from var(--accent) r g b / 0.25);
+    }
+    to {
+        box-shadow: 0 0 5px 5px rgb(from var(--accent) r g b / 0.25),
+            inset 0 0 5px 5px rgb(from var(--accent) r g b / 0.25);
+    }
 }
 `;
 
@@ -187,6 +201,16 @@ export default class HyperImg extends HTMLElement {
         destinationDiv.toggleAttribute("active");
         ev.src.parentElement.toggleAttribute("active");
     }
+    triggerGlow(element) {
+        element.classList.remove('button-glow-anim');
+        void element.offsetWidth; // Force Reflow
+        element.classList.add('button-glow-anim');
+
+        // Optional: nach Animation wieder entfernen
+        element.addEventListener('animationend', () => {
+            element.classList.remove('button-glow-anim');
+        }, { once: true });
+    }
 
     async connectedCallback() {
         // console.log(this.innerHTML);
@@ -205,6 +229,16 @@ export default class HyperImg extends HTMLElement {
         this.shadowRoot.querySelectorAll("button.hyper-img-link").forEach((link) => {
             link.addEventListener("click", () => {
                 this.dispatchEvent(new PressEvent({ bubbles: true, cancelable: true, composed: true, }, link, link.dataset.href));
+            });
+        })
+        // set EventListener for glow
+        this.shadowRoot.querySelectorAll(".img-wrapper").forEach((div) => {
+            div.querySelector("img").addEventListener("click", () => {
+                const buttons = div.querySelectorAll('.hyper-img-link');
+
+                buttons.forEach(button => {
+                    this.triggerGlow(button);
+                });
             });
         })
 

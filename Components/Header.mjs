@@ -81,7 +81,7 @@ svg {
     fill: var(--fg);
     /* stroke: var(--fg); */
     &:hover{
-        fill: var(--accent);
+        fill: var(--accent-2);
     }
 }
 
