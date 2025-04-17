@@ -240,7 +240,7 @@ export default class HyperImg extends HTMLElement {
                     this.triggerGlow(button);
                 });
             });
-        })
+        });
 
         if (this.hasAttribute("start-name")) {
             this.shadowRoot.querySelectorAll(".img-wrapper[active]").forEach(el => el.removeAttribute("active"));
