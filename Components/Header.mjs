@@ -1,3 +1,4 @@
+"use strict";
 import { burger_icon, close_icon, css, gh_logo, html } from "../script.mjs"
 import IconButton from "./IconButton.mjs";
 import ThemeSelect from "./ThemeSelect.mjs";

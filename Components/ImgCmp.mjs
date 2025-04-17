@@ -1,3 +1,4 @@
+"use strict";
 import { css, html } from "../script.mjs";
 
 const template = function (src1, alt1, src2, alt2) {

@@ -1,3 +1,4 @@
+"use strict";
 import { css, html, changeEvent } from "../script.mjs";
 const template = (id) => html`
 <div hidden>

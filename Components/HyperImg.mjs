@@ -1,3 +1,4 @@
+"use strict";
 import { css, html, parseJSONC } from "../script.mjs";
 
 /**

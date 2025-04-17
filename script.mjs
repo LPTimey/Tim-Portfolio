@@ -1,3 +1,4 @@
+"use strict";
 export function noOpTag(strings, ...values) {
     // Füge alle Strings zusammen und setze Werte in den Platzhalter ein
     let res = strings.reduce((result, string, i) => {

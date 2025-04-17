@@ -1,3 +1,4 @@
+"use strict";
 import { css, html } from "../script.mjs";
 import ToTop from "./ToTop.mjs"
 
