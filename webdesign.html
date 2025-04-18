@@ -9,18 +9,15 @@
     <link rel="preload" href="script.mjs" as="script">
     <link rel="preload" href="style.css" as="style">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="styles/styles.css">
     <script type="module" src="./Components/Header.mjs"></script>
     <script type="module" src="./Components/SiteFooter.mjs"></script>
     <script type="module" src="./Components/HeroImg.mjs"></script>
-    <script type="module" src="./Components/ImgCmp.mjs"></script>
-    <script type="module" src="./Components/PhoneImg.mjs"></script>
 </head>
 
 <body>
     <site-header></site-header>
     <main>
-        <section id="Hero">
+        <section class="section" id="Hero">
             <h1 class="heading" style="margin-bottom: 1rem;">
                 <div>Screendesign & Programmieren</div>
                 <div class="title">WebDev</div>
@@ -28,10 +25,90 @@
             <hero-img id="HeroImage" src="https://placehold.co/600x400">
             </hero-img>
         </section>
-        <section id="Content">
-            <h2 class="heading large margin-b">???</h2>
+        <section class="section" id="Ideas">
+            <h2 class="heading large margin-b">Idee</h2>
             <div class="content">
-                
+                <ul>
+                    <li>Portfolio</li>
+                    <li>PetProject</li>
+                    <li>Kreativität fördern</li>
+                    <li>Skills Erforschen</li>
+                </ul>
+            </div>
+        </section>
+        <section class="section" id="Planing">
+            <h2 class="heading large">Planung</h2>
+
+            <section id="PlaningDesign" class="margin-b-medium">
+                <h3 class="heading medium margin-b">Design</h3>
+                <div class="content"></div>
+            </section>
+
+            <section id="PlaningProgramming" class="margin-b-medium">
+                <h3 class="heading medium margin-b">Programmierung</h3>
+                <div class="content">
+                    <ul>
+                        <li>HTML, CSS & JavaScript</li>
+                        <li>Bevorzugt alles Vanilla um den Aufbau und die grundsätze vor Augen zu haben alla
+                            <a href="https://www.youtube.com/tsoding" target="_blank">Tsoding</a>
+                            recreational Programming und nicht nur die abstractions zu lernen und frameworker sondern
+                            engineer zu werden
+                        </li>
+                        <li>Ausnahme für ThreeJS,
+                            <ul>
+                                <li>da ich noch wenig Erfahrung mit GrafikProgrammierung habe</li>
+                            </ul>
+                        </li>
+                        <li>Umsetzung mit WebComonents, da
+                            <ul>
+                                <li>Web Standard</li>
+                                <li>LowLevel</li>
+                                <li>DIY/Self made</li>
+                                <li>kein Build Step</li>
+                            </ul>
+                        </li>
+
+                        <li>JSDoc statt TS, da
+                            <ul>
+                                <li>Typisiert aber kein build</li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+            </section>
+        </section>
+        <section class="section" id="Umsetzung">
+            <h2 class="heading large margin-b">Umsetzung</h2>
+            <div class="content">
+                <ul>
+                    <li>
+                        <h3 class="medium margin-b">Hero</h3>
+                        <ul>
+                            <li></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <h3 class="medium margin-b">Prototype</h3>
+                        <ul>
+                            <li></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <h3 class="medium margin-b">Animation System</h3>
+                        <ul>
+                            <li></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <h3 class="medium margin-b">ImgCmp</h3>
+                        <ul>
+                            <li></li>
+                        </ul>
+                    </li>
+                </ul>
+
             </div>
         </section>
 </body>
