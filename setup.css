@@ -19,6 +19,7 @@
         /* 7. Inherit fonts for example form controls */
         font: inherit;
         scroll-behavior: smooth;
+        accent-color: var(--accent);
     }
 
     :where(*) {
@@ -328,17 +329,17 @@
         display: grid;
         grid-template-columns: repeat(var(--grid-width), 1fr);
         grid-template-rows: repeat(var(--grid-height, auto-fit), var(--row-height, 1fr));
-        gap: var(--gap);
+        gap: var(--gap, 0);
 
         &:where(.default) {
             --gap: 1ch;
         }
 
         &:where(.auto,
-            &.default) {
+            .default) {
             --_grid-max-col-count: var(--grid-max-col-count, -1);
             --col-width:
-                min(max(calc((100% - var(--gap) * var(--_grid-max-col-count)) / var(--_grid-max-col-count)),
+                min(max(calc((100% - (var(--gap, 0%) * var(--_grid-max-col-count))) / var(--_grid-max-col-count)),
                         var(--min-col, 40ch)),
                     100%);
             grid-template-columns: repeat(auto-fill, minmax(var(--col-width), 1fr));
@@ -383,6 +384,7 @@
         li {
             /* margin: 0 0 0.5em 2ch; */
             margin: 0 0 0.5em 3ch;
+
             &::before {
                 content: "*";
                 padding-right: 1ch;
