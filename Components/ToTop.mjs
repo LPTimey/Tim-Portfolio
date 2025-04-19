@@ -24,7 +24,9 @@ a {
         border-color: transparent;
     }
 }
-
+svg{
+    fill: var(--fg);
+}
 
 `;
 

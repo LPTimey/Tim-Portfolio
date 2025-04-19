@@ -28,7 +28,7 @@ const template = html`
             <li class="grow"></li>
             <li><theme-select></theme-select></li>
             <li><div class="separator"></div></li>
-            <li class="flex"><a href="https://github.com/LPTimey/Tim-Portfolio" class="link flex center" target="_blank" aria-label="Navigiert zum GitHub Repo"> <span class="underline mobile center">Source</span> ${gh_logo}</a></li>
+            <li class="flex" style="margin-top: -0.25%;"><a href="https://github.com/LPTimey/Tim-Portfolio" class="link flex center" target="_blank" aria-label="Navigiert zum GitHub Repo"> <span class="underline mobile center">Source</span> ${gh_logo}</a></li>
         </ul>
     </nav>
 </header>
@@ -90,13 +90,6 @@ summary{
 #ProjectsPopover{
     padding-left: 1.5ch;
     padding-top: 0.5em;
-}
-svg {
-    fill: var(--fg);
-    /* stroke: var(--fg); */
-    &:hover{
-        fill: var(--accent-2);
-    }
 }
 a{
     width: fit-content;

@@ -115,6 +115,15 @@
         font-size: 1rem;
     }
 
+    :where(svg) {
+        fill: var(--fg);
+
+        /* stroke: var(--fg); */
+        &:hover {
+            fill: var(--accent-2);
+        }
+    }
+
     :where(option) {
         outline: none;
         border: none;
@@ -374,6 +383,7 @@
 
         &:where(:hover) {
             color: var(--accent-2);
+            fill: var(--accent-2);
 
             :where(svg) {
                 fill: var(--accent-2);
