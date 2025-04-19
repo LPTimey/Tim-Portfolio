@@ -11,22 +11,24 @@ const template = html`
             <li><div class="separator"></div></li>
             <li><a href="./about.html" class="underline link" aria-label="Navigiert zur AboutPage">Über mich</a></li>
             <li><div class="separator"></div></li>
-            <li><button id="ProjectsButton" popovertarget="ProjectsPopover" class="link underline">Projects</button></li>
+            <li><details id="ProjectsButton" >
+                <summary class="link underline">Projects</summary>
+                <ul id="ProjectsPopover">
+                    <li><a href="./watchout.html" class="underline link" aria-label="Navigiert zu WatchOut">WatchOut</a></li>
+                    <li><div class="separator"></div></li>
+                    <li><a href="./printer.html" class="underline link" aria-label="Navigiert zur TouchScreen">TouchScreen</a></li>
+                    <li><div class="separator"></div></li>
+                    <li><a href="./styles.html" class="underline link" aria-label="Navigiert zur Themen & Stile">Themen & Stile</a></li>
+                    <li><div class="separator"></div></li>
+                    <li><a href="./tetris.html" class="underline link" aria-label="Navigiert zur Tetris in Arduino & C">Tetris in Arduino & C</a></li>
+                    <li><div class="separator"></div></li>
+                    <li><a href="./webdesign.html" class="underline link" aria-label="Navigiert zur Website Development">Website Development</a></li>
+                </ul>
+            </details></li>
             <li class="grow"></li>
             <li><theme-select></theme-select></li>
             <li><div class="separator"></div></li>
             <li class="flex"><a href="https://github.com/LPTimey/Tim-Portfolio" class="link flex center" target="_blank" aria-label="Navigiert zum GitHub Repo"> <span class="underline mobile center">Source</span> ${gh_logo}</a></li>
-        </ul>
-        <ul id="ProjectsPopover" class="popover">
-            <li><a href="./watchout.html" class="underline link" aria-label="Navigiert zu WatchOut">WatchOut</a></li>
-            <li><div class="separator"></div></li>
-            <li><a href="./printer.html" class="underline link" aria-label="Navigiert zur TouchScreen">TouchScreen</a></li>
-            <li><div class="separator"></div></li>
-            <li><a href="./styles.html" class="underline link" aria-label="Navigiert zur Themen & Stile">Themen & Stile</a></li>
-            <li><div class="separator"></div></li>
-            <li><a href="./tetris.html" class="underline link" aria-label="Navigiert zur Tetris in Arduino & C">Tetris in Arduino & C</a></li>
-            <li><div class="separator"></div></li>
-            <li><a href="./webdesign.html" class="underline link" aria-label="Navigiert zur Website Development">Website Development</a></li>
         </ul>
     </nav>
 </header>
@@ -70,12 +72,24 @@ ul{
     display: flex;
     gap: 1ch;
     justify-content: center;
-    align-items: center;
+    align-items: start;
+}
+details{
+    overflow:hidden;
+    &::details-content{
+        block-size: 0;
+        transition: block-size 0.25s ease-in-out, content-visibility 0.25s ease-in-out allow-discrete;
+    }
+    &[open]::details-content{
+        block-size: auto;
+    }
+}
+summary{
+    width: fit-content;
 }
 #ProjectsPopover{
-    padding-left: 19ch;
-    justify-content: start;
-    flex-wrap: wrap;
+    padding-left: 1.5ch;
+    padding-top: 0.5em;
 }
 svg {
     fill: var(--fg);
@@ -84,34 +98,14 @@ svg {
         fill: var(--accent-2);
     }
 }
-
-.popover{
-    visibility:hidden;
-    height: 0;
-    /* width: 0; */
-    opacity: 0;
-    overflow: hidden;
+a{
+    width: fit-content;
 }
-
-nav:has(li:hover #ProjectsButton), nav:has(.popover:hover) {
-    #ProjectsPopover{
-        display: flex;
-        height: max-content;
-        width: 100%;
-        margin-top: -0.5rem;
-        padding-top: 1rem;
+@media(max-width: 740px) {
+    :host{
+        --i-gap: 3rem;
     }
 
-    .popover{
-        visibility: visible;
-        opacity: 1;
-    }
-}
-
-@media(width < 740px) {
-    .popover{
-        width: 0;
-    }
     header{
         height: 100%;
     }
@@ -123,10 +117,10 @@ nav:has(li:hover #ProjectsButton), nav:has(.popover:hover) {
     }
     ul {
         flex-direction: column;
-        gap: 3rem;
+        gap: var(--i-gap);
 
     }
-    li:has(.separator),li:has(.grow),.separator,.grow{
+    li:has(>.separator),li:has(>.grow),.separator,.grow{
         display: none;
         > * {
             display: none;
@@ -139,10 +133,12 @@ nav:has(li:hover #ProjectsButton), nav:has(.popover:hover) {
         place-content: center;
     }
 
+    summary{
+        margin: auto;
+    }
+
     #ProjectsPopover{
-        padding-top: 0.5rem;
-        padding-left: 0;
-        justify-content:start;
+        padding-top: calc(var(--i-gap) * 0.66);
     }
 
     icon-button{
