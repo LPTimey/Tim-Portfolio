@@ -1,22 +1,66 @@
-#SkillsCard{
+#SkillsCard {
     justify-items: center;
     padding: 2rem 0;
 }
-.skills{
+
+.skills {
     display: grid;
     column-gap: 1ch;
 }
-.skill{
+
+.skill {
     display: grid;
     grid-template-columns: subgrid;
     grid-column: span 2;
 }
-.section{
+
+.section {
     --margin: 4rem;
-    &:nth-child(1){
+
+    &:nth-child(1) {
         margin-bottom: var(--margin);
     }
-    &:nth-child(2){
+
+    &:nth-child(2) {
         margin-top: var(--margin);
     }
+}
+
+#AboutMeTextContainer {
+    container: aboutMeTextContainer / inline-size;
+    height: max-content;
+    width: 100%;
+}
+
+#AboutMeText {
+    columns: 1;
+    gap: 3.5ch;
+    width: 100%;
+}
+
+@container aboutMeTextContainer (width > 70ch) {
+    #AboutMeText {
+        columns: 2;
+    }
+}
+
+#AboutMeContent {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 5ch;
+    align-items: center;
+
+    @media (width<130ch) {
+        grid-template-columns: 1fr;
+        justify-content: center;
+
+        :first-child {
+            order: 2;
+        }
+    }
+}
+
+picture {
+    display: grid;
+    place-items: center;
 }

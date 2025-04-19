@@ -93,6 +93,7 @@
     /* 9. Improve line wrapping */
     :where(a,
         p) {
+        text-wrap: stable;
         text-wrap: pretty;
     }
 
