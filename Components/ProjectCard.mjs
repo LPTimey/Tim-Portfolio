@@ -11,6 +11,11 @@ const template = (src, alt, href) => html`
 
 const style = css`
 @import "setup.css";
+@property --translate-y{
+    syntax: "<length>";
+    inherits: false;
+    initial-value: 0rem;
+}
 :host{
     --x:0.5rem;
     --y:0.5rem;
@@ -27,9 +32,34 @@ const style = css`
     filter: drop-shadow(var(--x) var(--y) var(--blur) rgb(from var(--fg) r g b / 0.1));
 }
 :host(:hover){
-    --translate-y: -0.75rem;
-    transform: translateY(var(--translate-y));
-    filter: drop-shadow(var(--x) calc(var(--y) - var(--translate-y)) var(--blur) rgb(from var(--fg) r g b / 0.1));
+    animation: 0.2s ease-in-out 0s 1 forwards hover;
+}
+:host(:not(:hover)){
+    animation: 0.2s ease-in-out 0s 1 forwards unhover;
+}
+@keyframes hover{
+    from{
+        --translate-y: 0rem;
+        transform: 0;
+        filter: drop-shadow(var(--x) calc(var(--y) - var(--translate-y)) var(--blur) rgb(from var(--fg) r g b / 0.1)); 
+    }
+    to{
+        --translate-y: -0.75rem;
+        transform: translateY(var(--translate-y));
+        filter: drop-shadow(var(--x) calc(var(--y) - var(--translate-y)) var(--blur) rgb(from var(--fg) r g b / 0.1)); 
+    }
+}
+@keyframes unhover{
+    to{
+        --translate-y: 0rem;
+        transform: 0;
+        filter: drop-shadow(var(--x) calc(var(--y) - var(--translate-y)) var(--blur) rgb(from var(--fg) r g b / 0.1)); 
+    }
+    from{
+        --translate-y: -0.75rem;
+        transform: translateY(var(--translate-y));
+        filter: drop-shadow(var(--x) calc(var(--y) - var(--translate-y)) var(--blur) rgb(from var(--fg) r g b / 0.1)); 
+    }
 }
 img{
     width: 100%;
