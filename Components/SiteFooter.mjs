@@ -5,7 +5,7 @@ import ToTop from "./ToTop.mjs"
 const template = html`
 <to-top></to-top>
 <footer>
-    Created with HTML, CSS & JS by Tim Ruland © 2025
+    Created with HTML, CSS & JS (+ ThreeJS) by Tim Ruland © 2025
 </footer>
 `;
 

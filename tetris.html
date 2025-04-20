@@ -9,12 +9,10 @@
     <link rel="preload" href="script.mjs" as="script">
     <link rel="preload" href="style.css" as="style">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="tetris/tetris.css">
     <script type="module" src="./Components/Header.mjs"></script>
     <script type="module" src="./Components/SiteFooter.mjs"></script>
     <script type="module" src="./Components/HeroImg.mjs"></script>
-    <script type="module" src="./Components/ImgCmp.mjs"></script>
-    <script type="module" src="./Components/PhoneImg.mjs"></script>
 </head>
 
 <body>
@@ -28,10 +26,84 @@
             <hero-img id="HeroImage" src="https://placehold.co/600x400">
             </hero-img>
         </section>
+        <section class="section">
+            <h2 class="heading large margin-b">Tetris auf dem Arduino?</h2>
+            <p class="content">
+                Im Rahmen eines Hackathons an der Hochschule habe ich eine minimalistische, aber voll spielbare Version
+                von
+                Tetris für
+                den Arduino entwickelt. Die erste Version entstand auf dem Arduino Uno R4, später folgte die Portierung
+                auf
+                den Uno
+                Rev3, was einige technische Kniffe nötig machte.
+            </p>
+        </section>
+        <section class="section">
+            <h2 class="heading large margin-b">Technische Daten</h2>
+            <div class="content">
+                <img src="" alt="Bild Einzelteile">
+                <table>
+                    <caption></caption>
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Display</th>
+                            <td>LED-Matrix, direkt angesteuert</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Eingabe</th>
+                            <td>6 Taster (Links, Rechts, Unten, Drop, Links Drehen, Rechts Drehen)</td>
+                        </tr>
+                    </tbody>
+                    <tfoot></tfoot>
+                </table>
+                Display: 8x16 LED-Matrix, direkt angesteuert
+                Eingabe: 4 Taster (Links, Rechts, Drehen, Drop)
+                Kompatibilitätsproblem gelöst: Unterschiede in der Library-Kompatibilität zwischen Uno R4 und Rev3
+                Datenstrukturen: Verwendung von std::array für Spiellogik auf dem Uno Rev3 – ungewöhnlich, aber
+                funktional
+                und lesbar
+            </div>
+        </section>
+        <section class="section">
+            <h2 class="heading large margin-b">Umsetzung</h2>
+            <div class="content">
+                <section>
+                    <h3 class="medium margin-b">Code</h3>
+                </section>
+                <section>
+                    <h3 class="medium margin-b">Hardware</h3>
+                    <img src="./assets/Tetris/Tetris_Steckplatine.png" alt="Schematic">
+                </section>
+            </div>
+        </section>
+        <section class="section">
+            <h2 class="heading large margin-b">Ergebnis</h2>
+            <div class="content">
+
+            </div>
+        </section>
+        <section class="section">
+            <h2 class="heading large margin-b">How to Run</h2>
+            <div class="content"></div>
+        </section>
+        <hr>
+        <section class="section content">
+            <h2>Lessons Learned</h2>
+            Ohne OS viel weniger zur verfügung <br>
+            Kompliance mit STL ist stark underschiedlich <br>
+            ...
+
+        </section>
         <section class="section" id="Content">
             <h2 class="heading large margin-b">???</h2>
-            <div class="content">
-                <!-- TODO: Arduino stuff -->
+            <div class="content grid" style="--gap:1rem;">
+                <p> TODO: Arduino stuff</p>
                 <p>Das Tetris-Spiel wurde in C programmiert und auf einem Arduino ausgeführt. Die Anzeige erfolgt auf
                     dessen
                     eingebauten
@@ -53,7 +125,7 @@
                     Rotationen neben der
                     jeweiligen Bewegung.
                 </p>
-                <!-- TODO: Code und explainer animation -->
+                <p> TODO: Code und explainer animation </p>
                 <p>Das Spielfeld wurde als eindimensionales Array gespeichert, um im Stack zu bleiben und eine möglichst
                     effiziente Nutzung
                     des CPU-Caches zu ermöglichen. Alle Zeilen wurden hintereinander angeordnet, sodass der Index
@@ -78,6 +150,7 @@
                 </p>
             </div>
         </section>
+        <site-footer></site-footer>
 </body>
 
 </html>
