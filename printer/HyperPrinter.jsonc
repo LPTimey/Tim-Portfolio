@@ -4,7 +4,68 @@
         {
             "name": "LoginPW",
             "src": "./assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_05.png",
-            "links": []
+            "links": [
+                {
+                    "name": "Login",
+                    "href": "Home",
+                    "pos": {
+                        "top": "67%",
+                        "right": "32.5%",
+                        "bottom": "23.5%",
+                        "left": "32.5%"
+                    }
+                },
+                {
+                    "name": "Karte",
+                    "href": "LoginCard",
+                    "pos": {
+                        "top": "17%",
+                        "right": "39.25%",
+                        "bottom": "74%",
+                        "left": "43.75%"
+                    }
+                },
+                {
+                    "name": "Settings",
+                    "href": "Settings#Overlay",
+                    "pos": {
+                        "top": "0",
+                        "right": "82.5%",
+                        "bottom": "85%",
+                        "left": "0"
+                    }
+                },
+                // {
+                //     "name": "User",
+                //     "href": "User#Overlay",
+                //     "pos": {
+                //         "top": "0",
+                //         "right": "0",
+                //         "bottom": "85%",
+                //         "left": "82.5%"
+                //     }
+                // },
+                {
+                    "name": "Language",
+                    "href": "TODO:",
+                    "pos": {
+                        "top": "85%",
+                        "right": "82.5%",
+                        "bottom": "0",
+                        "left": "0"
+                    }
+                },
+                {
+                    "name": "Color",
+                    "href": "TODO:",
+                    "pos": {
+                        "top": "85%",
+                        "right": "0",
+                        "bottom": "0",
+                        "left": "82.5%"
+                    }
+                }
+            ]
         },
         {
             "name": "LoginCard",
