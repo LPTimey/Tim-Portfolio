@@ -40,7 +40,7 @@ const style = css`
 @keyframes hover{
     from{
         --translate-y: 0rem;
-        transform: 0;
+        transform: translateY(0px);
         filter: drop-shadow(var(--x) calc(var(--y) - var(--translate-y)) var(--blur) rgb(from var(--fg) r g b / 0.1)); 
     }
     to{
@@ -52,7 +52,7 @@ const style = css`
 @keyframes unhover{
     to{
         --translate-y: 0rem;
-        transform: 0;
+        transform: translateY(0px);
         filter: drop-shadow(var(--x) calc(var(--y) - var(--translate-y)) var(--blur) rgb(from var(--fg) r g b / 0.1)); 
     }
     from{
