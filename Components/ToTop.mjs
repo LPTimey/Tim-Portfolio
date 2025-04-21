@@ -22,6 +22,9 @@ a {
     backdrop-filter: blur(var(--blur-r));
     &:hover{
         border-color: transparent;
+        svg{
+            fill: var(--light);
+        }
     }
 }
 svg{
