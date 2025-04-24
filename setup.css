@@ -284,6 +284,14 @@
         place-self: center;
     }
 
+    :where(.align-center) {
+        align-self: center;
+    }
+
+    :where(.just-center) {
+        justify-self: center;
+    }
+
     :where(.heading) {
         padding-inline: var(--outer-pad-inline);
     }
