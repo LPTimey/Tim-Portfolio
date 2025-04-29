@@ -60,6 +60,11 @@
     }
 }
 
+.skill-icon{
+    aspect-ratio: 1 / 1;
+    height: 3em;
+}
+
 picture {
     display: grid;
     place-items: center;
