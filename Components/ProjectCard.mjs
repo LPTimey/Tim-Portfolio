@@ -9,7 +9,7 @@ const template = (src, alt, href) => html`
 <a href="${href}" class="button">Details</a>
 `;
 
-const style = css`
+const style = ()=>css`
 @import "setup.css";
 @property --translate-y{
     syntax: "<length>";
@@ -82,7 +82,7 @@ img{
 
 export default class ProjectCard extends HTMLElement {
     static get observedAttributes() {
-        return ["src", "alt", "href"];
+        return ["src", "alt", "href", "no-button"];
     }
     /**
          * 
@@ -94,7 +94,7 @@ export default class ProjectCard extends HTMLElement {
         return;
     }
     connectedCallback() {
-        this.shadowRoot.innerHTML = style + template(this.getAttribute("src"), this.getAttribute("alt"), this.getAttribute("href"));
+        this.shadowRoot.innerHTML = style() + template(this.getAttribute("src"), this.getAttribute("alt"), this.getAttribute("href"), !this.hasAttribute("no-button"));
     }
     constructor() {
         super()
