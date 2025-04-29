@@ -136,7 +136,10 @@ a{
     }
 
     #ProjectsPopover{
-        padding-top: calc(var(--i-gap) * 0.66);
+        --h:  calc(var(--i-gap) * 0.66);
+        padding-top: var(--h);
+        gap: var(--h);
+        height: max-content;
     }
 
     icon-button{
@@ -155,6 +158,7 @@ a{
             border-radius: var(--border-r);
         }
     }
+
     header:not(:has(+ icon-button[checked])) {
         transform: translateX(100%);
     }
@@ -178,7 +182,7 @@ export default class SiteHeader extends HTMLElement {
                 if (url.pathname === currentUrlPath) {
                     el.classList.add("current");
                     el.classList.add("permanent");
-                }else{
+                } else {
                     el.classList.remove("current");
                     el.classList.remove("permanent");
                 }

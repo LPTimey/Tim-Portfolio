@@ -1,6 +1,8 @@
 "use strict";
 import { css, html, parseJSONC } from "../script.mjs";
 
+// TODO: Add affordance
+
 /**
  * @typedef HyperImgData
  * @prop {string} name
