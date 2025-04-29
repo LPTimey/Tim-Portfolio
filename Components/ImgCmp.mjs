@@ -1,5 +1,5 @@
 "use strict";
-import { css, html } from "../script.mjs";
+import { css, html, double_arrow } from "../script.mjs";
 
 const template = function (src1, alt1, src2, alt2) {
     return html`
@@ -10,12 +10,15 @@ const template = function (src1, alt1, src2, alt2) {
     <img src="${src2}" alt="${alt2}">
 </div>
 <div>
+
+    <div class="arrow left">${double_arrow}</div>
     <input type="range" name="" id="" min="0" max="1000" value="500" class="slider" aria-label="Slider der Sichtbarkeit vom vergleichsbild steuert">
+
+    <div class="arrow right">${double_arrow}</div>
 </div>
 `;
 }
 
-// TODO: Add affordance
 // TODO: Fix width when no-clip
 const style = (noClip) => css`
 @import "setup.css";
@@ -39,12 +42,53 @@ img{
     display: block;
     width: 100%;
     height:100%;
-    object-fit: ${noClip? "contain":"cover"}
+    object-fit: ${noClip ? "contain" : "cover"};
+    pointer-events: none;
 }
 
 div{
     overflow: hidden;
 }
+
+@keyframes pulse{
+    from {
+        opacity: 0.25;
+    }
+    to {
+        opacity: 0.75;
+    }
+}
+.arrow{
+    position: absolute;
+    z-index: 3;
+    top:50%;
+    right:50%;
+    translate: 50% -50%;
+    fill: var(--accent);
+    aspect-ratio: 1 / 1;
+    width: 5ch;
+    display: grid;
+    place-items: center;
+    animation: pulse 1s infinite alternate ease-in-out;
+    pointer-events: none;
+
+    svg{
+        fill: var(--fg);
+        stroke: var(--bg);
+        stroke-width: 1.25em;
+        width: 100%;
+        height: 100%;
+    }
+
+    &.left{
+        -webkit-transform: scale(-1, -1);
+        -moz-transform: scale(-1, -1);
+        -o-transform: scale(-1, -1);
+        transform: scale(-1, -1);
+    }
+}
+
+
 
 .img-comp-overlay {
     position: relative;
@@ -89,7 +133,22 @@ export default class ImgCmp extends HTMLElement {
             this.shadowRoot.querySelector(".img-comp-overlay > img").style.clipPath = `inset(0 ${100 - target.value / 10}% 0 0)`
         }
         clip(this.shadowRoot.querySelector("input"));
-        this.shadowRoot.querySelector("input").addEventListener("input", (ev) => clip(ev.target))
+
+        const affordance = (target) => {
+            this.shadowRoot.querySelectorAll(".arrow").forEach((el) => {
+                let delta = 2;
+                if (el.classList.contains("right")) {
+                    delta = (-delta);
+                }
+                el.style.right = `calc(${100 - target.value / 10}% + ${delta}em)`;
+            })
+        }
+        affordance(this.shadowRoot.querySelector("input"));
+
+        this.shadowRoot.querySelector("input").addEventListener("input", (ev) => {
+            clip(ev.target);
+            affordance(ev.target)
+        })
     }
     connectedCallback() {
         this.shadowRoot.innerHTML =

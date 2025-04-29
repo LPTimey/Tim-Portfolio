@@ -1,8 +1,6 @@
 "use strict";
 import { css, html, parseJSONC } from "../script.mjs";
 
-// TODO: Add affordance
-
 /**
  * @typedef HyperImgData
  * @prop {string} name
@@ -159,6 +157,7 @@ img{
 `;
 
 export default class HyperImg extends HTMLElement {
+    interacted = false;
     static get observedAttributes() {
         return ["src", "start-name", "debug"];
     }
@@ -248,6 +247,21 @@ export default class HyperImg extends HTMLElement {
             this.shadowRoot.querySelectorAll(".img-wrapper[active]").forEach(el => el.removeAttribute("active"));
             this.shadowRoot.querySelector(`[name="${this.getAttribute("start-name")}"]`).toggleAttribute("active");
         }
+
+        let ids = []
+        if (!this.interacted) {
+            this.shadowRoot.querySelectorAll(".img-wrapper .hyper-img-link").forEach((button) => {
+                let intervalId = window.setInterval(this.triggerGlow, 2000, button);
+                console.log(intervalId);
+                ids.push(intervalId);
+            });
+        }
+        this.addEventListener("click", (ev) => {
+            this.interacted = true;
+            for (const id of ids) {
+                window.clearInterval(id)
+            }
+        });
     }
 
     constructor() {
