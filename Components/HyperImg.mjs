@@ -250,7 +250,7 @@ export default class HyperImg extends HTMLElement {
 
         let ids = []
         if (!this.interacted) {
-            this.shadowRoot.querySelectorAll(".img-wrapper .hyper-img-link").forEach((button) => {
+            this.shadowRoot.querySelectorAll(".img-wrapper[active] .hyper-img-link").forEach((button) => {
                 let intervalId = window.setInterval(this.triggerGlow, 2000, button);
                 console.log(intervalId);
                 ids.push(intervalId);
