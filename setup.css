@@ -422,6 +422,10 @@
         margin-left: auto;
     }
 
+    :where(.round) {
+        border-radius: 50%;
+    }
+
     :where(.separator) {
         display: inline-flex;
 

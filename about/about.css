@@ -47,7 +47,7 @@
 #AboutMeContent {
     display: grid;
     grid-template-columns: 1fr auto;
-    gap: 5ch;
+    /* gap: 5ch; */
     align-items: center;
 
     @media (width<130ch) {
