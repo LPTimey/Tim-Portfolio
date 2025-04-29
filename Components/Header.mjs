@@ -52,6 +52,11 @@ header{
     -webkit-backdrop-filter: blur(var(--blur-r));
     backdrop-filter: blur(var(--blur-r));
 }
+
+.current{
+    font-weight: var(--fw-medium);
+}
+
 nav,ul{
     height: 100%;
     width: 100%;
@@ -160,6 +165,27 @@ export default class SiteHeader extends HTMLElement {
     static get observedAttributes() {
         return [];
     }
+    setCurrent() {
+        let currentUrlPath = window.location.pathname;
+
+        [...this.shadowRoot.querySelectorAll("[href]")]
+            .map(el => {
+                /** @type {{el:HTMLElement,url:URL}} */
+                let res = { el, url: new URL(el.href) };
+                return res;
+            })
+            .forEach(({ el, url }) => {
+                if (url.pathname === currentUrlPath) {
+                    el.classList.add("current");
+                    el.classList.add("permanent");
+                }else{
+                    el.classList.remove("current");
+                    el.classList.remove("permanent");
+                }
+            });
+
+        console.log(currentUrlPath);
+    }
     /**
          * 
          * @param {string} name name of attribute
@@ -171,6 +197,7 @@ export default class SiteHeader extends HTMLElement {
     }
     connectedCallback() {
         this.shadowRoot.innerHTML = style + template;
+        this.setCurrent()
     }
     constructor() {
         super()

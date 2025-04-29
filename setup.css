@@ -451,7 +451,7 @@
         transition: background-size var(--transition-time);
 
         &:where(:hover:not(active),
-            :focus-visible) {
+            :focus-visible,.permanent) {
             background-size: 0 0.1em, 100% 0.1em;
         }
     }
