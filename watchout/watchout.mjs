@@ -1,4 +1,5 @@
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { THREE, add, addLight, combine, easeIn, easeInCirc, easeInOut, easeOut, easeOutCirc, fade, hide, interpolate, lerp, remove, resize, show, wait } from "../three_utils.mjs";
 import { pause_icon, play_icon } from "../script.mjs";
 /** @import {Animation, AnimationState, FadeType} from "../three_utils.mjs" */
@@ -14,6 +15,8 @@ const loader = new GLTFLoader();
 
 /** @type {HTMLCanvasElement|null} */
 const heroCanvas = document.getElementById("HeroCanvas");
+/** @type {HTMLCanvasElement|null} */
+const infoCanvas = document.getElementById("InfoCanvas");
 const watchPath = `./assets/Design%20der%20Mensch%20Maschine%20Schnittstelle/WatchOut/TimUhr.glb`;
 const watch = await loader.loadAsync(watchPath);
 /** @type {THREE.Object3D} */
@@ -68,7 +71,7 @@ function initAnimation(scene, watch, phone, ...phones) {
  * @param {K} [type="Out"] 
  * @returns {Animation}
  */
-function fadeBGImg(type="Out") {
+function fadeBGImg(type = "Out") {
     const start = type === "In" ? 0 : 1;
     const end = type === "In" ? 1 : 0;
     let duration = 1000;
@@ -304,7 +307,7 @@ function HeroAnimation(scene) {
     return { next }
 }
 
-async function main() {
+async function initHero() {
 
     startButton.removeEventListener("click", main);
     startButton.addEventListener("click", function () {
@@ -393,6 +396,57 @@ async function main() {
     animation = HeroAnimation(scene);
 }
 
-startButton.innerHTML = play_icon;
-startButton.setAttribute("data-state", "play");
-startButton.addEventListener("click", main)
+async function initInfoSpin() {
+    const renderer = new THREE.WebGLRenderer(
+        { alpha: true, canvas: infoCanvas, antialias: true }
+    );
+
+    const scene = new THREE.Scene();
+    scene.add(watch.scene);
+
+    addLight(scene, {
+        x: - 1, y: 2, z: 4
+    });
+    addLight(scene, {
+        x: 1, y: -2, z: 1
+    });
+
+    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
+
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.autoRotateSpeed = 0.75;
+    controls.autoRotate = true;
+    controls.rotateSpeed = 0.75;
+    controls.enableZoom = false;
+
+    const axesHelper = new THREE.AxesHelper(5);
+    if (infoCanvas.hasAttribute("axis")) { scene.add(axesHelper); }
+
+    //controls.update() must be called after any manual changes to the camera's transform
+    camera.position.set(0, 2, 6);
+    controls.update();
+
+    function animate() {
+
+        requestAnimationFrame(animate);
+
+
+        resize(renderer, camera);
+
+        // required if controls.enableDamping or controls.autoRotate are set to true
+        controls.update();
+
+        renderer.render(scene, camera);
+
+    }
+    animate()
+}
+
+async function main() {
+    startButton.innerHTML = play_icon;
+    startButton.setAttribute("data-state", "play");
+    startButton.addEventListener("click", initHero);
+    initInfoSpin();
+}
+
+main()

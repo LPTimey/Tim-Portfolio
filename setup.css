@@ -330,6 +330,9 @@
                 min-width: var(--min-width, 30ch);
             }
         }
+        &:where(.inline){
+            display: inline-flex;
+        }
     }
 
     :where(.full) {

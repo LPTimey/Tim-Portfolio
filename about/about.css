@@ -1,17 +1,8 @@
 #SkillsCard {
-    justify-items: center;
-    padding: 2rem 0;
-}
-
-.skills {
-    display: grid;
-    column-gap: 1ch;
-}
-
-.skill {
-    display: grid;
-    grid-template-columns: subgrid;
-    grid-column: span 2;
+    padding: 2rem 2.5ch;
+    gap: 5ch;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
 }
 
 .skill-icon {
@@ -20,6 +11,11 @@
 
 .category-title {
     margin-bottom: 1rem;
+}
+
+.category-title,
+.category {
+    width: fit-content;
 }
 
 .section {

@@ -1,15 +1,15 @@
 "use strict";
 import { css, html } from "../script.mjs";
 
-const template = (src, alt, href) => html`
+const template = (src, alt, href, has_button) => html`
 <picture><img src="${src}" alt="${alt}"/></picture>
 <div id="Text">
     <slot></slot>
 </div>
-<a href="${href}" class="button">Details</a>
+${!has_button || !href ? "" : html`<a href="${href}" class="button">Details</a>`}
 `;
 
-const style = ()=>css`
+const style = () => css`
 @import "setup.css";
 @property --translate-y{
     syntax: "<length>";
