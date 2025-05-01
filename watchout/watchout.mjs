@@ -20,7 +20,7 @@ const infoCanvas = document.getElementById("InfoCanvas");
 const watchPath = `./assets/Design%20der%20Mensch%20Maschine%20Schnittstelle/WatchOut/TimUhr.glb`;
 const watch = await loader.loadAsync(watchPath);
 /** @type {THREE.Object3D} */
-const watchScene = watch.scene;
+const watchScene = watch.scene.clone();
 // const phonePath = `./assets/Design%20der%20Mensch%20Maschine%20Schnittstelle/WatchOut/Iphone/iphone spin.gltf`;
 const phonePath = `./assets/Design%20der%20Mensch%20Maschine%20Schnittstelle/WatchOut/iphone.glb`;
 const phone = await loader.loadAsync(phonePath);
@@ -402,7 +402,7 @@ async function initInfoSpin() {
     );
 
     const scene = new THREE.Scene();
-    scene.add(watch.scene);
+    scene.add(watch.scene.clone());
 
     addLight(scene, {
         x: - 1, y: 2, z: 4

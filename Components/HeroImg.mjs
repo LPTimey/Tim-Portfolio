@@ -18,7 +18,7 @@ const style = (bg) => css`
     display: grid;
     overflow: hidden;
     align-items: end;
-    ${bg ? `background: ${bg};` : ""}
+    ${bg ? `background: ${bg};background-size: cover;` : ""}
     * {
         grid-column: 1 / -1;
         grid-row: 1 / -1;
