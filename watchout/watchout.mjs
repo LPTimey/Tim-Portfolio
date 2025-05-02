@@ -411,19 +411,20 @@ async function initInfoSpin() {
         x: 1, y: -2, z: 1
     });
 
-    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
+    const camera = new THREE.PerspectiveCamera(35);
 
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.autoRotateSpeed = 0.75;
     controls.autoRotate = true;
     controls.rotateSpeed = 0.75;
     controls.enableZoom = false;
+    controls.enablePan = false;
 
     const axesHelper = new THREE.AxesHelper(5);
     if (infoCanvas.hasAttribute("axis")) { scene.add(axesHelper); }
 
     //controls.update() must be called after any manual changes to the camera's transform
-    camera.position.set(0, 2, 6);
+    camera.position.set(0, 2, 5.75);
     controls.update();
 
     function animate() {

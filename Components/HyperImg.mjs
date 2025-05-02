@@ -146,8 +146,8 @@ img{
 }
 @keyframes button-glow{
     from {
-        box-shadow: 0 0 5px -5px rgb( from var(--accent) r g b / 0.25),
-            inset 0 0 5px -5px rgb( from var(--accent) r g b / 0.25);
+        box-shadow: 0 0 5px 0px rgb( from var(--accent) r g b / 0.25),
+            inset 0 0 5px 0px rgb( from var(--accent) r g b / 0.25);
     }
     to {
         box-shadow: 0 0 5px 5px rgb(from var(--accent) r g b / 0.25),

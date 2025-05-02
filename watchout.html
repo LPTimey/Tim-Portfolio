@@ -43,14 +43,26 @@
                 </div>
             </hero-img>
         </section>
-        <section class="section content grid auto" style="--grid-max-col-count:3;" id="WatchSect">
-            <div style="grid-column: span 2;">
-                <h2 class="large margin-b">Uhr</h2>
+        <section class="section">
+            <h2 class="heading large margin-b">Motivation & Generelles</h2>
+            <div class="content">
                 <p> Demenz hat tiefgreifende Auswirkungen auf das Leben der Betroffenen und ihrer Familienangehörigen.
+                    <br>
                     Watch out unterstützt die Angehörigen dabei, einen klaren Überblick über die Situation zu behalten
                     und schnell eingreifen zu können.
                 </p>
-                <p>Watch Out besteht aus zwei Teilen</p>
+                <br>
+                <p> Watch Out besteht aus zwei Teilen:
+                    <!-- <ul>
+                        <li>Uhr</li>
+                        <li>Begleitapp</li>
+                    </ul> -->
+                </p>
+            </div>
+        </section>
+        <section class="section content grid auto" style="--grid-max-col-count:2;" id="WatchSect">
+            <!-- <div>
+                <h2 class="large margin-b">Uhr</h2>
                 <p> Da Demenz oft die vertrauten Gewohnheiten und Erinnerungen der Betroffenen am längsten
                     bewahrt,
                     wurde die Uhr im klassischen, analogen Design gestaltet. Die Gestaltung zielt darauf ab,
@@ -88,58 +100,76 @@
                     Dies dient
                 </p>
                 TODO:
+            </div> -->
+            <div>
+                <h2 class="large margin-b">Uhr</h2>
+                <p> Da Demenz oft die vertrauten Gewohnheiten und Erinnerungen der Betroffenen am längsten
+                    bewahrt, wurde die Uhr im klassischen, analogen Design gestaltet.
+                </p>
+                <p>
+                    Die Gestaltung zielt darauf ab, der Uhr eine vertraute Bedeutung zu verleihen.
+                    Um den Bedürfnissen der oft älteren Zielgruppe gerecht zu werden,
+                    sind sowohl die Ziffern als auch die Zeiger gut lesbar und groß.
+                    Zudem ist die Uhr ergonomisch abgerundet und aus einem weichen Material
+                    gefertigt, um Verletzungen vorzubeugen.
+                </p>
+                <p> Die Uhr sendet GPS-Daten, verfügt über eine aktive Fallerkennung und eine
+                    Notruffunktion mit den 2 Knöpfen. Zusätzlich behält sie ihre Funktion als gewöhnliche Analoguhr
+                    mit Krone bei.
+                </p>
             </div>
-            <canvas id="InfoCanvas" axis></canvas>
+            <canvas id="InfoCanvas"></canvas>
         </section>
-        <section class="section content grid auto" style="--grid-max-col-count:3;" id="AppSect">
-            <div class="center children" style="min-width: 30ch;">
+        <section class="section content grid auto" style="--grid-max-col-count:2;" id="AppSect">
+            <div class="center children" style="min-width: 30ch;" id="PhoneProto">
                 <phone-img style="--iphone16PM-h:3100;"><hyper-img
                         src="watchout/HyperApp.jsonc"></hyper-img></phone-img>
             </div>
-            <div class="center children" style="grid-column: span 2;">
+            <div class="center children">
                 <h2 class="large margin-b">Begleitapp</h2>
-                <p>
-                    Die mit der Uhr verbundene App wurde nach dem Prinzip der Schlichtheit gestaltet.
+                <p> Die mit der Uhr verbundene App wurde nach dem Prinzip der Schlichtheit gestaltet.
                 </p>
-                <p>Die Startseite bietet einen Überblick über die letzten Ereignisse. Um die Übersichtlichkeit zu
-                    gewährleisten, sind diese
-                    Ereignisse zusammengefasst, nach Zeit sortiert und farblich nach Schweregrad kategorisiert.
-                    Außerdem
-                    ermöglicht die
-                    Übersicht, die uhrtragende Person, gespeicherte Kontakte oder die Notfallstelle direkt
-                    anzurufen.
+                <p> Die Startseite bietet einen Überblick über die letzten Ereignisse.
+                    Um die Übersichtlichkeit zu gewährleisten, sind diese Ereignisse zusammengefasst,
+                    nach Zeit sortiert und farblich nach Schweregrad kategorisiert.
+                    Außerdem ermöglicht die Übersicht, die uhrtragende Person, gespeicherte Kontakte
+                    oder die Notfallstelle direkt anzurufen.
                 </p>
-                <p>In der Historie werden neben den aktuellen Ereignissen auch vergangene Ereignisse angezeigt, die
-                    detaillierte Einblicke
-                    in frühere Aktivitäten und Notfälle bieten.
+                <p> In der Historie werden neben den aktuellen Ereignissen auch vergangene Ereignisse
+                    angezeigt, die detaillierte Einblicke in frühere Aktivitäten und Notfälle bieten.
                 </p>
-                <p>Zusätzlich enthält die App eine Karte, mit der die Position der erkrankten Person sowie die
-                    anderer
-                    Angehöriger
-                    überprüft werden kann.
+                <p> Zusätzlich enthält die App eine Karte, mit der die Position der erkrankten Person
+                    sowie die anderer Angehöriger überprüft werden kann.
                 </p>
             </div>
         </section>
-        <section class="section" id="Video">
+        <section class="section" id="VideoSect">
             <h2 class="heading large margin-b">Produkt Video</h2>
-            <div class="content">
+            <div class="content" id="Video">
                 <video controls>
                     <source src="./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Video720_1.mp4"
                         type="video/mp4" />
                     Download the
-                    <a href="./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Video720_1.mp4">Video</a>
+                    <a href="./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Video720_1.mp4">
+                        Video</a>
                 </video>
-                <p>
-                    *Gemacht in Kollaboration mit
+            </div>
+            <ul class="star content">
+                <li>
+                    Gemacht in Kollaboration mit
                     <a class="link underline" href="https://niiiicolaas.github.io/Nicolas-Weber-Portfolio/"
-                        target="_blank" rel="noopener noreferrer">Nicolas Weber</a> (Skizzen, VoiceOver, AppDesign,
-                    Video, Audio),
+                        target="_blank" rel="noopener noreferrer">
+                        Nicolas Weber</a>
+                    (Skizzen, VoiceOver, AppDesign, Video, Audio),
+
                     <a class="link underline" href="https://strangelifekid.github.io/Portfolio_Linda/" target="_blank"
                         rel="noopener noreferrer">
-                        Linda Jakob</a> (Skizzen, AppDesign, Watch)
+                        Linda Jakob</a>
+                    (Skizzen, AppDesign, Watch)
+
                     & mir (Skizzen, Watch, AppDesign, Video, Audio)
-                </p>
-            </div>
+                </li>
+            </ul>
         </section>
     </main>
     <div class="grow"></div>

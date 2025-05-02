@@ -416,6 +416,13 @@
         }
     }
 
+    :where(.no-wrap) {
+        white-space: nowrap;
+        *{
+            white-space: nowrap;
+        }
+    }
+
     :where(.reverse) {
         display: inline-flex;
         flex-direction: column-reverse;
