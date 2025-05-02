@@ -13,5 +13,9 @@
     ],
     "fiveServer.host": "0.0.0.0",
     "fiveServer.port": 80,
-    "fiveServer.highlight": true
+    "fiveServer.highlight": true,
+    "todo-tree.filtering.excludeGlobs": [
+        // "**/node_modules/*/**",
+        "**/vendor/*/**"
+    ]
 }
