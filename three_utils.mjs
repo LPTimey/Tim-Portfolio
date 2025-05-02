@@ -154,7 +154,6 @@ export function fade(type, scene, duration = 1000) {
             const percent = cur_duration / duration;
 
             opacity = lerp(start, end, percent);
-            //TODO: set opacity to scene
             scene.traverse((child) => {
                 if (child.isMesh && child.material) {
                     /** @type {THREE.Material[]} */

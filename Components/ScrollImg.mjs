@@ -81,17 +81,16 @@ export default class ScrollImage extends HTMLElement {
             case "time": {
                 let styleEl = this.shadowRoot.querySelector("style") ?? {};
                 styleEl.outerHTML = style(this.getAttribute("time"), this.getAttribute("cols"), newValue);
-                //TODO: html changes
                 break;
             }
             case "cols": {
                 let styleEl = this.shadowRoot.querySelector("style") ?? {};
                 styleEl.outerHTML = style(this.getAttribute("time"), this.getAttribute("cols"), newValue);
-                //TODO: html changes
+                //TODO: html changes (make amount of images equal cols*rows by adding or removing imgs)
                 break;
             }
             case "rows": {
-                //TODO: html changes
+                //TODO: html changes (make amount of images equal cols*rows by adding or removing imgs)
                 break;
             }
             case "bg": {

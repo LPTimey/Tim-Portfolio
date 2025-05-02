@@ -114,6 +114,7 @@ div{
 }
 `;
 
+//TODO: Remove, make delay bigger or make the arrows almost gone after fist interaction
 export default class ImgCmp extends HTMLElement {
     static get observedAttributes() {
         return ["src1", "alt1", "src2", "alt2", "no-clip" /*, "angle" */];
