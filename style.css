@@ -31,7 +31,6 @@
     /* #region Setup Vars */
 
     :root {
-        /* FIXME: Chrome kann rgb(from hex r g b / a) nur in 2fps. Evtl. alle hex in rgb Tupel ändern */
         --dark: #181819;
         --light: #fefffd;
         --accent-light: #6060ff;
