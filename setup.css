@@ -195,6 +195,27 @@
         }
     }
 
+    img.invert {
+        filter: invert(var(--_invert));
+    }
+
+    .light img.invert.invert-dark,
+    .dark img.invert.invert-light,
+    .system img.invert.invert-dark {
+        --_invert: 0;
+    }
+
+    .dark img.invert.invert-dark,
+    .light img.invert.invert-light {
+        --_invert: var(--invert, 1);
+    }
+
+    @media (prefers-color-scheme: dark) {
+        .system img.invert.invert-dark {
+            --_invert: var(--invert, 1);
+        }
+    }
+
     /************ Text *************/
     /* #region Text */
     :where(.title) {
@@ -326,11 +347,9 @@
         &:where(.wrap) {
             flex-wrap: wrap;
 
-            > :where(*) {
-                min-width: var(--min-width, 30ch);
-            }
         }
-        &:where(.inline){
+
+        &:where(.inline) {
             display: inline-flex;
         }
     }
@@ -418,7 +437,8 @@
 
     :where(.no-wrap) {
         white-space: nowrap;
-        *{
+
+        * {
             white-space: nowrap;
         }
     }
@@ -461,7 +481,7 @@
         transition: background-size var(--transition-time);
 
         &:where(:hover:not(active),
-            :focus-visible,.permanent) {
+            :focus-visible, .permanent) {
             background-size: 0 0.1em, 100% 0.1em;
         }
     }

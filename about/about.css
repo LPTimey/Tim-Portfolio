@@ -37,15 +37,9 @@
 }
 
 #AboutMeText {
-    columns: 1;
+    columns: 75ch 2;
     gap: 3.5ch;
     width: 100%;
-}
-
-@container aboutMeTextContainer (width > 70ch) {
-    #AboutMeText {
-        columns: 2;
-    }
 }
 
 #AboutMeContent {
@@ -62,9 +56,4 @@
             order: 2;
         }
     }
-}
-
-picture {
-    display: grid;
-    place-items: center;
 }
