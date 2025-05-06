@@ -12,7 +12,7 @@ const template = html`
             <li><a href="./about.html" class="underline link" aria-label="Navigiert zur AboutPage">Über mich</a></li>
             <li><div class="separator"></div></li>
             <li><details id="ProjectsButton" >
-                <summary class="link underline">Projects</summary>
+                <summary class="link underline">Projekte</summary>
                 <ul id="ProjectsPopover">
                     <li><a href="./watchout.html" class="underline link" aria-label="Navigiert zu WatchOut">WatchOut</a></li>
                     <li><div class="separator"></div></li>
