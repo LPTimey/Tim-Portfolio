@@ -1,3 +1,7 @@
+.card {
+    padding: 1rem 2.5ch;
+}
+
 #SkillsCard {
     padding: 2rem 2.5ch;
     gap: 5ch;
@@ -56,4 +60,10 @@
             order: 2;
         }
     }
+}
+
+table {
+    /* width: fit-content; */
+    border-collapse: separate;
+    border-spacing: 2ch 0.15em;
 }
