@@ -19,7 +19,7 @@ const template = function (src1, alt1, src2, alt2) {
 `;
 }
 
-// TODO: Fix width when no-clip
+// FIXME: Fix width when no-clip
 const style = (noClip) => css`
 @import "setup.css";
 

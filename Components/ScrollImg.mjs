@@ -11,7 +11,7 @@ const style = (time, cols, bg) => css`
     display:  grid;
     grid-template-columns: repeat(${cols},1fr);
     position: relative;
-    width:    calc(100% * ${cols});
+    width:    ${100.0 * cols}%;
     height:   100%;
     overflow: hidden;
     z-index:  -1;
@@ -34,23 +34,23 @@ const style = (time, cols, bg) => css`
 }
 
 @keyframes scrollImage {
-    0% {
+    from {
         translate: 0 0;
     }
 
-    100% {
+    to {
         translate: 0 -100%;
         /* Zweites Bild kommt an die Stelle des ersten Bildes */
     }
 }
 
 @keyframes scrollGrid {
-    0% {
+    from {
         translate: 0 0;
     }
 
-    100% {
-        translate: calc(100% / ${cols}) 0;
+    to {
+        translate:  ${100.0 / cols}% 0;
     }
 }
 `;
@@ -66,10 +66,13 @@ export default class ScrollImage extends HTMLElement {
          * @param {*} newValue new value of attribute
          */
     attributeChangedCallback(name, oldValue, newValue) {
-        // console.log(name, oldValue, newValue);
+        if (!this._initialized){
+            return;
+        }
+        console.log(name, oldValue, newValue);
         switch (name) {
             case "src": {
-                let heroes = this.shadowRoot.querySelectorAll("img");
+                let heroes = this.shadowRoot.querySelectorAll(".scrolling-image");
                 heroes.forEach((el) => el.setAttribute("src", newValue));
                 break;
             }
@@ -80,17 +83,37 @@ export default class ScrollImage extends HTMLElement {
             }
             case "time": {
                 let styleEl = this.shadowRoot.querySelector("style") ?? {};
-                styleEl.outerHTML = style(this.getAttribute("time"), this.getAttribute("cols"), newValue);
+                styleEl.outerHTML = style(newValue, this.getAttribute("cols"), this.getAttribute("bg"));
                 break;
             }
             case "cols": {
                 let styleEl = this.shadowRoot.querySelector("style") ?? {};
-                styleEl.outerHTML = style(this.getAttribute("time"), this.getAttribute("cols"), newValue);
-                //TODO: html changes (make amount of images equal cols*rows by adding or removing imgs)
+                styleEl.outerHTML = style(this.getAttribute("time"), newValue, this.getAttribute("bg"));
+                let imgs = [... this.shadowRoot.querySelectorAll(".scrolling-image")];
+                let delta = imgs.length - Number(newValue) * Number(this.getAttribute("rows"));
+                if (delta < 0) {
+                    for (let i = 0; i < delta; i++) {
+                        let img = document.createElement("picture");
+                        img.innerHTML = html`
+                        <img src="${this.getAttribute("src") ?? ""}" alt="${this.getAttribute("alt") ?? ""}" class="scrolling-image"/>
+                        `
+                        document.appendChild(img);
+                    }
+                }
                 break;
             }
             case "rows": {
-                //TODO: html changes (make amount of images equal cols*rows by adding or removing imgs)
+                let imgs = [... this.shadowRoot.querySelectorAll(".scrolling-image")];
+                let delta = imgs.length - Number(newValue) * Number(this.getAttribute("cols"));
+                if (delta < 0) {
+                    for (let i = 0; i < delta; i++) {
+                        let img = document.createElement("picture");
+                        img.innerHTML = html`
+                        <img src="${this.getAttribute("src") ?? ""}" alt="${this.getAttribute("alt") ?? ""}" class="scrolling-image"/>
+                        `
+                        document.appendChild(img);
+                    }
+                }
                 break;
             }
             case "bg": {
@@ -107,9 +130,12 @@ export default class ScrollImage extends HTMLElement {
     connectedCallback() {
         this.shadowRoot.innerHTML = style(this.getAttribute("time"), this.getAttribute("cols"), this.getAttribute("bg"))
             + template(this.getAttribute("src"), this.getAttribute("alt"), this.getAttribute("cols"), this.getAttribute("rows"));
+
+        this._initialized = true;
     }
     constructor() {
         super()
+        this._initialized = false;
         this.attachShadow({ mode: "open" })
     }
 }
