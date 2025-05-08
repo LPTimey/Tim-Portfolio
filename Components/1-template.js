@@ -19,8 +19,9 @@ export default class x extends HTMLElement {
          * @param {*} newValue new value of attribute
          */
     attributeChangedCallback(name, oldValue, newValue) {
-        // this.shadowRoot.innerHTML = style + template;
-        // console.log(name, oldValue, newValue);
+        if (!this.initialized) {
+            return;
+        }
         switch (name) {
             case "X": {
                 let hero = this.shadowRoot.querySelector("Y");
@@ -38,7 +39,8 @@ export default class x extends HTMLElement {
     }
     constructor() {
         super()
-        this.attachShadow({ mode: "open" })
+        this.attachShadow({ mode: "open" });
+        this.initialized = false;
     }
 }
 customElements.define("x-x", x);

@@ -1,6 +1,7 @@
 "use strict";
 export function noOpTag(strings, ...values) {
     // Füge alle Strings zusammen und setze Werte in den Platzhalter ein
+    /** @type {string} */
     let res = strings.reduce((result, string, i) => {
         // Wenn es einen Wert gibt, füge ihn hinzu, andernfalls füge einfach den String hinzu
         let new_res = result + string + (values[i] !== undefined ? values[i] : '');
