@@ -13,6 +13,7 @@ const style = (theme) => css`
 @import "./vendor/highlight.js/11.11.1/cdn-release-11-stable/build/styles/${theme}.min.css";
 :host{
     display: block;
+    font-family: "JetBrains Mono", monospace;
 }
 `;
 
