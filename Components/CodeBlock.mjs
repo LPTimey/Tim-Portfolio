@@ -49,7 +49,7 @@ export default class CodeBlock extends HTMLElement {
         return prefersDark ? dark : light;
     }
 
-    emitTheme(){
+    emitTheme() {
         this.shadowRoot.dispatchEvent(new Event('theme-change'));
     }
     /**
@@ -72,7 +72,7 @@ export default class CodeBlock extends HTMLElement {
             case "light-theme": {
                 this.shadowRoot.querySelector("style").outerHTML = style(this.theme);
             }
-            case "no-pre":{
+            case "no-pre": {
                 this._render();
             }
             default: {
@@ -85,8 +85,19 @@ export default class CodeBlock extends HTMLElement {
     _render() {
         const lang = this.getAttribute("lang") ?? "plaintext";
         const noPre = this.hasAttribute("no-pre");
-        const content = this.innerHTML;
-        //TODO: remove 1st and last \n and remove common tabs
+        let content = this.innerHTML;
+
+        let lines = content.split("\n");
+        let minSpace = null;
+        content = lines.filter(line => line.trim()).map(line => {
+            let newLine = line.trimStart();
+            let delta = line.length - newLine.length;
+            if (!minSpace) {
+                minSpace = delta;
+            }
+            minSpace = Math.min(minSpace, delta);
+            return line.trimEnd();
+        }).map(line => line.slice(minSpace)).join("\n");
 
         this.shadowRoot.innerHTML = style(this.theme) + template(lang, content, noPre);
 
@@ -118,9 +129,10 @@ export default class CodeBlock extends HTMLElement {
 
         this._contentObserver = new MutationObserver(() => this._render());
         this._themeObserver = new MutationObserver(() => this.emitTheme());
-        this.shadowRoot.addEventListener("theme-change", ()=>{
+        this.shadowRoot.addEventListener("theme-change", () => {
             console.log("event");
-            this._render()});
+            this._render()
+        });
     }
 }
 customElements.define("code-block", CodeBlock);
