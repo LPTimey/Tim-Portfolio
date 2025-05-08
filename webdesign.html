@@ -5,10 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="WebDesign BTS: Mehr als nur Design oder Programmierung alleine">
-    <title>Themes - Tim Ruland</title>
+    <title>WebDev - Tim Ruland</title>
     <link rel="preload" href="script.mjs" as="script">
     <link rel="preload" href="style.css" as="style">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="webdesign/webdesign.css">
     <script type="module" src="./Components/Header.mjs"></script>
     <script type="module" src="./Components/SiteFooter.mjs"></script>
     <script type="module" src="./Components/HeroImg.mjs"></script>
@@ -140,43 +141,42 @@
                             <ul>
                                 <li>
                                     <p>Import</p>
-                                    <code>
-                                        &lt;head&gt;
-                                        ...
-                                        &lt;script type="module" src="./Components/HeroImg.mjs"&gt;&lt;/script&gt;
-                                        ...
-                                        &lt;/head&gt;
-                                    </code>
+                                    <code-block lang="HTML">
+&lt;head&gt;
+...
+&lt;script type="module" src="./Components/HeroImg.mjs"&gt;&lt;/script&gt;
+...
+&lt;/head&gt;
+                                    </code-block>
                                 </li>
                                 <li>
                                     <p>Statisches Bild:</p>
-                                    <code>
-                                        &lt;hero-img id="HeroImage" src="https://placehold.co/600x400"&gt;&lt;/hero-img&gt;
-                                    </code>
+                                    <code-block lang="HTML">
+&lt;hero-img id="HeroImage" src="https://placehold.co/600x400"&gt;&lt;/hero-img&gt;
+                                    </code-block>
                                 </li>
                                 <li>
                                     <p>Scrollendes Bild:</p>
-                                    <code>
-                                        &lt;hero-img id="HeroImage" src="https://placehold.co/600x400" alt="Scrolling Image" time="35s" cols="2" rows="3"&gt;&lt;/hero-img&gt;
-                                    </code>
+                                    <code-block lang="HTML">
+&lt;hero-img id="HeroImage" src="https://placehold.co/600x400" alt="Scrolling Image" time="35s" cols="2" rows="3"&gt;&lt;/hero-img&gt;
+                                    </code-block>
                                 </li>
                                 <li>
                                     <p>Eigener Inhalt:</p>
                                     <ul>
                                         <li>
+                                            <p>Nur eigenes HTML:</p>
+                                            <code-block lang="HTML">
+&lt;hero-img id="HeroImage"&gt; &lt;!-- HTMLContent --&gt; &lt;/hero-img&gt;
+                                            </code-block>
+                                        </li>
+                                        <li>
                                             <p>MischForm:</p>
-                                            <code>
-                                                &lt;hero-img id="HeroImage" src="https://placehold.co/600x400" alt="Scrolling Image" time="35s" cols="2" rows="3"&gt; &lt;!-- HTMLContent --&gt; &lt;/hero-img&gt;
-                                            </code>
+                                            <code-block lang="HTML">
+&lt;hero-img id="HeroImage" src="https://placehold.co/600x400" alt="Scrolling Image" time="35s" cols="2" rows="3"&gt; &lt;!-- HTMLContent --&gt; &lt;/hero-img&gt;
+                                            </code-block>
                                         </li>
 
-                                        <li>
-                                            <p>Nur eigen:</p>
-                                            <code>
-                                                &lt;hero-img id="HeroImage"&gt; &lt;!-- HTMLContent --&gt;
-                                                &lt;/hero-img&gt;
-                                            </code>
-                                        </li>
                                     </ul>
                                 </li>
                             </ul>
@@ -200,6 +200,21 @@
                                             <li>rows</li>
                                             <li>bg?</li>
                                         </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <h4>Anwendungen</h4>
+                                <ul>
+                                    <li>
+                                        <p>Import</p>
+                                        <pre><code-block lang="HTML">
+                                        </code-block></pre>
+                                    </li>
+                                    <li>
+                                        <p>Nutzung:</p>
+                                        <pre><code-block lang="HTML">
+                                        </code-block></pre>
                                     </li>
                                 </ul>
                             </li>
