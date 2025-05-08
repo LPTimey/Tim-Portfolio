@@ -86,6 +86,8 @@ export default class CodeBlock extends HTMLElement {
         const lang = this.getAttribute("lang") ?? "plaintext";
         const noPre = this.hasAttribute("no-pre");
         let content = this.innerHTML;
+        content = content.replace("<pre>","\n");
+        content = content.replace("</pre>","\n");
 
         let lines = content.split("\n");
         let minSpace = null;
