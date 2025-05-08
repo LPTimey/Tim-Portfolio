@@ -12,6 +12,7 @@
     <script type="module" src="./Components/Header.mjs"></script>
     <script type="module" src="./Components/SiteFooter.mjs"></script>
     <script type="module" src="./Components/HeroImg.mjs"></script>
+    <script type="module" src="./Components/CodeBlock.mjs"></script>
 </head>
 
 <body>
@@ -90,8 +91,118 @@
                 <ul>
                     <li>
                         <h3 class="medium margin-b">Hero</h3>
+                        <div>
+                            <ul>
+                                <li>Managed den HeroBanner jeder Unterseite
+                                    <ul>
+                                        <li>Größe</li>
+                                        <li>Varianten</li>
+                                    </ul>
+                                </li>
+                                <li>Varianten
+                                    <ul>
+                                        <li>Scroll-Animation mit ScrollImg</li>
+                                        <li>Statisches Bild</li>
+                                        <li>User eigenes HTML mit slot</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    Webkomponente
+                                    <ul>
+                                        <li>Attribute:
+                                            <ul>
+                                                <li>bg? - legt hintergrund fest. Zum beispiel bei transparentem Bild
+                                                    bg="white" </li>
+                                                <li>src? - Setzt quelllink des statischen Bildes oder wird zu ScrollImg
+                                                    durchgereicht</li>
+                                                <li>alt? - Setzt alternativtext des statischen Bildes oder wird zu
+                                                    ScrollImg durchgereicht</li>
+                                                <li> nur statisches Bild
+                                                    <ul>
+                                                        <li>img-style? - style der auf das Bild angewandt werden soll
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <!-- nur für ScrollIMG -->
+                                                <li> nur für ScrollImg
+                                                    <ul>
+                                                        <li>time? - Wird zu ScrollImg durchgereicht</li>
+                                                        <li>cols? - Wird zu ScrollImg durchgereicht</li>
+                                                        <li>rows? - Wird zu ScrollImg durchgereicht</li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <h4>Anwendungen</h4>
+                            <ul>
+                                <li>
+                                    <p>Import</p>
+                                    <code>
+                                        &lt;head&gt;
+                                        ...
+                                        &lt;script type="module" src="./Components/HeroImg.mjs"&gt;&lt;/script&gt;
+                                        ...
+                                        &lt;/head&gt;
+                                    </code>
+                                </li>
+                                <li>
+                                    <p>Statisches Bild:</p>
+                                    <code>
+                                        &lt;hero-img id="HeroImage" src="https://placehold.co/600x400"&gt;&lt;/hero-img&gt;
+                                    </code>
+                                </li>
+                                <li>
+                                    <p>Scrollendes Bild:</p>
+                                    <code>
+                                        &lt;hero-img id="HeroImage" src="https://placehold.co/600x400" alt="Scrolling Image" time="35s" cols="2" rows="3"&gt;&lt;/hero-img&gt;
+                                    </code>
+                                </li>
+                                <li>
+                                    <p>Eigener Inhalt:</p>
+                                    <ul>
+                                        <li>
+                                            <p>MischForm:</p>
+                                            <code>
+                                                &lt;hero-img id="HeroImage" src="https://placehold.co/600x400" alt="Scrolling Image" time="35s" cols="2" rows="3"&gt; &lt;!-- HTMLContent --&gt; &lt;/hero-img&gt;
+                                            </code>
+                                        </li>
+
+                                        <li>
+                                            <p>Nur eigen:</p>
+                                            <code>
+                                                &lt;hero-img id="HeroImage"&gt; &lt;!-- HTMLContent --&gt;
+                                                &lt;/hero-img&gt;
+                                            </code>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <h3 class="medium margin-b">ScrollImg</h3>
                         <ul>
-                            <li></li>
+                            <li>Managed die Animation des Bildes mit Keyframe-animation und Bilddopplung gegen
+                                clipping und weißstellen</li>
+                            <li>
+                                Webkomponente
+                                <ul>
+                                    <li>Attribute:
+                                        <ul>
+                                            <li>src</li>
+                                            <li>alt</li>
+                                            <li>time</li>
+                                            <li>cols</li>
+                                            <li>rows</li>
+                                            <li>bg?</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
                         </ul>
                     </li>
 
