@@ -49,8 +49,8 @@ export function replaceLast(str, search, replace) {
  * @returns {string}
  */
 export function extractRangeByLineColumn(text, from, to) {
-    const [fromLine, fromCol] = [null, null];
-    const [toLine, toCol] = [null, null];
+    let [fromLine, fromCol] = [null, null];
+    let [toLine, toCol] = [null, null];
     if (!from && !to) {
         return text;
     }
@@ -70,9 +70,12 @@ export function extractRangeByLineColumn(text, from, to) {
     result = lines
         .filter(obj => obj.i >= fromLine ?? 0)
         .filter(obj => toLine ? (obj.i <= toLine) : true)
-        //FIXME: indexingdoesn't work because of filter nee obj.i
-    result[fromLine ?? 0].str = result[fromLine ?? 0].str.substring(fromCol ?? 0);
-    result[toLine ?? result.length - 1].str = result[toLine ?? result.length - 1].str.substring(0, toCol || undefined);
+    //FIXME: indexingdoesn't work because of filter nee obj.i
+
+    let fromLineIndex = result.findIndex(obj => obj.i == fromLine ?? 0);
+    let toLineIndex = result.findIndex(obj => toLine ? (obj.i <= toLine) : false);
+    result[fromLineIndex].str = result[fromLineIndex].str.substring(fromCol ?? 0);
+    if (toCol && toLineIndex >= 0) result[toLineIndex].str = result[toLineIndex].str.substring(0, toCol);
 
     return result.map(obj => obj.str).join("\n");
 }
