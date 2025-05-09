@@ -28,6 +28,19 @@ export function parseJSONC(jsonc) {
     return JSON.parse(jsonc);
 }
 
+/**
+ * 
+ * @param {string} str 
+ * @param {string} search 
+ * @param {string} replace 
+ * @returns {string}
+ */
+export function replaceLast(str, search, replace) {
+    const index = str.lastIndexOf(search);
+    if (index === -1) return str; // nichts gefunden
+    return str.substring(0, index) + replace + str.substring(index + search.length);
+}
+
 export const changeEvent = new Event('change', {
     bubbles: true,
     cancelable: true,

@@ -1,5 +1,5 @@
 "use strict";
-import { css, html } from "../script.mjs";
+import { css, html, replaceLast } from "../script.mjs";
 
 /** @import * from "../vendor/highlight.js/11.11.1/index" */
 import hljs from "../vendor/highlight.js/11.11.1/cdn-release-11-stable/build/es/highlight.js"
@@ -19,8 +19,16 @@ const style = (theme) => css`
 
 export default class CodeBlock extends HTMLElement {
     static get observedAttributes() {
-        return ["lang", "dark-theme", "light-theme", "no-pre"];
+        return ["lang", "src", "from", "to", "dark-theme", "light-theme", "no-pre"];
     }
+    static escapeHtml(unsafe) {
+        return unsafe
+            // .replaceAll("&", "&amp;")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;")
+            .replaceAll('"', "&quot;")
+            .replaceAll("'", "&#039;");
+    };
 
     get theme() {
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -74,24 +82,34 @@ export default class CodeBlock extends HTMLElement {
                 this.shadowRoot.querySelector("style").outerHTML = style(this.theme);
             }
             case "no-pre": {
-                this._render();
+                this.render();
             }
             default: {
+                this.render();
                 break;
             }
         }
         return;
     }
 
-    _render() {
+    async render() {
         const lang = this.getAttribute("lang") ?? "plaintext";
         const noPre = this.hasAttribute("no-pre");
-        let content = this.innerHTML;
-        content = content.replace("<pre>","\n");
-        content = content.replace("</pre>","\n");
+        let content = "";
+        if (this.getAttribute("src")) {
+            content = await fetch(this.getAttribute("src")).then(resp => resp.text());
+            //TODO: limit from "from" to "to";
+        } else {
+            content = this.innerHTML;
+            content = content.replace("<pre>", "\n");
+            content = replaceLast(content, "</pre>", "\n");
+        }
+        content = CodeBlock.escapeHtml(content);
+        console.log(content)
 
         let lines = content.split("\n");
         let minSpace = null;
+        //TODO: remove TODO lines
         content = lines.filter(line => line.trim()).map(line => {
             let newLine = line.trimStart();
             let delta = line.length - newLine.length;
@@ -121,7 +139,7 @@ export default class CodeBlock extends HTMLElement {
             current = current.parentElement;
         }
 
-        this._render();
+        this.render();
         this.initialized = true;
     }
 
@@ -130,11 +148,11 @@ export default class CodeBlock extends HTMLElement {
         this.attachShadow({ mode: "open" });
         this.initialized = false;
 
-        this._contentObserver = new MutationObserver(() => this._render());
+        this._contentObserver = new MutationObserver(() => this.render());
         this._themeObserver = new MutationObserver(() => this.emitTheme());
         this.shadowRoot.addEventListener("theme-change", () => {
             console.log("event");
-            this._render()
+            this.render()
         });
     }
 }
