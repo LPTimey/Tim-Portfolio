@@ -242,9 +242,87 @@
                     </li>
 
                     <li>
-                        <h3 class="medium margin-b">Prototype</h3>
+                        <h3 class="medium margin-b">Prototype / HyperImg</h3>
                         <ul>
-                            <li></li>
+                            <li>Erzeugt einen Figma-artigen Prototyp anhand von Json-Daten, welche entweder inline oder
+                                per src gebracht werden</li>
+                            <li>Das Json muss sich an das <a class="link underline" hover target="_blank"
+                                    href="./HyperImgSchema.json">HyperImgSchema</a> halten
+                            </li>
+                            <li>
+                                Funktion
+                                <ul>
+                                    <li>Alle Bilder übereinander mit unsichtbaren buttons,
+                                        die Bilder ein und ausblenden
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <h4>Anwendung</h4>
+                                <ul>
+                                    <li>Import:
+                                        <code-block lang="HTML">
+                                            <pre>
+&lt;head&gt;
+    ...
+    &lt;script type="module" src="./Components/HyperImg.mjs"&gt;&lt;/script&gt;
+    ...
+&lt;/head&gt;
+                                            </pre>
+                                        </code-block>
+                                    </li>
+                                    <li>HTML:
+                                        <code-block lang="HTML">
+                                            <pre>
+&lt;hyper-img src="link/to/spec.jsonc"&gt; &lt;!-- Oder JsonText hier --&gt; &lt;/hyper-img&gt;
+                                            </pre>
+                                        </code-block>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <h3 class="medium margin-b">ImgCmp</h3>
+                        <ul>
+                            <li>Ein BildVergleichs Slider</li>
+                            <li>
+                                Funktion
+                                <ul>
+                                    <li>
+                                        2 Bilder übereinander, ein slider
+                                    </li>
+                                    <li>
+                                        das obere Bild wird anhand des SliderWertes
+                                        mit einem Clippath abgeschnitten
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <h4>Anwendung</h4>
+                                <ul>
+                                    <li>Import:
+                                        <code-block lang="HTML">
+                                            <pre>
+&lt;head&gt;
+    ...
+    &lt;script type="module" src="./Components/ImgCmp.mjs"&gt;&lt;/script&gt;
+    ...
+&lt;/head&gt;
+                                            </pre>
+                                        </code-block>
+                                    </li>
+                                    <li>HTML:
+                                        <code-block lang="HTML">
+                                            <pre>
+&lt;img-cmp class="full" src1="./assets/Screendesign/Styles/title-img - separated - Glas.webp" alt1=""
+    src2="./assets/Screendesign/Styles/title-img - separated - Bau.webp" alt2=""&gt;
+&lt;/img-cmp&gt;
+                                            </pre>
+                                        </code-block>
+                                    </li>
+                                </ul>
+                            </li>
                         </ul>
                     </li>
                     <li>
@@ -253,16 +331,12 @@
                             <li></li>
                         </ul>
                     </li>
-                    <li>
-                        <h3 class="medium margin-b">ImgCmp</h3>
-                        <ul>
-                            <li></li>
-                        </ul>
-                    </li>
                 </ul>
 
             </div>
         </section>
+        <div class="grow"></div>
+        <site-footer></site-footer>
 </body>
 
 </html>

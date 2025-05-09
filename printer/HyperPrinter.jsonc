@@ -1,5 +1,5 @@
 {
-    "$schema": "../HyperImgSchema.jsonc",
+    "$schema": "../HyperImgSchema.json",
     "data": [
         {
             "name": "LoginPW",
