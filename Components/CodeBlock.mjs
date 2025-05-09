@@ -1,5 +1,5 @@
 "use strict";
-import { css, html, replaceLast } from "../script.mjs";
+import { css, extractRangeByLineColumn, html, replaceLast } from "../script.mjs";
 
 /** @import * from "../vendor/highlight.js/11.11.1/index" */
 import hljs from "../vendor/highlight.js/11.11.1/cdn-release-11-stable/build/es/highlight.js"
@@ -98,7 +98,8 @@ export default class CodeBlock extends HTMLElement {
         let content = "";
         if (this.getAttribute("src")) {
             content = await fetch(this.getAttribute("src")).then(resp => resp.text());
-            //TODO: limit from "from" to "to";
+            content = extractRangeByLineColumn(content, this.getAttribute("from"), this.getAttribute("to"));
+            console.log(content)
         } else {
             content = this.innerHTML;
             content = content.replace("<pre>", "\n");

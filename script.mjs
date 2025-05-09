@@ -41,6 +41,43 @@ export function replaceLast(str, search, replace) {
     return str.substring(0, index) + replace + str.substring(index + search.length);
 }
 
+/**
+ * 
+ * @param {string} text 
+ * @param {string} [from?] im Format "Zeile:Spalte" 0 indiziert
+ * @param {string} [to?] im Format "Zeile:Spalte" 0 indiziert
+ * @returns {string}
+ */
+export function extractRangeByLineColumn(text, from, to) {
+    const [fromLine, fromCol] = [null, null];
+    const [toLine, toCol] = [null, null];
+    if (!from && !to) {
+        return text;
+    }
+    if (from) {
+        [fromLine, fromCol] = from.split(':').map(str => str.trim()).map(Number || null);
+    }
+    if (to) {
+        [toLine, toCol] = to.split(':').map(str => str.trim()).map(Number || null);
+    }
+
+    // TODO: Fehlerbehandlung: Indexbereich prüfen
+
+    const lines = text.split('\n').map((str, i) => { return { str, i } });
+
+    let result;
+
+    result = lines
+        .filter(obj => obj.i >= fromLine ?? 0)
+        .filter(obj => toLine ? (obj.i <= toLine) : true)
+        //FIXME: indexingdoesn't work because of filter nee obj.i
+    result[fromLine ?? 0].str = result[fromLine ?? 0].str.substring(fromCol ?? 0);
+    result[toLine ?? result.length - 1].str = result[toLine ?? result.length - 1].str.substring(0, toCol || undefined);
+
+    return result.map(obj => obj.str).join("\n");
+}
+
+
 export const changeEvent = new Event('change', {
     bubbles: true,
     cancelable: true,
