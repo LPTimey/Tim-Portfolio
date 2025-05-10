@@ -62,6 +62,20 @@
     }
 }
 
+#LeistungenWerdegangWrapper{
+    row-gap: var(--margin-b);
+    section {
+        display: grid;
+        grid-template-rows: subgrid;
+        grid-row: span 2;
+        row-gap: var(--fmb-medium);
+        .card{
+            height: 100%;
+            align-items: center;
+        }
+    }
+}
+
 table {
     /* width: fit-content; */
     border-collapse: separate;
