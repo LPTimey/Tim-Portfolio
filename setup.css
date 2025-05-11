@@ -119,7 +119,8 @@
         fill: var(--fg);
 
         /* stroke: var(--fg); */
-        &:hover,&[hover] {
+        &:hover,
+        &[hover] {
             fill: var(--accent-2);
         }
     }
@@ -216,6 +217,25 @@
         }
     }
 
+    .dark .light-only,
+    .light .dark-only {
+        display: none;
+    }
+
+    @media (prefers-color-scheme: dark) {
+
+        .system .light-only {
+            display: none;
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        .system .dark-only {
+            display: none;
+        }
+
+    }
+
     /************ Text *************/
     /* #region Text */
     :where(.title) {
@@ -287,7 +307,7 @@
         fill: var(--b-fg);
         background-color: var(--b-bg);
 
-        &:where(:hover,[hover]) {
+        &:where(:hover, [hover]) {
             background-color: var(--b-hover);
             color: var(--b-hover-fg);
             fill: var(--b-hover-fg);
@@ -412,7 +432,7 @@
         color: var(--fg);
         cursor: pointer;
 
-        &:where(:hover,[hover]) {
+        &:where(:hover, [hover]) {
             color: var(--accent-2);
             fill: var(--accent-2);
 
@@ -507,7 +527,8 @@
             text-align: center;
         }
 
-        &:hover .tooltip,&[hover] .tooltip {
+        &:hover .tooltip,
+        &[hover] .tooltip {
             display: grid;
             opacity: 1;
         }

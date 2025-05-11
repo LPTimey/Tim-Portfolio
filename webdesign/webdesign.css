@@ -1,4 +1,8 @@
-code-block{
+code-block {
     border-radius: var(--border-r);
     overflow: hidden;
+}
+
+.hero-img-img {
+    width: 100%;
 }
