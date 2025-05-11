@@ -80,6 +80,37 @@ export function extractRangeByLineColumn(text, from, to) {
     return result.map(obj => obj.str).join("\n");
 }
 
+/**
+ * @template T
+ * @template K
+ * @param {Element} el 
+ * @param {T} light 
+ * @param {K} dark 
+ * @returns {light | dark}
+ */
+export function lightDark(el, light, dark) {
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    let closestThemeElement = null;
+
+    while (el) {
+        if (el.classList?.contains('light') || el.classList?.contains('dark') || el.classList?.contains('system')) {
+            closestThemeElement = el;
+            break;
+        }
+        el = el.parentElement;
+    }
+
+    if (!closestThemeElement || closestThemeElement.classList.contains('system')) {
+        return prefersDark ? dark : light;
+    } else if (closestThemeElement.classList.contains('light')) {
+        return light;
+    } else if (closestThemeElement.classList.contains('dark')) {
+        return dark;
+    }
+
+    return prefersDark ? dark : light;
+}
+
 
 export const changeEvent = new Event('change', {
     bubbles: true,

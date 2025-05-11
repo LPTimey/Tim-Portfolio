@@ -1,8 +1,21 @@
 "use strict";
-import { css, html } from "../script.mjs";
+import { css, html, lightDark } from "../script.mjs";
 
-const template = (src, alt, href, has_button) => html`
-<picture><img src="${src}" alt="${alt}"/></picture>
+/**
+ * 
+ * @param {string} src 
+ * @param {string} srcDark 
+ * @param {string} alt 
+ * @param {string} href 
+ * @param {boolean} has_button 
+ * @param {boolean} isDark 
+ * @returns 
+ */
+const template = (src, srcDark, alt, href, has_button, isDark) => html`
+<picture>
+    <img id="DarkImg" src="${srcDark}" alt="${alt}" style="display:${isDark && srcDark ? 'block' : 'none'}" />
+    <img src="${src}" alt="${alt}" style="display:${isDark && srcDark ? 'none' : 'block'}" />
+</picture>
 <div id="Text">
     <slot></slot>
 </div>
@@ -82,7 +95,7 @@ img{
 
 export default class ProjectCard extends HTMLElement {
     static get observedAttributes() {
-        return ["src", "alt", "href", "no-button"];
+        return ["src", "src-dark", "alt", "href", "no-button"];
     }
     /**
          * 
@@ -94,11 +107,37 @@ export default class ProjectCard extends HTMLElement {
         return;
     }
     connectedCallback() {
-        this.shadowRoot.innerHTML = style() + template(this.getAttribute("src"), this.getAttribute("alt"), this.getAttribute("href"), !this.hasAttribute("no-button"));
+        this.render();
+        // Eltern beobachten
+        let current = this;
+        while (current) {
+            this._themeObserver.observe(current, { attributes: true, attributeFilter: ['class'], childList: true, subtree: false });
+            current = current.parentElement;
+        }
+    }
+    emitTheme() {
+        this.shadowRoot.dispatchEvent(new Event('theme-change'));
+    }
+    render(isDark){
+        this.shadowRoot.innerHTML = style() + template(
+            this.getAttribute("src"),
+            this.getAttribute("src-dark"),
+            this.getAttribute("alt"),
+            this.getAttribute("href"),
+            !this.hasAttribute("no-button"),
+            isDark ?? lightDark(this, false, true)
+        );
     }
     constructor() {
         super()
-        this.attachShadow({ mode: "open" })
+
+        this.attachShadow({ mode: "open" });
+
+        this._themeObserver = new MutationObserver(() => this.emitTheme());
+        this.shadowRoot.addEventListener("theme-change", () => {
+            console.log("event");
+            this.render()
+        });
     }
 }
 customElements.define("project-card", ProjectCard);

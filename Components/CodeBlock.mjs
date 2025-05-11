@@ -1,5 +1,5 @@
 "use strict";
-import { css, extractRangeByLineColumn, html, replaceLast } from "../script.mjs";
+import { css, extractRangeByLineColumn, html, replaceLast, lightDark } from "../script.mjs";
 
 /** @import * from "../vendor/highlight.js/11.11.1/index" */
 import hljs from "../vendor/highlight.js/11.11.1/cdn-release-11-stable/build/es/highlight.js"
@@ -31,31 +31,12 @@ export default class CodeBlock extends HTMLElement {
     };
 
     get theme() {
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
         let light = this.getAttribute("light-theme") ?? "atom-one-light";
         let dark = this.getAttribute("dark-theme") ?? "atom-one-dark";
 
-        let closestThemeElement = null;
         let el = this;
 
-        while (el) {
-            if (el.classList?.contains('light') || el.classList?.contains('dark') || el.classList?.contains('system')) {
-                closestThemeElement = el;
-                break;
-            }
-            el = el.parentElement;
-        }
-
-        if (!closestThemeElement || closestThemeElement.classList.contains('system')) {
-            return prefersDark ? dark : light;
-        } else if (closestThemeElement.classList.contains('light')) {
-            return light;
-        } else if (closestThemeElement.classList.contains('dark')) {
-            return dark;
-        }
-
-        return prefersDark ? dark : light;
+        return lightDark(el, light, dark);
     }
 
     emitTheme() {
