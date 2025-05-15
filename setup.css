@@ -107,7 +107,7 @@
     }
 
     :where(select) {
-        background-color: transparent;
+        background-color: rgba(from var(--bg) r g b / 0);
         border: none;
         outline: none;
         color: var(--fg);
