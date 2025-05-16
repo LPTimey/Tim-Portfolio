@@ -1,20 +1,43 @@
 import { THREE, resize } from "../three_utils.mjs"
+import { FontLoader, TextGeometry } from "three/addons/Addons.js";
 
+/** @type {HTMLCanvasElement | null} */
 const BitCanvas = document.getElementById("BitListAnimation");
 
 function bitListAnimation() {
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, canvas: BitCanvas });
     const scene = new THREE.Scene();
-    const cam = new THREE.PerspectiveCamera(35);
-    cam.position.z = 5;
+    const cam = new THREE.OrthographicCamera(
+        BitCanvas.clientWidth / -50, BitCanvas.clientWidth / 50,
+        BitCanvas.clientHeight / 50, BitCanvas.clientHeight / -50,
+        1, 1000
+    );
+    cam.position.z = 10;
 
-    const geometry = new THREE.BoxGeometry(1, 1, 0);
+    const geometry = new THREE.PlaneGeometry(4, 4);
     const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
     const cube = new THREE.Mesh(geometry, material);
     scene.add(cube);
 
     const axesHelper = new THREE.AxesHelper();
     scene.add(axesHelper);
+
+    const loader = new FontLoader();
+    loader.load('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json', function (font) {
+        const textGeometry = new TextGeometry('HALLO WELT', {
+            font: font,
+            size: 2,
+            height: 0.1, // Für 2D sollte das sehr dünn sein
+            curveSegments: 12,
+        });
+
+        const material = new THREE.MeshBasicMaterial({ color: 0xffffff });
+        const textMesh = new THREE.Mesh(textGeometry, material);
+        textGeometry.center(); // Optional: zentriert das Textobjekt
+
+        textMesh.position.set(0, 0, 0); // In deiner Szene positionieren
+        scene.add(textMesh);
+    });
 
     const render = function (time, lastTime) {
         const deltaTime = time - (lastTime ?? 0);
@@ -53,9 +76,156 @@ function test() {
     }
 }
 
+/** test code als reference nach mehreren tutorials */
+function test2() {
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    document.body.appendChild(renderer.domElement);
+    const scene = new THREE.Scene();
+    const camera = new THREE.OrthographicCamera(
+        window.innerWidth / -50, window.innerWidth / 50,
+        window.innerHeight / 50, window.innerHeight / -50,
+        1, 1000
+    );
+    camera.position.z = 10;
+
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    resize(renderer, camera);
+    const cellSize = 4;
+    const tapeLength = 15;
+    const tape = Array.from({ length: tapeLength }, (_, i) => (i === 7 ? "1" : Math.random() > 0.5 ? "1" : "0"));
+    const tapeObjects = [];
+
+    let state = "q0";
+    let position = 7;
+
+    /**
+     * Erstellt einen Sprite mit Text.
+     * @param {string} message - Der Text, der angezeigt wird.
+     * @param {string} color - Die Textfarbe.
+     * @returns {THREE.Sprite}
+     */
+    function makeTextSprite(message, color = "#ffffff") {
+        const canvas = document.createElement("canvas");
+        const context = canvas.getContext("2d");
+        context.font = "48px monospace";
+        context.fillStyle = color;
+        context.fillText(message, 10, 50);
+
+        const texture = new THREE.CanvasTexture(canvas);
+        const material = new THREE.SpriteMaterial({ map: texture });
+        const sprite = new THREE.Sprite(material);
+        sprite.scale.set(2.5, 2.5, 1);
+        return sprite;
+    }
+
+    /**
+     * Zeichnet das Band.
+     */
+    function drawTape() {
+        for (let i = 0; i < tape.length; i++) {
+            const x = (i - tape.length / 2) * cellSize;
+
+            const cell = new THREE.Mesh(
+                new THREE.PlaneGeometry(cellSize - 0.5, cellSize - 0.5),
+                new THREE.MeshBasicMaterial({ color: 0x222222 })
+            );
+            cell.position.set(x, 0, 0);
+            scene.add(cell);
+
+            const symbol = makeTextSprite(tape[i]);
+            symbol.position.set(x, 0, 0.1);
+            scene.add(symbol);
+
+            tapeObjects.push({ cell, symbol });
+        }
+    }
+
+    let readHead;
+
+    /**
+     * Zeichnet den Lesekopf.
+     */
+    function drawReadHead() {
+        readHead = new THREE.Mesh(
+            new THREE.PlaneGeometry(cellSize, 0.5),
+            new THREE.MeshBasicMaterial({ color: 0xff0000 })
+        );
+        readHead.position.set(getX(position), cellSize / 1.5, 0.2);
+        scene.add(readHead);
+    }
+
+    function getX(pos) {
+        return (pos - tape.length / 2) * cellSize;
+    }
+
+    function updateReadHead() {
+        readHead.position.x = getX(position);
+    }
+
+    function updateSymbolAt(index) {
+        scene.remove(tapeObjects[index].symbol);
+        const newSymbol = makeTextSprite(tape[index]);
+        newSymbol.position.set(getX(index), 0, 0.1);
+        scene.add(newSymbol);
+        tapeObjects[index].symbol = newSymbol;
+    }
+
+    // Beispielhafter Übergangsalgorithmus
+    function step() {
+        const symbol = tape[position];
+        if (state === "q0") {
+            if (symbol === "1") {
+                tape[position] = "0";
+                updateSymbolAt(position);
+                position++;
+                state = "q0";
+            } else if (symbol === "0") {
+                tape[position] = "1";
+                updateSymbolAt(position);
+                position--;
+                state = "q1";
+            } else {
+                state = "HALT";
+            }
+        } else if (state === "q1") {
+            if (symbol === "1") {
+                tape[position] = " ";
+                updateSymbolAt(position);
+                position++;
+                state = "HALT";
+            } else {
+                state = "HALT";
+            }
+        }
+    }
+
+    let delay = 0;
+
+    function animate() {
+        requestAnimationFrame(animate);
+        resize(renderer, camera);
+
+        if (state !== "HALT") {
+            delay++;
+            if (delay > 60) { // Schritt alle 60 Frames (~1 Sekunde)
+                step();
+                updateReadHead();
+                delay = 0;
+            }
+        }
+
+        renderer.render(scene, camera);
+    }
+
+    drawTape();
+    drawReadHead();
+    animate();
+}
+
 async function main() {
-    bitListAnimation()
-    // test()
+    bitListAnimation();
+    // test();
+    test2();
 }
 
 main()
