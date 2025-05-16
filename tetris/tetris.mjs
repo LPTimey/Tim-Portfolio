@@ -1,10 +1,10 @@
 import { THREE, resize } from "../three_utils.mjs"
-import { FontLoader, TextGeometry } from "three/addons/Addons.js";
+import { FontLoader, TextGeometry, OrbitControls } from "three/addons/Addons.js";
 
 /** @type {HTMLCanvasElement | null} */
 const BitCanvas = document.getElementById("BitListAnimation");
 
-function bitListAnimation() {
+async function bitListAnimation() {
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, canvas: BitCanvas });
     const scene = new THREE.Scene();
     const cam = new THREE.OrthographicCamera(
@@ -17,33 +17,38 @@ function bitListAnimation() {
     const geometry = new THREE.PlaneGeometry(4, 4);
     const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
     const cube = new THREE.Mesh(geometry, material);
-    scene.add(cube);
+    // scene.add(cube);
 
     const axesHelper = new THREE.AxesHelper();
-    scene.add(axesHelper);
+    // scene.add(axesHelper);
 
     const loader = new FontLoader();
-    loader.load('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json', function (font) {
-        const textGeometry = new TextGeometry('HALLO WELT', {
-            font: font,
-            size: 2,
-            height: 0.1, // Für 2D sollte das sehr dünn sein
-            curveSegments: 12,
-        });
-
-        const material = new THREE.MeshBasicMaterial({ color: 0xffffff });
-        const textMesh = new THREE.Mesh(textGeometry, material);
-        textGeometry.center(); // Optional: zentriert das Textobjekt
-
-        textMesh.position.set(0, 0, 0); // In deiner Szene positionieren
-        scene.add(textMesh);
+    const font = await loader.loadAsync('vendor/three.js/three.js r176/examples/fonts/helvetiker_regular.typeface.json');
+    const textGeometry = new TextGeometry('Hallo Welt', {
+        font: font,
+        size: 3,
+        height: 0.01,
+        bevelEnabled: false,
     });
+
+    const textMaterial = new THREE.MeshBasicMaterial({ color: 0x000000, side: THREE.DoubleSide });
+    const textMesh = new THREE.Mesh(textGeometry, textMaterial);
+
+    // Optional: Text mittig ausrichten
+    textGeometry.computeBoundingBox();
+    const boundingBox = textGeometry.boundingBox;
+    const centerX = -0.5 * (boundingBox.max.x - boundingBox.min.x);
+    const centerY = -0.5 * (boundingBox.max.y - boundingBox.min.y);
+
+    textMesh.position.set(centerX, centerY, 0);  // z = 0, da 2D
+
+    // Text zur Szene hinzufügen
+    scene.add(textMesh);
 
     const render = function (time, lastTime) {
         const deltaTime = time - (lastTime ?? 0);
 
         resize(renderer, cam);
-
         renderer.render(scene, cam);
         requestAnimationFrame((newTime) => render(newTime, time));
     }

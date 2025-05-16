@@ -2,7 +2,7 @@
     "compilerOptions": {
         "target": "ES2020",
         "module": "ESNext",
-        // "moduleResolution": "Node",
+        "moduleResolution": "Node",
         "baseUrl": ".",
         "paths": {
             "three": [
@@ -10,13 +10,16 @@
             ],
             "three/addons/*": [
                 "./vendor/three.js/three.js r176/examples/jsm/*"
+            ],
+            "three/fonts/*": [
+                "./vendor/three.js/three.js r176/examples/fonts/*"
             ]
         },
         "strict": true,
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
         "allowJs": true,
-        "checkJs": true,
+        "checkJs": false,
         "resolveJsonModule": true,
         "isolatedModules": true,
         "noEmit": true
@@ -29,6 +32,7 @@
         "**/*.mjs"
     ],
     "exclude": [
-        "node_modules"
+        "node_modules",
+        "vendor"
     ]
 }
