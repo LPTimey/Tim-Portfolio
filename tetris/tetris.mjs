@@ -36,7 +36,7 @@ function createFieldMatrix({ width, height, gap = 1, boxSize = { width: 4, heigh
             group.add(plane);
         }
     }
-    addDebugHelpers(group);
+    // addDebugHelpers(group);
 
     return group;
 }
@@ -97,11 +97,6 @@ async function bitListAnimation() {
 
     const matrix = createFieldMatrix({ width: 2, height: 3, gap: 0.5, boxSize: { width: 2, height: 2 } });
     scene.add(matrix);
-
-    const Pgeometry = new THREE.PlaneGeometry(2, 2);
-    const Pmaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00, side: THREE.DoubleSide });
-    // const plane = new THREE.Mesh(Pgeometry, Pmaterial);
-    const group = new THREE.Group();
 
     const render = function (time, lastTime) {
         const deltaTime = time - (lastTime ?? 0);

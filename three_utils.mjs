@@ -81,21 +81,23 @@ export function alignOrigin(mesh, align) {
     const height = box.max.y - box.min.y;
     const depth = box.max.z - box.min.z;
 
-    let dx = 0, dy = 0, dz = 0;
+    let x = 0, y = 0, z = 0;
 
-    if (xAlign === 'start') dx = -box.min.x;
-    else if (xAlign === 'center') dx = -(box.min.x + box.max.x) / 2;
-    else if (xAlign === 'end') dx = -box.max.x;
+    if (xAlign === 'start') x = box.min.x;
+    else if (xAlign === 'center') x = box.min.x + width / 2;
+    else if (xAlign === 'end') x = box.max.x;
 
-    if (yAlign === 'start') dy = -box.min.y;
-    else if (yAlign === 'center') dy = -(box.min.y + box.max.y) / 2;
-    else if (yAlign === 'end') dy = -box.max.y;
+    if (yAlign === 'start') y = box.min.y;
+    else if (yAlign === 'center') y = box.min.y + height / 2;
+    else if (yAlign === 'end') y = box.max.y;
 
-    if (zAlign === 'start') dz = -box.min.z;
-    else if (zAlign === 'center') dz = -(box.min.z + box.max.z) / 2;
-    else if (zAlign === 'end') dz = -box.max.z;
+    if (zAlign === 'start') z = box.min.z;
+    else if (zAlign === 'center') z = box.min.z + depth / 2;
+    else if (zAlign === 'end') z = box.max.z;
 
-    mesh.position.set(dx, dy, dz);
+    const currentPivot = mesh.position.clone();
+    const offset = new THREE.Vector3().subVectors(currentPivot, new THREE.Vector3(x, y, z));
+    mesh.geometry.translate(offset.x, offset.y, offset.z);
 }
 
 /**
