@@ -36,7 +36,6 @@ function createFieldMatrix({ width, height, gap = 1, boxSize = { width: 4, heigh
             group.add(plane);
         }
     }
-    // addDebugHelpers(group);
     alignOrigin(group, { xAlign: "start", yAlign: 0.975 })
 
     return group;
@@ -75,12 +74,12 @@ async function createText({ text, fill = 0x000000, fontSrc = 'assets/JetBrains_M
 async function bitListAnimation() {
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, canvas: BitCanvas });
     const scene = new THREE.Scene();
-    // const cam = new THREE.OrthographicCamera(
-    //     BitCanvas.clientWidth / -50, BitCanvas.clientWidth / 50,
-    //     BitCanvas.clientHeight / 50, BitCanvas.clientHeight / -50,
-    //     1, 1000
-    // );
-    const cam = new THREE.PerspectiveCamera(35);
+    const cam = new THREE.OrthographicCamera(
+        BitCanvas.clientWidth / -50, BitCanvas.clientWidth / 50,
+        BitCanvas.clientHeight / 50, BitCanvas.clientHeight / -50,
+        1, 1000
+    );
+    // const cam = new THREE.PerspectiveCamera(35);
     cam.position.z = 100;
 
     const geometry = new THREE.PlaneGeometry(4, 4);
@@ -96,7 +95,8 @@ async function bitListAnimation() {
     addDebugHelpers(textMesh, scene);
     scene.add(textMesh);
 
-    const matrix = createFieldMatrix({ width: 10, height: 18});
+    const matrix = createFieldMatrix({ width: 10, height: 18 });
+    addDebugHelpers(matrix, scene);
     scene.add(matrix);
 
     const render = function (time, lastTime) {
