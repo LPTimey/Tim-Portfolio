@@ -15,7 +15,7 @@ const BitCanvas = document.getElementById("BitListAnimation");
  */
 function createFieldMatrix({ width, height, gap = 1, boxSize = { width: 4, height: 4 } }) {
     const geometry = new THREE.PlaneGeometry(boxSize.width, boxSize.height);
-    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00, side: THREE.DoubleSide });
     const plane = new THREE.Mesh(geometry, material);
     const group = new THREE.Group();
 
@@ -42,7 +42,7 @@ function createFieldMatrix({ width, height, gap = 1, boxSize = { width: 4, heigh
 
 /**
  * @param {Object} param0
- * @param {sting} param0.text 
+ * @param {string} param0.text 
  * @param {number} [param0.fill=0x000000] 
  * @param {string} [param0.fontSrc='assets/JetBrains_Mono/JetBrainsMono-VariableFont_wght.ttf'] 
  * @param {Alignment} [param0.align="start"] 
@@ -56,7 +56,7 @@ async function createText({ text, fill = 0x000000, fontSrc = 'assets/JetBrains_M
     const textGeometry = new TextGeometry(text, {
         font: font,
         size: 3,
-        height: 0.01,
+        depth: 0,
         bevelEnabled: false,
     });
 
@@ -72,17 +72,19 @@ async function createText({ text, fill = 0x000000, fontSrc = 'assets/JetBrains_M
 async function bitListAnimation() {
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, canvas: BitCanvas });
     const scene = new THREE.Scene();
-    const cam = new THREE.OrthographicCamera(
-        BitCanvas.clientWidth / -50, BitCanvas.clientWidth / 50,
-        BitCanvas.clientHeight / 50, BitCanvas.clientHeight / -50,
-        1, 1000
-    );
-    cam.position.z = 10;
+    // const cam = new THREE.OrthographicCamera(
+    //     BitCanvas.clientWidth / -50, BitCanvas.clientWidth / 50,
+    //     BitCanvas.clientHeight / 50, BitCanvas.clientHeight / -50,
+    //     1, 1000
+    // );
+    const cam = new THREE.PerspectiveCamera(35);
+    cam.position.z = 100;
 
     const geometry = new THREE.PlaneGeometry(4, 4);
     const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
     const plane = new THREE.Mesh(geometry, material);
     // scene.add(plane);
+    const controls = new OrbitControls(cam, renderer.domElement);
 
     const axesHelper = new THREE.AxesHelper();
     // scene.add(axesHelper);
