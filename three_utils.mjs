@@ -8,8 +8,12 @@ export { THREE };
  * @returns true if renderer needs resizing
  */
 export function rendererNeedsResize(renderer) {
-    return renderer.domElement.width !== renderer.domElement.clientWidth
-        || renderer.domElement.height !== renderer.domElement.clientHeight;
+    const canvas = renderer.domElement;
+    const pixelRatio = window.devicePixelRatio;
+    const width = Math.floor(canvas.clientWidth * pixelRatio);
+    const height = Math.floor(canvas.clientHeight * pixelRatio);
+    const needResize = canvas.width !== width || canvas.height !== height;
+    return needResize;
 }
 
 /**
@@ -29,18 +33,77 @@ export function addLight(scene, position) {
 
 /**
  * 
+ * @param {THREE.Object3D} obj 
+ */
+export function addDebug(obj) {
+    const originSize = 1;
+    const originHelper = new THREE.AxesHelper(originSize);
+
+    const boxHelper = new THREE.BoxHelper(obj, 0xff0000);
+
+    obj.add(boxHelper);
+    obj.add(originHelper);
+}
+
+
+/** @typedef {"start"|"center"|"end"} Alignment */
+/** @typedef {Alignment} Justify */
+
+/**
+ * 
+ * @param {*} geometry 
+ * @param {Justify} xAlign 
+ * @param {Alignment} yAlign 
+ */
+export function alignText(geometry, xAlign = 'center', yAlign = 'center') {
+    geometry.computeBoundingBox();
+    const box = geometry.boundingBox;
+    const width = box.max.x - box.min.x;
+    const height = box.max.y - box.min.y;
+    let x = 0, y = 0;
+
+    if (xAlign === 'center') x = -0.5 * width;
+    else if (xAlign === 'end') x = -width;
+
+    if (yAlign === 'center') y = -0.5 * height;
+    else if (yAlign === 'start') y = -height;
+
+    geometry.translate(x, y, 0);
+}
+
+/**
+ * 
  * @param {THREE.WebGLRenderer} renderer 
  * @param {THREE.Camera} camera 
  * @returns if resize was necessary
  */
 export function resize(renderer, camera) {
-    if (rendererNeedsResize(renderer)) {
-        const pixelRatio = window.devicePixelRatio;
-        renderer.setPixelRatio(pixelRatio);
-        renderer.setSize(renderer.domElement.clientWidth, renderer.domElement.clientHeight, false);
 
+    if (rendererNeedsResize(renderer)) {
         const canvas = renderer.domElement;
-        camera.aspect = canvas.clientWidth / canvas.clientHeight;
+        const pixelRatio = window.devicePixelRatio;
+        const width = canvas.clientWidth;
+        const height = canvas.clientHeight;
+
+        renderer.setPixelRatio(pixelRatio);
+        renderer.setSize(width, height, false);
+
+        if (camera.isPerspectiveCamera) {
+            camera.aspect = width / height;
+        } else if (camera.isOrthographicCamera) {
+            const frustumHeight = camera.top - camera.bottom;
+            const aspect = width / height;
+            const frustumWidth = frustumHeight * aspect;
+
+            const dx = (camera.left + camera.right) / 2;
+            const dy = (camera.top + camera.bottom) / 2;
+
+            camera.left = dx - frustumWidth / 2;
+            camera.right = dx + frustumWidth / 2;
+            camera.top = dy + frustumHeight / 2;
+            camera.bottom = dy - frustumHeight / 2;
+        }
+
         camera.updateProjectionMatrix();
         return true;
     }

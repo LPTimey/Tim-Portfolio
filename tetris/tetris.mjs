@@ -1,8 +1,73 @@
-import { THREE, resize } from "../three_utils.mjs"
-import { FontLoader, TextGeometry, OrbitControls } from "three/addons/Addons.js";
+import { THREE, resize, addDebug, alignText } from "../three_utils.mjs"
+import { FontLoader, TextGeometry, OrbitControls, TTFLoader, Font } from "three/addons/Addons.js";
+/** @import {Alignment,Justify} from "../three_utils.mjs" */
 
 /** @type {HTMLCanvasElement | null} */
 const BitCanvas = document.getElementById("BitListAnimation");
+
+/**
+ * @param {Object} param0
+ * @param {number} param0.width 
+ * @param {number} param0.height 
+ * @param {number} [param0.gap=1] 
+ * @param {{ width: number; height: number; }} [param0.boxSize={width:4,height:4}] 
+ * @returns 
+ */
+function createFieldMatrix({ width, height, gap = 1, boxSize = { width: 4, height: 4 } }) {
+    const geometry = new THREE.PlaneGeometry(boxSize.width, boxSize.height);
+    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+    const plane = new THREE.Mesh(geometry, material);
+    const group = new THREE.Group();
+
+    for (let x = 0; x < width; x++) {
+        for (let y = 0; y < height; y++) {
+            const nPlane = new THREE.Mesh(geometry, material);
+            nPlane.position.set(
+                (boxSize.width + gap) * x,
+                (boxSize.height + gap) * -y,
+                0
+            );
+            addDebug(nPlane);
+
+            group.add(nPlane);
+        }
+    }
+    group.position.set(0,0,0);
+    group.updateMatrixWorld(true);
+    addDebug(group);
+
+    return group;
+}
+
+
+/**
+ * @param {Object} param0
+ * @param {sting} param0.text 
+ * @param {number} [param0.fill=0x000000] 
+ * @param {string} [param0.fontSrc='assets/JetBrains_Mono/JetBrainsMono-VariableFont_wght.ttf'] 
+ * @param {Alignment} [param0.align="start"] 
+ * @param {Justify} [param0.justify="start"] 
+ * @returns 
+ */
+async function createText({ text, fill = 0x000000, fontSrc = 'assets/JetBrains_Mono/JetBrainsMono-VariableFont_wght.ttf', align = "center", justify = "start" }) {
+    const loader = new TTFLoader();
+    const json = await loader.loadAsync(fontSrc);
+    const font = new Font(json);
+    const textGeometry = new TextGeometry(text, {
+        font: font,
+        size: 3,
+        height: 0.01,
+        bevelEnabled: false,
+    });
+
+    const textMaterial = new THREE.MeshBasicMaterial({ color: fill, side: THREE.DoubleSide });
+    const textMesh = new THREE.Mesh(textGeometry, textMaterial);
+
+    textGeometry.computeBoundingBox();
+    alignText(textGeometry, justify, align);
+
+    return textMesh;
+}
 
 async function bitListAnimation() {
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, canvas: BitCanvas });
@@ -16,34 +81,18 @@ async function bitListAnimation() {
 
     const geometry = new THREE.PlaneGeometry(4, 4);
     const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-    const cube = new THREE.Mesh(geometry, material);
-    // scene.add(cube);
+    const plane = new THREE.Mesh(geometry, material);
+    // scene.add(plane);
 
     const axesHelper = new THREE.AxesHelper();
     // scene.add(axesHelper);
 
-    const loader = new FontLoader();
-    const font = await loader.loadAsync('vendor/three.js/three.js r176/examples/fonts/helvetiker_regular.typeface.json');
-    const textGeometry = new TextGeometry('Hallo Welt', {
-        font: font,
-        size: 3,
-        height: 0.01,
-        bevelEnabled: false,
-    });
-
-    const textMaterial = new THREE.MeshBasicMaterial({ color: 0x000000, side: THREE.DoubleSide });
-    const textMesh = new THREE.Mesh(textGeometry, textMaterial);
-
-    // Optional: Text mittig ausrichten
-    textGeometry.computeBoundingBox();
-    const boundingBox = textGeometry.boundingBox;
-    const centerX = -0.5 * (boundingBox.max.x - boundingBox.min.x);
-    const centerY = -0.5 * (boundingBox.max.y - boundingBox.min.y);
-
-    textMesh.position.set(centerX, centerY, 0);  // z = 0, da 2D
-
-    // Text zur Szene hinzufügen
+    const textMesh = await createText({ text: "Field:", justify: "end" });
+    addDebug(textMesh);
     scene.add(textMesh);
+
+    const matrix = createFieldMatrix({ width: 2, height: 3, gap: 0.5, boxSize: { width: 2, height: 2 } });
+    scene.add(matrix);
 
     const render = function (time, lastTime) {
         const deltaTime = time - (lastTime ?? 0);
