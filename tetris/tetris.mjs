@@ -1,6 +1,6 @@
-import { THREE, resize, addDebug, alignText } from "../three_utils.mjs"
+import { THREE, resize, addDebugHelpers, alignOrigin } from "../three_utils.mjs"
 import { FontLoader, TextGeometry, OrbitControls, TTFLoader, Font } from "three/addons/Addons.js";
-/** @import {Alignment,Justify} from "../three_utils.mjs" */
+/** @import {Alignment,Alignment} from "../three_utils.mjs" */
 
 /** @type {HTMLCanvasElement | null} */
 const BitCanvas = document.getElementById("BitListAnimation");
@@ -14,31 +14,32 @@ const BitCanvas = document.getElementById("BitListAnimation");
  * @returns 
  */
 function createFieldMatrix({ width, height, gap = 1, boxSize = { width: 4, height: 4 } }) {
-    const geometry = new THREE.PlaneGeometry(boxSize.width, boxSize.height);
-    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00, side: THREE.DoubleSide });
-    const plane = new THREE.Mesh(geometry, material);
     const group = new THREE.Group();
 
-    for (let x = 0; x < width; x++) {
-        for (let y = 0; y < height; y++) {
-            const nPlane = new THREE.Mesh(geometry, material);
-            nPlane.position.set(
-                (boxSize.width + gap) * x,
-                (boxSize.height + gap) * -y,
-                0
-            );
-            addDebug(nPlane);
+    const boxWidth = boxSize.width;
+    const boxHeight = boxSize.height;
 
-            group.add(nPlane);
+    const geometry = new THREE.PlaneGeometry(boxWidth, boxHeight);
+    const material = new THREE.MeshBasicMaterial({ color: 0x00aaff, side: THREE.DoubleSide });
+
+    for (let row = 0; row < height; row++) {
+        for (let col = 0; col < width; col++) {
+            const plane = new THREE.Mesh(geometry, material.clone());
+
+            const x = col * (boxWidth + gap);
+            const y = -row * (boxHeight + gap);
+
+            plane.position.set(x, y, 0);
+            plane.rotation.x = 0;
+            // addDebugHelpers(plane, group);
+
+            group.add(plane);
         }
     }
-    group.position.set(0,0,0);
-    group.updateMatrixWorld(true);
-    addDebug(group);
+    addDebugHelpers(group);
 
     return group;
 }
-
 
 /**
  * @param {Object} param0
@@ -46,7 +47,7 @@ function createFieldMatrix({ width, height, gap = 1, boxSize = { width: 4, heigh
  * @param {number} [param0.fill=0x000000] 
  * @param {string} [param0.fontSrc='assets/JetBrains_Mono/JetBrainsMono-VariableFont_wght.ttf'] 
  * @param {Alignment} [param0.align="start"] 
- * @param {Justify} [param0.justify="start"] 
+ * @param {Alignment} [param0.justify="start"] 
  * @returns 
  */
 async function createText({ text, fill = 0x000000, fontSrc = 'assets/JetBrains_Mono/JetBrainsMono-VariableFont_wght.ttf', align = "center", justify = "start" }) {
@@ -64,7 +65,8 @@ async function createText({ text, fill = 0x000000, fontSrc = 'assets/JetBrains_M
     const textMesh = new THREE.Mesh(textGeometry, textMaterial);
 
     textGeometry.computeBoundingBox();
-    alignText(textGeometry, justify, align);
+    alignOrigin(textMesh, { xAlign: justify, yAlign: align });
+    // alignOrigin(textMesh, { xAlign: "end", yAlign: "center" });
 
     return textMesh;
 }
@@ -90,16 +92,28 @@ async function bitListAnimation() {
     // scene.add(axesHelper);
 
     const textMesh = await createText({ text: "Field:", justify: "end" });
-    addDebug(textMesh);
+    addDebugHelpers(textMesh, scene);
     scene.add(textMesh);
 
     const matrix = createFieldMatrix({ width: 2, height: 3, gap: 0.5, boxSize: { width: 2, height: 2 } });
     scene.add(matrix);
 
+    const Pgeometry = new THREE.PlaneGeometry(2, 2);
+    const Pmaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00, side: THREE.DoubleSide });
+    // const plane = new THREE.Mesh(Pgeometry, Pmaterial);
+    const group = new THREE.Group();
+
     const render = function (time, lastTime) {
         const deltaTime = time - (lastTime ?? 0);
 
         resize(renderer, cam);
+
+        scene.traverse((child) => {
+            if (child.userData._debugBoxHelper) {
+                child.userData._debugBoxHelper.update();
+            }
+        });
+
         renderer.render(scene, cam);
         requestAnimationFrame((newTime) => render(newTime, time));
     }

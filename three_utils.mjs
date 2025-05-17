@@ -33,42 +33,69 @@ export function addLight(scene, position) {
 
 /**
  * 
- * @param {THREE.Object3D} obj 
+ * @param {THREE.Object3D} object3D
  */
-export function addDebug(obj) {
-    const originSize = 1;
-    const originHelper = new THREE.AxesHelper(originSize);
+export function addDebugHelpers(object3D, parent, options = {}) {
+    const {
+        colorBox = 0xff0000,
+        colorPivot = 0x00ff00,
+        pivotSize = 0.5,
+    } = options;
 
-    const boxHelper = new THREE.BoxHelper(obj, 0xff0000);
+    // Bounding Box anzeigen
+    const boxHelper = new THREE.BoxHelper(object3D, colorBox);
+    parent?.add(boxHelper);
 
-    obj.add(boxHelper);
-    obj.add(originHelper);
+    // Ursprungs-Marker (kleines Kreuz oder XYZ-Achse)
+    const axesHelper = new THREE.AxesHelper(pivotSize);
+    object3D.add(axesHelper);
+
+    // Optional: Update BoxHelper automatisch bei Animationen
+    // Das kannst du z.B. im Render-Loop machen:
+    object3D.userData._debugBoxHelper = boxHelper;
 }
 
 
 /** @typedef {"start"|"center"|"end"} Alignment */
-/** @typedef {Alignment} Justify */
 
 /**
  * 
- * @param {*} geometry 
- * @param {Justify} xAlign 
- * @param {Alignment} yAlign 
+ * @param {THREE.Mesh} mesh 
+ * @param {{
+ *     xAlign?: Alignment,
+ *     yAlign?: Alignment,
+ *     zAlign?: Alignment,
+ * }} align 
  */
-export function alignText(geometry, xAlign = 'center', yAlign = 'center') {
-    geometry.computeBoundingBox();
-    const box = geometry.boundingBox;
+export function alignOrigin(mesh, align) {
+    const {
+        xAlign = 'center',
+        yAlign = 'center',
+        zAlign = 'center',
+    } = align;
+
+    mesh.geometry.computeBoundingBox();
+    const box = mesh.geometry.boundingBox;
+
     const width = box.max.x - box.min.x;
     const height = box.max.y - box.min.y;
-    let x = 0, y = 0;
+    const depth = box.max.z - box.min.z;
 
-    if (xAlign === 'center') x = -0.5 * width;
-    else if (xAlign === 'end') x = -width;
+    let dx = 0, dy = 0, dz = 0;
 
-    if (yAlign === 'center') y = -0.5 * height;
-    else if (yAlign === 'start') y = -height;
+    if (xAlign === 'start') dx = -box.min.x;
+    else if (xAlign === 'center') dx = -(box.min.x + box.max.x) / 2;
+    else if (xAlign === 'end') dx = -box.max.x;
 
-    geometry.translate(x, y, 0);
+    if (yAlign === 'start') dy = -box.min.y;
+    else if (yAlign === 'center') dy = -(box.min.y + box.max.y) / 2;
+    else if (yAlign === 'end') dy = -box.max.y;
+
+    if (zAlign === 'start') dz = -box.min.z;
+    else if (zAlign === 'center') dz = -(box.min.z + box.max.z) / 2;
+    else if (zAlign === 'end') dz = -box.max.z;
+
+    mesh.position.set(dx, dy, dz);
 }
 
 /**
