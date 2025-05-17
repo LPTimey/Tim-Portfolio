@@ -56,8 +56,24 @@ export function addDebugHelpers(object3D, parent, options = {}) {
 }
 
 
-/** @typedef {"start"|"center"|"end"} Alignment */
+/** @typedef {"start"|"center"|"end"|number} Alignment */
 
+/**
+ * 
+ * @param {THREE.Mesh|THREE.Group} obj 
+ * @param {{
+ *     xAlign?: Alignment,
+ *     yAlign?: Alignment,
+ *     zAlign?: Alignment,
+ * }} align 
+ */
+export function alignOrigin(obj, align) {
+    if (obj.isMesh) {
+        alignOriginMesh(obj, align);
+    } else if (obj.isGroup) {
+        alignOriginGroup(obj, align);
+    } 
+}
 /**
  * 
  * @param {THREE.Mesh} mesh 
@@ -67,15 +83,50 @@ export function addDebugHelpers(object3D, parent, options = {}) {
  *     zAlign?: Alignment,
  * }} align 
  */
-export function alignOrigin(mesh, align) {
+function alignOriginMesh(mesh, align) {
+    mesh.geometry.computeBoundingBox();
+    const box = mesh.geometry.boundingBox;
+
+    const offset = alignCalcs(box, mesh.position, align);
+    mesh.geometry.translate(offset.x, offset.y, offset.z);
+}
+/**
+ * 
+ * @param {THREE.Group} group 
+ * @param {{
+ *     xAlign?: Alignment,
+ *     yAlign?: Alignment,
+ *     zAlign?: Alignment,
+ * }} align 
+ */
+function alignOriginGroup(group, align) {
+    let box = new THREE.Box3().setFromObject(group);
+
+    const offset = alignCalcs(box, group.position, align);
+
+    group.children.forEach(child => child.translateX(offset.x));
+    group.children.forEach(child => child.translateY(offset.y));
+    group.children.forEach(child => child.translateZ(offset.z));
+}
+
+
+/**
+ * 
+ * @param {THREE.Box3} box 
+ * @param {THREE.Vector3} position 
+ * @param {{
+ *     xAlign?: Alignment,
+ *     yAlign?: Alignment,
+ *     zAlign?: Alignment,
+ * }} align 
+ * @returns 
+ */
+function alignCalcs(box, position, align) {
     const {
         xAlign = 'center',
         yAlign = 'center',
         zAlign = 'center',
     } = align;
-
-    mesh.geometry.computeBoundingBox();
-    const box = mesh.geometry.boundingBox;
 
     const width = box.max.x - box.min.x;
     const height = box.max.y - box.min.y;
@@ -86,18 +137,20 @@ export function alignOrigin(mesh, align) {
     if (xAlign === 'start') x = box.min.x;
     else if (xAlign === 'center') x = box.min.x + width / 2;
     else if (xAlign === 'end') x = box.max.x;
+    else if (typeof xAlign === 'number') x = box.min.x + width * xAlign;
 
     if (yAlign === 'start') y = box.min.y;
     else if (yAlign === 'center') y = box.min.y + height / 2;
     else if (yAlign === 'end') y = box.max.y;
+    else if (typeof yAlign === 'number') y = box.min.y + height * yAlign;
 
     if (zAlign === 'start') z = box.min.z;
     else if (zAlign === 'center') z = box.min.z + depth / 2;
     else if (zAlign === 'end') z = box.max.z;
+    else if (typeof zAlign === 'number') z = box.min.z + depth * zAlign;
 
-    const currentPivot = mesh.position.clone();
-    const offset = new THREE.Vector3().subVectors(currentPivot, new THREE.Vector3(x, y, z));
-    mesh.geometry.translate(offset.x, offset.y, offset.z);
+    const offset = new THREE.Vector3().subVectors(position.clone(), new THREE.Vector3(x, y, z));
+    return offset;
 }
 
 /**

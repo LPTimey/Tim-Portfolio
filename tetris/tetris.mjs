@@ -37,6 +37,7 @@ function createFieldMatrix({ width, height, gap = 1, boxSize = { width: 4, heigh
         }
     }
     // addDebugHelpers(group);
+    alignOrigin(group, { xAlign: "start", yAlign: 0.975 })
 
     return group;
 }
@@ -95,7 +96,7 @@ async function bitListAnimation() {
     addDebugHelpers(textMesh, scene);
     scene.add(textMesh);
 
-    const matrix = createFieldMatrix({ width: 2, height: 3, gap: 0.5, boxSize: { width: 2, height: 2 } });
+    const matrix = createFieldMatrix({ width: 10, height: 18});
     scene.add(matrix);
 
     const render = function (time, lastTime) {
