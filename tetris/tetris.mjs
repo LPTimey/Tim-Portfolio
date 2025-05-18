@@ -1,4 +1,5 @@
 import { THREE, resize, addDebugHelpers, alignOrigin } from "../three_utils.mjs"
+import { lightDark, getCSSVar, getCSSLightDarkColor } from "../script.mjs";
 import { FontLoader, TextGeometry, OrbitControls, TTFLoader, Font } from "three/addons/Addons.js";
 /** @import {Alignment,Alignment} from "../three_utils.mjs" */
 
@@ -11,16 +12,17 @@ const BitCanvas = document.getElementById("BitListAnimation");
  * @param {number} param0.height 
  * @param {number} [param0.gap=1] 
  * @param {{ width: number; height: number; }} [param0.boxSize={width:4,height:4}] 
- * @returns 
+ * @param {number} [param0.color=0x00aaff] 
+ * @returns {[THREE.Group,THREE.MeshBasicMaterial]}
  */
-function createFieldMatrix({ width, height, gap = 1, boxSize = { width: 4, height: 4 } }) {
+function createFieldMatrix({ width, height, gap = 1, boxSize = { width: 4, height: 4 }, color = 0x00aaff }) {
     const group = new THREE.Group();
 
     const boxWidth = boxSize.width;
     const boxHeight = boxSize.height;
 
     const geometry = new THREE.PlaneGeometry(boxWidth, boxHeight);
-    const material = new THREE.MeshBasicMaterial({ color: 0x00aaff, side: THREE.DoubleSide });
+    const material = new THREE.MeshBasicMaterial({ color: color, side: THREE.DoubleSide });
 
     for (let row = 0; row < height; row++) {
         for (let col = 0; col < width; col++) {
@@ -36,27 +38,34 @@ function createFieldMatrix({ width, height, gap = 1, boxSize = { width: 4, heigh
             group.add(plane);
         }
     }
-    alignOrigin(group, { xAlign: "start", yAlign: 0.975 })
 
-    return group;
+    const size = { x: width * (boxSize.width + gap) - gap, y: height * (boxSize.height + gap) - gap, };
+
+    const centerFirst = { x: boxSize.width / 2, y: boxSize.height / 2 };
+    const centerFirstAlign = { x: 1 - centerFirst.x / size.x, y: 1 - centerFirst.y / size.y };
+
+    alignOrigin(group, { xAlign: "start", yAlign: centerFirstAlign.y })
+
+    return [group, material];
 }
 
 /**
  * @param {Object} param0
  * @param {string} param0.text 
+ * @param {number} param0.size 
  * @param {number} [param0.fill=0x000000] 
  * @param {string} [param0.fontSrc='assets/JetBrains_Mono/JetBrainsMono-VariableFont_wght.ttf'] 
  * @param {Alignment} [param0.align="start"] 
  * @param {Alignment} [param0.justify="start"] 
- * @returns 
+ * @returns {Promise<[THREE.Mesh,THREE.MeshBasicMaterial]>}
  */
-async function createText({ text, fill = 0x000000, fontSrc = 'assets/JetBrains_Mono/JetBrainsMono-VariableFont_wght.ttf', align = "center", justify = "start" }) {
+async function createText({ text, size, fill = 0x000000, fontSrc = 'assets/JetBrains_Mono/JetBrainsMono-VariableFont_wght.ttf', align = "center", justify = "start" }) {
     const loader = new TTFLoader();
     const json = await loader.loadAsync(fontSrc);
     const font = new Font(json);
     const textGeometry = new TextGeometry(text, {
         font: font,
-        size: 3,
+        size: size,
         depth: 0,
         bevelEnabled: false,
     });
@@ -68,10 +77,14 @@ async function createText({ text, fill = 0x000000, fontSrc = 'assets/JetBrains_M
     alignOrigin(textMesh, { xAlign: justify, yAlign: align });
     // alignOrigin(textMesh, { xAlign: "end", yAlign: "center" });
 
-    return textMesh;
+    return [textMesh, textMaterial];
 }
 
 async function bitListAnimation() {
+    const fg = () => getCSSLightDarkColor(BitCanvas, "--fg");
+    const bg = () => getCSSLightDarkColor(BitCanvas, "--bg");
+    const accent = () => getCSSLightDarkColor(BitCanvas, "--accent");
+
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, canvas: BitCanvas });
     const scene = new THREE.Scene();
     const cam = new THREE.OrthographicCamera(
@@ -82,27 +95,27 @@ async function bitListAnimation() {
     // const cam = new THREE.PerspectiveCamera(35);
     cam.position.z = 100;
 
-    const geometry = new THREE.PlaneGeometry(4, 4);
-    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-    const plane = new THREE.Mesh(geometry, material);
-    // scene.add(plane);
     const controls = new OrbitControls(cam, renderer.domElement);
 
     const axesHelper = new THREE.AxesHelper();
-    // scene.add(axesHelper);
+    scene.add(axesHelper);
 
-    const textMesh = await createText({ text: "Field:", justify: "end" });
-    addDebugHelpers(textMesh, scene);
+    const [textMesh, textMaterial] = await createText({ text: "Field:", size: 2, justify: "end" });
+    textMaterial.color.setHex(fg());
+    // addDebugHelpers(textMesh, scene);
     scene.add(textMesh);
 
-    const matrix = createFieldMatrix({ width: 10, height: 18 });
-    addDebugHelpers(matrix, scene);
+    const [matrix,matrixMaterial] = createFieldMatrix({ width: 10, height: 18, color: accent() });
+    // addDebugHelpers(matrix, scene);
     scene.add(matrix);
 
     const render = function (time, lastTime) {
         const deltaTime = time - (lastTime ?? 0);
 
         resize(renderer, cam);
+
+        textMaterial.color.setHex(fg());
+        matrixMaterial.color.setHex(accent());
 
         scene.traverse((child) => {
             if (child.userData._debugBoxHelper) {

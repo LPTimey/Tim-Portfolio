@@ -111,6 +111,31 @@ export function lightDark(el, light, dark) {
     return prefersDark ? dark : light;
 }
 
+/**
+ * 
+ * @param {HTMLElement} el 
+ * @param {string} varname 
+ */
+export function getCSSVar(el, varname) {
+    return getComputedStyle(el).getPropertyValue(varname).trim()
+}
+/**
+ * 
+ * @param {HTMLElement} el 
+ * @param {string} varname 
+ * @returns {number} color in hex
+ */
+export function getCSSLightDarkColor(el, varname) {
+    let prop = getCSSVar(el, varname);
+
+    const match = prop.match(/light-dark\(\s*(#[0-9a-fA-F]+)\s*,\s*(#[0-9a-fA-F]+)\s*\)/);
+    if (!match) return parseInt(prop.slice(1), 16); // Kein light-dark(), gib original zurück
+
+    const [, darkColor, lightColor] = match;
+
+    return parseInt(lightDark(el, darkColor, lightColor).slice(1), 16)
+}
+
 
 export const changeEvent = new Event('change', {
     bubbles: true,
