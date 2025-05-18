@@ -372,6 +372,22 @@
         &:where(.inline) {
             display: inline-flex;
         }
+
+        &:where(.grow)>*,
+        >:where(.grow) {
+            flex-grow: 1;
+        }
+
+        &:where(.shrink)>*,
+        >:where(.shrink) {
+            flex-shrink: 1;
+        }
+
+        &:where(.basis)>*,
+        >:where(.basis) {
+            flex-basis: fit-content;
+        }
+
     }
 
     :where(.full) {
@@ -383,6 +399,9 @@
             height: 100%;
             object-fit: cover;
         }
+    }
+    :where(.fit){
+        width: fit-content;
     }
 
     :where(.grid) {

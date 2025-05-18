@@ -105,7 +105,7 @@ async function bitListAnimation() {
     // addDebugHelpers(textMesh, scene);
     scene.add(textMesh);
 
-    const [matrix,matrixMaterial] = createFieldMatrix({ width: 10, height: 18, color: accent() });
+    const [matrix,matrixMaterial] = createFieldMatrix({ width: 8, height: 12, color: accent() });
     // addDebugHelpers(matrix, scene);
     scene.add(matrix);
 

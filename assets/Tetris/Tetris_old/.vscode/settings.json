@@ -1,0 +1,49 @@
+{
+    "cSpell.words": [
+        "GAMESTATE",
+        "tetrino",
+        "Tetrino",
+        "Tetrinos"
+    ],
+    "C_Cpp.default.cppStandard": "gnu++23",
+    "C_Cpp.default.cStandard": "gnu23",
+    "C_Cpp.autocompleteAddParentheses": true,
+    "todo-tree.general.statusBar": "tags",
+    "todo-tree.general.tags": [
+        "BUG",
+        "HACK",
+        "FIXME",
+        "TODO",
+        "XXX",
+        "[ ]"
+    ],
+    "todo-tree.highlights.customHighlight": {
+        "TODO": {
+            //"icon": "todo",
+            "background": "#ffbd29"
+        },
+        "BUG": {
+            "icon": "bug"
+        },
+        "HACK": {
+            "icon": "tools"
+        },
+        "FIXME": {
+            "icon": "flame",
+            "background": "#f06292"
+        },
+        "XXX": {
+            "icon": "x"
+        },
+        "[ ]": {
+            "icon": "issue-draft"
+        },
+        "[x]": {
+            "icon": "issue-closed"
+        }
+    },
+    "files.associations": {
+        "*.embeddedhtml": "html",
+        ".clang*": "yaml"
+    }
+}

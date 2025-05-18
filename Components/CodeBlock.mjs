@@ -14,6 +14,12 @@ const style = (theme) => css`
 :host{
     display: block;
     font-family: "JetBrains Mono", monospace;
+    border-radius: var(--border-r);
+    overflow: hidden;
+}
+pre,code{
+    height: 100%;
+    width:  100%;
 }
 `;
 
@@ -94,7 +100,7 @@ export default class CodeBlock extends HTMLElement {
         content = lines.filter(line => line.trim()).map(line => {
             let newLine = line.trimStart();
             let delta = line.length - newLine.length;
-            if (!minSpace) {
+            if (minSpace === null) {
                 minSpace = delta;
             }
             minSpace = Math.min(minSpace, delta);
