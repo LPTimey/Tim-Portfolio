@@ -81,43 +81,73 @@
                             zu
                             bekommen um es anzeigen zu können.
                         </p>
-                        <div class="flex fit">
-                            <code-block lang="cpp" src="assets/Tetris/Tetris_old/libraries/GameState.h" from="101" to="110">
-                            </code-block>
-                            <code-block lang="cpp">
-                                // Binäre Representation
-                                00000001
-                                00000010
-                                00000100
-                                00001000
-                                00010000
-                                00100000
-                                01000000
-                                //
-                            </code-block>
+                        <div class="grid margin-b-medium" style="--gap: 1ch;">
+                            <div class="flex wrap-reverse grow">
+                                <!-- GameState Old -->
+                                <code-block lang="cpp" class="no-shrink basis"
+                                    src="assets/Tetris/Tetris_old/libraries/GameState.h" from="68" to="86">
+                                    <pre>
+};
+                                    </pre>
+                                </code-block>
+                                <div class="flex grow wrap min">
+                                    <code-block lang="cpp">
+                                        <pre>
+                                            typedef Buttons uint8_t;
+                                            enum class Button : uint8_t {
+                                              TurnLeft = 1,   // 00000001
+                                              TurnRight = 2,  // 00000010
+                                              Up = 4,         // 00000100
+                                              Down = 8,       // 00001000
+                                              Left = 16,      // 00010000
+                                              Right = 32,     // 00100000
+                                              Swap = 64,      // 01000000
+                                            };
+                                        </pre>
+                                    </code-block>
+                                    <!-- Vec2 & Rotation Old -->
+                                    <code-block lang="cpp">
+                                        <pre>
+                                            struct Vec2 {
+                                              int8_t x, y;
+                                            };
+                                            enum class Rotation : uint8_t {
+                                              None = 0,
+                                              CounterClock = 1,
+                                              Mirror = 2,
+                                              Clock = 3,
+                                            };
+                                        </pre>
+                                    </code-block>
+                                    <!-- Tetrino Old -->
+                                    <code-block lang="cpp" src="assets/Tetris/Tetris_old/libraries/GameState.h"
+                                        from="14" to="21">
+                                        <pre>
+}; // Index für Array
+                                        </pre>
+                                    </code-block>
+                                    <!-- TetPos Old -->
+                                    <code-block lang="cpp" src="assets/Tetris/Tetris_old/libraries/GameState.h"
+                                        from="54" to="59">
+                                        <pre>
+};
+                                        </pre>
+                                    </code-block>
+                                </div>
+                            </div>
+                            <div id="TetArrayMetaBlock">
+                                <code-block lang="cpp" src="assets/Tetris/Tetris_old/libraries/GameState.h" from="43"
+                                    prefix to="47">// ... Die anderen Tetrinos ...</code-block>
+                                <code-block lang="cpp">
+                                    <pre>
+                                    // ... Die anderen Tetrinos ...
+                                    static constexpr const std::array&lt;Vec2, 4&gt; T = { Vec2{0, 0}, {0, -1}, {-1, 0}, {1, 0} };
+                                    static constexpr const std::array&lt;Vec2, 4&gt; Tetrinos[] = { L, R_L, I, Z, R_Z, B, T };
+                                    </pre>
+                                </code-block>
+                            </div>
                         </div>
-                        <div class="flex grow wrap" >
-                            <!-- Vec2 Old -->
-                            <code-block lang="cpp" src="assets/Tetris/Tetris_old/libraries/GameState.h" from="6" to="12">
-                            </code-block>
-                            <!-- Tetrino Old -->
-                            <code-block lang="cpp" src="assets/Tetris/Tetris_old/libraries/GameState.h" from="14" to="22">
-                            </code-block>
-                            <!-- Rotation Old -->
-                            <code-block lang="cpp" src="assets/Tetris/Tetris_old/libraries/GameState.h" from="47" to="53">
-                            </code-block>
-                            <!-- TetPos Old -->
-                            <code-block lang="cpp" src="assets/Tetris/Tetris_old/libraries/GameState.h" from="54" to="67">
-                            </code-block>
-                        </div>
-                        <!-- GameState Old -->
-                        <code-block lang="cpp" src="assets/Tetris/Tetris_old/libraries/GameState.h" from="68" to="100">
-                        </code-block>
-                        <br>
-                        <!-- Arduino Old -->
-                        <code-block lang="cpp" src="assets/Tetris/Tetris_old/Tetris.ino">
-                        </code-block>
-                        <br>
+
                         <p>
                             Diese Version hatte noch viele Probleme
                         <ol>
@@ -174,6 +204,12 @@
                 <section>
                     <h3 class="medium margin-b">Hardware</h3>
                     <img src="./assets/Tetris/Tetris_Steckplatine.png" alt="Schematic">
+                    <div class="margin-b-medium">
+                        <!-- TODO: BentoLayout -->
+                        <!-- Arduino Old -->
+                        <code-block lang="cpp" class="max-fit" src="assets/Tetris/Tetris_old/Tetris.ino">
+                        </code-block>
+                    </div>
                 </section>
             </div>
         </section>

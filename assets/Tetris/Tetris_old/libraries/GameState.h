@@ -41,10 +41,10 @@ static constexpr const std::array<Vec2, 4> R_Z = {
 static constexpr const std::array<Vec2, 4> B = {
     Vec2{0, 0}, {-1, -1}, {-1, 0}, {0, -1}};
 
-static constexpr const std::array<Vec2, 4> T = {
-    Vec2{0, 0}, {0, -1}, {-1, 0}, {1, 0}};
-static constexpr const std::array<Vec2, 4> Tetrinos[] = {L,   R_L, I, Z,
-                                                         R_Z, B,   T};
+static constexpr const std::array<Vec2, 4> T =
+    { Vec2{0, 0}, {0, -1}, {-1, 0}, {1, 0} };
+static constexpr const std::array<Vec2, 4> Tetrinos[] =
+    { L, R_L, I, Z, R_Z, B, T };
 
 enum class Rotation : uint8_t {
   None = 0,

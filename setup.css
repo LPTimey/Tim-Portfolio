@@ -290,6 +290,45 @@
 
     /* #endregion Text */
 
+    /* #region Fit*/
+    :where(.min-min) {
+        min-width: min-content;
+    }
+
+    :where(.min-fit) {
+        min-width: fit-content;
+    }
+
+    :where(.min-max) {
+        min-width: max-content;
+    }
+
+    :where(.min) {
+        width: min-content;
+    }
+
+    :where(.fit) {
+        width: fit-content;
+    }
+
+    :where(.max) {
+        width: max-content;
+    }
+
+    :where(.max-min) {
+        max-width: min-content;
+    }
+
+    :where(.max-fit) {
+        max-width: fit-content;
+    }
+
+    :where(.max-max) {
+        max-width: max-content;
+    }
+
+    /* #endregion Fit */
+
     :where(.button) {
         --b-hover: var(--accent);
         --b-hover-fg: var(--light);
@@ -366,7 +405,10 @@
 
         &:where(.wrap) {
             flex-wrap: wrap;
+        }
 
+        &:where(.wrap-reverse) {
+            flex-wrap: wrap-reverse;
         }
 
         &:where(.inline) {
@@ -381,6 +423,16 @@
         &:where(.shrink)>*,
         >:where(.shrink) {
             flex-shrink: 1;
+        }
+
+        &:where(.no-grow)>*,
+        >:where(.no-grow) {
+            flex-grow: 0;
+        }
+
+        &:where(.no-shrink)>*,
+        >:where(.no-shrink) {
+            flex-shrink: 0;
         }
 
         &:where(.basis)>*,
@@ -399,9 +451,6 @@
             height: 100%;
             object-fit: cover;
         }
-    }
-    :where(.fit){
-        width: fit-content;
     }
 
     :where(.grid) {

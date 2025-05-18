@@ -38,10 +38,28 @@ tfoot th {
 tfoot td {
     font-weight: bold;
 }
-canvas{
+
+canvas {
     width: 100%;
     height: 70dvh;
 }
-code-block{
-    margin: 1em auto;
+
+#TetArrayMetaBlock {
+    container: meta-box / inline-size;
+
+    :first-child {
+        display: none;
+
+        @container meta-box (width < 105ch) {
+            display: block;
+        }
+    }
+
+    :last-child {
+        display: block;
+
+        @container meta-box (width < 105ch) {
+            display: none;
+        }
+    }
 }

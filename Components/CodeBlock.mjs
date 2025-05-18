@@ -86,11 +86,15 @@ export default class CodeBlock extends HTMLElement {
         if (this.getAttribute("src")) {
             content = await fetch(this.getAttribute("src")).then(resp => resp.text());
             content = extractRangeByLineColumn(content, this.getAttribute("from"), this.getAttribute("to"));
-        } else {
-            content = this.innerHTML;
-            content = content.replace("<pre>", "\n");
-            content = replaceLast(content, "</pre>", "\n");
         }
+        if (this.hasAttribute("prefix")) {
+            content = "\n" +this.innerHTML + "\n" + content;
+        } else {
+            content += "\n" +this.innerHTML;
+        }
+        content = content.replace("<pre>", "\n");
+        content = replaceLast(content, "</pre>", "\n");
+
         content = CodeBlock.escapeHtml(content);
         console.log(content)
 
