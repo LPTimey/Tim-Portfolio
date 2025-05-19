@@ -26,7 +26,7 @@ function createFieldMatrix({ width, height, gap = 1, boxSize = { width: 4, heigh
 
     for (let row = 0; row < height; row++) {
         for (let col = 0; col < width; col++) {
-            const plane = new THREE.Mesh(geometry, material.clone());
+            const plane = new THREE.Mesh(geometry, material);
 
             const x = col * (boxWidth + gap);
             const y = -row * (boxHeight + gap);
