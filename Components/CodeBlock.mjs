@@ -15,7 +15,6 @@ const style = (theme) => css`
     display: block;
     font-family: "JetBrains Mono", monospace;
     border-radius: var(--border-r);
-    overflow: hidden;
 }
 pre,code{
     height: 100%;

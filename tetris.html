@@ -73,6 +73,7 @@
                 <section>
                     <h3 class="medium margin-b">Code</h3>
                     <section>
+                        <h4>v1.0</h4>
                         <p>
                             Für den Hackathon, habe ich eine Tetris Bibliothek in Cpp entwickelt.
                             Diese basierte auf dem template struct GameState welches alle wichtigen Daten einer runde
@@ -148,69 +149,72 @@
                             </div>
                         </div>
 
-                        <p>
-                            Diese Version hatte noch viele Probleme
-                        <ol>
-                            <li>
-                                Sie basierte auf Cpp Standard Arrays, welche in vielen Arduinos nicht unterstützt sind.
-                            </li>
-                            <li>
-                                Es gab keine Trennung von Nutzereingabe (Links/Rechts etc.) und
-                                Spieländerung (dem natürlichen Fallen), da es nur eine Tick-Methode gab.
-                            </li>
-                            <li>
-                                Die Randomisierung ließ zu wünschen übrig.
-                            </li>
-                        </ol>
-                        </p>
+                        <div>
+                            <p>Diese Version hatte noch viele Probleme</p>
+                            <ol>
+                                <li>
+                                    Sie basierte auf Cpp Standard Arrays, welche in vielen Arduinos nicht unterstützt
+                                    sind.
+                                </li>
+                                <li>
+                                    Es gab keine Trennung von Nutzereingabe (Links/Rechts etc.) und
+                                    Spieländerung (dem natürlichen Fallen), da es nur eine Tick-Methode gab.
+                                </li>
+                                <li>
+                                    Die Randomisierung ließ zu wünschen übrig.
+                                </li>
+                            </ol>
+                        </div>
                     </section>
+                </section>
 
-                    <section>
+                <section>
+                    <div>
                         <p>
                             Als Nachbereitung habe ich eine zweite Version entwickelt.
                             Bei dieser Version hatte ich die Möglichkeit die oben genannten Fahler zu beheben.
                             Deshalb habe ich auf folgendes geachtet
+                        </p>
                         <ul>
                             <li>So wenig Cpp STL wie möglich</li>
                             <li>Separierung von Spieler-Eingabe-Physik und Idle-Physik</li>
                             <li>Bessere Tetrinoverteilung</li>
                         </ul>
-                        </p>
-                        <section>
-                            Cpp STL
-                            <p>
-                                Da ich mich von std::array getrennt habe musste ich eine andere Speichermethode finden.
-                            </p>
-                            <p>Die simple Änderung wären C-Style Arrays, welche TODO:.</p>
-                            <p>
-                                Eine andere Option wäre eine BitListe.
-                                TODO: Erklärung
-                            </p>
-                            <!-- TODO: Illustration BitListe -->
-                            <canvas id="BitListAnimation"><img src="" alt=""></canvas>
-                            <!-- TODO: Vor/Nachteile -->
-
-                            <p>
-                                Letzten Endes habe ich mich für C-Style Arrays entschieden, da performance kein Problem
-                                war und ich die Tetris Größe nicht einschränken will.
-                            </p>
-                        </section>
-                        <section>
-                            neue dual tick Architektur
-                        </section>
-                        <section>Tetrinoverteilung mit Bag system</section>
-                    </section>
-                </section>
-                <section>
-                    <h3 class="medium margin-b">Hardware</h3>
-                    <img src="./assets/Tetris/Tetris_Steckplatine.png" alt="Schematic">
-                    <div class="margin-b-medium">
-                        <!-- TODO: BentoLayout -->
-                        <!-- Arduino Old -->
-                        <code-block lang="cpp" class="max-fit" src="assets/Tetris/Tetris_old/Tetris.ino">
-                        </code-block>
                     </div>
+                    <section>
+                        Cpp STL
+                        <p>
+                            Da ich mich von std::array getrennt habe musste ich eine andere Speichermethode finden.
+                        </p>
+                        <p>Die simple Änderung wären C-Style Arrays, welche TODO:.</p>
+                        <p>
+                            Eine andere Option wäre eine BitListe.
+                            TODO: Erklärung
+                        </p>
+                        <!-- TODO: Illustration BitListe -->
+                        <canvas id="BitListAnimation"><img src="" alt=""></canvas>
+                        <!-- TODO: Vor/Nachteile -->
+
+                        <p>
+                            Letzten Endes habe ich mich für C-Style Arrays entschieden, da performance kein Problem
+                            war und ich die Tetris Größe nicht einschränken will.
+                        </p>
+                    </section>
+                    <section>
+                        neue dual tick Architektur
+                    </section>
+                    <section>Tetrinoverteilung mit Bag system</section>
                 </section>
+            </div>
+        </section>
+        <section>
+            <h3 class="medium margin-b">Hardware</h3>
+            <img src="./assets/Tetris/Tetris_Steckplatine.png" alt="Schematic">
+            <div class="margin-b-medium">
+                <!-- TODO: BentoLayout -->
+                <!-- Arduino Old -->
+                <code-block lang="cpp" class="max-fit" src="assets/Tetris/Tetris_old/Tetris.ino">
+                </code-block>
             </div>
         </section>
         <section class="section">
@@ -290,7 +294,9 @@
                 </p>
             </div>
         </section>
-        <site-footer></site-footer>
+    </main>
+    <div class="grow"></div>
+    <site-footer></site-footer>
 </body>
 
 </html>

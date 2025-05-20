@@ -20,6 +20,10 @@
         font: inherit;
         scroll-behavior: smooth;
         accent-color: var(--accent);
+        /* -webkit-text-size-adjust: 100%; */
+        /* -webkit-text-size-adjust: none;
+        text-size-adjust: none;
+        */
     }
 
     :where(*) {
@@ -387,7 +391,6 @@
         background-color: color-mix(in srgb, var(--bg), gray 0%);
         border-radius: var(--border-r);
         border: 1px solid var(--i-border-c);
-        overflow: hidden;
         filter: drop-shadow(var(--x) var(--y) var(--blur) rgb(from var(--fg) r g b / 0.1));
     }
 
