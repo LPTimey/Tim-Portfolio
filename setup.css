@@ -458,7 +458,7 @@
 
     :where(.grid) {
         display: grid;
-        grid-template-columns: repeat(var(--grid-width), 1fr);
+        grid-template-columns: repeat(var(--grid-width, 1), 1fr);
         grid-template-rows: repeat(var(--grid-height, auto-fit), var(--row-height, 1fr));
         gap: var(--gap, 0);
 
