@@ -20,9 +20,9 @@
     <site-header></site-header>
     <main>
         <section class="section" id="Hero">
-            <h1 class="heading" style="margin-bottom: 1rem;">
-                <div>Screendesign & Programmieren</div>
-                <div class="title">WebDev</div>
+            <h1 class="heading grid" style="margin-bottom: 1rem;">
+                <span>Screendesign & Programmieren</span>
+                <span class="title">WebDev</span>
             </h1>
 
             <!-- <hero-img id="HeroImage" src="./assets/WebSite/title-img.webp"> -->
@@ -41,15 +41,15 @@
                     neue Technologien auszuprobieren und Fähigkeiten gezielt weiterzuentwickeln.
                 </p>
 
-                <p>
-                    Ziele:
-                <ul>
-                    <li>Eigene Projekte dokumentieren und sichtbar machen</li>
-                    <li>Raum für persönliche Experimente und Pet Projects schaffen</li>
-                    <li>Kreativität durch freie Gestaltung fördern</li>
-                    <li>Technisches Verständnis durch praktische Anwendung vertiefen</li>
-                </ul>
-                </p>
+                <div>
+                    <p>Ziele:</p>
+                    <ul>
+                        <li>Eigene Projekte dokumentieren und sichtbar machen</li>
+                        <li>Raum für persönliche Experimente und Pet Projects schaffen</li>
+                        <li>Kreativität durch freie Gestaltung fördern</li>
+                        <li>Technisches Verständnis durch praktische Anwendung vertiefen</li>
+                    </ul>
+                </div>
             </div>
         </section>
         <section class="section">
@@ -70,37 +70,37 @@
                 <section>
                     <h3 class="large margin-b">Programmierung</h3>
                     <div>
-                        <p>
-                            Technische Umsetzung mit einem „Hands-on“-Ansatz:
-                        <ul>
-                            <li>Verwendung von HTML, CSS und JavaScript (Vanilla)</li>
-                            <li>Fokus auf die zugrunde liegenden Prinzipien des Webs</li>
-                            <li>Verzicht auf Frameworks, um das Verständnis zu vertiefen</li>
-                            <li>Inspiration durch „Recreational Programming“ à la
-                                <a href="https://www.youtube.com/tsoding" target="_blank">Tsoding</a>
-                            </li>
-                        </ul>
-                        </p>
-                        <p>
-                            Technische Entscheidungen:
-                        <ul>
-                            <li>Three.js als Ausnahme für Einstieg in Grafikprogrammierung</li>
-                            <li>Web Components:
-                                <ul>
-                                    <li>Webstandard</li>
-                                    <li>Low-Level und modular</li>
-                                    <li>Keine Build-Tools nötig</li>
-                                    <li>DIY-Ansatz statt Abstraktion</li>
-                                </ul>
-                            </li>
-                            <li>JSDoc statt TypeScript:
-                                <ul>
-                                    <li>Typisierung über Kommentare</li>
-                                    <li>Kein Build-Step nötig</li>
-                                </ul>
-                            </li>
-                        </ul>
-                        </p>
+                        <div>
+                            <p>Technische Umsetzung mit einem „Hands-on“-Ansatz:</p>
+                            <ul>
+                                <li>Verwendung von HTML, CSS und JavaScript (Vanilla)</li>
+                                <li>Fokus auf die zugrunde liegenden Prinzipien des Webs</li>
+                                <li>Verzicht auf Frameworks, um das Verständnis zu vertiefen</li>
+                                <li>Inspiration durch „Recreational Programming“ à la
+                                    <a href="https://www.youtube.com/tsoding" target="_blank">Tsoding</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p>Technische Entscheidungen:</p>
+                            <ul>
+                                <li>Three.js als Ausnahme für Einstieg in Grafikprogrammierung</li>
+                                <li>Web Components:
+                                    <ul>
+                                        <li>Webstandard</li>
+                                        <li>Low-Level und modular</li>
+                                        <li>Keine Build-Tools nötig</li>
+                                        <li>DIY-Ansatz statt Abstraktion</li>
+                                    </ul>
+                                </li>
+                                <li>JSDoc statt TypeScript:
+                                    <ul>
+                                        <li>Typisierung über Kommentare</li>
+                                        <li>Kein Build-Step nötig</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </section>
             </div>
@@ -412,7 +412,7 @@
                                 <li>Erzeugt einen Figma-artigen Prototyp anhand von Json-Daten, welche entweder inline
                                     oder
                                     per src gebracht werden</li>
-                                <li>Das Json muss sich an das <a class="link underline" hover target="_blank"
+                                <li>Das Json muss sich an das <a class="link underline hover" target="_blank"
                                         href="./HyperImgSchema.json">HyperImgSchema</a> halten
                                 </li>
                                 <li>
@@ -515,8 +515,9 @@
                 </div>
             </section>
         </details>
-        <div class="grow"></div>
-        <site-footer></site-footer>
+    </main>
+    <div class="grow"></div>
+    <site-footer></site-footer>
 </body>
 
 </html>

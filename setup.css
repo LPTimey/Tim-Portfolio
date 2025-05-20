@@ -124,7 +124,7 @@
 
         /* stroke: var(--fg); */
         &:hover,
-        &[hover] {
+        &.hover {
             fill: var(--accent-2);
         }
     }
@@ -350,7 +350,7 @@
         fill: var(--b-fg);
         background-color: var(--b-bg);
 
-        &:where(:hover, [hover]) {
+        &:where(:hover, .hover) {
             background-color: var(--b-hover);
             color: var(--b-hover-fg);
             fill: var(--b-hover-fg);
@@ -503,7 +503,7 @@
         color: var(--fg);
         cursor: pointer;
 
-        &:where(:hover, [hover]) {
+        &:where(:hover, .hover) {
             color: var(--accent-2);
             fill: var(--accent-2);
 
@@ -572,7 +572,7 @@
         transition: background-size var(--transition-time);
 
         &:where(:hover:not(active),
-            :focus-visible, .permanent, [hover]) {
+            :focus-visible, .permanent, .hover) {
             background-size: 0 0.1em, 100% 0.1em;
         }
     }
@@ -599,7 +599,7 @@
         }
 
         &:hover .tooltip,
-        &[hover] .tooltip {
+        &.hover .tooltip {
             display: grid;
             opacity: 1;
         }
