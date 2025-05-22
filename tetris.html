@@ -204,7 +204,9 @@
                     <section>
                         <h5>neue dual tick Architektur</h5>
                     </section>
-                    <section><h5>Tetrinoverteilung mit Bag system</h5></section>
+                    <section>
+                        <h5>Tetrinoverteilung mit Bag system</h5>
+                    </section>
                 </section>
             </div>
         </section>
@@ -214,8 +216,36 @@
                 <img src="./assets/Tetris/Tetris_Steckplatine.png" alt="Schematic">
                 <!-- TODO: BentoLayout -->
                 <!-- Arduino Old -->
-                <code-block lang="cpp" class="max-fit" src="assets/Tetris/Tetris_old/Tetris.ino">
-                </code-block>
+                <div class="flex wrap grow shrink basis max-hund margin-b-medium" style="--gap:1ch;">
+                    <!-- Includes -->
+                    <code-block lang="cpp" src="assets/Tetris/Tetris_old/Tetris.ino" from="2" to="7">
+                    </code-block>
+                    <!-- GameState Setup -->
+                    <code-block lang="cpp" src="assets/Tetris/Tetris_old/Tetris.ino" from="12" to="14">
+                    </code-block>
+                    <!-- Globals -->
+                    <code-block lang="cpp" src="assets/Tetris/Tetris_old/Tetris.ino" from="16" to="20">
+                    </code-block>
+                    <!-- Pins -->
+                    <code-block lang="cpp" src="assets/Tetris/Tetris_old/Tetris.ino" from="23" to="40">
+                    </code-block>
+                    <!-- get_button_data -->
+                    <code-block lang="cpp" src="assets/Tetris/Tetris_old/Tetris.ino" from="43" to="78">
+                    </code-block>
+                    <!-- setup -->
+                    <code-block lang="cpp" src="assets/Tetris/Tetris_old/Tetris.ino" from="79" to="90">
+                    </code-block>
+                    <!-- loop -->
+                    <code-block lang="cpp" src="assets/Tetris/Tetris_old/Tetris.ino" from="91" to="104">
+                    </code-block>
+                    <!-- timerHelper -->
+                    <code-block lang="cpp" src="assets/Tetris/Tetris_old/Tetris.ino" from="105" to="118">
+                    </code-block>
+                </div>
+
+                <!-- <code-block lang="cpp" class="max-fit" src="assets/Tetris/Tetris_old/Tetris.ino">
+                    </code-block> -->
+
             </div>
         </section>
         <section class="section">
