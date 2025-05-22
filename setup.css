@@ -331,6 +331,10 @@
         max-width: max-content;
     }
 
+    :where(.max-hund) {
+        max-width: 100%;
+    }
+
     /* #endregion Fit */
 
     :where(.button) {
