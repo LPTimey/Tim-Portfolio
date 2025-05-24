@@ -73,28 +73,65 @@
                 <section>
                     <h3 class="medium margin-b">Code</h3>
                     <section>
-                        <h4>v1.0</h4>
+                        <h4 class="medium margin-b">v1.0</h4>
                         <p>
                             Für den Hackathon, habe ich eine Tetris Bibliothek in Cpp entwickelt.
-                            Diese basierte auf dem template struct GameState welches alle wichtigen Daten einer runde
+                            Diese basierte auf dem template struct
+                            <a href="#GameStateOld" class="link link-active underline"
+                                hover-border-target="GameStateOld">GameState</a>
+                            welches alle wichtigen Daten einer runde
                             speicherte und eine Tick-Methode bereitstellte um das spiel zu treiben.
                             Es hat auch eine Methode bereitgestellt um das aktuelle Feld entweder als string oder liste
                             zu
                             bekommen um es anzeigen zu können.
                         </p>
+                        <p>
+                            Um die Nutzereingabe zu lesen werden 2 Typen exportiert:
+                            <a href="#Buttons" class="link link-active underline" hover-border-target="Buttons">
+                                Buttons und Button</a>.
+                            <a href="#Buttons" class="link link-active underline"
+                                hover-border-target="Buttons">Button</a>
+                            ist ein
+                            Enum welches alle Knöpfe auflistet und je einem Bit in einem Byte zuordnet, sodass alle
+                            möglichen Eingaben gleichzeitig und speichersparend verarbeitet werden können, da sie nun in
+                            einen Byte <a href="#Buttons" class="link link-active underline"
+                                hover-border-target="Buttons">(Buttons)</a> passen. Das ermöglicht
+                            schnelle Abfragen und kompakte Logik.
+                            Man kann sich dieses Flaggen-System vorstellen wie 8 boolesche Werte in einer Variable.
+                            Man kann diese Werte mit Bit shifts ( << ) und Bit-Oder ( | ) setzen und mit Bit shifts und
+                                Bit-Und ( & ) lesen. <sub><a href="https://de.wikipedia.org/wiki/Bitweiser_Operator"
+                                    target="_blank" class="link underline link-active">(Mehr Dazu)</a></sub>
+                        </p>
+                        <p>
+                            Die einzelnen <a href="TetrinoOld" class="link link-active underline"
+                                hover-border-target="TetrinoOld">Tetrinos</a> sind in einem Enum als Indexe zu einem
+                            <span hover-border-target="TetArrayMetaBlock"><a href="#TetArrayMetaBlock"
+                                    class="link link-active underline">Array</a>, welcher Postions-Matrizen der <a
+                                    href="#TetrinoOld" class="link link-active underline"
+                                    hover-border-target="TetrinoOld">Tetrinos</a>
+                                speichert.</span>
+                            Um auch <a href="#PosRot" hover-border-target="PosRot"
+                                class="link link-active underline">Position & Rotation</a> zu speicher wird <a
+                                href="#TetPos" hover-border-target="TetPos"
+                                class="link link-active underline">TetPos</a> benutzt.
+                        </p>
+                        <!-- <p hover-border-targets="GameStateOld, Buttons">
+                            Lorem ipsum dolor sit
+                        </p> -->
                         <div class="grid margin-b-medium" style="--gap: 1ch;">
-                            <div class="flex wrap-reverse grow" style="overflow: hidden;">
+                            <div class="flex wrap-reverse grow">
                                 <!-- GameState Old -->
-                                <code-block lang="cpp" class="no-shrink basis max-hund"
+                                <code-block id="GameStateOld" lang="cpp" class="no-shrink basis max-hund"
                                     src="assets/Tetris/Tetris_old/libraries/GameState.h" from="68" to="86">
                                     <pre>
 };
                                     </pre>
                                 </code-block>
                                 <div class="flex grow wrap min max-hund">
-                                    <code-block lang="cpp">
+                                    <!-- Buttons Old -->
+                                    <code-block lang="cpp" id="Buttons">
                                         <pre>
-                                            typedef Buttons uint8_t;
+                                            typedef uint8_t Buttons;
                                             enum class Button : uint8_t {
                                               TurnLeft = 1,   // 00000001
                                               TurnRight = 2,  // 00000010
@@ -107,7 +144,7 @@
                                         </pre>
                                     </code-block>
                                     <!-- Vec2 & Rotation Old -->
-                                    <code-block lang="cpp">
+                                    <code-block id="PosRot" lang="cpp" id="PositionRotation">
                                         <pre>
                                             struct Vec2 {
                                               int8_t x, y;
@@ -120,23 +157,23 @@
                                             };
                                         </pre>
                                     </code-block>
-                                    <!-- Tetrino Old -->
-                                    <code-block lang="cpp" src="assets/Tetris/Tetris_old/libraries/GameState.h"
-                                        from="14" to="21">
-                                        <pre>
-}; // Index für Array
-                                        </pre>
-                                    </code-block>
                                     <!-- TetPos Old -->
-                                    <code-block lang="cpp" src="assets/Tetris/Tetris_old/libraries/GameState.h"
-                                        from="54" to="59">
+                                    <code-block id="TetPos" lang="cpp"
+                                        src="assets/Tetris/Tetris_old/libraries/GameState.h" from="54" to="59">
                                         <pre>
 };
                                         </pre>
                                     </code-block>
+                                    <!-- Tetrino Old -->
+                                    <code-block id="TetrinoOld" lang="cpp"
+                                        src="assets/Tetris/Tetris_old/libraries/GameState.h" from="14" to="21">
+                                        <pre>
+}; // Index für Array
+                                        </pre>
+                                    </code-block>
                                 </div>
                             </div>
-                            <div id="TetArrayMetaBlock">
+                            <div id="TetArrayMetaBlock" style="border-radius: var(--border-r);">
                                 <code-block lang="cpp" src="assets/Tetris/Tetris_old/libraries/GameState.h" from="43"
                                     prefix to="47">// ... Die anderen Tetrinos ...</code-block>
                                 <code-block lang="cpp">

@@ -26,6 +26,10 @@
         */
     }
 
+    :where(sub, sup) {
+        font-size: revert;
+    }
+
     :where(*) {
         /* 2. Remove default margin */
         margin: 0;
@@ -258,6 +262,11 @@
         margin-block: var(--fmb-gigantic);
     }
 
+    :where(.title.padding-b, .gigantic.padding-b),
+    :where(.padding-b-gigantic) {
+        padding-block: var(--fmb-gigantic);
+    }
+
     :where(.section-title,
         .large) {
         font-size: var(--fs-large);
@@ -268,6 +277,11 @@
     :where(.section-title.margin-b, .large.margin-b),
     :where(.margin-b-large) {
         margin-block: var(--fmb-large);
+    }
+
+    :where(.section-title.padding-b, .large.padding-b),
+    :where(.padding-b-large) {
+        padding-block: var(--fmb-large);
     }
 
     :where(.medium) {
@@ -281,6 +295,11 @@
         margin-block: var(--fmb-medium);
     }
 
+    :where(.medium.padding-b),
+    :where(.padding-b-medium) {
+        padding-block: var(--fmb-medium);
+    }
+
     :where(.normal) {
         font-size: var(--fs-normal);
         font-weight: var(--fw-normal);
@@ -290,6 +309,11 @@
     :where(.normal.margin-b),
     :where(.margin-b-normal) {
         margin-block: var(--fmb-normal);
+    }
+
+    :where(.normal.padding-b),
+    :where(.padding-b-normal) {
+        padding-block: var(--fmb-normal);
     }
 
     /* #endregion Text */
@@ -336,6 +360,15 @@
     }
 
     /* #endregion Fit */
+
+
+    @media screen and (prefers-reduced-motion: no-preference) {
+        .accent-border {
+            box-shadow: 0 0 0.75ch var(--accent),
+                0 0 1.25ch var(--accent),
+                0 0 2ch var(--accent);
+        }
+    }
 
     :where(.button) {
         --b-hover: var(--accent);
@@ -507,7 +540,7 @@
         color: var(--fg);
         cursor: pointer;
 
-        &:where(:hover, .hover) {
+        &:where(:hover, .hover, .link-active) {
             color: var(--accent-2);
             fill: var(--accent-2);
 

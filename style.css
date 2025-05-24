@@ -105,6 +105,10 @@
 
     /* #endregion Setup Vars */
 
+    * {
+        scroll-padding-top: 6rem;
+    }
+
     .section {
         --margin-b: 10rem;
         width: 100%;
@@ -115,4 +119,5 @@
             margin-top: calc((var(--margin-b) / 2) + 1rem);
         }
     }
+
 }

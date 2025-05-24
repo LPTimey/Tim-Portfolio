@@ -150,7 +150,34 @@ tooltips.forEach((el) => {
     tooltip.innerHTML = el.getAttribute("data-tooltip");
     el.appendChild(tooltip);
 });
-console.log(tooltips)
+// console.log(tooltips)
+
+const [...hoverBorderTargets] = document.querySelectorAll("[hover-border-target]");
+hoverBorderTargets.map(el => [el, document.getElementById(el.getAttribute("hover-border-target"))]).forEach(
+    /** @param {[HTMLElement,HTMLElement|null]} param0 */
+    ([el, target]) => {
+        el.addEventListener("mouseenter", () => {
+            target?.classList.add("accent-border");
+        });
+        el.addEventListener("mouseleave", () => {
+            target?.classList.remove("accent-border");
+        })
+    });
+
+const [...hoverBorderMultiTargets] = document.querySelectorAll("[hover-border-targets]");
+hoverBorderMultiTargets
+    .map(el => [el, el.getAttribute("hover-border-targets").split(",").map(str => str.trim()).map(str => document.getElementById(str))])
+    .forEach(
+        /** @param {[HTMLElement,[HTMLElement|null]]} param0 */
+        ([el, targets]) => {
+            console.log(targets)
+            el.addEventListener("mouseenter", () => {
+                targets?.forEach(target => { target?.classList.add("accent-border"); })
+            });
+            el.addEventListener("mouseleave", () => {
+                targets?.forEach(target => { target?.classList.remove("accent-border"); })
+            })
+        });
 
 /******************************\
  *                            *

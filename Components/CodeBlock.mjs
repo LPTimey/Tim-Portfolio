@@ -96,7 +96,7 @@ export default class CodeBlock extends HTMLElement {
         content = replaceLast(content, "</pre>", "\n");
 
         content = CodeBlock.escapeHtml(content);
-        console.log(content)
+        // console.log(content)
 
         let lines = content.split("\n");
         let minSpace = null;
@@ -142,7 +142,7 @@ export default class CodeBlock extends HTMLElement {
         this._contentObserver = new MutationObserver(() => this.render());
         this._themeObserver = new MutationObserver(() => this.emitTheme());
         this.shadowRoot.addEventListener("theme-change", () => {
-            console.log("event");
+            // console.log("event");
             this.render()
         });
     }
