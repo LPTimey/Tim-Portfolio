@@ -25,7 +25,7 @@ pre,code{
 
 export default class CodeBlock extends HTMLElement {
     static get observedAttributes() {
-        return ["lang", "src", "from", "to", "dark-theme", "light-theme", "no-pre"];
+        return ["lang", "src", "from", "to", "dark-theme", "light-theme", "no-pre", "no-todo"];
     }
     static escapeHtml(unsafe) {
         return unsafe
@@ -79,6 +79,30 @@ export default class CodeBlock extends HTMLElement {
         return;
     }
 
+    removeTodoComments(content, hasNoTodoAttr = false) {
+        if (!hasNoTodoAttr) {
+            return content; // keine Änderungen wenn "no-todo" nicht gesetzt ist
+        }
+
+        // Schritt 1: Entferne HTML-Kommentare mit TODO/FIXME
+        content = content.replace(/<!--\s*(TODO|FIXME).*?-->/gsi, '');
+
+        // Schritt 2: Entferne mehrzeilige JS-Kommentare mit TODO/FIXME
+        content = content.replace(/\/\*\s*(TODO|FIXME)[\s\S]*?\*\//gsi, '');
+
+        // Schritt 3: Entferne einzeilige JS-Kommentare mit TODO/FIXME
+        content = content.replace(/\/\/\s*(TODO|FIXME).*$/gmi, '');
+
+        // Schritt 4: Entferne überflüssige Leerzeilen
+        content = content
+            .split('\n')
+            .map(line => line.trimEnd())
+            .filter(line => line.trim() !== '')
+            .join('\n');
+
+        return content;
+    }
+
     async render() {
         const lang = this.getAttribute("lang") ?? "plaintext";
         const noPre = this.hasAttribute("no-pre");
@@ -98,18 +122,21 @@ export default class CodeBlock extends HTMLElement {
         content = CodeBlock.escapeHtml(content);
         // console.log(content)
 
-        let lines = content.split("\n");
+        let lines = this.removeTodoComments(content, this.hasAttribute("no-todo")).split("\n");
         let minSpace = null;
-        //TODO: remove TODO lines
-        content = lines.filter(line => line.trim()).map(line => {
-            let newLine = line.trimStart();
-            let delta = line.length - newLine.length;
-            if (minSpace === null) {
-                minSpace = delta;
-            }
-            minSpace = Math.min(minSpace, delta);
-            return line.trimEnd();
-        }).map(line => line.slice(minSpace)).join("\n");
+
+        content = lines
+            .filter(line => line.trim())
+            .map(line => {
+                let newLine = line.trimStart();
+                let delta = line.length - newLine.length;
+                if (minSpace === null) {
+                    minSpace = delta;
+                }
+                minSpace = Math.min(minSpace, delta);
+                return line.trimEnd();
+            })
+            .map(line => line.slice(minSpace)).join("\n");
 
         this.shadowRoot.innerHTML = style(this.theme) + template(lang, content, noPre);
 
