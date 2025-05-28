@@ -230,7 +230,7 @@
                             TODO: Erklärung
                         </p>
                         <!-- TODO: Illustration BitListe -->
-                        <canvas id="BitListAnimation"></canvas>
+                        <!-- <canvas id="BitListAnimation"></canvas> -->
                         <!-- TODO: Vor/Nachteile -->
 
                         <p>
@@ -240,9 +240,27 @@
                     </section>
                     <section>
                         <h5>neue dual tick Architektur</h5>
+                        <p>
+                            Da bei v1 die Playeraction und Gameaction zusammen ausgeführt wurden, war weder eine
+                            Schwierigkeits anpassung möglich noch war es möglich Die Spielereingabe oft genug abzufragen
+                            um das spiel flüssig zu machen, da sont alle blöcke viel zu schnell fallen würden.
+                        </p>
+                        <p>
+                            Deswegen gibt es nun 2 Tick-Funktionen: game_tick und player_tick
+                        </p>
+                        <!-- TODO: Diff gamestate alt <-> neu -->
                     </section>
                     <section>
                         <h5>Tetrinoverteilung mit Bag system</h5>
+                        <p>
+                            Ein weiteres Problem von v1 war auch die Tetrinoverteilung.
+                            Teils konnten Gewisse Tetrinos 6 mal hintereinander oder garnicht kommen.
+                        </p>
+                        <p>
+                            Um das zu lösen Wurde ein "TetrinoBag" implimentiert, welcher folgendes Interface hat:
+                        </p>
+                        <!-- TODO: Bag code -->
+                         <p>er funktioniert: TODO: Beschreibung</p>
                     </section>
                 </section>
             </div>
@@ -255,29 +273,29 @@
                 <!-- Arduino Old -->
                 <div class="flex wrap grow shrink basis max-hund margin-b-medium" style="--gap:1ch;">
                     <!-- Includes -->
-                    <code-block no-todo lang="cpp" src="assets/Tetris/Tetris_old/Tetris.ino" from="2" to="7">
-                    </code-block>
+                    <!-- <code-block no-todo lang="cpp" src="assets/Tetris/Tetris_old/Tetris.ino" from="2" to="7">
+                    </code-block> -->
                     <!-- GameState Setup -->
-                    <code-block no-todo lang="cpp" src="assets/Tetris/Tetris_old/Tetris.ino" from="12" to="14">
-                    </code-block>
+                    <!-- <code-block no-todo lang="cpp" src="assets/Tetris/Tetris_old/Tetris.ino" from="12" to="14">
+                    </code-block> -->
                     <!-- Globals -->
-                    <code-block no-todo lang="cpp" src="assets/Tetris/Tetris_old/Tetris.ino" from="16" to="20">
-                    </code-block>
+                    <!-- <code-block no-todo lang="cpp" src="assets/Tetris/Tetris_old/Tetris.ino" from="16" to="20">
+                    </code-block> -->
                     <!-- Pins -->
-                    <code-block no-todo lang="cpp" src="assets/Tetris/Tetris_old/Tetris.ino" from="23" to="40">
-                    </code-block>
+                    <!-- <code-block no-todo lang="cpp" src="assets/Tetris/Tetris_old/Tetris.ino" from="23" to="40">
+                    </code-block> -->
                     <!-- get_button_data -->
-                    <code-block no-todo lang="cpp" src="assets/Tetris/Tetris_old/Tetris.ino" from="43" to="78">
-                    </code-block>
+                    <!-- <code-block no-todo lang="cpp" src="assets/Tetris/Tetris_old/Tetris.ino" from="43" to="78">
+                    </code-block> -->
                     <!-- setup -->
-                    <code-block no-todo lang="cpp" src="assets/Tetris/Tetris_old/Tetris.ino" from="79" to="90">
-                    </code-block>
+                    <!-- <code-block no-todo lang="cpp" src="assets/Tetris/Tetris_old/Tetris.ino" from="79" to="90">
+                    </code-block> -->
                     <!-- loop -->
-                    <code-block no-todo lang="cpp" src="assets/Tetris/Tetris_old/Tetris.ino" from="91" to="104">
-                    </code-block>
+                    <!-- <code-block no-todo lang="cpp" src="assets/Tetris/Tetris_old/Tetris.ino" from="91" to="104">
+                    </code-block> -->
                     <!-- timerHelper -->
-                    <code-block no-todo lang="cpp" src="assets/Tetris/Tetris_old/Tetris.ino" from="105" to="118">
-                    </code-block>
+                    <!-- <code-block no-todo lang="cpp" src="assets/Tetris/Tetris_old/Tetris.ino" from="105" to="118">
+                    </code-block> -->
                 </div>
 
                 <!-- <code-block no-todo lang="cpp" class="max-fit" src="assets/Tetris/Tetris_old/Tetris.ino">
@@ -296,7 +314,21 @@
             <!-- TODO: Add Ausformulierung -->
             <h2 class="heading large margin-b">How to Run</h2>
             <div class="content">
-                <a href="assets/Tetris/Tetris_new.zip" class="link underline">Download</a>
+                <h3>Requirements:</h3>
+                <ul>
+                    <li>
+                        <p>Sourcecode (<a href="assets/Tetris/Tetris_new.zip" class="link underline link-active">Download</a>)</p>
+                    </li>
+                    <li>
+                        <p>Ein C & Cpp Compiler wie clang</p>
+                    </li>
+                </ul>
+                <h3>Step by Step</h3>
+                <ol>
+                    <li>Go to Project Folder</li>
+                    <li>Build nob.c (= buildsystem) to nob executable <code-block no-pre lang="bash">clang -o nob nob.c</code-block></li>
+                    <li>run nob executable</li>
+                </ol>
             </div>
         </section>
 
