@@ -165,10 +165,10 @@
                                         </pre>
                                     </code-block>
                                     <!-- Tetrino Old -->
-                                    <code-block no-todo id="TetrinoOld" lang="cpp"
-                                        src="assets/Tetris/Tetris_old/libraries/GameState.h" from="14" to="21">
+                                    <code-block no-todo id="TetrinoOld" lang="cpp" prefix
+                                        src="assets/Tetris/Tetris_old/libraries/GameState.h" from="14" to="22">
                                         <pre>
-}; // Index für Array
+// Index für Array
                                         </pre>
                                     </code-block>
                                 </div>
@@ -249,42 +249,46 @@
                             Deswegen gibt es nun 2 Tick-Funktionen: game_tick und player_tick
                         </p>
                         <!-- TODO: Diff gamestate alt <-> neu -->
-                        <code-block lang="diff">
+                        <!-- <code-block lang="diff">
                             <pre>
 -template &lt;size_t H, size_t W&gt; struct GameState {
-    std::array&lt;uint8_t, H * W&gt; blocks;
-    std::array&lt;Tetrino, 3&gt; nexts;
-    TetPos current_tet;
-    bool placed;
-    const bool debug;
++class GameState {
++   struct M {
+-   std::array&lt;uint8_t, H * W&gt; blocks;
+-   std::array&lt;Tetrino, 3&gt; nexts;
+-   TetPos current_tet;
++       uint8_t field[Width * Height]; // Width & Height are #define d
++       Tetrino nexts[3];
++       Option&lt;TetPos&gt; current;
++   } m;
 
-    constexpr static const size_t height = H;
-    constexpr static const size_t width = W;
-    GameState();
-    GameState(bool debug);
-    bool tick(uint8_t buttons);
-    bool isGameOver();
+-   bool placed;
+-   const bool debug;
+-   constexpr static const size_t height = H;
+-   constexpr static const size_t width = W;
+
+-   GameState();
+-   GameState(bool debug);
++   GameState() = delete;
++   GameState(M&& members);
+
     Tetrino get_next();
-    void init_nexts();
-    static Tetrino new_next();
-    std::array&lt;uint8_t, W * H&gt; get_curr_field();
+-   static Tetrino new_next();
++   static void set_nexts(Tetrino (&nexts)[3]);
 
-private:
-    inline void _new_tetrino();
-    inline void _turn_tetrino(uint8_t buttons);
-    inline void _move(uint8_t buttons);
-    void inline _move_down_once();
-    void inline _move_left_once();
-    void inline _move_right_once();
-    inline void _place();
-    inline void _remove_rows();
-    template &lt;size_t len&gt; bool _collides(std::array&lt;Vec2, len&gt; vecs);
-    bool _can_move_down();
-    bool _can_move_left();
-    bool _can_move_right();
++public:
+    bool isGameOver();
++   static GameState create();
+-   std::array&lt;uint8_t, W * H&gt; get_curr_field();
++   auto field_with_floating() -> uint8_t (&)[Width * Height];
+-   bool tick(uint8_t buttons);
++   bool game_tick();
++   bool player_tick(Buttons buttons);
+
 };
                          </pre>
-                        </code-block>
+                        </code-block> -->
+                    <code-block lang="cpp" src="assets/Tetris/Tetris_new/Tetris/src/GameState.hpp" from="99" to="134"></code-block>
                     </section>
                     <section>
                         <h5>Tetrinoverteilung mit Bag system</h5>
@@ -295,7 +299,8 @@ private:
                         <p>
                             Um das zu lösen Wurde ein "TetrinoBag" implimentiert, welcher folgendes Interface hat:
                         </p>
-                        <!-- TODO: Bag code -->
+                        <code-block lang="cpp" src="assets/Tetris/Tetris_new/Tetris/src/GameState.hpp" from="34"
+                            to="48"></code-block>
                         <p>er funktioniert: TODO: Beschreibung</p>
                     </section>
                 </section>
@@ -309,32 +314,32 @@ private:
                 <!-- Arduino Old -->
                 <div class="flex wrap grow shrink basis max-hund margin-b-medium" style="--gap:1ch;">
                     <!-- Includes -->
-                    <!-- <code-block no-todo lang="cpp" src="assets/Tetris/Tetris_old/Tetris.ino" from="2" to="7">
+                    <!-- <code-block no-todo lang="ino" src="assets/Tetris/Tetris_old/Tetris.ino" from="2" to="7">
                     </code-block> -->
                     <!-- GameState Setup -->
-                    <!-- <code-block no-todo lang="cpp" src="assets/Tetris/Tetris_old/Tetris.ino" from="12" to="14">
+                    <!-- <code-block no-todo lang="ino" src="assets/Tetris/Tetris_old/Tetris.ino" from="12" to="14">
                     </code-block> -->
                     <!-- Globals -->
-                    <!-- <code-block no-todo lang="cpp" src="assets/Tetris/Tetris_old/Tetris.ino" from="16" to="20">
+                    <!-- <code-block no-todo lang="ino" src="assets/Tetris/Tetris_old/Tetris.ino" from="16" to="20">
                     </code-block> -->
                     <!-- Pins -->
-                    <!-- <code-block no-todo lang="cpp" src="assets/Tetris/Tetris_old/Tetris.ino" from="23" to="40">
+                    <!-- <code-block no-todo lang="ino" src="assets/Tetris/Tetris_old/Tetris.ino" from="23" to="40">
                     </code-block> -->
                     <!-- get_button_data -->
-                    <!-- <code-block no-todo lang="cpp" src="assets/Tetris/Tetris_old/Tetris.ino" from="43" to="78">
+                    <!-- <code-block no-todo lang="ino" src="assets/Tetris/Tetris_old/Tetris.ino" from="43" to="78">
                     </code-block> -->
                     <!-- setup -->
-                    <!-- <code-block no-todo lang="cpp" src="assets/Tetris/Tetris_old/Tetris.ino" from="79" to="90">
+                    <!-- <code-block no-todo lang="ino" src="assets/Tetris/Tetris_old/Tetris.ino" from="79" to="90">
                     </code-block> -->
                     <!-- loop -->
-                    <!-- <code-block no-todo lang="cpp" src="assets/Tetris/Tetris_old/Tetris.ino" from="91" to="104">
+                    <!-- <code-block no-todo lang="ino" src="assets/Tetris/Tetris_old/Tetris.ino" from="91" to="104">
                     </code-block> -->
                     <!-- timerHelper -->
-                    <!-- <code-block no-todo lang="cpp" src="assets/Tetris/Tetris_old/Tetris.ino" from="105" to="118">
+                    <!-- <code-block no-todo lang="ino" src="assets/Tetris/Tetris_old/Tetris.ino" from="105" to="118">
                     </code-block> -->
                 </div>
 
-                <!-- <code-block no-todo lang="cpp" class="max-fit" src="assets/Tetris/Tetris_old/Tetris.ino">
+                <!-- <code-block no-todo lang="ino" class="max-fit" src="assets/Tetris/Tetris_old/Tetris.ino">
                     </code-block> -->
 
             </div>

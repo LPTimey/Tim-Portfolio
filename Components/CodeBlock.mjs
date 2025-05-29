@@ -79,6 +79,12 @@ export default class CodeBlock extends HTMLElement {
         return;
     }
 
+    /**
+     * 
+     * @param {*} content 
+     * @param {*} hasNoTodoAttr 
+     * @returns {string}
+     */
     removeTodoComments(content, hasNoTodoAttr = false) {
         if (!hasNoTodoAttr) {
             return content; // keine Änderungen wenn "no-todo" nicht gesetzt ist
@@ -93,13 +99,6 @@ export default class CodeBlock extends HTMLElement {
         // Schritt 3: Entferne einzeilige JS-Kommentare mit TODO/FIXME
         content = content.replace(/\/\/\s*(TODO|FIXME).*$/gmi, '');
 
-        // Schritt 4: Entferne überflüssige Leerzeilen
-        content = content
-            .split('\n')
-            .map(line => line.trimEnd())
-            .filter(line => line.trim() !== '')
-            .join('\n');
-
         return content;
     }
 
@@ -107,36 +106,53 @@ export default class CodeBlock extends HTMLElement {
         const lang = this.getAttribute("lang") ?? "plaintext";
         const noPre = this.hasAttribute("no-pre");
         let content = "";
+
         if (this.getAttribute("src")) {
             content = await fetch(this.getAttribute("src")).then(resp => resp.text());
             content = extractRangeByLineColumn(content, this.getAttribute("from"), this.getAttribute("to"));
+            if (content.includes("struct GameState")) console.log(content);
         }
+
+        let inner = this.innerHTML.trimEnd();
+        inner = inner.replace("<pre>", "\n");
+        inner = replaceLast(inner, "</pre>", "\n");
+
         if (this.hasAttribute("prefix")) {
-            content = "\n" + this.innerHTML + "\n" + content;
+            content = "\n" + inner.trimEnd() + "\n" + content;
         } else {
-            content += "\n" + this.innerHTML;
+            content += "\n" + inner;
         }
+
         content = content.replace("<pre>", "\n");
         content = replaceLast(content, "</pre>", "\n");
-
         content = CodeBlock.escapeHtml(content);
-        // console.log(content)
 
         let lines = this.removeTodoComments(content, this.hasAttribute("no-todo")).split("\n");
         let minSpace = null;
 
         content = lines
-            .filter(line => line.trim())
+            .filter((line, index, arr) => {
+                if (index === 0 || index === arr.length - 1) {
+                    return line.trim() !== '';
+                }
+                return true;
+            })
             .map(line => {
                 let newLine = line.trimStart();
-                let delta = line.length - newLine.length;
-                if (minSpace === null) {
-                    minSpace = delta;
+                if (newLine.length !== 0) { // ignore empty lines
+                    let delta = line.length - newLine.length;
+                    if (minSpace === null) {
+                        minSpace = delta;
+                    }
+                    minSpace = Math.min(minSpace, delta);
                 }
-                minSpace = Math.min(minSpace, delta);
                 return line.trimEnd();
             })
-            .map(line => line.slice(minSpace)).join("\n");
+            .map(line => line.slice(minSpace ?? 0))
+            .join("\n")
+            .replace(/(\s*\n){2,}/g, '\n\n')// ersetzt 2+ leere Zeilen durch genau eine
+            .replace(/\n\n(?=\s*[^a-zA-Z0-9]+\s*$)/gm, '\n') // Entferne gezielt Leerzeilen VOR Sonderzeichenzeilen
+            .trim();
 
         this.shadowRoot.innerHTML = style(this.theme) + template(lang, content, noPre);
 

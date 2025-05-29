@@ -224,20 +224,20 @@ bool GameState::game_tick() {
         return is_game_over();
     }
     if (!m.current.has_value()) {
-        m.current = M::TetPos{get_next(), {Width / 2, 0}, Rotation::None};
+        m.current = TetPos{get_next(), {Width / 2, 0}, Rotation::None};
     }
 
     if (can_move_down()) {
         m.current->cur_pos.y++;
     } else {
         place(m.current.value());
-        m.current = M::TetPos{get_next(), {Width / 2, 0}, Rotation::None};
+        m.current = TetPos{get_next(), {Width / 2, 0}, Rotation::None};
     }
     clear_rows();
     return is_game_over();
 }
 
-void GameState::place(const M::TetPos& tet_pos) {
+void GameState::place(const TetPos& tet_pos) {
     auto indexes = tet_pos.get_indexes();
 
     for (size_t i = 0; i < 4; i++) {
@@ -249,7 +249,7 @@ void GameState::place(const M::TetPos& tet_pos) {
     }
 }
 
-void GameState::turn(M::TetPos& tet, int8_t amount) {
+void GameState::turn(TetPos& tet, int8_t amount) {
     tet.rot = static_cast<Rotation>(
         positive_mod((static_cast<int8_t>(tet.rot) + amount),
                      static_cast<uint8_t>(Rotation::Max_Rotation)));
@@ -349,7 +349,7 @@ inline bool operator!=(const Buttons& lhs, const Button& rhs) {
     return !(lhs == rhs);
 }
 
-auto GameState::M::TetPos::get_indexes() const -> ptrdiff_t (&)[4] {
+auto TetPos::get_indexes() const -> ptrdiff_t (&)[4] {
     auto pos = Tetrinos[static_cast<size_t>(this->cur)];
     static ptrdiff_t indexes[4]{0};
     static Vec2 new_pos[4]{};

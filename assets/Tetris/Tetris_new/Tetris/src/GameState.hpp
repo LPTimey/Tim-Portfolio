@@ -89,24 +89,21 @@ constexpr int getShiftAmount(Button button) {
     return shiftRecursive(static_cast<uint8_t>(button));
 }
 
+struct TetPos {
+    Tetrino cur;
+    Vec2 cur_pos;
+    Rotation rot;
+
+    auto get_indexes() const -> ptrdiff_t (&)[4];
+};
+
 class GameState {
     struct M {
         uint8_t field[Width * Height];
-
-        struct TetPos {
-            Tetrino cur;
-            Vec2 cur_pos;
-            Rotation rot;
-
-            auto get_indexes() const -> ptrdiff_t (&)[4];
-        };
         Option<TetPos> current;
-
-        // Option<Tetrino> swap;
-
         Tetrino nexts[3];
-
         size_t score = 0;
+
         M(Option<TetPos> current_init, Tetrino nexts_init[3],
           size_t score_init = 0)
             : field{0}, current(current_init),
@@ -123,9 +120,9 @@ class GameState {
     bool can_move_left();
     bool can_move_right();
     bool clear_rows();
-    void place(const M::TetPos& tet);
-    void turn(M::TetPos& tet, int8_t amount);
-    
+    void place(const TetPos& tet);
+    void turn(TetPos& tet, int8_t amount);
+
     public:
     auto field_with_floating() -> uint8_t (&)[Width * Height];
     ~GameState() = default;
