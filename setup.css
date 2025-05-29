@@ -480,6 +480,10 @@
             flex-basis: fit-content;
         }
 
+        &:where(.basis-min)>*,
+        >:where(.basis-min) {
+            flex-basis: 0;
+        }
     }
 
     :where(.full) {

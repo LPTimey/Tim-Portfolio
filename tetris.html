@@ -118,8 +118,8 @@
                         <!-- <p hover-border-targets="GameStateOld, Buttons">
                             Lorem ipsum dolor sit
                         </p> -->
-                        <div class="grid margin-b-medium" style="--gap: 1ch;">
-                            <div class="flex wrap-reverse grow">
+                        <div class="flex column margin-b-medium max-hund" style="--gap: 1ch;">
+                            <div class="flex wrap-reverse grow max-hund">
                                 <!-- GameState Old -->
                                 <code-block no-todo id="GameStateOld" lang="cpp" class="no-shrink basis max-hund"
                                     src="assets/Tetris/Tetris_old/libraries/GameState.h" from="68" to="86">
@@ -241,14 +241,13 @@
                     <section>
                         <h5>neue dual tick Architektur</h5>
                         <p>
-                            Da bei v1 die Playeraction und Gameaction zusammen ausgeführt wurden, war weder eine
-                            Schwierigkeits anpassung möglich noch war es möglich Die Spielereingabe oft genug abzufragen
-                            um das spiel flüssig zu machen, da sont alle blöcke viel zu schnell fallen würden.
+                            Da bei v1 die PlayerAction und GameAction zusammen ausgeführt wurden, war weder eine
+                            Schwierigkeitsanpassung möglich noch war es möglich Die SpielerEingabe oft genug abzufragen
+                            um das spiel flüssig zu machen, da sonst alle Blöcke viel zu schnell fallen würden.
                         </p>
                         <p>
                             Deswegen gibt es nun 2 Tick-Funktionen: game_tick und player_tick
                         </p>
-                        <!-- TODO: Diff gamestate alt <-> neu -->
                         <!-- <code-block lang="diff">
                             <pre>
 -template &lt;size_t H, size_t W&gt; struct GameState {
@@ -288,20 +287,28 @@
 };
                          </pre>
                         </code-block> -->
-                    <code-block lang="cpp" src="assets/Tetris/Tetris_new/Tetris/src/GameState.hpp" from="99" to="134"></code-block>
+                        <code-block lang="cpp" src="assets/Tetris/Tetris_new/Tetris/src/GameState.hpp" from="99"
+                            to="134"></code-block>
                     </section>
                     <section>
-                        <h5>Tetrinoverteilung mit Bag system</h5>
-                        <p>
-                            Ein weiteres Problem von v1 war auch die Tetrinoverteilung.
-                            Teils konnten Gewisse Tetrinos 6 mal hintereinander oder garnicht kommen.
-                        </p>
-                        <p>
-                            Um das zu lösen Wurde ein "TetrinoBag" implimentiert, welcher folgendes Interface hat:
-                        </p>
-                        <code-block lang="cpp" src="assets/Tetris/Tetris_new/Tetris/src/GameState.hpp" from="34"
-                            to="48"></code-block>
-                        <p>er funktioniert: TODO: Beschreibung</p>
+                        <h5>TetrinoVerteilung mit Bag system</h5>
+                        <div class="flex grow wrap-reverse">
+                            <code-block lang="cpp" class="max-hund basis-min"
+                                src="assets/Tetris/Tetris_new/Tetris/src/GameState.hpp" from="34" to="48">
+                            </code-block>
+
+                            <p class="max-hund basis-min">
+                                Ein weiteres Problem von v1 war auch die TetrinoVerteilung.
+                                Teils konnten Gewisse Tetrinos 6 mal hintereinander oder gar nicht kommen.
+                                <br>
+                                Um das zu lösen Wurde ein "TetrinoBag" implementiert, welcher folgendes Interface hat:
+                                Das Bag system generiert immer eine unsortierte, aber vollständige Tetrino-Folge und
+                                gibt diese wie ein Iterator aus.
+                                <br>
+                                Das Garantiert eine geschmackvolle Randomisierung, in der nicht drei mal der Selbe
+                                Tetrino kommt, oder einer "vergessen" wird.
+                            </p>
+                        </div>
                     </section>
                 </section>
             </div>
