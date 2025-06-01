@@ -72,7 +72,7 @@ export function alignOrigin(obj, align) {
         alignOriginMesh(obj, align);
     } else if (obj.isGroup) {
         alignOriginGroup(obj, align);
-    } 
+    }
 }
 /**
  * 
@@ -234,7 +234,8 @@ export function hide(...scenes) {
     return {
         next: function () {
             for (const scene of scenes) {
-                scene.scale.set(0, 0, 0)
+                scene.userData.scale_before_hide = scene.scale.clone();
+                scene.scale.set(0, 0, 0);
             }
         }
     }
@@ -248,7 +249,10 @@ export function show(...scenes) {
     return {
         next: function () {
             for (const scene of scenes) {
-                scene.scale.set(1, 1, 1)
+                if (scene.userData.scale_before_hide) {
+                    scene.scale.set(scene.userData.scale_before_hide.x, scene.userData.scale_before_hide.y, scene.userData.scale_before_hide.z);
+                }
+                else { scene.scale.set(1, 1, 1); }
             }
         }
     }
@@ -405,61 +409,124 @@ export function interpolate(scene, begin, end, { duration = 1000, pos_easing = e
 }
 
 
+/**
+ * Linearly interpolates between two values.
+ * @param {number} start - Start value.
+ * @param {number} end - End value.
+ * @param {number} t - Interpolation factor [0, 1].
+ * @returns {number} Interpolated value.
+ */
 export function lerp(start, end, t) {
-    return (start + (end - start) * t);
+    return start + (end - start) * t;
 }
 
-export function square(x) {
-    return x * x;
+
+/**
+ * Creates a cubic Bézier easing function.
+ * @param {number} x1 - X of control point 1.
+ * @param {number} y1 - Y of control point 1.
+ * @param {number} x2 - X of control point 2.
+ * @param {number} y2 - Y of control point 2.
+ * @returns {(t: number) => number} Easing function that maps t in [0,1] to eased t.
+ */
+function cubicBezier(x1, y1, x2, y2) {
+    /**
+     * Cubic Bézier formula.
+     * @param {number} t - Parameter [0, 1].
+     * @param {number} p0 - First point.
+     * @param {number} p1 - First control point.
+     * @param {number} p2 - Second control point.
+     * @param {number} p3 - Last point.
+     * @returns {number}
+     */
+    function bezier(t, p0, p1, p2, p3) {
+        const u = 1 - t;
+        return u ** 3 * p0 +
+            3 * u ** 2 * t * p1 +
+            3 * u * t ** 2 * p2 +
+            t ** 3 * p3;
+    }
+
+    /**
+     * Derivative of the Bézier curve with respect to t.
+     * @param {number} t
+     * @param {number} p1
+     * @param {number} p2
+     * @returns {number}
+     */
+    function derivative(t, p1, p2) {
+        return 3 * (1 - t) ** 2 * (p1 - 0) +
+            6 * (1 - t) * t * (p2 - p1) +
+            3 * t ** 2 * (1 - p2);
+    }
+
+    /**
+     * Solves for t given x using Newton-Raphson iteration.
+     * @param {number} xTarget
+     * @param {number} [epsilon=1e-5]
+     * @returns {number}
+     */
+    function getTForX(xTarget, epsilon = 1e-5) {
+        let t = xTarget;
+        for (let i = 0; i < 8; i++) {
+            const x = bezier(t, 0, x1, x2, 1);
+            const dx = derivative(t, x1, x2);
+            if (Math.abs(x - xTarget) < epsilon) return t;
+            if (dx === 0) break;
+            t -= (x - xTarget) / dx;
+        }
+        return t;
+    }
+
+    return function (t) {
+        const solvedT = getTForX(t);
+        return bezier(solvedT, 0, y1, y2, 1);
+    };
 }
 
-export function cube(x) {
-    return x * x * x;
+/**
+ * Returns a reversed version of an easing function.
+ * @param {(t: number) => number} easeFn - Original easing function.
+ * @returns {(t: number) => number}
+ */
+function reverseEase(easeFn) {
+    return t => 1 - easeFn(1 - t);
 }
 
-export function pow(x) {
-    return Math.pow(x, x);
+/**
+ * Returns a mirrored (ping-pong) version of an easing function.
+ * @param {(t: number) => number} easeFn - Original easing function.
+ * @returns {(t: number) => number}
+ */
+function mirrorEase(easeFn) {
+    return t => {
+        if (t < 0.5) return easeFn(t * 2) * 0.5;
+        return (1 - easeFn((1 - t) * 2)) * 0.5 + 0.5;
+    };
 }
 
-export function flip(x) {
-    return 1 - x;
-}
+export const easeInOut = cubicBezier(0.42, 0, 0.58, 1);     // easeInOut
+export const easeOut = cubicBezier(0, 0, 0.58, 1);          // easeOut
+export const easeIn = cubicBezier(0.42, 0, 1, 1);           // easeIn
+export const ease = cubicBezier(.25, .1, .25, 1);           // ease
 
-export function linear(t) {
-    return t
-}
+export const reversed = reverseEase(easeInOut);
+export const mirrored = mirrorEase(easeInOut);
 
-export function easeOut(t) {
-    return flip(square(flip(t)))
-}
+export const overshoot = cubicBezier(.48, -0.04, .49, 1.1);
 
-export function easeIn(t) {
-    return square(t)
-}
 
-export function easeInOut(t) {
-    return lerp(easeIn(t), easeOut(t), t);
-}
+export const easeInCirc = cubicBezier(0.55, 0, 1, 0.45)
+export const easeOutCirc = cubicBezier(0, 0.55, 0.45, 1)
+export const easeInOutCirc = cubicBezier(0.85, 0, 0.15, 1)
 
-export function easeInCubic(t) {
-    return Math.pow(t, 3);
-}
-export function easeOutCubic(t) {
-    return flip(easeInCubic(flip(t)));
-}
-export function easeInOutCubic(t) {
-    return lerp(easeInCubic(t), easeOutCubic(t), t);
-}
 
-export function easeInCirc(t) {
-    return 1 - Math.sqrt(1 - Math.pow(t, 2));
-}
-export function easeOutCirc(t) {
-    return Math.sqrt(1 - Math.pow(t - 1, 2));
-}
-export function easeInOutCirc(t) {
-    return lerp(easeInCirc(t), easeOutCirc(t), t);
-}
-export function easeInOutQuad(x) {
-    return x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2;
+function easeOutElastic(x) {
+    const c4 = (2 * Math.PI) / 3;
+
+    return x === 0
+        ? 0
+        : x === 1
+            ? 1
+            : Math.pow(2, -10 * x) * Math.sin((x * 10 - 0.75) * c4) + 1;
 }

@@ -1,6 +1,10 @@
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { THREE, add, addLight, combine, easeIn, easeInCirc, easeInOut, easeOut, easeOutCirc, fade, hide, interpolate, lerp, remove, resize, show, wait } from "../three_utils.mjs";
+import {
+    THREE, addLight,
+    add, combine, fade, hide, interpolate, remove, resize, show, wait,
+    easeIn, overshoot, easeInCirc, easeInOut, easeOut, easeOutCirc, lerp,
+} from "../three_utils.mjs";
 import { pause_icon, play_icon } from "../script.mjs";
 /** @import {Animation, AnimationState, FadeType} from "../three_utils.mjs" */
 
@@ -262,9 +266,18 @@ function slidePhonesIn(primary, ...phones) {
 
         //TODO: move other phones relatively
         phones.forEach((phone, i) => {
-            phone.position.lerpVectors(beginState.pos, endState.pos, easeInOut(percent));
-            phone.quaternion.slerpQuaternions(beginState.rot, endState.rot, easeInOut(percent));
-            phone.scale.lerpVectors(beginState.scale, endState.scale, easeInOut(percent));
+            let startPos = beginState.pos;
+            let startRot = beginState.rot;
+            let startScale = new THREE.Vector3(0.25,0.25,0.25);
+            let endPos = endState.pos.clone().setX(-1);
+            let endRot = endState.rot;
+            let endScale = new THREE.Vector3(0.25, 0.25, 0.25);
+            if (i & 1 === 1) {
+                startPos.setY(-startPos.y);
+            }
+            phone.position.lerpVectors(startPos, endPos, easeInOut(percent));
+            phone.quaternion.slerpQuaternions(startRot, endRot, easeInOut(percent));
+            phone.scale.lerpVectors(startScale, endScale, easeInOut(percent));
         });
 
         if (Math.abs(duration - _internalState.cur_duration) < 0.1) {
@@ -290,8 +303,8 @@ function HeroAnimation(scene) {
         tiltWatch(watchScene),
         wait(500),
         moveWatchAway(watchScene),
-        combine(remove(scene, watchScene), add(scene, phoneScene, ...phones)),
-        slidePhonesIn(phoneScene, ...phones),
+        combine(remove(scene, watchScene), ),
+        combine(add(scene, phoneScene, ...phones), slidePhonesIn(phoneScene, ...phones)),
         wait(5000),
         hide(scene),
         fadeBGImg("In"),
