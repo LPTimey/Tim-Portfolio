@@ -439,6 +439,30 @@
         display: flex;
         gap: var(--gap, 1ch);
 
+        &:where(.a-start) {
+            align-items: start;
+        }
+
+        &:where(.a-center) {
+            align-items: center;
+        }
+
+        &:where(.a-end) {
+            align-items: end;
+        }
+
+        &:where(.j-start) {
+            justify-content: start;
+        }
+
+        &:where(.j-center) {
+            justify-content: center;
+        }
+
+        &:where(.j-end) {
+            justify-content: end;
+        }
+
         &:where(.column) {
             flex-direction: column;
         }

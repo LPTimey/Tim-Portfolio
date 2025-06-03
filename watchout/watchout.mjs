@@ -268,7 +268,7 @@ function slidePhonesIn(primary, ...phones) {
         phones.forEach((phone, i) => {
             let startPos = beginState.pos;
             let startRot = beginState.rot;
-            let startScale = new THREE.Vector3(0.25,0.25,0.25);
+            let startScale = new THREE.Vector3(0.25, 0.25, 0.25);
             let endPos = endState.pos.clone().setX(-1);
             let endRot = endState.rot;
             let endScale = new THREE.Vector3(0.25, 0.25, 0.25);
@@ -303,7 +303,7 @@ function HeroAnimation(scene) {
         tiltWatch(watchScene),
         wait(500),
         moveWatchAway(watchScene),
-        combine(remove(scene, watchScene), ),
+        combine(remove(scene, watchScene),),
         combine(add(scene, phoneScene, ...phones), slidePhonesIn(phoneScene, ...phones)),
         wait(5000),
         hide(scene),
@@ -457,9 +457,10 @@ async function initInfoSpin() {
 }
 
 async function main() {
-    startButton.innerHTML = play_icon;
-    startButton.setAttribute("data-state", "play");
-    startButton.addEventListener("click", initHero);
+    // startButton.innerHTML = play_icon;
+    // startButton.setAttribute("data-state", "play");
+    // startButton.addEventListener("click", initHero);
+    startButton.style.visibility = "hidden";
     initInfoSpin();
 }
 

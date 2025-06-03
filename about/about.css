@@ -21,9 +21,13 @@
 .category {
     width: fit-content;
 }
+main{
+    margin-top: 5rem;
+}
 
 .section {
-    --margin: 4rem;
+    --margin: 1rem;
+    margin-block: var(--margin);
 
     &:nth-child(1) {
         margin-bottom: var(--margin);
@@ -31,6 +35,9 @@
 
     &:nth-child(2) {
         margin-top: var(--margin);
+    }
+    &:last-child{
+        margin-bottom: 5rem;
     }
 }
 
@@ -62,14 +69,16 @@
     }
 }
 
-#LeistungenWerdegangWrapper{
+#LeistungenWerdegangWrapper {
     row-gap: var(--margin-b);
+
     section {
         display: grid;
         grid-template-rows: subgrid;
         grid-row: span 2;
         row-gap: var(--fmb-medium);
-        .card{
+
+        .card {
             height: 100%;
             align-items: center;
         }

@@ -64,13 +64,13 @@ constexpr uint8_t positive_mod(int value, int mod) {
 typedef uint8_t Buttons;
 
 enum class Button : uint8_t {
-    Up = 1 << 1,
-    Down = 1 << 2,
-    Left = 1 << 3,
-    Right = 1 << 4,
-    Turn_Left = 1 << 5,
-    Turn_Right = 1 << 6,
-    Swap = 1 << 7,
+    Up = 1 << 0,
+    Down = 1 << 1,
+    Left = 1 << 2,
+    Right = 1 << 3,
+    Turn_Left = 1 << 4,
+    Turn_Right = 1 << 5,
+    Swap = 1 << 6,
     Max_Button,
 };
 Buttons operator|(Button b1, Button b2);

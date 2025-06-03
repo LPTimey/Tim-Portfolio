@@ -54,41 +54,21 @@
         </section>
         <section class="section">
             <h2 class="heading large margin-b">Umsetzung</h2>
-            <!-- TODO: Add Ausformulierung -->
             <div class="content">
                 <section>
                     <h3 class="medium margin-b">Code</h3>
-                    <section>
-                        <h4 class="medium margin-b">v1.0</h4>
-                        <p>
-                            Für den Hackathon, habe ich eine Tetris Bibliothek in Cpp entwickelt.
-                            Diese basierte auf dem template struct
+
+                    <div class="flex grow shrink wrap">
+                        <p style="flex-basis:40ch;">
+                            Für den Hackathon, habe ich eine Tetris Bibliothek in C++ entwickelt.
+                            Diese basiert auf
                             <a href="#GameStateOld" class="link link-active underline"
                                 hover-border-target="GameStateOld">GameState</a>
                             welches alle wichtigen Daten einer runde
-                            speicherte und eine Tick-Methode bereitstellte um das spiel zu treiben.
-                            Es hat auch eine Methode bereitgestellt um das aktuelle Feld entweder als string oder liste
-                            zu
-                            bekommen um es anzeigen zu können.
-                        </p>
-                        <p>
-                            Um die Nutzereingabe zu lesen werden 2 Typen exportiert:
-                            <a href="#Buttons" class="link link-active underline" hover-border-target="Buttons">
-                                Buttons und Button</a>.
-                            <a href="#Buttons" class="link link-active underline"
-                                hover-border-target="Buttons">Button</a>
-                            ist ein
-                            Enum welches alle Knöpfe auflistet und je einem Bit in einem Byte zuordnet, sodass alle
-                            möglichen Eingaben gleichzeitig und speichersparend verarbeitet werden können, da sie nun in
-                            einen Byte <a href="#Buttons" class="link link-active underline"
-                                hover-border-target="Buttons">(Buttons)</a> passen. Das ermöglicht
-                            schnelle Abfragen und kompakte Logik.
-                            Man kann sich dieses Flaggen-System vorstellen wie 8 boolesche Werte in einer Variable.
-                            Man kann diese Werte mit Bit shifts ( << ) und Bit-Oder ( | ) setzen und mit Bit shifts und
-                                Bit-Und ( & ) lesen. <sub><a href="https://de.wikipedia.org/wiki/Bitweiser_Operator"
-                                    target="_blank" class="link underline link-active">(Mehr Dazu)</a></sub>
-                        </p>
-                        <p>
+                            speichert und Tick-Methoden bereitstellt um das spiel zu treiben.
+                            Es stellt auch eine Methode bereit, um das aktuelle Feld entweder
+                            als String oder Liste zu bekommen und es anzeigen zu können.
+
                             Die einzelnen <a href="TetrinoOld" class="link link-active underline"
                                 hover-border-target="TetrinoOld">Tetrinos</a> sind in einem Enum als Indexe zu einem
                             <span hover-border-target="TetArrayMetaBlock"><a href="#TetArrayMetaBlock"
@@ -99,203 +79,140 @@
                             Um auch <a href="#PosRot" hover-border-target="PosRot"
                                 class="link link-active underline">Position & Rotation</a> zu speicher wird <a
                                 href="#TetPos" hover-border-target="TetPos"
-                                class="link link-active underline">TetPos</a> benutzt.
+                                class="link link-active underline">TetPos</a>
+                            benutzt.
                         </p>
-                        <!-- <p hover-border-targets="GameStateOld, Buttons">
-                            Lorem ipsum dolor sit
-                        </p> -->
-                        <div class="flex column margin-b-medium max-hund" style="--gap: 1ch;">
-                            <div class="flex wrap-reverse grow max-hund">
-                                <!-- GameState Old -->
-                                <code-block no-todo id="GameStateOld" lang="cpp" class="no-shrink basis max-hund"
-                                    src="assets/Tetris/Tetris_old/libraries/GameState.h" from="68" to="86">
-                                    <pre>
-};
-                                    </pre>
-                                </code-block>
-                                <div class="flex grow wrap min max-hund">
-                                    <!-- Buttons Old -->
-                                    <code-block no-todo lang="cpp" id="Buttons">
-                                        <pre>
-                                            typedef uint8_t Buttons;
-                                            enum class Button : uint8_t {
-                                              TurnLeft = 1,   // 00000001
-                                              TurnRight = 2,  // 00000010
-                                              Up = 4,         // 00000100
-                                              Down = 8,       // 00001000
-                                              Left = 16,      // 00010000
-                                              Right = 32,     // 00100000
-                                              Swap = 64,      // 01000000
-                                            };
-                                        </pre>
-                                    </code-block>
-                                    <!-- Vec2 & Rotation Old -->
-                                    <code-block no-todo id="PosRot" lang="cpp" id="PositionRotation">
-                                        <pre>
-                                            struct Vec2 {
-                                              int8_t x, y;
-                                            };
-                                            enum class Rotation : uint8_t {
-                                              None = 0,
-                                              CounterClock = 1,
-                                              Mirror = 2,
-                                              Clock = 3,
-                                            };
-                                        </pre>
-                                    </code-block>
-                                    <!-- TetPos Old -->
-                                    <code-block no-todo id="TetPos" lang="cpp"
-                                        src="assets/Tetris/Tetris_old/libraries/GameState.h" from="54" to="59">
-                                        <pre>
-};
-                                        </pre>
-                                    </code-block>
-                                    <!-- Tetrino Old -->
-                                    <code-block no-todo id="TetrinoOld" lang="cpp" prefix
-                                        src="assets/Tetris/Tetris_old/libraries/GameState.h" from="14" to="22">
-                                        <pre>
-// Index für Array
-                                        </pre>
-                                    </code-block>
-                                </div>
-                            </div>
-                            <div id="TetArrayMetaBlock" style="border-radius: var(--border-r);">
-                                <code-block no-todo lang="cpp" src="assets/Tetris/Tetris_old/libraries/GameState.h"
-                                    from="43" prefix to="47">// ... Die anderen Tetrinos ...</code-block>
-                                <code-block no-todo lang="cpp">
-                                    <pre>
-                                    // ... Die anderen Tetrinos ...
-                                    static constexpr const std::array&lt;Vec2, 4&gt; T = { Vec2{0, 0}, {0, -1}, {-1, 0}, {1, 0} };
-                                    static constexpr const std::array&lt;Vec2, 4&gt; Tetrinos[] = { L, R_L, I, Z, R_Z, B, T };
-                                    </pre>
-                                </code-block>
-                            </div>
-                        </div>
-
-                        <div>
-                            <p>Diese Version hatte noch viele Probleme</p>
-                            <ol>
-                                <li>
-                                    Sie basierte auf Cpp Standard Arrays, welche in vielen Arduinos nicht unterstützt
-                                    sind.
-                                </li>
-                                <li>
-                                    Es gab keine Trennung von Nutzereingabe (Links/Rechts etc.) und
-                                    Spieländerung (dem natürlichen Fallen), da es nur eine Tick-Methode gab.
-                                </li>
-                                <li>
-                                    Die Randomisierung ließ zu wünschen übrig.
-                                </li>
-                            </ol>
-                        </div>
-                    </section>
-                </section>
-
-                <section>
-                    <h4>Nachbereitung</h4>
-                    <div>
-                        <p>
-                            Als Nachbereitung habe ich eine zweite Version entwickelt.
-                            Bei dieser Version hatte ich die Möglichkeit die oben genannten Fahler zu beheben.
-                            Deshalb habe ich auf folgendes geachtet
+                        <p style="flex-basis:40ch;">
+                            Um die Nutzereingabe zu lesen werden 2 Typen exportiert:
+                            <a href="#Buttons" class="link link-active underline" hover-border-target="Buttons">
+                                Buttons und Button</a>.
+                            <a href="#Buttons" class="link link-active underline"
+                                hover-border-target="Buttons">Button</a>
+                            ist ein Enum welches alle Knöpfe auflistet und je einem Bit in einem Byte zuordnet, sodass
+                            alle
+                            möglichen Eingaben gleichzeitig und speichersparend verarbeitet werden können, da sie nun in
+                            einen Byte <a href="#Buttons" class="link link-active underline"
+                                hover-border-target="Buttons">(Buttons)</a> passen.
+                            Das ermöglicht
+                            schnelle Abfragen und kompakte Logik.
+                            Man kann sich dieses Flaggen-System vorstellen wie 8 boolesche Werte in einer Variable.
+                            Man kann diese Werte mit Bit shifts ( << ) und Bit-Oder ( | ) setzen und mit Bit shifts und
+                                Bit-Und ( & ) lesen. <sub><a href="https://de.wikipedia.org/wiki/Bitweiser_Operator"
+                                    target="_blank" class="link underline link-active">(Mehr Dazu)</a></sub>
                         </p>
-                        <ul>
-                            <li>So wenig Cpp STL wie möglich</li>
-                            <li>Separierung von Spieler-Eingabe-Physik und Idle-Physik</li>
-                            <li>Bessere Tetrinoverteilung</li>
-                        </ul>
                     </div>
-                    <section>
-                        <h5>Cpp STL</h5>
-                        <p>
-                            Da ich mich von std::array getrennt habe musste ich eine andere Speichermethode finden.
-                        </p>
-                        <p>Die simple Änderung wären C-Style Arrays, welche TODO:.</p>
-                        <p>
-                            Eine andere Option wäre eine BitListe.
-                            TODO: Erklärung
-                        </p>
-                        <!-- TODO: Illustration BitListe -->
-                        <!-- <canvas id="BitListAnimation"></canvas> -->
-                        <!-- TODO: Vor/Nachteile -->
+                    <div class="flex column margin-b-medium max-hund" style="--gap: 1ch;">
+                        <div class="flex wrap-reverse grow max-hund">
+                            <!-- GameState -->
+                            <code-block no-todo id="GameStateOld" lang="cpp" class="shrink basis max-hund">
+                                <pre>
+                                    class GameState {
+                                      struct M {
+                                        uint8_t field[Width * Height];
+                                        Option&lt;TetPos&gt; current;
+                                        Tetrino nexts[3];
+                                        TetrinoBag bag;
+                                        size_t score = 0;
+                                      } m;
 
-                        <p>
-                            Letzten Endes habe ich mich für C-Style Arrays entschieden, da performance kein Problem
-                            war und ich die Tetris Größe nicht einschränken will.
-                        </p>
-                    </section>
-                    <section>
-                        <h5>neue dual tick Architektur</h5>
-                        <p>
-                            Da bei v1 die PlayerAction und GameAction zusammen ausgeführt wurden, war weder eine
-                            Schwierigkeitsanpassung möglich noch war es möglich Die SpielerEingabe oft genug abzufragen
-                            um das spiel flüssig zu machen, da sonst alle Blöcke viel zu schnell fallen würden.
-                        </p>
-                        <p>
-                            Deswegen gibt es nun 2 Tick-Funktionen: game_tick und player_tick
-                        </p>
-                        <!-- <code-block lang="diff">
-                            <pre>
--template &lt;size_t H, size_t W&gt; struct GameState {
-+class GameState {
-+   struct M {
--   std::array&lt;uint8_t, H * W&gt; blocks;
--   std::array&lt;Tetrino, 3&gt; nexts;
--   TetPos current_tet;
-+       uint8_t field[Width * Height]; // Width & Height are #define d
-+       Tetrino nexts[3];
-+       Option&lt;TetPos&gt; current;
-+   } m;
+                                      GameState() = delete;
+                                      GameState(M&& members);
 
--   bool placed;
--   const bool debug;
--   constexpr static const size_t height = H;
--   constexpr static const size_t width = W;
-
--   GameState();
--   GameState(bool debug);
-+   GameState() = delete;
-+   GameState(M&& members);
-
-    Tetrino get_next();
--   static Tetrino new_next();
-+   static void set_nexts(Tetrino (&nexts)[3]);
-
-+public:
-    bool isGameOver();
-+   static GameState create();
--   std::array&lt;uint8_t, W * H&gt; get_curr_field();
-+   auto field_with_floating() -> uint8_t (&)[Width * Height];
--   bool tick(uint8_t buttons);
-+   bool game_tick();
-+   bool player_tick(Buttons buttons);
-
-};
-                         </pre>
-                        </code-block> -->
-                        <code-block lang="cpp" src="assets/Tetris/Tetris_new/Tetris/src/GameState.hpp" from="99"
-                            to="134"></code-block>
-                    </section>
-                    <section>
-                        <h5>TetrinoVerteilung mit Bag system</h5>
-                        <div class="flex grow wrap-reverse">
-                            <code-block lang="cpp" class="max-hund basis-min"
-                                src="assets/Tetris/Tetris_new/Tetris/src/GameState.hpp" from="34" to="48">
+                                    public:
+                                      static GameState create();
+                                      bool is_game_over();
+                                      bool game_tick();
+                                      bool player_tick(Buttons buttons);
+                                      auto field_with_floating
+                                        (uint8_t (&arr)[Width * Height]);
+                                      int32_t to_string
+                                        (char (&str)[Width*Height*2 + 1]);
+                                    };
+                                </pre>
                             </code-block>
+                            <div class="flex grow wrap min max-hund">
+                                <!-- Buttons -->
+                                <code-block no-todo lang="cpp" id="Buttons">
+                                    <pre>
+                                        typedef uint8_t Buttons;
+                                        enum class Button: Buttons {
+                                          TurnLeft  = 1, // 00000001
+                                          TurnRight = 2, // 00000010
+                                          Up    =  4,    // 00000100
+                                          Down  =  8,    // 00001000
+                                          Left  = 16,    // 00010000
+                                          Right = 32,    // 00100000
+                                          Swap  = 64,    // 01000000
+                                          Max_Button,    // Wie .len
+                                        };
+                                    </pre>
+                                </code-block>
+                                <!-- Vec2 & Rotation -->
+                                <code-block no-todo id="PosRot" lang="cpp" id="PositionRotation">
+                                    <pre>
+                                        struct Vec2 {
+                                          int8_t x, y;
+                                        };
 
-                            <p class="max-hund basis-min">
-                                Ein weiteres Problem von v1 war auch die TetrinoVerteilung.
-                                Teils konnten Gewisse Tetrinos 6 mal hintereinander oder gar nicht kommen.
-                                <br>
-                                Um das zu lösen Wurde ein "TetrinoBag" implementiert, welcher folgendes Interface hat:
-                                Das Bag system generiert immer eine unsortierte, aber vollständige Tetrino-Folge und
-                                gibt diese wie ein Iterator aus.
-                                <br>
-                                Das Garantiert eine geschmackvolle Randomisierung, in der nicht drei mal der Selbe
-                                Tetrino kommt, oder einer "vergessen" wird.
-                            </p>
+                                        enum class Rotation: uint8_t {
+                                          None   = 0,       //   0°
+                                          CounterClock = 1, //  90°
+                                          Mirror = 2,       // 180°
+                                          Clock  = 3,       // 270°
+                                          Max_Rotation // für Modulo
+                                        };
+                                    </pre>
+                                </code-block>
+                                <!-- TetPos -->
+                                <code-block no-todo id="TetPos" lang="cpp">
+                                    <pre>
+                                        struct TetPos {
+                                          Tetrino cur;
+                                          Vec2 cur_pos;
+                                          Rotation rot;
+
+                                          auto get_indexes()
+                                            -> ptrdiff_t (&)[4];
+                                        };
+                                    </pre>
+                                </code-block>
+                                <!-- Tetrino -->
+                                <code-block no-todo id="TetrinoOld" lang="cpp">
+                                    <pre>
+                                        // Index für Array
+                                        enum class Tetrino: uint8_t {
+                                          L   = 0, // -> Tetrinos[0]
+                                          R_L = 1, // -> Tetrinos[1]
+                                          I   = 2, // -> Tetrinos[2]
+                                          Z   = 3, // -> Tetrinos[3]
+                                          R_Z = 4, // -> Tetrinos[4]
+                                          B   = 5, // -> Tetrinos[5]
+                                          T   = 6, // -> Tetrinos[6]
+                                          NrOfTetrinos, // Wie .len
+                                        };
+                                    </pre>
+                                </code-block>
+                            </div>
                         </div>
-                    </section>
+                        <div id="TetArrayMetaBlock" style="border-radius: var(--border-r);">
+                            <code-block no-todo lang="cpp">
+                                <pre>
+                                // ... Die anderen Tetrinos ...
+                                constexpr Vec2 T[] =
+                                    { {0, 0}, {0, -1}, {-1, 0}, {1, 0} };
+                                constexpr Vec2* Tetrinos[] =
+                                    { L, R_L, I, Z, R_Z, B, T };
+                                </pre>
+                            </code-block>
+                            <code-block no-todo lang="cpp">
+                                <pre>
+                                    // ... Die anderen Tetrinos ...
+                                    constexpr Vec2 T[] = { {0, 0}, {0, -1}, {-1, 0}, {1, 0} };
+                                    constexpr Vec2* Tetrinos[] = { L, R_L, I, Z, R_Z, B, T };
+                                    </pre>
+                            </code-block>
+                        </div>
+                    </div>
                 </section>
             </div>
         </section>
@@ -304,7 +221,7 @@
             <div class="content margin-b-medium">
                 <img src="./assets/Tetris/Tetris_Steckplatine.png" alt="Schematic">
                 <!-- TODO: BentoLayout -->
-                <!-- Arduino Old -->
+                <!-- Arduino -->
                 <div class="flex wrap grow shrink basis max-hund margin-b-medium" style="--gap:1ch;">
                     <!-- Includes -->
                     <!-- <code-block no-todo lang="ino" src="assets/Tetris/Tetris_old/Tetris.ino" from="2" to="7">
@@ -355,14 +272,19 @@
                                 class="link underline link-active">Download</a>)</p>
                     </li>
                     <li>
-                        <p>Ein C & Cpp Compiler wie clang</p>
+                        <p>clang++ C/C++ Compiler</p>
                     </li>
                 </ul>
                 <h3>Step by Step</h3>
                 <ol>
                     <li>Go to Project Folder</li>
-                    <li>Build nob.c (= buildsystem) to nob executable <code-block no-pre lang="bash">clang -o nob
-                            nob.c</code-block></li>
+                    <li>Build nob.c (= buildsystem) to nob executable 
+                        <br>
+                        Unix:
+                        <code-block no-pre lang="bash">clang -o nob nob.c</code-block>
+                        Windows:
+                        <code-block no-pre lang="bash">clang -o nob.exe nob.c</code-block>
+                    </li>
                     <li>run nob executable</li>
                 </ol>
             </div>

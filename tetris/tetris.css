@@ -50,7 +50,7 @@ canvas {
     :first-child {
         display: none;
 
-        @container meta-box (width < 105ch) {
+        @container meta-box (width < 70ch) {
             display: block;
         }
     }
@@ -58,7 +58,7 @@ canvas {
     :last-child {
         display: block;
 
-        @container meta-box (width < 105ch) {
+        @container meta-box (width < 70ch) {
             display: none;
         }
     }
