@@ -24,7 +24,7 @@ export default class x extends HTMLElement {
         }
         switch (name) {
             case "X": {
-                let hero = this.shadowRoot.querySelector("Y");
+                let hero = this.shadowRoot?.querySelector("Y");
                 hero?.setAttribute("X", newValue);
                 break;
             }
@@ -35,6 +35,7 @@ export default class x extends HTMLElement {
         return;
     }
     connectedCallback() {
+        // @ts-ignore
         this.shadowRoot.innerHTML = style + template;
     }
     constructor() {

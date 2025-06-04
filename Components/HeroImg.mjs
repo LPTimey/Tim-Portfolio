@@ -2,6 +2,17 @@
 import { css, html } from "../script.mjs";
 import ScrollImage from "./ScrollImg.mjs";
 
+/**
+ * 
+ * @param {string?} [src] - Bildquelle (URL oder Pfad).
+ * @param {string?} [alt] - Alternativtext für das Bild.
+ * @param {(string | number)?} [time] - Zeitwert, der ggf. als Attribut übergeben wird.
+ * @param {(string | number)?} [cols] - Anzahl der Spalten für das Grid-Layout.
+ * @param {(string | number)?} [rows] - Anzahl der Zeilen für das Grid-Layout.
+ * @param {string?} [bg] - Hintergrund CSS des Containers (Standard: "white").
+ * @param {string?} [imgStyle] - Inline-Stil für das `<img>`-Tag oder `img-style`-Attribut bei `<scroll-img>`.
+ * @returns 
+ */
 const template = (src, alt, time, cols, rows, bg, imgStyle) => html`
 ${(src || alt) && (cols || rows) ?
         html`<scroll-img src="${src}" alt="${alt ?? ""}" id="HeroImage" ${!!time ? html`time="${time}"` : ""} cols="${cols ?? "1"}" rows="${rows ?? "1"}" bg="${bg ?? "white"}" img-style="${imgStyle ?? ""}"></scroll-img>`
@@ -9,6 +20,11 @@ ${(src || alt) && (cols || rows) ?
 <slot></slot>
 `;
 
+/**
+ * 
+ * @param {string?} bg - Hintergrund CSS des Containers.
+ * @returns 
+ */
 const style = (bg) => css`
 @import "setup.css";
 :host{
@@ -50,40 +66,40 @@ export default class HeroImg extends HTMLElement {
         // console.log(name, oldValue, newValue);
         switch (name) {
             case "src": {
-                let hero = this.shadowRoot.querySelector("#HeroImage");
+                let hero = this.shadowRoot?.querySelector("#HeroImage");
                 hero?.setAttribute("src", newValue);
                 break;
             }
             case "alt": {
-                let hero = this.shadowRoot.querySelector("#HeroImage");
+                let hero = this.shadowRoot?.querySelector("#HeroImage");
                 hero?.setAttribute("alt", newValue);
                 break;
             }
             case "bg": {
-                let hero = this.shadowRoot.querySelector("scroll-img#HeroImage");
+                let hero = this.shadowRoot?.querySelector("scroll-img#HeroImage");
                 hero?.setAttribute("bg", newValue);
                 break;
             }
             case "time": {
-                let hero = this.shadowRoot.querySelector("scroll-img#HeroImage");
+                let hero = this.shadowRoot?.querySelector("scroll-img#HeroImage");
                 hero?.setAttribute("time", newValue);
                 break;
             }
             case "cols": {
-                let hero = this.shadowRoot.querySelector("scroll-img#HeroImage");
+                let hero = this.shadowRoot?.querySelector("scroll-img#HeroImage");
                 hero?.setAttribute("cols", newValue);
                 break;
             }
             case "rows": {
-                let hero = this.shadowRoot.querySelector("scroll-img#HeroImage");
+                let hero = this.shadowRoot?.querySelector("scroll-img#HeroImage");
                 hero?.setAttribute("rows", newValue);
                 break;
             }
             case "img-style": {
-                let hero = this.shadowRoot.querySelector("scroll-img#HeroImage");
+                let hero = this.shadowRoot?.querySelector("scroll-img#HeroImage");
                 hero?.setAttribute("img-style", newValue);
                 if (!hero) {
-                    let hero = this.shadowRoot.querySelector("img#HeroImage");
+                    let hero = this.shadowRoot?.querySelector("img#HeroImage");
                     hero?.setAttribute("style", newValue);
                 }
                 break;
@@ -95,6 +111,7 @@ export default class HeroImg extends HTMLElement {
         return;
     }
     connectedCallback() {
+        // @ts-ignore
         this.shadowRoot.innerHTML = style(this.getAttribute("bg")) + template(this.getAttribute("src"), this.getAttribute("alt"), this.getAttribute("time"), this.getAttribute("cols"), this.getAttribute("rows"), this.getAttribute("bg"), this.getAttribute("img-style"));
     }
     constructor() {

@@ -1,4 +1,11 @@
 "use strict";
+/**
+ * A no-op template tag function that simply interpolates the given strings and values.
+ *
+ * @param {TemplateStringsArray} strings - Array of literal strings.
+ * @param {...any} values - Interpolated values.
+ * @returns {string} The fully interpolated string.
+ */
 export function noOpTag(strings, ...values) {
     // Füge alle Strings zusammen und setze Werte in den Platzhalter ein
     /** @type {string} */
@@ -9,14 +16,29 @@ export function noOpTag(strings, ...values) {
     }, '');
     return res;
 }
-
+/**
+ *
+ * @param {TemplateStringsArray} strings - Array of literal strings.
+ * @param {...any} values - Interpolated values.
+ * @returns {string} The fully interpolated string.
+ */
 export function css(strings, ...values) {
     return "<style>" + noOpTag(strings, ...values) + "</style>";
 }
+/**
+ *
+ * @param {TemplateStringsArray} strings - Array of literal strings.
+ * @param {...any} values - Interpolated values.
+ * @returns {string} The fully interpolated string.
+ */
 export function html(strings, ...values) {
     return noOpTag(strings, ...values);
 }
-
+/**
+ * 
+ * @param {string} jsonc 
+ * @returns {Object}
+ */
 export function parseJSONC(jsonc) {
     // Entfernt einzeilige Kommentare: //
     jsonc = jsonc.replace(/\/\/.*$/gm, '');
@@ -42,48 +64,55 @@ export function replaceLast(str, search, replace) {
 }
 
 /**
- * 
- * @param {string} text 
- * @param {string} [from?] im Format "Zeile:Spalte" 0 indiziert
- * @param {string} [to?] im Format "Zeile:Spalte" 0 indiziert
+ * Schneidet einen Bereich aus dem Text basierend auf Zeilen- und Spaltenangaben.
+ *
+ * @param {string} text - Der vollständige Text.
+ * @param {string} [from] - Startposition im Format "Zeile:Spalte" (0-basiert).
+ * @param {string} [to] - Endposition im Format "Zeile:Spalte" (0-basiert, exklusiv).
  * @returns {string}
  */
 export function extractRangeByLineColumn(text, from, to) {
-    let [fromLine, fromCol] = [null, null];
-    let [toLine, toCol] = [null, null];
-    if (!from && !to) {
-        return text;
-    }
+    /** @type {[number, number]} */
+    let [fromLine, fromCol] = [0, 0];
+    /** @type {[number, number]} */
+    let [toLine, toCol] = [Infinity, Infinity];
+
     if (from) {
-        [fromLine, fromCol] = from.split(':').map(str => str.trim()).map(Number || null);
+        const [line, col] = from.split(':').map(Number);
+        if (!isNaN(line)) fromLine = line;
+        if (!isNaN(col)) fromCol = col;
     }
+
     if (to) {
-        [toLine, toCol] = to.split(':').map(str => str.trim()).map(Number || null);
+        const [line, col] = to.split(':').map(Number);
+        if (!isNaN(line)) toLine = line;
+        if (!isNaN(col)) toCol = col;
     }
 
-    // TODO: Fehlerbehandlung: Indexbereich prüfen
+    const lines = text.split('\n');
+    const selected = lines.slice(fromLine, toLine + 1);
 
-    const lines = text.split('\n').map((str, i) => { return { str, i } });
+    if (selected.length === 0) return "";
 
-    let result;
+    // erste Zeile ab fromCol kürzen
+    selected[0] = selected[0].substring(fromCol);
 
-    result = lines
-        .filter(obj => obj.i >= fromLine ?? 0)
-        .filter(obj => toLine ? (obj.i <= toLine) : true)
-    //FIXME: indexingdoesn't work because of filter nee obj.i
+    // letzte Zeile auf toCol kürzen (nur wenn fromLine ≠ toLine)
+    const lastIdx = selected.length - 1;
+    if (fromLine !== toLine && lastIdx >= 0) {
+        selected[lastIdx] = selected[lastIdx].substring(0, toCol);
+    } else if (fromLine === toLine) {
+        // Sonderfall: einzeilige Auswahl
+        selected[0] = selected[0].substring(0, toCol - fromCol);
+    }
 
-    let fromLineIndex = result.findIndex(obj => obj.i == fromLine ?? 0);
-    let toLineIndex = result.findIndex(obj => toLine ? (obj.i <= toLine) : false);
-    result[fromLineIndex].str = result[fromLineIndex].str.substring(fromCol ?? 0);
-    if (toCol && toLineIndex >= 0) result[toLineIndex].str = result[toLineIndex].str.substring(0, toCol);
-
-    return result.map(obj => obj.str).join("\n");
+    return selected.join('\n');
 }
 
 /**
  * @template T
  * @template K
- * @param {Element} el 
+ * @param {HTMLElement?} el 
  * @param {T} light 
  * @param {K} dark 
  * @returns {light | dark}
@@ -93,7 +122,7 @@ export function lightDark(el, light, dark) {
     let closestThemeElement = null;
 
     while (el) {
-        if (el.classList?.contains('light') || el.classList?.contains('dark') || el.classList?.contains('system')) {
+        if (el.classList.contains('light') || el.classList.contains('dark') || el.classList.contains('system')) {
             closestThemeElement = el;
             break;
         }
@@ -147,28 +176,37 @@ const tooltips = document.querySelectorAll("[data-tooltip]")
 tooltips.forEach((el) => {
     let tooltip = document.createElement("div");
     tooltip.classList.add("tooltip");
-    tooltip.innerHTML = el.getAttribute("data-tooltip");
+    tooltip.innerHTML = el.getAttribute("data-tooltip") ?? "";
     el.appendChild(tooltip);
 });
 // console.log(tooltips)
 
 const [...hoverBorderTargets] = document.querySelectorAll("[hover-border-target]");
-hoverBorderTargets.map(el => [el, document.getElementById(el.getAttribute("hover-border-target"))]).forEach(
-    /** @param {[HTMLElement,HTMLElement|null]} param0 */
-    ([el, target]) => {
-        el.addEventListener("mouseenter", () => {
-            target?.classList.add("accent-border");
+hoverBorderTargets
+    .map(el => {
+        /** @type {[Element, HTMLElement|null]} */
+        const ret = [el, document.getElementById(el.getAttribute("hover-border-target") ?? "")]
+        return ret
+    })
+    .forEach(
+        ([el, target]) => {
+            el.addEventListener("mouseenter", () => {
+                target?.classList.add("accent-border");
+            });
+            el.addEventListener("mouseleave", () => {
+                target?.classList.remove("accent-border");
+            })
         });
-        el.addEventListener("mouseleave", () => {
-            target?.classList.remove("accent-border");
-        })
-    });
 
 const [...hoverBorderMultiTargets] = document.querySelectorAll("[hover-border-targets]");
 hoverBorderMultiTargets
-    .map(el => [el, el.getAttribute("hover-border-targets").split(",").map(str => str.trim()).map(str => document.getElementById(str))])
+    .map(el => {
+        /** @type {[Element,(HTMLElement|null)[]]} */
+        const res = [el, (el.getAttribute("hover-border-targets") ?? "").split(",").map(str => str.trim()).map(str => document.getElementById(str))];
+        return res
+    })
     .forEach(
-        /** @param {[HTMLElement,[HTMLElement|null]]} param0 */
+        /** @param {[Element,(HTMLElement|null)[]]} param0 */
         ([el, targets]) => {
             console.log(targets)
             el.addEventListener("mouseenter", () => {

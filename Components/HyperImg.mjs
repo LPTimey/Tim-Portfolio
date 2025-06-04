@@ -1,4 +1,5 @@
 "use strict";
+// @ts-ignore
 import { css, html, parseJSONC } from "../script.mjs";
 
 /**
@@ -23,6 +24,7 @@ import { css, html, parseJSONC } from "../script.mjs";
  * @extends {Event}
  */
 class PressEvent extends Event {
+    // @ts-ignore
     static name = "press-event"
     /**
      * @param {EventInit} options
@@ -65,9 +67,13 @@ const template = (datas) => {
                     htmlLink.setAttribute("name", link.name);
                     htmlLink.textContent = "";
                     htmlLink.dataset.href = link.href;
+                    // @ts-ignore
                     htmlLink.style.top = link.pos.top;
+                    // @ts-ignore
                     htmlLink.style.right = link.pos.right;
+                    // @ts-ignore
                     htmlLink.style.bottom = link.pos.bottom;
+                    // @ts-ignore
                     htmlLink.style.left = link.pos.left;
                     htmlLink.classList.add("hyper-img-link");
                     return htmlLink;
@@ -79,6 +85,7 @@ const template = (datas) => {
             div.className = "img-wrapper";
             div.appendChild(data.img);
             data.links.forEach(link => div.appendChild(link));
+            // @ts-ignore
             div.setAttribute("name", data.img.getAttribute("name"));
             return div;
         })
@@ -95,6 +102,7 @@ const template = (datas) => {
     return el.outerHTML;
 };
 
+// @ts-ignore
 const style = (debug) => css`
 @import "setup.css";
 :host{
@@ -178,30 +186,36 @@ export default class HyperImg extends HTMLElement {
         }
         if (ev.destination.includes("#Back")) {
             console.log("Back detected");
-            let backName = ev.src.parentElement.querySelector(".bg-img").getAttribute("name");
-            ev.destination = ev.destination.replace("#Back", backName);
+            let backName = ev.src.parentElement?.querySelector(".bg-img")?.getAttribute("name");
+            if (backName) ev.destination = ev.destination.replace("#Back", backName);
         }
         //#endregion pre-handle Commands
 
-        let destinationDiv = this.shadowRoot.querySelector(`div[name=${ev.destination}]`);
+        let destinationDiv = this.shadowRoot?.querySelector(`div[name=${ev.destination}]`);
 
         //#region post-handle Commands
         if (isOverlay) {
-            let bgImg = destinationDiv.querySelector("img.bg-img") ?? function () {
+            let bgImg = destinationDiv?.querySelector("img.bg-img") ?? function () {
                 let img = document.createElement("img");
                 img.className = "bg-img";
-                destinationDiv.insertBefore(img, destinationDiv.firstElementChild);
+                if (destinationDiv) destinationDiv.insertBefore(img, destinationDiv.firstElementChild);
                 return img;
             }()
+            // @ts-ignore
             bgImg.setAttribute("name", ev.src.parentNode.getAttribute("name"));
+            // @ts-ignore
             bgImg.src = ev.src.parentElement.querySelector(".display-img")?.src
         }
         //#endregion post-handle Commands
 
         // order is important 1st toggle dest. then as 2nd src
-        destinationDiv.toggleAttribute("active");
-        ev.src.parentElement.toggleAttribute("active");
+        destinationDiv?.toggleAttribute("active");
+        ev.src.parentElement?.toggleAttribute("active");
     }
+    /**
+     * 
+     * @param {HTMLElement} element 
+     */
     triggerGlow(element) {
         element.classList.remove('button-glow-anim');
         void element.offsetWidth; // Force Reflow
@@ -215,27 +229,33 @@ export default class HyperImg extends HTMLElement {
 
     async connectedCallback() {
         // console.log(this.innerHTML);
+        /** @type {{data: HyperImgData[]}} */
         let data;
         if (this.hasAttribute("src")) {
-            data = parseJSONC((await (await fetch(this.getAttribute("src"))).text()));
+            data = /** @type {{data: HyperImgData[]}} */(parseJSONC((await (await fetch(this.getAttribute("src")??"")).text())));
         } else {
-            data = parseJSONC(this.innerHTML);
+            data = /** @type {{data: HyperImgData[]}} */(parseJSONC(this.innerHTML));
         }
 
+        // @ts-ignore
         this.shadowRoot.innerHTML = style(this.hasAttribute("debug")) + template(data.data);
 
         // Listen to Buttons
+        // @ts-ignore
         this.addEventListener(PressEvent.name, this.handlePress);
         // set EventListener for buttons
+        // @ts-ignore
         this.shadowRoot.querySelectorAll("button.hyper-img-link").forEach((link) => {
             link.addEventListener("click", () => {
+                // @ts-ignore
                 this.dispatchEvent(new PressEvent({ bubbles: true, cancelable: true, composed: true, }, link, link.dataset.href));
             });
         })
         // set EventListener for glow
+        // @ts-ignore
         this.shadowRoot.querySelectorAll(".img-wrapper").forEach((div) => {
-            div.querySelector("img").addEventListener("click", () => {
-                const buttons = div.querySelectorAll('.hyper-img-link');
+            div.querySelector("img")?.addEventListener("click", () => {
+                const buttons = /** @type {NodeListOf<HTMLElement>} */(div.querySelectorAll('.hyper-img-link'));
 
                 buttons.forEach(button => {
                     this.triggerGlow(button);
@@ -244,18 +264,23 @@ export default class HyperImg extends HTMLElement {
         });
 
         if (this.hasAttribute("start-name")) {
+            // @ts-ignore
             this.shadowRoot.querySelectorAll(".img-wrapper[active]").forEach(el => el.removeAttribute("active"));
+            // @ts-ignore
             this.shadowRoot.querySelector(`[name="${this.getAttribute("start-name")}"]`).toggleAttribute("active");
         }
 
+        /** @type number[] */
         let ids = []
         if (!this.interacted) {
+            // @ts-ignore
             this.shadowRoot.querySelectorAll(".img-wrapper[active] .hyper-img-link").forEach((button) => {
                 let intervalId = window.setInterval(this.triggerGlow, 2000, button);
                 console.log(intervalId);
                 ids.push(intervalId);
             });
         }
+        // @ts-ignore
         this.addEventListener("click", (ev) => {
             this.interacted = true;
             for (const id of ids) {

@@ -1,13 +1,26 @@
 "use strict";
 import { css, extractRangeByLineColumn, html, replaceLast, lightDark } from "../script.mjs";
 
+// @ts-ignore
 /** @import * from "../vendor/highlight.js/11.11.1/index" */
 import hljs from "../vendor/highlight.js/11.11.1/cdn-release-11-stable/build/es/highlight.js"
 
+/**
+ * 
+ * @param {string} lang 
+ * @param {string} src 
+ * @param {boolean} no_pre 
+ * @returns 
+ */
 const template = (lang, src, no_pre) => html`
 ${no_pre ? "" : html`<pre>`}<code class="language-${lang}">${src}</code>${no_pre ? "" : html`</pre>`}
 `;
 
+/**
+ * 
+ * @param {string} theme 
+ * @returns 
+ */
 const style = (theme) => css`
 @import "setup.css";
 @import "./vendor/highlight.js/11.11.1/cdn-release-11-stable/build/styles/${theme}.min.css";
@@ -27,6 +40,11 @@ export default class CodeBlock extends HTMLElement {
     static get observedAttributes() {
         return ["lang", "src", "from", "to", "dark-theme", "light-theme", "no-pre", "no-todo"];
     }
+    /**
+     * 
+     * @param {string} unsafe 
+     * @returns 
+     */
     static escapeHtml(unsafe) {
         return unsafe
             // .replaceAll("&", "&amp;")
@@ -46,7 +64,7 @@ export default class CodeBlock extends HTMLElement {
     }
 
     emitTheme() {
-        this.shadowRoot.dispatchEvent(new Event('theme-change'));
+        this.shadowRoot?.dispatchEvent(new Event('theme-change'));
     }
     /**
     * 
@@ -60,12 +78,13 @@ export default class CodeBlock extends HTMLElement {
         }
         switch (name) {
             case "lang": {
-                let code = this.shadowRoot.querySelector("code");
-                code.classList.replace(`language-${oldValue}`, `language-${newValue}`)
+                let code = this.shadowRoot?.querySelector("code");
+                code?.classList.replace(`language-${oldValue}`, `language-${newValue}`)
                 break;
             }
             case "dark-theme":
             case "light-theme": {
+                // @ts-ignore
                 this.shadowRoot.querySelector("style").outerHTML = style(this.theme);
             }
             case "no-pre": {
@@ -81,8 +100,8 @@ export default class CodeBlock extends HTMLElement {
 
     /**
      * 
-     * @param {*} content 
-     * @param {*} hasNoTodoAttr 
+     * @param {string} content 
+     * @param {boolean} hasNoTodoAttr 
      * @returns {string}
      */
     removeTodoComments(content, hasNoTodoAttr = false) {
@@ -108,8 +127,8 @@ export default class CodeBlock extends HTMLElement {
         let content = "";
 
         if (this.getAttribute("src")) {
-            content = await fetch(this.getAttribute("src")).then(resp => resp.text());
-            content = extractRangeByLineColumn(content, this.getAttribute("from"), this.getAttribute("to"));
+            content = await fetch(this.getAttribute("src") ?? "").then(resp => resp.text());
+            content = extractRangeByLineColumn(content, this.getAttribute("from") ?? undefined, this.getAttribute("to") ?? undefined);
             if (content.includes("struct GameState")) console.log(content);
         }
 
@@ -128,6 +147,7 @@ export default class CodeBlock extends HTMLElement {
         content = CodeBlock.escapeHtml(content);
 
         let lines = this.removeTodoComments(content, this.hasAttribute("no-todo")).split("\n");
+        /** @type {number?} */
         let minSpace = null;
 
         content = lines
@@ -154,10 +174,12 @@ export default class CodeBlock extends HTMLElement {
             .replace(/\n\n(?=\s*[^a-zA-Z0-9]+\s*$)/gm, '\n') // Entferne gezielt Leerzeilen VOR Sonderzeichenzeilen
             .trim();
 
+        // @ts-ignore
         this.shadowRoot.innerHTML = style(this.theme) + template(lang, content, noPre);
 
-        const code = this.shadowRoot.querySelector("code");
-        hljs.highlightElement(code);
+        /** @type {HTMLElement|null} */
+        const code = /** @type {HTMLElement|null} */ (this.shadowRoot?.querySelector("code"));
+        if (code) hljs.highlightElement(code);
     }
 
     connectedCallback() {
@@ -167,6 +189,7 @@ export default class CodeBlock extends HTMLElement {
             subtree: true
         });
         // Eltern beobachten
+        /** @type {HTMLElement | null} */
         let current = this;
         while (current) {
             this._themeObserver.observe(current, { attributes: true, attributeFilter: ['class'], childList: true, subtree: false });
@@ -184,6 +207,7 @@ export default class CodeBlock extends HTMLElement {
 
         this._contentObserver = new MutationObserver(() => this.render());
         this._themeObserver = new MutationObserver(() => this.emitTheme());
+        // @ts-ignore
         this.shadowRoot.addEventListener("theme-change", () => {
             // console.log("event");
             this.render()
