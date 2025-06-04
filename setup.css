@@ -454,6 +454,12 @@
         &:where(.a-end) {
             align-items: end;
         }
+        &:where(.a-between) {
+            align-items: space-between;
+        }
+        &:where(.a-around) {
+            align-items: space-around;
+        }
 
         &:where(.j-start) {
             justify-content: start;
@@ -465,6 +471,12 @@
 
         &:where(.j-end) {
             justify-content: end;
+        }
+        &:where(.j-between) {
+            justify-content: space-between;
+        }
+        &:where(.j-around) {
+            justify-content: space-around;
         }
 
         &:where(.column) {

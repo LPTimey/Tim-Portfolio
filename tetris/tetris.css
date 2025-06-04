@@ -1,4 +1,4 @@
-table {
+/* table {
     border-collapse: collapse;
     border: 2px solid rgb(140 140 140);
     font-family: sans-serif;
@@ -37,7 +37,7 @@ tfoot th {
 
 tfoot td {
     font-weight: bold;
-}
+} */
 
 canvas {
     width: 100%;

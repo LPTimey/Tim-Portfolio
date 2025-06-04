@@ -6,6 +6,7 @@ const template = html`
 <to-top></to-top>
 <footer>
     Kreiert mit HTML, CSS & JS (+ ThreeJS & highlight.js) von Tim Ruland © 2025
+    <slot></slot>
 </footer>
 `;
 
@@ -34,6 +35,7 @@ export default class SiteFooter extends HTMLElement {
         return;
     }
     connectedCallback() {
+        // @ts-ignore
         this.shadowRoot.innerHTML = style + template;
     }
     constructor() {

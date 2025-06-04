@@ -51,6 +51,11 @@ header{
     background-color: rgba(from var(--bg) r g b / var(--transparency));
     -webkit-backdrop-filter: blur(var(--blur-r));
     backdrop-filter: blur(var(--blur-r));
+
+}
+.scrolled{
+    /* nur unten ein leichter Schatten */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .current{
@@ -172,10 +177,12 @@ export default class SiteHeader extends HTMLElement {
     setCurrent() {
         let currentUrlPath = window.location.pathname;
 
+        // @ts-ignore
         [...this.shadowRoot.querySelectorAll("[href]")]
             .map(el => {
-                /** @type {{el:HTMLElement,url:URL}} */
-                let res = { el, url: new URL(el.href) };
+                const anchor = /** @type {HTMLAnchorElement} */ (el);
+                /** @type {{el: HTMLAnchorElement, url: URL}} */
+                let res = { el: anchor, url: new URL(anchor.href) };
                 return res;
             })
             .forEach(({ el, url }) => {
@@ -200,8 +207,18 @@ export default class SiteHeader extends HTMLElement {
         return;
     }
     connectedCallback() {
+        // @ts-ignore
         this.shadowRoot.innerHTML = style + template;
-        this.setCurrent()
+        this.setCurrent();
+
+        const navbar = this.shadowRoot?.querySelector('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 5) {
+                navbar?.classList.add('scrolled');
+            } else {
+                navbar?.classList.remove('scrolled');
+            }
+        });
     }
     constructor() {
         super()
