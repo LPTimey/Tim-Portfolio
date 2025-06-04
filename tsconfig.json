@@ -5,6 +5,9 @@
         "moduleResolution": "Node",
         "baseUrl": ".",
         "paths": {
+            "types/three": [
+                "./vendor/three.js/types/three/"
+            ],
             "three": [
                 "./vendor/three.js/three.js r176/build/three.module.js"
             ],
@@ -19,7 +22,7 @@
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
         "allowJs": true,
-        "checkJs": false,
+        "checkJs": true,
         "resolveJsonModule": true,
         "isolatedModules": true,
         "noEmit": true
