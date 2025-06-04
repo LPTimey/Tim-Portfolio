@@ -302,9 +302,9 @@ function test2() {
 }
 
 async function main() {
-    bitListAnimation();
+    // bitListAnimation();
     // test();
-    test2();
+    // test2();
 }
 
 main()

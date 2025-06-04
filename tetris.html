@@ -50,6 +50,12 @@
             <!-- TODO: Add Styling & Ausformulierung -->
             <div class="content">
                 <img src="todo" alt="Bild Einzelteile">
+                Arduino Uno R4 WiFi
+                Arduino Uno Rev3
+                Waveshare LED-Matrix
+                funduino screen
+                Kabel
+                Buttons Button-covers
             </div>
         </section>
         <section class="section">
@@ -213,6 +219,26 @@
                             </code-block>
                         </div>
                     </div>
+                    <p>
+                        TODO: Randomness mit bag
+                    </p>
+                    <code-block lang="cpp">
+                        <pre>
+                            class TetrinoBag {
+                              Tetrino bag[static_cast&lt;uint8_t&gt;(Tetrino::NrOfTetrinos)];
+                              uint8_t index = 0;
+                              uint32_t seed = 12345;
+
+                              void set_next_batch();
+
+                            public:
+                              TetrinoBag();
+                              TetrinoBag(uint32_t seed);
+                              void set_seed(uint32_t seed);
+                              Tetrino next();
+                            };
+                        </pre>
+                    </code-block>
                 </section>
             </div>
         </section>
@@ -220,38 +246,6 @@
             <h3 class="heading medium margin-b">Hardware</h3>
             <div class="content margin-b-medium">
                 <img src="./assets/Tetris/Tetris_Steckplatine.png" alt="Schematic">
-                <!-- TODO: BentoLayout -->
-                <!-- Arduino -->
-                <div class="flex wrap grow shrink basis max-hund margin-b-medium" style="--gap:1ch;">
-                    <!-- Includes -->
-                    <!-- <code-block no-todo lang="ino" src="assets/Tetris/Tetris_old/Tetris.ino" from="2" to="7">
-                    </code-block> -->
-                    <!-- GameState Setup -->
-                    <!-- <code-block no-todo lang="ino" src="assets/Tetris/Tetris_old/Tetris.ino" from="12" to="14">
-                    </code-block> -->
-                    <!-- Globals -->
-                    <!-- <code-block no-todo lang="ino" src="assets/Tetris/Tetris_old/Tetris.ino" from="16" to="20">
-                    </code-block> -->
-                    <!-- Pins -->
-                    <!-- <code-block no-todo lang="ino" src="assets/Tetris/Tetris_old/Tetris.ino" from="23" to="40">
-                    </code-block> -->
-                    <!-- get_button_data -->
-                    <!-- <code-block no-todo lang="ino" src="assets/Tetris/Tetris_old/Tetris.ino" from="43" to="78">
-                    </code-block> -->
-                    <!-- setup -->
-                    <!-- <code-block no-todo lang="ino" src="assets/Tetris/Tetris_old/Tetris.ino" from="79" to="90">
-                    </code-block> -->
-                    <!-- loop -->
-                    <!-- <code-block no-todo lang="ino" src="assets/Tetris/Tetris_old/Tetris.ino" from="91" to="104">
-                    </code-block> -->
-                    <!-- timerHelper -->
-                    <!-- <code-block no-todo lang="ino" src="assets/Tetris/Tetris_old/Tetris.ino" from="105" to="118">
-                    </code-block> -->
-                </div>
-
-                <!-- <code-block no-todo lang="ino" class="max-fit" src="assets/Tetris/Tetris_old/Tetris.ino">
-                    </code-block> -->
-
             </div>
         </section>
         <section class="section">
@@ -278,7 +272,7 @@
                 <h3>Step by Step</h3>
                 <ol>
                     <li>Go to Project Folder</li>
-                    <li>Build nob.c (= buildsystem) to nob executable 
+                    <li>Build nob.c (= buildsystem) to nob executable
                         <br>
                         Unix:
                         <code-block no-pre lang="bash">clang -o nob nob.c</code-block>

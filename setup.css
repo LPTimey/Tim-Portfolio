@@ -424,6 +424,10 @@
         --i-border-c: var(--border-c, var(--fg, gray));
         position: relative;
         display: grid;
+        /* bei : 1fr; passiert overflow? -> weil 1fr nicht die min-width ändert!!*/
+        grid-template-columns: 100%;
+        width: 100%;
+        max-width: 100%;
         padding: 0.5em 1ch;
         background-color: color-mix(in srgb, var(--bg), gray 0%);
         border-radius: var(--border-r);
