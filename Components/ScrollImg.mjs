@@ -10,7 +10,7 @@ import { css, html } from "../script.mjs";
  * @returns 
  */
 const template = (src, alt, cols, rows) => html`
-${html`<picture><img src="${src}" alt="${alt}" class="scrolling-image"/></picture>`.repeat(cols * rows)}
+${html`<picture><img src="${src}" alt="${alt}" class="scrolling-image" width="${window.innerWidth}" height="${window.innerHeight}" /></picture>`.repeat(cols * rows)}
 `;
 
 /**

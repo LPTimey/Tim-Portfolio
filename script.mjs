@@ -176,6 +176,9 @@ const tooltips = document.querySelectorAll("[data-tooltip]")
 tooltips.forEach((el) => {
     let tooltip = document.createElement("div");
     tooltip.classList.add("tooltip");
+    tooltip.className += " " + (el.getAttribute("tooltip-class") ?? "");
+
+    tooltip.style.cssText += el.getAttribute("tooltip-style") ?? "";
     tooltip.innerHTML = el.getAttribute("data-tooltip") ?? "";
     el.appendChild(tooltip);
 });

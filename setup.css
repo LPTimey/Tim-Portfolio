@@ -454,9 +454,11 @@
         &:where(.a-end) {
             align-items: end;
         }
+
         &:where(.a-between) {
             align-items: space-between;
         }
+
         &:where(.a-around) {
             align-items: space-around;
         }
@@ -472,9 +474,11 @@
         &:where(.j-end) {
             justify-content: end;
         }
+
         &:where(.j-between) {
             justify-content: space-between;
         }
+
         &:where(.j-around) {
             justify-content: space-around;
         }
@@ -684,9 +688,21 @@
 
         &:hover .tooltip,
         &.hover .tooltip {
-            display: grid;
+            display: block;
             opacity: 1;
         }
+    }
+
+    .tooltip.bubble {
+        left: var(--left, 0);
+        bottom: var(--bottom, 0);
+        outline: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: var(--border-r);
+        width: fit-content;
+        padding: 1ch;
+        filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.1));
+
+        /* &.point-left-bottom {} */
     }
 }
 

@@ -16,9 +16,10 @@ import ScrollImage from "./ScrollImg.mjs";
 const template = (src, alt, time, cols, rows, bg, imgStyle) => html`
 ${(src || alt) && (cols || rows) ?
         html`<scroll-img src="${src}" alt="${alt ?? ""}" id="HeroImage" ${!!time ? html`time="${time}"` : ""} cols="${cols ?? "1"}" rows="${rows ?? "1"}" bg="${bg ?? "white"}" img-style="${imgStyle ?? ""}"></scroll-img>`
-        : src || alt ? html`<img id="HeroImage" src="${src ?? ""}" alt="${alt ?? ""}" style="${imgStyle ?? ""}" /> ` : html``}
+        : src || alt ? html`<img id="HeroImage" src="${src ?? ""}" alt="${alt ?? ""}" style="${imgStyle ?? ""}" width="${window.innerWidth}" height="${window.innerHeight}" /> ` : html``}
 <slot></slot>
 `;
+
 
 /**
  * 

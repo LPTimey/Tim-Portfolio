@@ -124,6 +124,28 @@ div{
     width: 100%;
     height: 100%;
     z-index: 2;
+    accent-color: white;
+}
+/* WebKit (Chrome, Safari, Edge) */
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: white;
+    border: 1px solid black; 
+    cursor: pointer;
+
+}
+/* Firefox */
+.slider::-moz-range-thumb {
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: white;
+    border: 1px solid black; 
+    cursor: pointer;
 }
 `;
 
@@ -151,7 +173,7 @@ export default class ImgCmp extends HTMLElement {
         const clip = (target) => {
             //TODO: add a way to make cut-of angled like for example / or \ instead of just |
             // @ts-ignore
-            this.shadowRoot.querySelector(".img-comp-overlay > img")?.style.clipPath = `inset(0 ${100 - Number(target.value) / 10}% 0 0)`
+            this.shadowRoot.querySelector(".img-comp-overlay > img").style.clipPath = `inset(0 ${100 - Number(target.value) / 10}% 0 0)`
         }
         clip(input);
         /**

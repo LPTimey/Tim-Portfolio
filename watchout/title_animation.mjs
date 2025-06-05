@@ -1,5 +1,7 @@
 "use strict";
-import { THREE, THREE_ADDONS } from "../three_utils.mjs";
+// @ts-ignore
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader";
+import { THREE } from "../three_utils.mjs";
 
 /**
  * @typedef {import('../three_utils.mjs')} Three
@@ -9,7 +11,7 @@ import { THREE, THREE_ADDONS } from "../three_utils.mjs";
 
 const WatchPath = "./assets/Design%20der%20Mensch%20Maschine%20Schnittstelle/WatchOut/TimUhr.glb";
 const PhonePath = "./assets/Design%20der%20Mensch%20Maschine%20Schnittstelle/WatchOut/iphone.glb";
-const loader = new THREE_ADDONS.GLTFLoader();
+const loader = new GLTFLoader();
 
 const AnimationState = {
     running: false,
