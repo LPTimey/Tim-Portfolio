@@ -1,10 +1,25 @@
 "use strict";
 import { css, html } from "../script.mjs";
 
+/**
+ * 
+ * @param {string} src 
+ * @param {string} alt 
+ * @param {number} cols 
+ * @param {number} rows 
+ * @returns 
+ */
 const template = (src, alt, cols, rows) => html`
 ${html`<picture><img src="${src}" alt="${alt}" class="scrolling-image"/></picture>`.repeat(cols * rows)}
 `;
 
+/**
+ * 
+ * @param {string} time 
+ * @param {number} cols 
+ * @param {string?} bg 
+ * @returns 
+ */
 const style = (time, cols, bg) => css`
 @import "setup.css";
 :host{
@@ -66,29 +81,32 @@ export default class ScrollImage extends HTMLElement {
          * @param {*} newValue new value of attribute
          */
     attributeChangedCallback(name, oldValue, newValue) {
-        if (!this._initialized){
+        if (!this._initialized) {
             return;
         }
         console.log(name, oldValue, newValue);
         switch (name) {
             case "src": {
+                // @ts-ignore
                 let heroes = this.shadowRoot.querySelectorAll(".scrolling-image");
                 heroes.forEach((el) => el.setAttribute("src", newValue));
                 break;
             }
             case "alt": {
+                // @ts-ignore
                 let heroes = this.shadowRoot.querySelectorAll("img");
                 heroes.forEach((el) => el.setAttribute("alt", newValue));
                 break;
             }
             case "time": {
-                let styleEl = this.shadowRoot.querySelector("style") ?? {};
-                styleEl.outerHTML = style(newValue, this.getAttribute("cols"), this.getAttribute("bg"));
+                let styleEl = this.shadowRoot?.querySelector("style") ?? { outerHTML: "" };
+                styleEl.outerHTML = style(newValue, Number(this.getAttribute("cols")), this.getAttribute("bg"));
                 break;
             }
             case "cols": {
-                let styleEl = this.shadowRoot.querySelector("style") ?? {};
-                styleEl.outerHTML = style(this.getAttribute("time"), newValue, this.getAttribute("bg"));
+                let styleEl = this.shadowRoot?.querySelector("style") ?? { outerHTML: "" };
+                styleEl.outerHTML = style(this.getAttribute("time") ?? "0s", newValue, this.getAttribute("bg"));
+                // @ts-ignore
                 let imgs = [... this.shadowRoot.querySelectorAll(".scrolling-image")];
                 let delta = imgs.length - Number(newValue) * Number(this.getAttribute("rows"));
                 if (delta < 0) {
@@ -103,6 +121,7 @@ export default class ScrollImage extends HTMLElement {
                 break;
             }
             case "rows": {
+                // @ts-ignore
                 let imgs = [... this.shadowRoot.querySelectorAll(".scrolling-image")];
                 let delta = imgs.length - Number(newValue) * Number(this.getAttribute("cols"));
                 if (delta < 0) {
@@ -117,8 +136,9 @@ export default class ScrollImage extends HTMLElement {
                 break;
             }
             case "bg": {
-                let styleEl = this.shadowRoot.querySelector("style") ?? {};
-                styleEl.outerHTML = style(this.getAttribute("time"), this.getAttribute("cols"), newValue);
+                // @ts-ignore
+                let styleEl = this.shadowRoot.querySelector("style") ?? { outerHTML: "" };
+                styleEl.outerHTML = style(this.getAttribute("time") ?? "0s", Number(this.getAttribute("cols")), newValue);
                 break;
             }
             default: {
@@ -128,8 +148,10 @@ export default class ScrollImage extends HTMLElement {
         return;
     }
     connectedCallback() {
-        this.shadowRoot.innerHTML = style(this.getAttribute("time"), this.getAttribute("cols"), this.getAttribute("bg"))
-            + template(this.getAttribute("src"), this.getAttribute("alt"), this.getAttribute("cols"), this.getAttribute("rows"));
+        // @ts-ignore
+        this.shadowRoot.innerHTML =
+            style(this.getAttribute("time") ?? "0s", Number(this.getAttribute("cols")), this.getAttribute("bg"))
+            + template(this.getAttribute("src") ?? "", this.getAttribute("alt") ?? "", Number(this.getAttribute("cols")), Number(this.getAttribute("rows")));
 
         this._initialized = true;
     }

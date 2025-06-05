@@ -3,10 +3,10 @@ import { css, html, lightDark } from "../script.mjs";
 
 /**
  * 
- * @param {string} src 
- * @param {string} srcDark 
- * @param {string} alt 
- * @param {string} href 
+ * @param {string?} src 
+ * @param {string?} srcDark 
+ * @param {string?} alt 
+ * @param {string?} href 
  * @param {boolean} has_button 
  * @param {boolean} isDark 
  * @returns 
@@ -109,6 +109,7 @@ export default class ProjectCard extends HTMLElement {
     connectedCallback() {
         this.render();
         // Eltern beobachten
+        /** @type {HTMLElement?} */
         let current = this;
         while (current) {
             this._themeObserver.observe(current, { attributes: true, attributeFilter: ['class'], childList: true, subtree: false });
@@ -116,9 +117,15 @@ export default class ProjectCard extends HTMLElement {
         }
     }
     emitTheme() {
+        // @ts-ignore
         this.shadowRoot.dispatchEvent(new Event('theme-change'));
     }
+    /**
+     * 
+     * @param {boolean} [isDark] 
+     */
     render(isDark){
+        // @ts-ignore
         this.shadowRoot.innerHTML = style() + template(
             this.getAttribute("src"),
             this.getAttribute("src-dark"),
@@ -134,6 +141,7 @@ export default class ProjectCard extends HTMLElement {
         this.attachShadow({ mode: "open" });
 
         this._themeObserver = new MutationObserver(() => this.emitTheme());
+        // @ts-ignore
         this.shadowRoot.addEventListener("theme-change", () => {
             console.log("event");
             this.render()

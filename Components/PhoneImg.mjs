@@ -1,11 +1,23 @@
 "use strict";
 import { css, html } from "../script.mjs";
 
+/**
+ * 
+ * @param {string?} src 
+ * @param {string?} alt 
+ * @param {string?} phonePrefix 
+ * @returns 
+ */
 const template = (src, alt, phonePrefix) => html`
 ${src || alt ? html`<img class="screen" src="${src}" alt="${alt}">` : html`<slot></slot>`}
 <img class="phone" src="${phonePrefix ?? "./"}assets/iPhone Template [Konvertiert] noBG.png" alt="">
 `;
 
+/**
+ * 
+ * @param {string?} [bg] 
+ * @returns 
+ */
 const style = (bg) => css`
 @import "setup.css";
 :host{
@@ -50,6 +62,7 @@ export class PhoneImage extends HTMLElement {
     }
 
     connectedCallback() {
+        // @ts-ignore
         this.shadowRoot.innerHTML = style(this.getAttribute("bg")) + template(this.getAttribute("src"), this.getAttribute("alt"), this.getAttribute("phonePrefix"));
 
     }

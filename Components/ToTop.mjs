@@ -36,6 +36,10 @@ svg{
 export default class ToTop extends HTMLElement {
     static toTopButtonDelta = 125;
 
+    /**
+     * 
+     * @param {Window} window 
+     */
     toTopButtonDisplay(window) {
         if (window.pageYOffset < ToTop.toTopButtonDelta) {
             this.style.visibility = "hidden"
@@ -44,6 +48,7 @@ export default class ToTop extends HTMLElement {
         }
     }
     connectedCallback() {
+        // @ts-ignore
         this.shadowRoot.innerHTML = style + template;
 
         window.addEventListener("scroll", (ev) => this.toTopButtonDisplay(window));

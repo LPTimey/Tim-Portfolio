@@ -1,6 +1,14 @@
 "use strict";
 import { css, html, double_arrow } from "../script.mjs";
 
+/**
+ * 
+ * @param {string} src1 
+ * @param {string} alt1 
+ * @param {string} src2 
+ * @param {string} alt2 
+ * @returns 
+ */
 const template = function (src1, alt1, src2, alt2) {
     return html`
 <div>
@@ -20,6 +28,11 @@ const template = function (src1, alt1, src2, alt2) {
 }
 
 // FIXME: Fix width when no-clip
+/**
+ * 
+ * @param {boolean} noClip 
+ * @returns 
+ */
 const style = (noClip) => css`
 @import "setup.css";
 
@@ -125,35 +138,52 @@ export default class ImgCmp extends HTMLElement {
          * @param {*} oldValue old value of attribute
          * @param {*} newValue new value of attribute
          */
+    // @ts-ignore
     attributeChangedCallback(name, oldValue, newValue) {
         return;
     }
     initComparisons() {
+        const input = /** @type {HTMLInputElement} */(this.shadowRoot?.querySelector("input"));
+        /**
+         * 
+         * @param {HTMLInputElement} target 
+         */
         const clip = (target) => {
             //TODO: add a way to make cut-of angled like for example / or \ instead of just |
-            this.shadowRoot.querySelector(".img-comp-overlay > img").style.clipPath = `inset(0 ${100 - target.value / 10}% 0 0)`
+            // @ts-ignore
+            this.shadowRoot.querySelector(".img-comp-overlay > img")?.style.clipPath = `inset(0 ${100 - Number(target.value) / 10}% 0 0)`
         }
-        clip(this.shadowRoot.querySelector("input"));
-
+        clip(input);
+        /**
+         * 
+         * @param {HTMLInputElement} target 
+         */
         const affordance = (target) => {
+            // @ts-ignore
             this.shadowRoot.querySelectorAll(".arrow").forEach((el) => {
                 let delta = 2;
                 if (el.classList.contains("right")) {
                     delta = (-delta);
                 }
+                // @ts-ignore
                 el.style.right = `calc(${100 - target.value / 10}% + ${delta}em)`;
             })
         }
-        affordance(this.shadowRoot.querySelector("input"));
+        affordance(input);
 
+        // @ts-ignore
         this.shadowRoot.querySelector("input").addEventListener("input", (ev) => {
+            // @ts-ignore
             clip(ev.target);
+            // @ts-ignore
             affordance(ev.target)
         })
     }
     connectedCallback() {
+        // @ts-ignore
         this.shadowRoot.innerHTML =
             style(this.hasAttribute("no-clip"))
+            // @ts-ignore
             + template(this.getAttribute("src1"), this.getAttribute("alt1"),
                 this.getAttribute("src2"), this.getAttribute("alt2"));
 

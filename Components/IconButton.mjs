@@ -1,5 +1,10 @@
 "use strict";
 import { css, html, changeEvent } from "../script.mjs";
+/**
+ * 
+ * @param {string} id 
+ * @returns 
+ */
 const template = (id) => html`
 <div hidden>
     <input type="checkbox" name="${id}" id="${id}" />
@@ -47,7 +52,8 @@ label{
 
 export default class IconButton extends HTMLElement {
     get value() {
-        return this.shadowRoot.querySelector("input").value;
+        // @ts-ignore
+        return this.shadowRoot.querySelector("input")?.value;
     }
     static get observedAttributes() {
         return ["id"];
@@ -61,6 +67,7 @@ export default class IconButton extends HTMLElement {
     attributeChangedCallback(name, oldValue, newValue) {
         switch (name) {
             case "id":
+                // @ts-ignore
                 this.shadowRoot.innerHTML = style + template(newValue + "box");
                 break;
         }
@@ -68,18 +75,23 @@ export default class IconButton extends HTMLElement {
     }
 
     connectedCallback() {
+        // @ts-ignore
         this.shadowRoot.innerHTML = style + template(this.id + "box");
+        // @ts-ignore
         const slots = this.shadowRoot.querySelectorAll('slot');
-        if (this.shadowRoot.querySelector("input").checked) {
+        // @ts-ignore
+        if (this.shadowRoot.querySelector("input")?.checked) {
             this.setAttribute("checked", "");
         } else {
             this.removeAttribute("checked");
         }
 
-        this.shadowRoot.querySelector("input").addEventListener("change", (ev) => {
+        // @ts-ignore
+        this.shadowRoot.querySelector("input")?.addEventListener("change", (ev) => {
             // this.setAttribute("checked", ev.target.checked);
             // this.checked = !!ev.target.checked
-            if (ev.target.checked) {
+            // @ts-ignore
+            if (ev.target?.checked) {
                 this.setAttribute("checked", "");
             } else {
                 this.removeAttribute("checked");

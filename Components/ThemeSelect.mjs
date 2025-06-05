@@ -13,25 +13,46 @@ const style = css`
 @import "setup.css";
 `;
 
+/**
+ * @typedef {"ThemeLight"|"ThemeSystem"|"ThemeDark"} Theme
+ */
+
 export default class ThemeSelect extends HTMLElement {
+    /**
+     * @returns {Theme}
+     */
     get theme() {
-        let value = this.shadowRoot.querySelector("select").value
-        return value;
+        let value = /** @type {Theme|undefined} */ (this.shadowRoot?.querySelector("select")?.value)
+        return value ?? "ThemeSystem";
     }
+    /**
+     * 
+     * @param {Theme} theme 
+     */
     set theme(theme) {
         console.log(theme);
-        let test = [...this.shadowRoot.querySelector("select").options].map(op => op.value);
-        if (!test.includes(theme)){
+        // @ts-ignore
+        const select = /** @type {HTMLSelectElement} */(this.shadowRoot.querySelector("select"));
+        let test = [...select.options].map(op => op.value);
+        if (!test.includes(theme)) {
             return;
         }
-        this.shadowRoot.querySelector("select").value = theme;
+        select.value = theme;
     }
     static getLocalStorageTheme() {
         return window.localStorage.getItem("theme");
     }
+    /**
+     * 
+     * @param {Theme} theme 
+     */
     static setLocalStorageTheme(theme) {
         window.localStorage.setItem("theme", theme);
     }
+    /**
+     * 
+     * @param {Theme} theme 
+     */
     static setDocTheme(theme) {
         switch (theme) {
             case "ThemeLight":
@@ -48,13 +69,15 @@ export default class ThemeSelect extends HTMLElement {
         }
     }
     connectedCallback() {
+        // @ts-ignore
         this.shadowRoot.innerHTML = style + template;
+        // @ts-ignore
         this.shadowRoot.querySelector("select").addEventListener("change", () => {
             let t = this.theme;
             ThemeSelect.setDocTheme(t);
             ThemeSelect.setLocalStorageTheme(t);
         });
-        this.theme = ThemeSelect.getLocalStorageTheme();
+        this.theme = /** @type {Theme?} */(ThemeSelect.getLocalStorageTheme()) ?? "ThemeSystem";
         ThemeSelect.setDocTheme(this.theme);
     }
     constructor() {
