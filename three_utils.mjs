@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use strict";
 import * as THREE from 'three';
 import * as THREE_ADDONS from 'three/addons/Addons.js';

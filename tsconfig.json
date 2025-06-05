@@ -1,13 +1,9 @@
 {
     "compilerOptions": {
-        "target": "ES2021",
-        "module": "ESNext",
-        "moduleResolution": "Node",
+        "target": "esnext",
+        "module": "esnext",
         "baseUrl": ".",
         "paths": {
-            "types/three": [
-                "./vendor/three.js/types/three/"
-            ],
             "three": [
                 "./vendor/three.js/three.js r176/build/three.module.js"
             ],
@@ -23,7 +19,6 @@
         "forceConsistentCasingInFileNames": true,
         "allowJs": true,
         "checkJs": true,
-        "resolveJsonModule": true,
         "isolatedModules": true,
         "noEmit": true
     },

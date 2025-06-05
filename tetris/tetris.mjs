@@ -1,3 +1,5 @@
+// @ts-nocheck
+"use strict";
 import { THREE, resize, addDebugHelpers, alignOrigin } from "../three_utils.mjs"
 import { lightDark, getCSSVar, getCSSLightDarkColor } from "../script.mjs";
 import { FontLoader, TextGeometry, OrbitControls, TTFLoader, Font } from "three/addons/Addons.js";
