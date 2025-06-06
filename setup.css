@@ -250,6 +250,17 @@
         font-family: "JetBrains Mono";
     }
 
+    :where(.mega) {
+        font-size: var(--fs-mega);
+        font-weight: var(--fw-mega);
+        line-height: var(--lh-small);
+    }
+
+    :where(.mega.margin-b),
+    :where(.margin-b-mega) {
+        margin-block: var(--fmb-mega);
+    }
+
     :where(.title,
         .gigantic) {
         font-size: var(--fs-gigantic);

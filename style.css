@@ -63,21 +63,25 @@
         --fs-medium: 1.25rem;
         --fs-large: 1.75rem;
         --fs-gigantic: 2.5rem;
+        --fs-mega: 3rem;
 
         --fw-normal: 400;
         --fw-medium: 550;
         --fw-large: 700;
         --fw-gigantic: 900;
+        --fw-mega: 1000;
 
         --lh-normal: 0.8em;
         --lh-medium: 1.0rem;
         --lh-large: 1.3em;
         --lh-gigantic: 1.7em;
+        --lh-mega: 2em;
 
         --fmb-normal: 0.8em;
         --fmb-medium: 1.0rem;
         --fmb-large: 1.3em;
         --fmb-gigantic: 1.7em;
+        --fmb-mega: 2em;
 
         scroll-behavior: smooth;
     }
