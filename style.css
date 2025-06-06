@@ -71,8 +71,8 @@
         --fw-gigantic: 900;
         --fw-mega: 1000;
 
-        --lh-normal: 0.8em;
-        --lh-medium: 1.0rem;
+        --lh-normal: 1em;
+        --lh-medium: 1.1rem;
         --lh-large: 1.3em;
         --lh-gigantic: 1.7em;
         --lh-mega: 2em;
@@ -157,7 +157,7 @@
             border-color: inherit;
             border-style: solid;
             border-width: 0;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgb(from var(--fg) r g b / 0.25);
         }
 
         th {

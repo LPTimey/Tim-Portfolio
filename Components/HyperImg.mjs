@@ -41,7 +41,7 @@ class PressEvent extends Event {
 }
 
 
-/** TODO: Scaling the image
+/** 
  * @type {(data: HyperImgData[])=>string}
  */
 const template = (datas) => {
@@ -113,15 +113,9 @@ const style = (debug, glowColor) => css`
     overflow: hidden;
     width: fit-content;
     height: fit-content;
+    position: relative;
 }
-.hyper-img-link {
-    position: absolute;
-    background: none;
-    color: transparent;
-    /* border-color: transparent; */
-    cursor: pointer;
-    ${debug ? `border: 1px solid red;` : ''};
-}
+${debug?`*{outline:1px solid red}`:""}
 .wrapper{
     position: relative;
     display: grid;
@@ -135,25 +129,40 @@ const style = (debug, glowColor) => css`
         grid-row: 1 / -1;
     }
 }
+${debug?`.wrapper::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 1px dashed lime;
+    pointer-events: none;
+}`:""}
 .img-wrapper{
     position: relative;
     display: grid;
     place-items: center;
     place-content: center;
-    max-width: 100%;
-    max-height: 100%;
+    width: 100%;
+    height: 100%;
     overflow: hidden;
 }
 .img-wrapper:not([active]){
     display: none;
 }
 img{
-    max-width: 100%;
-    max-height: 100%;
+    width: 100%;
+    height: 100%;
     object-fit: contain;
+}
+.hyper-img-link {
+    position: absolute;
+    background: none;
+    color: transparent;
+    /* border-color: transparent; */
+    cursor: pointer;
 }
 .button-glow-anim{
     animation: button-glow 0.5s 2 alternate;
+    border-radius: calc(var(--border-r) / 2);
 }
 @keyframes button-glow{
     from {
