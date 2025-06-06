@@ -102,6 +102,7 @@ const template = (datas) => {
     return el.outerHTML;
 };
 
+/// TODO: Add custom Highlight color
 // @ts-ignore
 const style = (debug) => css`
 @import "setup.css";

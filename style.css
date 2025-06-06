@@ -118,9 +118,27 @@
         &:nth-child(1) {
             margin-top: calc((var(--margin-b) / 2) + 1rem);
         }
+
         &:last-child {
             margin-bottom: calc(1 * var(--margin-b));
         }
+    }
+
+    div:has(>#GeneralInfo) {
+        container: GenInfoCont / inline-size;
+    }
+
+    #GeneralInfo {
+        display: grid;
+        gap: 1rem;
+        grid-template-areas:
+            "Graphic Table"
+            "Graphic Content";
+    }
+
+    #TlDrTable {
+        grid-area: Table;
+        width: fit-content;
     }
 
     #TlDrTable {
@@ -135,7 +153,8 @@
             border-width: 0;
             border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         }
-        th{
+
+        th {
             font-weight: 700;
         }
 
@@ -143,6 +162,20 @@
             padding: .5rem .5rem;
             text-align: left;
         }
+    }
+
+    #Graphic {
+        grid-area: Graphic;
+        min-width: 60ch;
+        justify-self: center;
+        align-self: center;
+        overflow: hidden;
+        border-radius: var(--border-r);
+    }
+
+    #Content {
+        grid-area: Content;
+        min-width: 60ch;
     }
 
 }

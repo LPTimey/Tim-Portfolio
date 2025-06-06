@@ -10,3 +10,30 @@
     border: 2px solid light-dark(transparent, var(--fg));
     /* background-color: black; */
 }
+
+@container GenInfoCont (width < 175ch) {
+    #GeneralInfo {
+        display: grid;
+        grid-template-areas:
+            "Graphic Table"
+            "Content Content";
+    }
+
+    #TlDrTable {
+        margin: auto;
+    }
+}
+
+@container GenInfoCont (width < 107ch) {
+    #GeneralInfo {
+        display: grid;
+        grid-template-areas:
+            "Graphic"
+            "Table"
+            "Content";
+    }
+
+    #TlDrTable {
+        margin: revert;
+    }
+}

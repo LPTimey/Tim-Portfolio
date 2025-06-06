@@ -7,42 +7,11 @@
     }
 }
 
-div:has(>#GeneralInfo) {
-    container: GenInfoCont / inline-size;
-}
-
-#GeneralInfo {
-    display: grid;
-    gap: 1rem;
-    grid-template-areas:
-        "Video Table"
-        "Video Content";
-}
-
-#TlDrTable {
-    grid-area: Table;
-    width: fit-content;
-}
-
-#Video {
-    grid-area: Video;
-    min-width: 60ch;
-    justify-self: center;
-    align-self: center;
-    overflow: hidden;
-    border-radius: var(--border-r);
-}
-
-#Content {
-    grid-area: Content;
-    min-width: 60ch;
-}
-
 @container GenInfoCont (width < 175ch) {
     #GeneralInfo {
         display: grid;
         grid-template-areas:
-            "Video Table"
+            "Graphic Table"
             "Content Content";
     }
 
@@ -55,7 +24,7 @@ div:has(>#GeneralInfo) {
     #GeneralInfo {
         display: grid;
         grid-template-areas:
-            "Video"
+            "Graphic"
             "Table"
             "Content";
     }

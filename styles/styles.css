@@ -1,8 +1,42 @@
-phone-img{
+phone-img {
     height: 50vh;
     width: 100%;
 }
 
-#OriginalImage{
+#OriginalImage {
     max-height: 70vh;
+}
+
+div:has(>#OriginalImage) {
+    overflow: hidden;
+    background-color: rgb(200, 201, 196);
+    /* padding: 1ch; */
+    border-radius: var(--border-r);
+}
+
+@container GenInfoCont (width < 175ch) {
+    #GeneralInfo {
+        display: grid;
+        grid-template-areas:
+            "Graphic Table"
+            "Content Content";
+    }
+
+    #TlDrTable {
+        margin: auto;
+    }
+}
+
+@container GenInfoCont (width < 107ch) {
+    #GeneralInfo {
+        display: grid;
+        grid-template-areas:
+            "Graphic"
+            "Table"
+            "Content";
+    }
+
+    #TlDrTable {
+        margin: revert;
+    }
 }
