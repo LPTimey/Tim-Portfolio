@@ -97,14 +97,16 @@ const template = (datas) => {
             return prev;
         }, document.createElement("div"));
     el.className = "wrapper"
-    console.log(el);
-    console.log(el.innerHTML);
     return el.outerHTML;
 };
 
-/// TODO: Add custom Highlight color
-// @ts-ignore
-const style = (debug) => css`
+/**
+ * 
+ * @param {boolean} debug 
+ * @param {string?} glowColor 
+ * @returns 
+ */
+const style = (debug, glowColor) => css`
 @import "setup.css";
 :host{
     display: block;
@@ -155,12 +157,12 @@ img{
 }
 @keyframes button-glow{
     from {
-        box-shadow: 0 0 5px 0px rgb( from var(--accent) r g b / 0.25),
-            inset 0 0 5px 0px rgb( from var(--accent) r g b / 0.25);
+        box-shadow: 0 0 5px 0px ${glowColor ? glowColor : "rgb( from var(--accent) r g b / 0.25)"},
+            inset 0 0 5px 0px ${glowColor ? glowColor : "rgb( from var(--accent) r g b / 0.25)"};
     }
     to {
-        box-shadow: 0 0 5px 5px rgb(from var(--accent) r g b / 0.25),
-            inset 0 0 5px 5px rgb(from var(--accent) r g b / 0.25);
+        box-shadow: 0 0 5px 5px${glowColor ? glowColor : " rgb(from var(--accent) r g b / 0.25)"},
+            inset 0 0 5px 5px${glowColor ? glowColor : " rgb(from var(--accent) r g b / 0.25)"};
     }
 }
 `;
@@ -168,7 +170,7 @@ img{
 export default class HyperImg extends HTMLElement {
     interacted = false;
     static get observedAttributes() {
-        return ["src", "start-name", "debug"];
+        return ["src", "start-name", "debug", "glow-color"];
     }
     /**
      * 
@@ -233,13 +235,13 @@ export default class HyperImg extends HTMLElement {
         /** @type {{data: HyperImgData[]}} */
         let data;
         if (this.hasAttribute("src")) {
-            data = /** @type {{data: HyperImgData[]}} */(parseJSONC((await (await fetch(this.getAttribute("src")??"")).text())));
+            data = /** @type {{data: HyperImgData[]}} */(parseJSONC((await (await fetch(this.getAttribute("src") ?? "")).text())));
         } else {
             data = /** @type {{data: HyperImgData[]}} */(parseJSONC(this.innerHTML));
         }
 
         // @ts-ignore
-        this.shadowRoot.innerHTML = style(this.hasAttribute("debug")) + template(data.data);
+        this.shadowRoot.innerHTML = style(this.hasAttribute("debug"), this.getAttribute("glow-color")) + template(data.data);
 
         // Listen to Buttons
         // @ts-ignore
@@ -265,10 +267,11 @@ export default class HyperImg extends HTMLElement {
         });
 
         if (this.hasAttribute("start-name")) {
-            // @ts-ignore
-            this.shadowRoot.querySelectorAll(".img-wrapper[active]").forEach(el => el.removeAttribute("active"));
-            // @ts-ignore
-            this.shadowRoot.querySelector(`[name="${this.getAttribute("start-name")}"]`).toggleAttribute("active");
+            const attr = /** @type {string} */(this.getAttribute("start-name"));
+
+            this.shadowRoot?.querySelectorAll(".img-wrapper[active]").forEach(el => el.removeAttribute("active"));
+
+            this.shadowRoot?.querySelector(`.img-wrapper[name="${attr}"]`)?.setAttribute("active", "");
         }
 
         /** @type number[] */
