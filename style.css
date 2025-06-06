@@ -134,11 +134,13 @@
         grid-template-areas:
             "Graphic Table"
             "Graphic Content";
+        grid-template-rows: min-content 1fr;
     }
 
     #TlDrTable {
         grid-area: Table;
         width: fit-content;
+        height: fit-content;
     }
 
     #TlDrTable {
@@ -166,7 +168,6 @@
 
     #Graphic {
         grid-area: Graphic;
-        min-width: 60ch;
         justify-self: center;
         align-self: center;
         overflow: hidden;
@@ -175,7 +176,7 @@
 
     #Content {
         grid-area: Content;
-        min-width: 60ch;
+        height: 100%;
     }
 
 }
