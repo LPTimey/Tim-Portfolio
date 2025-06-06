@@ -316,6 +316,12 @@
         padding-block: var(--fmb-normal);
     }
 
+    .padding-b-s0{
+        padding-block-start: 0;
+    }.margin-b-s0{
+        margin-block-start: 0;
+    }
+
     /* #endregion Text */
 
     /* #region Fit*/
@@ -443,46 +449,6 @@
         display: flex;
         gap: var(--gap, 1ch);
 
-        &:where(.a-start) {
-            align-items: start;
-        }
-
-        &:where(.a-center) {
-            align-items: center;
-        }
-
-        &:where(.a-end) {
-            align-items: end;
-        }
-
-        &:where(.a-between) {
-            align-items: space-between;
-        }
-
-        &:where(.a-around) {
-            align-items: space-around;
-        }
-
-        &:where(.j-start) {
-            justify-content: start;
-        }
-
-        &:where(.j-center) {
-            justify-content: center;
-        }
-
-        &:where(.j-end) {
-            justify-content: end;
-        }
-
-        &:where(.j-between) {
-            justify-content: space-between;
-        }
-
-        &:where(.j-around) {
-            justify-content: space-around;
-        }
-
         &:where(.column) {
             flex-direction: column;
         }
@@ -527,6 +493,48 @@
         &:where(.basis-min)>*,
         >:where(.basis-min) {
             flex-basis: 0;
+        }
+    }
+
+    :where(.flex, .grid) {
+        &:where(.a-start) {
+            align-items: start;
+        }
+
+        &:where(.a-center) {
+            align-items: center;
+        }
+
+        &:where(.a-end) {
+            align-items: end;
+        }
+
+        &:where(.a-between) {
+            align-items: space-between;
+        }
+
+        &:where(.a-around) {
+            align-items: space-around;
+        }
+
+        &:where(.j-start) {
+            justify-content: start;
+        }
+
+        &:where(.j-center) {
+            justify-content: center;
+        }
+
+        &:where(.j-end) {
+            justify-content: end;
+        }
+
+        &:where(.j-between) {
+            justify-content: space-between;
+        }
+
+        &:where(.j-around) {
+            justify-content: space-around;
         }
     }
 
