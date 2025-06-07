@@ -327,9 +327,11 @@
         padding-block: var(--fmb-normal);
     }
 
-    .padding-b-s0{
+    .padding-b-s0 {
         padding-block-start: 0;
-    }.margin-b-s0{
+    }
+
+    .margin-b-s0 {
         margin-block-start: 0;
     }
 
@@ -416,6 +418,10 @@
             --b-bg: var(--accent);
             --b-b: transparent;
         }
+    }
+
+    :where(.border-r) {
+        border-radius: var(--border-r);
     }
 
     :where(.center) {
@@ -652,6 +658,10 @@
 
     :where(.round) {
         border-radius: 50%;
+    }
+
+    :where(.shadow) {
+        box-shadow: 0.25rem 0.25rem var(--blur-r) 0 rgb(from var(--fg) r g b / 0.25);
     }
 
     :where(.separator) {

@@ -69,6 +69,7 @@ nav,ul{
 li{
     height: 100%;
     place-content: center;
+    width: max-content;
 }
 nav {
     display: flex;
@@ -100,9 +101,11 @@ summary{
 #ProjectsPopover{
     padding-left: 1.5ch;
     padding-top: 0.5em;
+    flex-wrap: wrap;
 }
 a{
-    width: fit-content;
+    display: inline-block;
+    width: max-content;
 }
 @media(max-width: 740px) {
     :host{

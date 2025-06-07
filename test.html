@@ -1,24 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 
 <head>
-    <script type="importmap">
-        {
-            "imports": {
-                "three": "./vendor/three.js/three.js r176/build/three.module.js",
-                "three/addons/": "./vendor/three.js/three.js r176/examples/jsm/"
+    <meta charset="UTF-8" />
+    <title>Mermaid Responsive ohne Weißraum</title>
+    <script type="module" src="mermaid_utils.mjs">
+    </script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 2rem;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+        }
+
+        .diagram-container {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+            /* SVG nimmt volle Breite, Höhe wird durch viewBox bestimmt */
+            svg {
+                display: block;
             }
         }
-    </script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script type="module" src="./watchout/title_animation.mjs"></script>
 
-    <link rel="shortcut icon" href="assets/Lebenslauf/schönes bild klein@0,25x.png" type="image/x-icon">
+    </style>
 </head>
 
 <body>
+
+    <div class="diagram-container" name="TetrinoDiagram">
+        <!-- Mermaid-Diagramm im Plain-Script-Tag (sicher für HTML) -->
+        <script class="diagram-code" type="text/plain">
+                graph LR
+                A["Konstruktor aufgerufen<br>(mit oder ohne Seed)"]
+                B["set_next_batch()"]
+                C["Initialisiere Bag<br>mit allen 7 Tetrino-Typen"]
+                D["Permutiere Bag<br>(Fisher-Yates Shuffle)"]
+                E["Setze index = 0"]
+                F["next() aufgerufen"]
+                G["Gibt bag[index] zurück<br>index += 1"]
+                H{"index < 7?"}
+                    A --> B
+                    B --> C
+                    C --> D
+                    D --> E
+                    E --> F
+                    F --> G
+                    G --> H
+                    H -- Ja --> F
+                    H -- Nein --> B
+          </script>
+    </div>
 
 </body>
 

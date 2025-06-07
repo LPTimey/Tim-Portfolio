@@ -40,10 +40,14 @@ iframe {
     height: 100%;
     zoom: 70%;
     min-height: 50vh;
+    overflow: hidden;
+    border-radius: var(--border-r);
 }
 
 #Graphic {
     overflow: hidden;
+    border-radius: var(--border-r);
     border: 1px solid gray;
     width: 100%;
+    aspect-ratio: 16/9;
 }

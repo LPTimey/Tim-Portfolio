@@ -24,6 +24,9 @@
     <script type="module" src="./Components/HeroImg.mjs"></script>
     <script type="module" src="./Components/CodeBlock.mjs"></script>
 
+    <script type="module" src="mermaid_utils.mjs">
+    </script>
+
     <link rel="shortcut icon" href="assets/Lebenslauf/schönes bild klein@0,25x.png" type="image/x-icon">
 </head>
 
@@ -81,13 +84,17 @@
             <h2 class="heading large margin-b">Technische Daten</h2>
             <!-- TODO: Add Styling & Ausformulierung -->
             <div class="content">
-                <img src="todo" alt="Bild Einzelteile">
-                Arduino Uno R4 WiFi
-                Arduino Uno Rev3
-                Waveshare LED-Matrix
-                funduino screen
-                Kabel
-                Buttons Button-covers
+                <div class="flex">
+                    <div class="grow">
+                        <p>Arduino Uno R4 WiFi</p>
+                        <p>Arduino Uno Rev3</p>
+                        <p>Waveshare LED-Matrix</p>
+                        <p>funduino screen</p>
+                        <p>Kabel</p>
+                        <p>Buttons Button-covers</p>
+                    </div>
+                    <img src="https://placehold.co/800x400" class="border-r" alt="Bild Einzelteile">
+                </div>
             </div>
         </section>
         <section class="section">
@@ -252,8 +259,35 @@
                         </div>
                     </div>
                     <p>
-                        TODO: Randomness mit bag
+                        Die Erscheinungsraten der Tetrinos werden mit Hilfe eines Taschensystems generiert.
+                        Diese Tasche generiert alle Tetrinos und randomisiert ihre Order um zu garantieren,
+                        sodass es keine Folge "Ziehungen" gibt ein welcher eine art Tetrino öfter als 2 mal
+                        oder gar nicht vorkommt.
                     </p>
+                    <div class="diagram-container mermaid margin-b-medium" name="TetrinoDiagram">
+                        <!-- Mermaid-Diagramm im Plain-Script-Tag (sicher für HTML) -->
+                        graph TB
+                        <script class="diagram-code" type="text/plain">
+                            graph LR
+                            A["Konstruktor aufgerufen<br>(mit oder ohne Seed)"]
+                            B["set_next_batch()"]
+                            C["Initialisiere Bag<br>mit allen 7 Tetrino-Typen"]
+                            D["Permutiere Bag<br>(Fisher-Yates Shuffle)"]
+                            E["Setze index = 0"]
+                            F["next() aufgerufen"]
+                            G["Gibt bag[index] zurück<br>index += 1"]
+                            H{"index < 7?"}
+                                A --> B
+                                B --> C
+                                C --> D
+                                D --> E
+                                E --> F
+                                F --> G
+                                G --> H
+                                H -- Ja --> F
+                                H -- Nein --> B
+                        </script>
+                    </div>
                     <code-block lang="cpp">
                         <pre>
                             class TetrinoBag {
@@ -271,13 +305,14 @@
                             };
                         </pre>
                     </code-block>
+                    
                 </section>
             </div>
         </section>
         <section>
             <h3 class="heading medium margin-b">Hardware</h3>
             <div class="content margin-b-medium">
-                <img src="./assets/Tetris/Tetris_Steckplatine.png" alt="Schematic">
+                <img class="border-r" src="./assets/Tetris/Tetris_Steckplatine.png" alt="Schematic">
             </div>
         </section>
         <section class="section">
