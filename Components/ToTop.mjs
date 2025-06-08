@@ -48,7 +48,6 @@ export default class ToTop extends HTMLElement {
         }
     }
     connectedCallback() {
-        // @ts-ignore
         this.shadowRoot.innerHTML = style + template;
 
         window.addEventListener("scroll", (ev) => this.toTopButtonDisplay(window));
@@ -57,6 +56,8 @@ export default class ToTop extends HTMLElement {
     constructor() {
         super()
         this.attachShadow({ mode: "open" })
+        /** @type {ShadowRoot} */
+        this.shadowRoot;
     }
 }
 customElements.define("to-top", ToTop);

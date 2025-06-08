@@ -23,6 +23,7 @@
     <script type="module" src="./Components/SiteFooter.mjs"></script>
     <script type="module" src="./Components/HeroImg.mjs"></script>
     <script type="module" src="./Components/CodeBlock.mjs"></script>
+    <script type="module" src="./Components/Carousel.mjs"></script>
 
     <script type="module" src="mermaid_utils.mjs"></script>
 
@@ -334,21 +335,28 @@
                             };
                         </pre>
                     </code-block>
-                    
                 </section>
             </div>
         </section>
         <section>
             <h3 class="heading medium margin-b">Hardware</h3>
             <div class="content margin-b-medium">
-                <img class="border-r" src="./assets/Tetris/Tetris_Steckplatine.png" alt="Schematic">
+                <!-- <img class="border-r" src="./assets/Tetris/Tetris_Steckplatine.png" alt="Schematic"> -->
             </div>
         </section>
         <section class="section">
             <!-- TODO: Add Ausformulierung -->
             <h2 class="heading large margin-b">Ergebnis</h2>
             <div class="content">
-
+                <x-carousel style="height:60vh;">
+                    <img class="border-r" src="./assets/Tetris/Tetris_Steckplatine.png" alt="Schematic">
+                    <img class="border-r" src="assets/Tetris/Buttons mit + und gnd.jpeg" alt="">
+                    <img class="border-r" src="assets/Tetris/Buttons verbunden.jpeg" alt="">
+                    <img class="border-r" src="assets/Tetris/Arduino Tetris Block.jpeg" alt="">
+                    <img class="border-r" src="assets/Tetris/buttons mit + und gnd topview.jpeg" alt="">
+                    <img class="border-r" src="assets/Tetris/Matrix.jpeg" alt="">
+                    <img class="border-r" src="assets/Tetris/Arduino Tetris Block I.jpeg" alt="">
+                </x-carousel>
             </div>
         </section>
         <section class="section">

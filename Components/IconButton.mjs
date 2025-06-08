@@ -52,7 +52,6 @@ label{
 
 export default class IconButton extends HTMLElement {
     get value() {
-        // @ts-ignore
         return this.shadowRoot.querySelector("input")?.value;
     }
     static get observedAttributes() {
@@ -67,7 +66,6 @@ export default class IconButton extends HTMLElement {
     attributeChangedCallback(name, oldValue, newValue) {
         switch (name) {
             case "id":
-                // @ts-ignore
                 this.shadowRoot.innerHTML = style + template(newValue + "box");
                 break;
         }
@@ -75,23 +73,18 @@ export default class IconButton extends HTMLElement {
     }
 
     connectedCallback() {
-        // @ts-ignore
         this.shadowRoot.innerHTML = style + template(this.id + "box");
-        // @ts-ignore
         const slots = this.shadowRoot.querySelectorAll('slot');
-        // @ts-ignore
         if (this.shadowRoot.querySelector("input")?.checked) {
             this.setAttribute("checked", "");
         } else {
             this.removeAttribute("checked");
         }
 
-        // @ts-ignore
         this.shadowRoot.querySelector("input")?.addEventListener("change", (ev) => {
             // this.setAttribute("checked", ev.target.checked);
             // this.checked = !!ev.target.checked
-            // @ts-ignore
-            if (ev.target?.checked) {
+            if (/** @type {HTMLInputElement} */(ev.target).checked) {
                 this.setAttribute("checked", "");
             } else {
                 this.removeAttribute("checked");
@@ -103,6 +96,8 @@ export default class IconButton extends HTMLElement {
     constructor() {
         super()
         this.attachShadow({ mode: "open" })
+        /** @type {ShadowRoot} */
+        this.shadowRoot;
     }
 }
 customElements.define("icon-button", IconButton);

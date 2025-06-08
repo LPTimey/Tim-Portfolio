@@ -174,7 +174,6 @@ export default class CodeBlock extends HTMLElement {
             .replace(/\n\n(?=\s*[^a-zA-Z0-9]+\s*$)/gm, '\n') // Entferne gezielt Leerzeilen VOR Sonderzeichenzeilen
             .trim();
 
-        // @ts-ignore
         this.shadowRoot.innerHTML = style(this.theme) + template(lang, content, noPre);
 
         /** @type {HTMLElement|null} */
@@ -203,11 +202,13 @@ export default class CodeBlock extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: "open" });
+        /** @type {ShadowRoot} */
+        this.shadowRoot;
         this.initialized = false;
 
         this._contentObserver = new MutationObserver(() => this.render());
         this._themeObserver = new MutationObserver(() => this.emitTheme());
-        // @ts-ignore
+
         this.shadowRoot.addEventListener("theme-change", () => {
             // console.log("event");
             this.render()

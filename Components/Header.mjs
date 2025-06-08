@@ -180,7 +180,6 @@ export default class SiteHeader extends HTMLElement {
     setCurrent() {
         let currentUrlPath = window.location.pathname;
 
-        // @ts-ignore
         [...this.shadowRoot.querySelectorAll("[href]")]
             .map(el => {
                 const anchor = /** @type {HTMLAnchorElement} */ (el);
@@ -210,7 +209,6 @@ export default class SiteHeader extends HTMLElement {
         return;
     }
     connectedCallback() {
-        // @ts-ignore
         this.shadowRoot.innerHTML = style + template;
         this.setCurrent();
 
@@ -226,6 +224,8 @@ export default class SiteHeader extends HTMLElement {
     constructor() {
         super()
         this.attachShadow({ mode: "open" })
+        /** @type {ShadowRoot} */
+        this.shadowRoot;
     }
 }
 customElements.define("site-header", SiteHeader);

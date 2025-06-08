@@ -3,10 +3,10 @@ import { css, html, double_arrow } from "../script.mjs";
 
 /**
  * 
- * @param {string} src1 
- * @param {string} alt1 
- * @param {string} src2 
- * @param {string} alt2 
+ * @param {string?} src1 
+ * @param {string?} alt1 
+ * @param {string?} src2 
+ * @param {string?} alt2 
  * @returns 
  */
 const template = function (src1, alt1, src2, alt2) {
@@ -160,7 +160,6 @@ export default class ImgCmp extends HTMLElement {
          * @param {*} oldValue old value of attribute
          * @param {*} newValue new value of attribute
          */
-    // @ts-ignore
     attributeChangedCallback(name, oldValue, newValue) {
         return;
     }
@@ -181,8 +180,8 @@ export default class ImgCmp extends HTMLElement {
          * @param {HTMLInputElement} target 
          */
         const affordance = (target) => {
-            // @ts-ignore
-            this.shadowRoot.querySelectorAll(".arrow").forEach((el) => {
+            this.shadowRoot.querySelectorAll(".arrow").forEach(
+                (el) => {
                 let delta = 2;
                 if (el.classList.contains("right")) {
                     delta = (-delta);
@@ -193,8 +192,7 @@ export default class ImgCmp extends HTMLElement {
         }
         affordance(input);
 
-        // @ts-ignore
-        this.shadowRoot.querySelector("input").addEventListener("input", (ev) => {
+        this.shadowRoot.querySelector("input")?.addEventListener("input", (ev) => {
             // @ts-ignore
             clip(ev.target);
             // @ts-ignore
@@ -202,10 +200,8 @@ export default class ImgCmp extends HTMLElement {
         })
     }
     connectedCallback() {
-        // @ts-ignore
         this.shadowRoot.innerHTML =
             style(this.hasAttribute("no-clip"))
-            // @ts-ignore
             + template(this.getAttribute("src1"), this.getAttribute("alt1"),
                 this.getAttribute("src2"), this.getAttribute("alt2"));
 
@@ -214,6 +210,8 @@ export default class ImgCmp extends HTMLElement {
     constructor() {
         super()
         this.attachShadow({ mode: "open" })
+        /** @type {ShadowRoot} */
+        this.shadowRoot;
     }
 }
 customElements.define("img-cmp", ImgCmp);

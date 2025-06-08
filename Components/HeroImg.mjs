@@ -112,12 +112,13 @@ export default class HeroImg extends HTMLElement {
         return;
     }
     connectedCallback() {
-        // @ts-ignore
         this.shadowRoot.innerHTML = style(this.getAttribute("bg")) + template(this.getAttribute("src"), this.getAttribute("alt"), this.getAttribute("time"), this.getAttribute("cols"), this.getAttribute("rows"), this.getAttribute("bg"), this.getAttribute("img-style"));
     }
     constructor() {
         super()
         this.attachShadow({ mode: "open" })
+        /** @type {ShadowRoot} */
+        this.shadowRoot;
     }
 }
 customElements.define("hero-img", HeroImg);

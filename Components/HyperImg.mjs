@@ -1,5 +1,4 @@
 "use strict";
-// @ts-ignore
 import { css, html, parseJSONC } from "../script.mjs";
 
 /**
@@ -24,7 +23,6 @@ import { css, html, parseJSONC } from "../script.mjs";
  * @extends {Event}
  */
 class PressEvent extends Event {
-    // @ts-ignore
     static name = "press-event"
     /**
      * @param {EventInit} options
@@ -85,8 +83,8 @@ const template = (datas) => {
             div.className = "img-wrapper";
             div.appendChild(data.img);
             data.links.forEach(link => div.appendChild(link));
-            // @ts-ignore
-            div.setAttribute("name", data.img.getAttribute("name"));
+
+            div.setAttribute("name", data.img.getAttribute("name")??"");
             return div;
         })
         .reduce((prev, cur, i) => {
@@ -256,7 +254,6 @@ export default class HyperImg extends HTMLElement {
         // @ts-ignore
         this.addEventListener(PressEvent.name, this.handlePress);
         // set EventListener for buttons
-        // @ts-ignore
         this.shadowRoot.querySelectorAll("button.hyper-img-link").forEach((link) => {
             link.addEventListener("click", () => {
                 // @ts-ignore
@@ -264,7 +261,6 @@ export default class HyperImg extends HTMLElement {
             });
         })
         // set EventListener for glow
-        // @ts-ignore
         this.shadowRoot.querySelectorAll(".img-wrapper").forEach((div) => {
             div.querySelector("img")?.addEventListener("click", () => {
                 const buttons = /** @type {NodeListOf<HTMLElement>} */(div.querySelectorAll('.hyper-img-link'));
@@ -286,14 +282,12 @@ export default class HyperImg extends HTMLElement {
         /** @type number[] */
         let ids = []
         if (!this.interacted) {
-            // @ts-ignore
             this.shadowRoot.querySelectorAll(".img-wrapper[active] .hyper-img-link").forEach((button) => {
                 let intervalId = window.setInterval(this.triggerGlow, 2000, button);
                 console.log(intervalId);
                 ids.push(intervalId);
             });
         }
-        // @ts-ignore
         this.addEventListener("click", (ev) => {
             this.interacted = true;
             for (const id of ids) {
@@ -305,7 +299,8 @@ export default class HyperImg extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: "open" });
-
+        /** @type {ShadowRoot} */
+        this.shadowRoot;
     }
 }
 customElements.define("hyper-img", HyperImg);

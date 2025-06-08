@@ -87,13 +87,11 @@ export default class ScrollImage extends HTMLElement {
         console.log(name, oldValue, newValue);
         switch (name) {
             case "src": {
-                // @ts-ignore
                 let heroes = this.shadowRoot.querySelectorAll(".scrolling-image");
                 heroes.forEach((el) => el.setAttribute("src", newValue));
                 break;
             }
             case "alt": {
-                // @ts-ignore
                 let heroes = this.shadowRoot.querySelectorAll("img");
                 heroes.forEach((el) => el.setAttribute("alt", newValue));
                 break;
@@ -106,7 +104,6 @@ export default class ScrollImage extends HTMLElement {
             case "cols": {
                 let styleEl = this.shadowRoot?.querySelector("style") ?? { outerHTML: "" };
                 styleEl.outerHTML = style(this.getAttribute("time") ?? "0s", newValue, this.getAttribute("bg"));
-                // @ts-ignore
                 let imgs = [... this.shadowRoot.querySelectorAll(".scrolling-image")];
                 let delta = imgs.length - Number(newValue) * Number(this.getAttribute("rows"));
                 if (delta < 0) {
@@ -121,7 +118,6 @@ export default class ScrollImage extends HTMLElement {
                 break;
             }
             case "rows": {
-                // @ts-ignore
                 let imgs = [... this.shadowRoot.querySelectorAll(".scrolling-image")];
                 let delta = imgs.length - Number(newValue) * Number(this.getAttribute("cols"));
                 if (delta < 0) {
@@ -136,7 +132,6 @@ export default class ScrollImage extends HTMLElement {
                 break;
             }
             case "bg": {
-                // @ts-ignore
                 let styleEl = this.shadowRoot.querySelector("style") ?? { outerHTML: "" };
                 styleEl.outerHTML = style(this.getAttribute("time") ?? "0s", Number(this.getAttribute("cols")), newValue);
                 break;
@@ -148,7 +143,6 @@ export default class ScrollImage extends HTMLElement {
         return;
     }
     connectedCallback() {
-        // @ts-ignore
         this.shadowRoot.innerHTML =
             style(this.getAttribute("time") ?? "0s", Number(this.getAttribute("cols")), this.getAttribute("bg"))
             + template(this.getAttribute("src") ?? "", this.getAttribute("alt") ?? "", Number(this.getAttribute("cols")), Number(this.getAttribute("rows")));
@@ -159,6 +153,8 @@ export default class ScrollImage extends HTMLElement {
         super()
         this._initialized = false;
         this.attachShadow({ mode: "open" })
+        /** @type {ShadowRoot} */
+        this.shadowRoot;
     }
 }
 customElements.define("scroll-img", ScrollImage);

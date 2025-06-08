@@ -31,7 +31,6 @@ export default class ThemeSelect extends HTMLElement {
      */
     set theme(theme) {
         console.log(theme);
-        // @ts-ignore
         const select = /** @type {HTMLSelectElement} */(this.shadowRoot.querySelector("select"));
         let test = [...select.options].map(op => op.value);
         if (!test.includes(theme)) {
@@ -69,10 +68,8 @@ export default class ThemeSelect extends HTMLElement {
         }
     }
     connectedCallback() {
-        // @ts-ignore
         this.shadowRoot.innerHTML = style + template;
-        // @ts-ignore
-        this.shadowRoot.querySelector("select").addEventListener("change", () => {
+        this.shadowRoot.querySelector("select")?.addEventListener("change", () => {
             let t = this.theme;
             ThemeSelect.setDocTheme(t);
             ThemeSelect.setLocalStorageTheme(t);
@@ -83,6 +80,8 @@ export default class ThemeSelect extends HTMLElement {
     constructor() {
         super()
         this.attachShadow({ mode: "open" })
+        /** @type {ShadowRoot} */
+        this.shadowRoot;
     }
 }
 customElements.define("theme-select", ThemeSelect);

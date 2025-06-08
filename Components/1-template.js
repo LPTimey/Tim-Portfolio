@@ -35,12 +35,13 @@ export default class x extends HTMLElement {
         return;
     }
     connectedCallback() {
-        // @ts-ignore
         this.shadowRoot.innerHTML = style + template;
     }
     constructor() {
         super()
         this.attachShadow({ mode: "open" });
+        /** @type {ShadowRoot} */
+        this.shadowRoot;
         this.initialized = false;
     }
 }

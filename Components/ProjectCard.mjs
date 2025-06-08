@@ -117,7 +117,6 @@ export default class ProjectCard extends HTMLElement {
         }
     }
     emitTheme() {
-        // @ts-ignore
         this.shadowRoot.dispatchEvent(new Event('theme-change'));
     }
     /**
@@ -125,7 +124,6 @@ export default class ProjectCard extends HTMLElement {
      * @param {boolean} [isDark] 
      */
     render(isDark){
-        // @ts-ignore
         this.shadowRoot.innerHTML = style() + template(
             this.getAttribute("src"),
             this.getAttribute("src-dark"),
@@ -139,9 +137,10 @@ export default class ProjectCard extends HTMLElement {
         super()
 
         this.attachShadow({ mode: "open" });
+        /** @type {ShadowRoot} */
+        this.shadowRoot;
 
         this._themeObserver = new MutationObserver(() => this.emitTheme());
-        // @ts-ignore
         this.shadowRoot.addEventListener("theme-change", () => {
             console.log("event");
             this.render()

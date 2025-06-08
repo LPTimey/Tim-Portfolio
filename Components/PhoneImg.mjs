@@ -10,7 +10,7 @@ import { css, html } from "../script.mjs";
  */
 const template = (src, alt, phonePrefix) => html`
 ${src || alt ? html`<img class="screen" src="${src}" alt="${alt}">` : html`<slot></slot>`}
-<img class="phone" src="${phonePrefix ?? "./"}assets/iPhone Template [Konvertiert] noBG.png" alt="">
+<img class="phone" src="${phonePrefix ?? " ./"}assets/iPhone Template [Konvertiert] noBG.png" alt="">
 `;
 
 /**
@@ -43,16 +43,16 @@ img,::slotted(*){
     top: 50%;
     transform: translate(-50%, -50%);
 }
-.screen, ::slotted(*) {
-    border-radius: 10% / 5% ;
-    height: 97%;
-    aspect-ratio: var(--iphone16PM-aspect);
-    ${bg ? `background: ${bg}` : ""};
-}
 .phone{
     height: 100%;
     aspect-ratio: var(--iphone16PM-aspect-outer);
     pointer-events: none;
+}
+.screen, ::slotted(*) {
+    border-radius: 10% / 5% ;
+    height: 97%;
+    aspect-ratio: var(--iphone16PM-aspect);
+    ${bg ? `background: ${bg};` : `;`};
 }
 `;
 
@@ -62,13 +62,14 @@ export class PhoneImage extends HTMLElement {
     }
 
     connectedCallback() {
-        // @ts-ignore
         this.shadowRoot.innerHTML = style(this.getAttribute("bg")) + template(this.getAttribute("src"), this.getAttribute("alt"), this.getAttribute("phonePrefix"));
 
     }
     constructor() {
         super();
         this.attachShadow({ mode: "open" });
+        /** @type {ShadowRoot} */
+        this.shadowRoot;
     }
 }
 customElements.define("phone-img", PhoneImage)
