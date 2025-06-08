@@ -1,28 +1,3 @@
-canvas {
-    width: 100%;
-    height: 70dvh;
-}
-
-#TetArrayMetaBlock {
-    container: meta-box / inline-size;
-
-    :first-child {
-        display: none;
-
-        @container meta-box (width < 70ch) {
-            display: block;
-        }
-    }
-
-    :last-child {
-        display: block;
-
-        @container meta-box (width < 70ch) {
-            display: none;
-        }
-    }
-}
-
 @container GenInfoCont (width < 175ch) {
     #GeneralInfo {
         display: grid;
@@ -50,15 +25,110 @@ canvas {
     }
 }
 
-.diagram-container{
+#Graphic {
+    max-height: 40vh;
+    display: flex;
+}
+
+#EinzelteileGrid {
+    display: grid;
+    grid-template-areas:
+        "Text Img";
+    grid-template-columns: 1fr auto;
+
+    img {
+        max-height: 60vh;
+        width: auto;
+    }
+}
+
+#EinzelteileWrapper {
+    position: relative;
+    width: fit-content;
+    height: fit-content;
+
+    .marker {
+        position: absolute;
+        inset: 0;
+        width: auto;
+        height: auto;
+        border-radius: var(--border-r);
+        /* outline: 1px solid red; */
+    }
+
+    #UnoR4 {
+        inset: 50% 75% 25% 4%;
+    }
+
+    #UnoR3 {
+        inset: 65% 40% 15% 40%;
+    }
+
+    #Matrix {
+        inset: 25% 50% 50% 22%;
+    }
+
+    #Resistors {
+        inset: 6% 1% 27% 50%;
+    }
+
+    #Extras {
+        inset: 2% 47% 65% 10%;
+    }
+
+    #Breadboard {
+        inset: 57% 48% 28% 35%;
+    }
+}
+
+div:has(#EinzelteileGrid) {
+    container: EinzelteileCon / inline-size;
+}
+
+@container EinzelteileCon (width < 110ch) {
+    #EinzelteileGrid {
+        grid-template-columns: auto;
+        grid-template-areas:
+            "Text"
+            "Img";
+    }
+
+    #EinzelteileWrapper {
+        place-self: center;
+    }
+}
+
+#TetArrayMetaBlock {
+    container: meta-box / inline-size;
+
+    :first-child {
+        display: none;
+
+        @container meta-box (width < 70ch) {
+            display: block;
+        }
+    }
+
+    :last-child {
+        display: block;
+
+        @container meta-box (width < 70ch) {
+            display: none;
+        }
+    }
+}
+
+.diagram-container {
     container: DiagramCon / inline-size;
 }
-@container DiagramCon (width < 110ch){
+
+@container DiagramCon (width < 110ch) {
     .diagram-container .horizontal {
         display: none;
     }
 }
-@container DiagramCon (width >= 110ch){
+
+@container DiagramCon (width >=110ch) {
     .diagram-container .vertical {
         display: none;
     }

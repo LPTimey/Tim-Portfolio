@@ -46,7 +46,8 @@
             <div class="content">
                 <div id="GeneralInfo">
                     <div id="Graphic" class="full">
-                        <img src="https://placehold.co/800x400" alt="" width="800" height="400">
+                        <img src="assets/Tetris/Button verbunden topview smaller.jpeg" alt="">
+                        <img class="grow" src="assets/Tetris/Arduino Tetris Block.jpeg" alt="">
                     </div>
                     <table id="TlDrTable" class="project-info table" style="background-color: transparent !important;"
                         role="presentation" aria-label="Projektinformationen">
@@ -83,16 +84,26 @@
             <h2 class="heading large margin-b">Technische Daten</h2>
             <!-- TODO: Add Styling & Ausformulierung -->
             <div class="content">
-                <div class="flex shrink grow wrap">
+                <div id="EinzelteileGrid">
                     <div class="grow">
-                        <p>Arduino Uno R4 WiFi</p>
-                        <p>Arduino Uno Rev3</p>
-                        <p>Waveshare LED-Matrix</p>
-                        <p>funduino screen</p>
-                        <p>Kabel</p>
-                        <p>Buttons Button-covers</p>
+                        <p hover-border-target="UnoR4">Arduino Uno R4 WiFi</p>
+                        <p hover-border-target="UnoR3">Arduino Uno Rev3</p>
+                        <p hover-border-target="Matrix">Waveshare LED-Matrix</p>
+                        <!-- <p hover-border-target="">funduino screen</p> -->
+                        <p hover-border-target="Extras">Kabel</p>
+                        <p hover-border-target="Extras">Buttons & Button-covers</p>
+                        <p hover-border-target="Resistors">Widerstände</p>
+                        <p hover-border-targets="Breadboard, Extras">BreadBoards</p>
                     </div>
-                    <div class="full children"><img src="https://placehold.co/800x400" class="border-r" alt="Bild Einzelteile"></div>
+                    <div class="full children" id="EinzelteileWrapper">
+                        <div class="marker" id="UnoR4"></div>
+                        <div class="marker" id="UnoR3"></div>
+                        <div class="marker" id="Matrix"></div>
+                        <div class="marker" id="Resistors"></div>
+                        <div class="marker" id="Extras"></div>
+                        <div class="marker" id="Breadboard"></div>
+                        <img src="assets/Tetris/Einzelteile.jpg" class="border-r" alt="Bild Einzelteile">
+                    </div>
                 </div>
             </div>
         </section>
