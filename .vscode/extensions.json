@@ -1,6 +1,7 @@
 {
     "recommendations": [
         // "bierner.lit-html",
-        "runem.lit-plugin"
+        "runem.lit-plugin",
+        "ericc-ch.lit-html"
     ]
 }

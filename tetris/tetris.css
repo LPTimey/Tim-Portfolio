@@ -49,3 +49,17 @@ canvas {
         margin: revert;
     }
 }
+
+.diagram-container{
+    container: DiagramCon / inline-size;
+}
+@container DiagramCon (width < 110ch){
+    .diagram-container .horizontal {
+        display: none;
+    }
+}
+@container DiagramCon (width >= 110ch){
+    .diagram-container .vertical {
+        display: none;
+    }
+}

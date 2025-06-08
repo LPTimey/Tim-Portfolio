@@ -1,11 +1,13 @@
 "use strict";
 import mermaid from './vendor/mermaid/mermaid-11.6.0/dist/mermaid.esm.min.mjs';
 
-mermaid.initialize({ startOnLoad: false, logLevel: 1 });
+mermaid.initialize({ startOnLoad: false });
+const parser = new DOMParser();
 
 /** @type {import('./vendor/mermaid/mermaid-11.6.0/dist/mermaid').MermaidConfig} */
 const config = {
     look: "handDrawn",
+    htmlLabels: true,
     // themeVariables: { edgeLabelBackground: "transparent" },
     // themeCSS: `
     //     .edgeLabel .label-background {
@@ -32,7 +34,7 @@ const configDark = {
 window.addEventListener('DOMContentLoaded', async () => {
     const containers = document.querySelectorAll('.diagram-container');
     containers.forEach(async container => {
-        const definitions = container.querySelectorAll('.diagram-code');
+        const definitions = [...container.querySelectorAll('.diagram-code')]
         if (!definitions) {
             container.innerHTML += `
             <p class="error-msg">no Definition found</p>
@@ -42,19 +44,22 @@ window.addEventListener('DOMContentLoaded', async () => {
 
         definitions.forEach(async definition => {
             try {
+                const Name = (container?.getAttribute("name") || 'diagram-') + Math.random().toString(36).slice(2);
                 const { svg: svg_light } = await mermaid.render(
-                    (container?.getAttribute("name") || 'diagram-' + Math.random().toString(36).slice(2)) + "THEME_Light",
+                    (Name) + "THEME_Light",
                     `%%{init: ${JSON.stringify(configLight)}}%% ${definition.textContent}`
                 );
                 const { svg: svg_dark } = await mermaid.render(
-                    (container?.getAttribute("name") || 'diagram-' + Math.random().toString(36).slice(2)) + "THEME_Dark",
+                    (Name) + "THEME_Dark",
                     `%%{init: ${JSON.stringify(configDark)}}%% ${definition.textContent}`
                 );
 
-                container.innerHTML = svg_light;
+                container.innerHTML += svg_light;
                 container.innerHTML += svg_dark;
 
-                container.querySelectorAll('svg').forEach(svgElement => {
+                [...container.querySelectorAll('svg')].filter(svgElement =>
+                    svgElement.id.includes(Name)
+                ).forEach(svgElement => {
                     const g = /** @type {SVGGElement} */(svgElement.querySelector('g'));
                     const boundingBox = g.getBBox();
 
@@ -69,6 +74,9 @@ window.addEventListener('DOMContentLoaded', async () => {
                     if (svgElement.id.includes("THEME_Light")) {
                         svgElement.classList.add("light-only");
                     }
+                    let test = definition.classList;
+                    console.log(test);
+                    svgElement.classList.add(...test);
                 })
 
             } catch (err) {

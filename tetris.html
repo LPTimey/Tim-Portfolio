@@ -24,8 +24,7 @@
     <script type="module" src="./Components/HeroImg.mjs"></script>
     <script type="module" src="./Components/CodeBlock.mjs"></script>
 
-    <script type="module" src="mermaid_utils.mjs">
-    </script>
+    <script type="module" src="mermaid_utils.mjs"></script>
 
     <link rel="shortcut icon" href="assets/Lebenslauf/schönes bild klein@0,25x.png" type="image/x-icon">
 </head>
@@ -84,7 +83,7 @@
             <h2 class="heading large margin-b">Technische Daten</h2>
             <!-- TODO: Add Styling & Ausformulierung -->
             <div class="content">
-                <div class="flex">
+                <div class="flex shrink grow wrap">
                     <div class="grow">
                         <p>Arduino Uno R4 WiFi</p>
                         <p>Arduino Uno Rev3</p>
@@ -93,7 +92,7 @@
                         <p>Kabel</p>
                         <p>Buttons Button-covers</p>
                     </div>
-                    <img src="https://placehold.co/800x400" class="border-r" alt="Bild Einzelteile">
+                    <div class="full children"><img src="https://placehold.co/800x400" class="border-r" alt="Bild Einzelteile"></div>
                 </div>
             </div>
         </section>
@@ -266,9 +265,28 @@
                     </p>
                     <div class="diagram-container mermaid margin-b-medium" name="TetrinoDiagram">
                         <!-- Mermaid-Diagramm im Plain-Script-Tag (sicher für HTML) -->
-                        graph TB
-                        <script class="diagram-code" type="text/plain">
+                        <script class="diagram-code horizontal" type="text/plain">
                             graph LR
+                            A["Konstruktor aufgerufen<br>(mit oder ohne Seed)"]
+                            B["set_next_batch()"]
+                            C["Initialisiere Bag<br>mit allen 7 Tetrino-Typen"]
+                            D["Permutiere Bag<br>(Fisher-Yates Shuffle)"]
+                            E["Setze index = 0"]
+                            F["next() aufgerufen"]
+                            G["Gibt bag[index] zurück<br>index += 1"]
+                            H{"index < 7?"}
+                                A --> B
+                                B --> C
+                                C --> D
+                                D --> E
+                                E --> F
+                                F --> G
+                                G --> H
+                                H -- Ja --> F
+                                H -- Nein --> B
+                        </script>
+                        <script class="diagram-code vertical" type="text/plain">
+                            graph TB
                             A["Konstruktor aufgerufen<br>(mit oder ohne Seed)"]
                             B["set_next_batch()"]
                             C["Initialisiere Bag<br>mit allen 7 Tetrino-Typen"]
