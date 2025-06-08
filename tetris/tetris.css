@@ -1,3 +1,12 @@
+#Graphic {
+    max-height: 40vh;
+    display: flex;
+
+    >* {
+        min-width: 3ch;
+    }
+}
+
 @container GenInfoCont (width < 175ch) {
     #GeneralInfo {
         display: grid;
@@ -23,11 +32,6 @@
     #TlDrTable {
         margin: revert;
     }
-}
-
-#Graphic {
-    max-height: 40vh;
-    display: flex;
 }
 
 #EinzelteileGrid {

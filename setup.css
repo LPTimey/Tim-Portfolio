@@ -382,7 +382,7 @@
 
 
     @media screen and (prefers-reduced-motion: no-preference) {
-        .accent-border {
+        .accent-border[accent-border-active] {
             box-shadow: 0 0 0.75ch var(--accent),
                 0 0 1.25ch var(--accent),
                 0 0 2ch var(--accent);

@@ -193,11 +193,12 @@ hoverBorderTargets
     })
     .forEach(
         ([el, target]) => {
+            target?.classList.add("accent-border");
             el.addEventListener("mouseenter", () => {
-                target?.classList.add("accent-border");
+                target?.setAttribute("accent-border-active","");
             });
             el.addEventListener("mouseleave", () => {
-                target?.classList.remove("accent-border");
+                target?.removeAttribute("accent-border-active");
             })
         });
 
