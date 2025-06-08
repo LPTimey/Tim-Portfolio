@@ -24,6 +24,7 @@
     <script type="module" src="./Components/HeroImg.mjs"></script>
     <script type="module" src="./Components/CodeBlock.mjs"></script>
     <script type="module" src="./Components/Carousel.mjs"></script>
+    <script type="module" src="./Components/Tooltip.mjs"></script>
 
     <script type="module" src="mermaid_utils.mjs"></script>
 
@@ -81,7 +82,6 @@
                 </div>
             </div>
         </section>
-        
         <section class="section">
             <!-- TODO: Add Ausformulierung -->
             <h2 class="heading large margin-b">Ergebnis</h2>
@@ -95,33 +95,7 @@
                     <img class="border-r" src="assets/Tetris/Matrix.jpeg" alt="">
                     <img class="border-r" src="assets/Tetris/Arduino Tetris Block I.jpeg" alt="">
                 </x-carousel>
-            </div>
-        </section>
-        <section class="section">
-            <h2 class="heading large margin-b">Technische Daten</h2>
-            <!-- TODO: Add Styling & Ausformulierung -->
-            <div class="content">
-                <div id="EinzelteileGrid">
-                    <div class="grow">
-                        <p hover-border-target="UnoR4">Arduino Uno R4 WiFi</p>
-                        <p hover-border-target="UnoR3">Arduino Uno Rev3</p>
-                        <p hover-border-target="Matrix">Waveshare LED-Matrix</p>
-                        <!-- <p hover-border-target="">funduino screen</p> -->
-                        <p hover-border-target="Extras">Kabel</p>
-                        <p hover-border-target="Extras">Buttons & Button-covers</p>
-                        <p hover-border-target="Resistors">Widerstände</p>
-                        <p hover-border-targets="Breadboard, Extras">BreadBoards</p>
-                    </div>
-                    <div class="full children" id="EinzelteileWrapper">
-                        <div class="marker" id="UnoR4"></div>
-                        <div class="marker" id="UnoR3"></div>
-                        <div class="marker" id="Matrix"></div>
-                        <div class="marker" id="Resistors"></div>
-                        <div class="marker" id="Extras"></div>
-                        <div class="marker" id="Breadboard"></div>
-                        <img src="assets/Tetris/Einzelteile.jpg" class="border-r" alt="Bild Einzelteile">
-                    </div>
-                </div>
+                <!-- TODO: Ergebnis -->
             </div>
         </section>
         <section class="section">
@@ -358,34 +332,117 @@
             <h3 class="heading medium margin-b">Hardware</h3>
             <div class="content margin-b-medium">
                 <!-- <img class="border-r" src="./assets/Tetris/Tetris_Steckplatine.png" alt="Schematic"> -->
+                <div id="EinzelteileGrid">
+                    <div class="grow" id="EinzelteileText">
+                        <p hover-border-target="UnoR4">Arduino Uno R4 WiFi</p>
+                        <p hover-border-target="UnoR3">Arduino Uno Rev3</p>
+                        <p hover-border-target="Matrix">Waveshare LED-Matrix</p>
+                        <!-- <p hover-border-target="">funduino screen</p> -->
+                        <p hover-border-target="Extras">Kabel</p>
+                        <p hover-border-target="Extras">Buttons & Button-covers</p>
+                        <p hover-border-target="Resistors">Widerstände</p>
+                        <p hover-border-targets="Breadboard, Extras">BreadBoards</p>
+                    </div>
+                    <div class="full children" id="EinzelteileWrapper">
+                        <div class="marker" id="UnoR4">
+                            <tool-tip>
+                                <div class="full" slot="trigger"></div>
+                                <span slot="content">Arduino Uno R4 WiFi</span>
+                            </tool-tip>
+                        </div>
+                        <div class="marker" id="UnoR3">
+                            <tool-tip>
+                                <div class="full" slot="trigger"></div>
+                                <span slot="content">Arduino Uno R3</span>
+                            </tool-tip>
+                        </div>
+                        <div class="marker" id="Matrix">
+                            <tool-tip>
+                                <div class="full" slot="trigger"></div>
+                                <span slot="content">Waveshare LED-Matrix</span>
+                            </tool-tip>
+                        </div>
+                        <div class="marker" id="Resistors">
+                            <tool-tip>
+                                <div class="full" slot="trigger"></div>
+                                <span slot="content">Widerstände & LEDs</span>
+                            </tool-tip>
+                        </div>
+                        <div class="marker" id="Extras">
+                            <tool-tip>
+                                <div class="full" slot="trigger"></div>
+                                <span slot="content">Buttons, Kabel & Extras</span>
+                            </tool-tip>
+                        </div>
+                        <div class="marker" id="Breadboard">
+                            <tool-tip>
+                                <div class="full" slot="trigger"></div>
+                                <span slot="content">Breadboard</span>
+                            </tool-tip>
+                        </div>
+                        <img src="assets/Tetris/Einzelteile.jpg" class="border-r" alt="Bild Einzelteile">
+                    </div>
+                </div>
             </div>
         </section>
         <section class="section">
-            <!-- TODO: Add Ausformulierung -->
             <h2 class="heading large margin-b">How to Run</h2>
-            <div class="content">
-                <h3>Requirements:</h3>
-                <ul>
-                    <li>
-                        <p>Sourcecode (<a href="assets/Tetris/Tetris_new.zip" class="link underline link-active">Download</a>)
-                        </p>
-                    </li>
-                    <li>
-                        <p>clang++ C/C++ Compiler</p>
-                    </li>
-                </ul>
-                <h3>Step by Step</h3>
-                <ol>
-                    <li>Go to Project Folder</li>
-                    <li>Build nob.c (= buildsystem) to nob executable
-                        <br>
-                        Unix:
-                        <code-block no-pre lang="bash">clang -o nob nob.c</code-block>
-                        Windows:
-                        <code-block no-pre lang="bash">clang -o nob.exe nob.c</code-block>
-                    </li>
-                    <li>run nob executable</li>
-                </ol>
+            <div class="content flex wrap grow">
+                <div>
+                    <h3>Arduino</h3>
+                    <h4>Voraussetzungen:</h4>
+                    <ul>
+                        <li>
+                            Quellcode (<a href="assets/Tetris/Tetris_new.zip"
+                                class="link underline link-active">Download</a>)
+                        </li>
+                        <li>
+                            Arduino IDE
+                        </li>
+                        <li>
+                            Aufgelistete Hardware oder gleichwertige Komponenten
+                            <!-- TODO: Link zu den technischen Daten -->
+                        </li>
+                    </ul>
+
+                    <h4>Schritt-für-Schritt-Anleitung:</h4>
+                    <ol>
+                        <li>Projekt-ZIP-Datei entpacken</li>
+                        <li>Zum Projektordner wechseln</li>
+                        <li>Die Arduino IDE hier öffnen</li>
+                        <li><code>Tetrino.ino</code> bauen und auf das Arduino-Board flashen</li>
+                    </ol>
+                </div>
+
+                <div>
+                    <h3>PC</h3>
+                    <h4>Voraussetzungen:</h4>
+                    <ul>
+                        <li>
+                            Quellcode (<a href="assets/Tetris/Tetris_new.zip"
+                                class="link underline link-active">Download</a>)
+                        </li>
+                        <li>
+                            C/C++-Compiler (clang++)
+                        </li>
+                    </ul>
+
+                    <h4>Schritt-für-Schritt-Anleitung:</h4>
+                    <ol>
+                        <li>Projekt-ZIP-Datei entpacken</li>
+                        <li>Zum Projektordner wechseln</li>
+                        <li>
+                            <code>nob.c</code> (Buildsystem) zu einer ausführbaren Datei kompilieren & rennen<br>
+                            Unix:<br>
+                            <code-block no-pre lang="bash">clang -o nob nob.c</code-block>
+                            <code-block no-pre lang="bash">./nob</code-block>
+                            Windows:<br>
+                            <code-block no-pre lang="bash">clang -o nob.exe nob.c</code-block>
+                            <code-block no-pre lang="bash">.\nob.exe</code-block>
+                        </li>
+                    </ol>
+                </div>
+
             </div>
         </section>
 

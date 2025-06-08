@@ -75,7 +75,7 @@ window.addEventListener('DOMContentLoaded', async () => {
                         svgElement.classList.add("light-only");
                     }
                     let test = definition.classList;
-                    console.log(test);
+                    // console.log(test);
                     svgElement.classList.add(...test);
                 })
 

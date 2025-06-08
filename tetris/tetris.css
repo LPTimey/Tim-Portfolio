@@ -37,8 +37,8 @@
 #EinzelteileGrid {
     display: grid;
     grid-template-areas:
-        "Text Img";
-    grid-template-columns: 1fr auto;
+        "Img";
+    grid-template-columns: 1fr;
 
     img {
         max-height: 60vh;
@@ -46,10 +46,17 @@
     }
 }
 
+#EinzelteileText {
+    grid-area: Text;
+    display: none;
+}
+
 #EinzelteileWrapper {
     position: relative;
     width: fit-content;
     height: fit-content;
+    grid-area: Img;
+    place-self: center;
 
     .marker {
         position: absolute;
@@ -57,7 +64,13 @@
         width: auto;
         height: auto;
         border-radius: var(--border-r);
+
         /* outline: 1px solid red; */
+
+        tool-tip {
+            width: 100%;
+            height: 100%;
+        }
     }
 
     #UnoR4 {
@@ -65,11 +78,13 @@
     }
 
     #UnoR3 {
-        inset: 65% 40% 15% 40%;
+        inset: 66% 40% 15% 40%;
+        z-index: 2;
     }
 
     #Matrix {
         inset: 25% 50% 50% 22%;
+        z-index: 2;
     }
 
     #Resistors {
@@ -77,7 +92,7 @@
     }
 
     #Extras {
-        inset: 2% 47% 65% 10%;
+        inset: 2% 47% 67% 10%;
     }
 
     #Breadboard {
@@ -99,6 +114,10 @@ div:has(#EinzelteileGrid) {
 
     #EinzelteileWrapper {
         place-self: center;
+    }
+
+    #EinzelteileText {
+        display: block;
     }
 }
 

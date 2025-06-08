@@ -195,9 +195,15 @@ hoverBorderTargets
         ([el, target]) => {
             target?.classList.add("accent-border");
             el.addEventListener("mouseenter", () => {
+                console.log("add glow from:");
+                console.log(el);
+                console.log("to");
+                console.log(target);
+                console.log();
                 target?.setAttribute("accent-border-active","");
             });
             el.addEventListener("mouseleave", () => {
+                console.log("remove glow")
                 target?.removeAttribute("accent-border-active");
             })
         });
@@ -212,12 +218,18 @@ hoverBorderMultiTargets
     .forEach(
         /** @param {[Element,(HTMLElement|null)[]]} param0 */
         ([el, targets]) => {
-            console.log(targets)
+            // console.log(targets)
             el.addEventListener("mouseenter", () => {
-                targets?.forEach(target => { target?.classList.add("accent-border"); })
+                console.log("add glow from:");
+                console.log(el);
+                console.log("to");
+                console.log(targets);
+                console.log();
+                targets?.forEach(target => { target?.setAttribute("accent-border-active", ""); })
             });
             el.addEventListener("mouseleave", () => {
-                targets?.forEach(target => { target?.classList.remove("accent-border"); })
+                console.log("remove glow")
+                targets?.forEach(target => { target?.removeAttribute("accent-border-active"); })
             })
         });
 
