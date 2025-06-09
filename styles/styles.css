@@ -74,25 +74,48 @@ div:has(>#OriginalImage) {
     place-self: center;
 }
 
-@container Konzentration (width < 120ch) {
-    #KonzentrationLayout {
-        grid-template-areas:
-            "Heading Heading Heading"
-            "Text PhoneOriginal PhoneMinimal";
-        grid-template-columns: 1fr auto auto;
+@media (aspect-ratio > 13/9) {
+    @container Konzentration (width < 130ch) {
+        #KonzentrationLayout {
+            grid-template-areas:
+                "Heading Heading Heading"
+                "Text PhoneOriginal PhoneMinimal";
+            grid-template-columns: 1fr auto auto;
+        }
+    }
+
+    @container Konzentration (width < 80ch) {
+        #KonzentrationLayout {
+            grid-template-areas:
+                "Heading Heading"
+                "Text PhoneOriginal"
+                "Text PhoneMinimal";
+            grid-template-columns: 1fr auto;
+        }
     }
 }
 
-@container Konzentration (width < 80ch) {
-    #KonzentrationLayout {
-        grid-template-areas:
-            "Heading Heading"
-            "Text PhoneOriginal"
-            "Text PhoneMinimal";
-        grid-template-columns: 1fr auto;
+@media (aspect-ratio <= 13/9) {
+    @container Konzentration (width > 70ch) {
+        #KonzentrationLayout {
+            grid-template-areas:
+                "Heading Heading"
+                "Text Text"
+                "PhoneOriginal PhoneMinimal";
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+    @container Konzentration (width <= 70ch) {
+        #KonzentrationLayout {
+            grid-template-areas:
+                "Heading"
+                "Text"
+                "PhoneOriginal"
+                "PhoneMinimal";
+            grid-template-columns: 1fr;
+        }
     }
 }
-
 
 #New {
     container: New / inline-size;
@@ -135,25 +158,55 @@ div:has(>#OriginalImage) {
     place-self: center;
 }
 
-@container New (width<150ch) {
-    #NewLayout {
-        column-gap: 2ch;
-        grid-template-areas:
-            "HeadBau HeadBau PhoneBau"
-            "TextBau TextBau PhoneBau"
-            "PhoneGlas HeadGlas HeadGlas"
-            "PhoneGlas TextGlas TextGlas";
-        grid-template-columns: auto 1fr auto;
+@media (aspect-ratio > 13/9) {
+    @container New (width<150ch) {
+        #NewLayout {
+            column-gap: 2ch;
+            grid-template-areas:
+                "HeadBau HeadBau PhoneBau"
+                "TextBau TextBau PhoneBau"
+                "PhoneGlas HeadGlas HeadGlas"
+                "PhoneGlas TextGlas TextGlas";
+            grid-template-columns: auto 1fr auto;
+        }
+    }
+
+    @container New (width<80ch) {
+        #NewLayout {
+            column-gap: 2ch;
+            grid-template-areas:
+                "HeadBau HeadBau HeadBau"
+                "TextBau TextBau PhoneBau"
+                "HeadGlas HeadGlas HeadGlas"
+                "PhoneGlas TextGlas TextGlas";
+            grid-template-columns: auto 1fr auto;
+        }
     }
 }
-@container New (width<80ch) {
-    #NewLayout {
-        column-gap: 2ch;
-        grid-template-areas:
-            "HeadBau HeadBau HeadBau"
-            "TextBau TextBau PhoneBau"
-            "HeadGlas HeadGlas HeadGlas"
-            "PhoneGlas TextGlas TextGlas";
-        grid-template-columns: auto 1fr auto;
+@media (aspect-ratio <=13/9) {
+    @container New (width > 70ch) {
+        #NewLayout {
+            grid-template-areas:
+                "HeadBau PhoneBau"
+                "TextBau PhoneBau"
+                "PhoneGlas HeadGlas"
+                "PhoneGlas TextGlas";
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+    @container New (width <= 70ch) {
+        #NewLayout {
+            grid-template-areas:
+                "HeadBau"
+                "TextBau"
+                "PhoneBau"
+                "."
+                "."
+                "."
+                "HeadGlas"
+                "TextGlas"
+                "PhoneGlas";
+            grid-template-columns: 1fr;
+        }
     }
 }
