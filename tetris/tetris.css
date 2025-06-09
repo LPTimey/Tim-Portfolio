@@ -34,6 +34,91 @@
     }
 }
 
+#Code {
+    container: Code / inline-size;
+}
+
+#CodeLayout {
+    display: grid;
+    gap: 1ch;
+    grid-template-areas: 
+        "GameStateText GameStateText ButtonText ButtonText"
+        "TetrinoText TetrinoText ButtonText ButtonText"
+        "GameStateCode GameStateCode ButtonsCode TetPosCode"
+        "GameStateCode GameStateCode PosRotCode TetrinoCode"
+        "TetArrayMetaBlock TetArrayMetaBlock TetArrayMetaBlock TetArrayMetaBlock";
+}
+
+#GameStateText {
+    grid-area: GameStateText;
+}
+
+#TetrinoText {
+    grid-area: TetrinoText;
+}
+
+#ButtonText {
+    grid-area: ButtonText;
+}
+
+#GameStateCode {
+    grid-area: GameStateCode;
+}
+
+#ButtonsCode {
+    grid-area: ButtonsCode;
+}
+
+#PosRotCode {
+    grid-area: PosRotCode;
+}
+
+#TetPosCode {
+    grid-area: TetPosCode;
+}
+
+#TetrinoCode {
+    grid-area: TetrinoCode;
+}
+
+#TetArrayMetaBlock {
+    grid-area: TetArrayMetaBlock;
+    container: meta-box / inline-size;
+
+    :first-child {
+        display: none;
+
+        @container meta-box (width < 70ch) {
+            display: block;
+        }
+    }
+
+    :last-child {
+        display: block;
+
+        @container meta-box (width < 70ch) {
+            display: none;
+        }
+    }
+}
+@container Code (width<120ch){}
+
+.diagram-container {
+    container: DiagramCon / inline-size;
+}
+
+@container DiagramCon (width < 110ch) {
+    .diagram-container .horizontal {
+        display: none;
+    }
+}
+
+@container DiagramCon (width >=110ch) {
+    .diagram-container .vertical {
+        display: none;
+    }
+}
+
 #EinzelteileGrid {
     display: grid;
     grid-template-areas:
@@ -118,41 +203,5 @@ div:has(#EinzelteileGrid) {
 
     #EinzelteileText {
         display: block;
-    }
-}
-
-#TetArrayMetaBlock {
-    container: meta-box / inline-size;
-
-    :first-child {
-        display: none;
-
-        @container meta-box (width < 70ch) {
-            display: block;
-        }
-    }
-
-    :last-child {
-        display: block;
-
-        @container meta-box (width < 70ch) {
-            display: none;
-        }
-    }
-}
-
-.diagram-container {
-    container: DiagramCon / inline-size;
-}
-
-@container DiagramCon (width < 110ch) {
-    .diagram-container .horizontal {
-        display: none;
-    }
-}
-
-@container DiagramCon (width >=110ch) {
-    .diagram-container .vertical {
-        display: none;
     }
 }

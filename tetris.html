@@ -42,7 +42,7 @@
             <hero-img id="HeroImage" src="./assets/Tetris/Title-img.webp">
             </hero-img>
         </section>
-        <section class="section">
+        <section class="section" id="TLDR">
             <h2 class="heading large margin-b">Tetris auf dem Arduino?</h2>
             <!-- <div class="content flex wrap basis a-center j-around" style="--gap: 8ch;"> -->
             <div class="content">
@@ -82,7 +82,7 @@
                 </div>
             </div>
         </section>
-        <section class="section">
+        <section class="section" id="Ergebnis">
             <!-- TODO: Add Ausformulierung -->
             <h2 class="heading large margin-b">Ergebnis</h2>
             <div class="content">
@@ -98,47 +98,48 @@
                 <!-- TODO: Ergebnis -->
             </div>
         </section>
-        <section class="section">
+        <section class="section" id="Umsetztung">
             <h2 class="heading large margin-b">Umsetzung</h2>
             <div class="content">
-                <section>
+                <section id="Code">
                     <h3 class="medium margin-b">Code</h3>
 
-                    <div class="flex grow shrink wrap">
-                        <p style="flex-basis:40ch;">
+                    <div id="CodeLayout">
+                        <p id="GameStateText">
                             Für den Hackathon, habe ich eine Tetris Bibliothek in C++ entwickelt.
                             Diese basiert auf
-                            <a href="#GameStateOld" class="link link-active underline"
-                                hover-border-target="GameStateOld">GameState</a>
+                            <a href="#GameStateCode" class="link link-active underline"
+                                hover-border-target="GameStateCode">GameState</a>
                             welches alle wichtigen Daten einer runde
                             speichert und Tick-Methoden bereitstellt um das spiel zu treiben.
                             Es stellt auch eine Methode bereit, um das aktuelle Feld entweder
                             als String oder Liste zu bekommen und es anzeigen zu können.
-
-                            Die einzelnen <a href="TetrinoOld" class="link link-active underline"
-                                hover-border-target="TetrinoOld">Tetrinos</a> sind in einem Enum als Indexe zu einem
+                        </p>
+                        <p id="TetrinoText">
+                            Die einzelnen <a href="TetrinoCode" class="link link-active underline"
+                                hover-border-target="TetrinoCode">Tetrinos</a> sind in einem Enum als Indexe zu einem
                             <span hover-border-target="TetArrayMetaBlock"><a href="#TetArrayMetaBlock"
                                     class="link link-active underline">Array</a>, welcher Postions-Matrizen der <a
-                                    href="#TetrinoOld" class="link link-active underline"
-                                    hover-border-target="TetrinoOld">Tetrinos</a>
+                                    href="#TetrinoCode" class="link link-active underline"
+                                    hover-border-target="TetrinoCode">Tetrinos</a>
                                 speichert.</span>
-                            Um auch <a href="#PosRot" hover-border-target="PosRot"
+                            Um auch <a href="#PosRotCode" hover-border-target="PosRotCode"
                                 class="link link-active underline">Position & Rotation</a> zu speicher wird <a
-                                href="#TetPos" hover-border-target="TetPos"
+                                href="#TetPosCode" hover-border-target="TetPosCode"
                                 class="link link-active underline">TetPos</a>
                             benutzt.
                         </p>
-                        <p style="flex-basis:40ch;">
+                        <p id="ButtonText">
                             Um die Nutzereingabe zu lesen werden 2 Typen exportiert:
-                            <a href="#Buttons" class="link link-active underline" hover-border-target="Buttons">
+                            <a href="#ButtonsCode" class="link link-active underline" hover-border-target="ButtonsCode">
                                 Buttons und Button</a>.
-                            <a href="#Buttons" class="link link-active underline"
-                                hover-border-target="Buttons">Button</a>
+                            <a href="#ButtonsCode" class="link link-active underline"
+                                hover-border-target="ButtonsCode">Button</a>
                             ist ein Enum welches alle Knöpfe auflistet und je einem Bit in einem Byte zuordnet, sodass
                             alle
                             möglichen Eingaben gleichzeitig und speichersparend verarbeitet werden können, da sie nun in
-                            einen Byte <a href="#Buttons" class="link link-active underline"
-                                hover-border-target="Buttons">(Buttons)</a> passen.
+                            einen Byte <a href="#ButtonsCode" class="link link-active underline"
+                                hover-border-target="ButtonsCode">(Buttons)</a> passen.
                             Das ermöglicht
                             schnelle Abfragen und kompakte Logik.
                             Man kann sich dieses Flaggen-System vorstellen wie 8 boolesche Werte in einer Variable.
@@ -146,12 +147,9 @@
                                 Bit-Und ( & ) lesen. <sub><a href="https://de.wikipedia.org/wiki/Bitweiser_Operator"
                                     target="_blank" class="link underline link-active">(Mehr Dazu)</a></sub>
                         </p>
-                    </div>
-                    <div class="flex column margin-b-medium max-hund" style="--gap: 1ch;">
-                        <div class="flex wrap-reverse grow max-hund">
-                            <!-- GameState -->
-                            <code-block no-todo id="GameStateOld" lang="cpp" class="shrink basis max-hund">
-                                <pre>
+                        <!-- GameState -->
+                        <code-block no-todo id="GameStateCode" lang="cpp">
+                            <pre>
                                     class GameState {
                                       struct M {
                                         uint8_t field[Width * Height];
@@ -175,11 +173,10 @@
                                         (char (&str)[Width*Height*2 + 1]);
                                     };
                                 </pre>
-                            </code-block>
-                            <div class="flex grow wrap min max-hund">
-                                <!-- Buttons -->
-                                <code-block no-todo lang="cpp" id="Buttons">
-                                    <pre>
+                        </code-block>
+                        <!-- Buttons -->
+                        <code-block no-todo lang="cpp" id="ButtonsCode">
+                            <pre>
                                         typedef uint8_t Buttons;
                                         enum class Button: Buttons {
                                           TurnLeft  = 1, // 00000001
@@ -192,10 +189,10 @@
                                           Max_Button,    // Wie .len
                                         };
                                     </pre>
-                                </code-block>
-                                <!-- Vec2 & Rotation -->
-                                <code-block no-todo id="PosRot" lang="cpp" id="PositionRotation">
-                                    <pre>
+                        </code-block>
+                        <!-- Vec2 & Rotation -->
+                        <code-block no-todo id="PosRotCode" lang="cpp">
+                            <pre>
                                         struct Vec2 {
                                           int8_t x, y;
                                         };
@@ -208,10 +205,10 @@
                                           Max_Rotation // für Modulo
                                         };
                                     </pre>
-                                </code-block>
-                                <!-- TetPos -->
-                                <code-block no-todo id="TetPos" lang="cpp">
-                                    <pre>
+                        </code-block>
+                        <!-- TetPos -->
+                        <code-block no-todo id="TetPosCode" lang="cpp">
+                            <pre>
                                         struct TetPos {
                                           Tetrino cur;
                                           Vec2 cur_pos;
@@ -221,10 +218,10 @@
                                             -> ptrdiff_t (&)[4];
                                         };
                                     </pre>
-                                </code-block>
-                                <!-- Tetrino -->
-                                <code-block no-todo id="TetrinoOld" lang="cpp">
-                                    <pre>
+                        </code-block>
+                        <!-- Tetrino -->
+                        <code-block no-todo id="TetrinoCode" lang="cpp">
+                            <pre>
                                         // Index für Array
                                         enum class Tetrino: uint8_t {
                                           L   = 0, // -> Tetrinos[0]
@@ -237,9 +234,9 @@
                                           NrOfTetrinos, // Wie .len
                                         };
                                     </pre>
-                                </code-block>
-                            </div>
-                        </div>
+                        </code-block>
+
+
                         <div id="TetArrayMetaBlock" style="border-radius: var(--border-r);">
                             <code-block no-todo lang="cpp">
                                 <pre>
@@ -258,6 +255,7 @@
                                     </pre>
                             </code-block>
                         </div>
+
                     </div>
                     <p>
                         Die Erscheinungsraten der Tetrinos werden mit Hilfe eines Taschensystems generiert.
@@ -328,7 +326,7 @@
                 </section>
             </div>
         </section>
-        <section>
+        <section class="section" id="Hardware">
             <h3 class="heading medium margin-b">Hardware</h3>
             <div class="content margin-b-medium">
                 <!-- <img class="border-r" src="./assets/Tetris/Tetris_Steckplatine.png" alt="Schematic"> -->
@@ -385,7 +383,7 @@
                 </div>
             </div>
         </section>
-        <section class="section">
+        <section class="section" id="Run">
             <h2 class="heading large margin-b">How to Run</h2>
             <div class="content flex wrap grow">
                 <div>
