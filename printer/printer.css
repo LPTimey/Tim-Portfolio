@@ -37,3 +37,67 @@
         margin: revert;
     }
 }
+
+#Home {
+    container: Home / inline-size;
+}
+
+#HomeLayout {
+    display: grid;
+    gap: 1ch;
+    grid-template-areas:
+        "Text Text Text Main Main Main"
+        "Auswählen Auswählen Einstellen Einstellen Drucken Drucken";
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+#HomeText {
+    grid-area: Text;
+}
+
+#HomeScreen {
+    grid-area: Main;
+}
+
+#Auswählen {
+    grid-area: Auswählen;
+}
+
+#Einstellen {
+    grid-area: Einstellen;
+}
+
+#Drucken {
+    grid-area: Drucken;
+}
+
+@container Home (width<=160ch) {
+    #HomeLayout {
+        grid-template-areas:
+            "Text Text Text Text"
+            "Main Auswählen Einstellen Drucken";
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+}
+
+@container Home (width<=120ch) {
+    #HomeLayout {
+        grid-template-areas:
+            "Text Text"
+            "Main Auswählen"
+            "Einstellen Drucken";
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@container Home (width<90ch) {
+    #HomeLayout {
+        grid-template-areas:
+            "Text"
+            "Main"
+            "Auswählen"
+            "Einstellen"
+            "Drucken";
+        grid-template-columns: 1fr;
+    }
+}

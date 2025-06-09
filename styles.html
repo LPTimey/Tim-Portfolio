@@ -85,10 +85,9 @@
             </div>
         </section>
         <section class="section" id="Konzentration">
-            <!-- <h2 class="heading large margin-b">Konzentration</h2> -->
-            <div class="grid auto default content" style="--grid-max-col-count:2;">
-                <div class="">
-                    <h2 class="large margin-b">Konzentration</h2>
+            <div class="content" id="KonzentrationLayout">
+                <h2 id="KonzentrationHeading" class="large margin-b">Konzentration</h2>
+                <div id="KonzentrationText">
                     <div class="">
                         <p>Screendesigns lassen sich häufig in verschiedene Stile, Themen und Trends unterteilen. Diese
                             Veränderungen betreffen in
@@ -108,47 +107,41 @@
                         </p>
                     </div>
                 </div>
-                <!-- FIXME: stop Overflows on small screens -->
-                <div class="flex">
-                    <phone-img src="assets/Screendesign/Styles/Tim_Ruland_Styles_Screendesign_Original Pic.webp"
-                        alt=""></phone-img>
-                    <phone-img src="assets/Screendesign/Styles/Tim_Ruland_Styles_Screendesign_Original-06.png" alt=""
-                        bg="white"></phone-img>
-                </div>
+                <phone-img id="PhoneOriginal"
+                    src="assets/Screendesign/Styles/Tim_Ruland_Styles_Screendesign_Original Pic.webp"
+                    alt=""></phone-img>
+                <phone-img id="PhoneMinimal"
+                    src="assets/Screendesign/Styles/Tim_Ruland_Styles_Screendesign_Original-06.png" alt=""
+                    bg="white"></phone-img>
             </div>
         </section>
-        <section class="section" id="new">
-            <div class="grid auto default content margin-b-medium" style="--grid-max-col-count:2;--gap:2rem;">
-                <!-- FIXME: stop Overflows on small screens -->
-                <div class="flex">
-                    <phone-img src="./assets/Screendesign/Styles/Tim_Ruland_Styles_Screendesign_Bauhaus.webp"
-                        alt=""></phone-img>
-                    <div class="">
-                        <h2 class="large margin-b">Bauhaus</h2>
-                        <p>Bauhaus-Screendesign setzt auf klare, geometrische Formen und eine reduzierte Farbpalette.
-                            Primärfarben
-                            und einfache Formen wie Rechtecke und Kreise dominieren das Design, wobei Funktion und
-                            Ästhetik
-                            in
-                            Einklang stehen.
-                        </p>
-                    </div>
+        <section class="section" id="New">
+            <div class="content margin-b-medium" id="NewLayout">
+
+                <phone-img id="PhoneBau" src="./assets/Screendesign/Styles/Tim_Ruland_Styles_Screendesign_Bauhaus.webp"
+                    alt=""></phone-img>
+                <h2 id="HeadBau" class="large margin-b">Bauhaus</h2>
+                <div id="TextBau">
+                    <p> Bauhaus-Screendesign setzt auf klare, geometrische Formen und eine reduzierte Farbpalette.
+                        Primärfarben
+                        und einfache Formen wie Rechtecke und Kreise dominieren das Design, wobei Funktion und
+                        Ästhetik
+                        in
+                        Einklang stehen.
+                    </p>
                 </div>
 
-                <!-- FIXME: stop Overflows on small screens -->
-                <div class="flex">
-                    <phone-img src="./assets/Screendesign/Styles/Tim_Ruland_Styles_Screendesign_Glas.webp"
-                        alt=""></phone-img>
-                    <div class="">
-                        <h2 class="large margin-b">Glasmorphismus</h2>
-                        <p>Glasmorphismus nutzt transparente, verschwommene Elemente mit Hintergrundunschärfe, um
-                            einen
-                            glasähnlichen Effekt zu erzeugen. Es kombiniert sanfte Farben und weiche Kanten, wodurch
-                            das
-                            Design
-                            modern und leicht wirkt, während der Fokus auf Transparenz und Tiefe liegt.
-                        </p>
-                    </div>
+                <phone-img id="PhoneGlas" src="./assets/Screendesign/Styles/Tim_Ruland_Styles_Screendesign_Glas.webp"
+                    alt=""></phone-img>
+                <h2 id="HeadGlas" class="large margin-b">Glasmorphismus</h2>
+                <div id="TextGlas">
+                    <p> Glasmorphismus nutzt transparente, verschwommene Elemente mit Hintergrundunschärfe, um
+                        einen
+                        glasähnlichen Effekt zu erzeugen. Es kombiniert sanfte Farben und weiche Kanten, wodurch
+                        das
+                        Design
+                        modern und leicht wirkt, während der Fokus auf Transparenz und Tiefe liegt.
+                    </p>
                 </div>
             </div>
         </section>

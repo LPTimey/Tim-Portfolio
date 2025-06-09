@@ -24,6 +24,7 @@
     <script type="module" src="./Components/HeroImg.mjs"></script>
     <script type="module" src="./Components/HyperImg.mjs"></script>
     <script type="module" src="./Components/PhoneImg.mjs"></script>
+    <script type="module" src="./Components/Tooltip.mjs"></script>
 
     <link rel="shortcut icon" href="assets/Lebenslauf/schönes bild klein@0,25x.png" type="image/x-icon">
 </head>
@@ -70,8 +71,10 @@
                             <tr>
                                 <th scope="row">Studienmodul</th>
                                 <td>
-                                    <p data-tooltip="Design der Mensch Maschine Interaktion" tooltip-class="bubble"
-                                        tooltip-style="width:40ch" style="--left:5ch;--bottom:-0.5em">DMMS</p>
+                                    <tool-tip>
+                                        <div slot="trigger">DMMS</div>
+                                        <span slot="content">Design der Mensch Maschine Interaktion</span>
+                                    </tool-tip>
                                 </td>
                             </tr>
                             <tr>
@@ -167,12 +170,12 @@
             <p class="margin-b-medium" style="text-align: center;">Drag Me!</p>
         </section>
         <section class="section content grid auto part-sect" style="--grid-max-col-count:2;" id="AppSect">
-            <div class="center children" style="min-width: 30ch;" id="PhoneProto">
-                <phone-img style="--iphone16PM-h:3100;"><hyper-img
+            <div class="center" style="min-width: 30ch;" id="PhoneProto">
+                <phone-img style="--iphone16PM-h:3100;margin:auto"><hyper-img
                         src="watchout/HyperApp.jsonc"></hyper-img></phone-img>
-                        <p class="margin-b-medium" style="text-align: center;">Click Me!</p>
+                <p class="margin-b-medium" style="text-align: center;width:100%;">Click Me!</p>
             </div>
-            <div class="center children">
+            <div class="center">
                 <h2 class="large margin-b margin-b-s0">Begleitapp</h2>
                 <p> Die mit der Uhr verbundene App wurde nach dem Prinzip der Schlichtheit gestaltet.
                 </p>

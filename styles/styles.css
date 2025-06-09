@@ -40,3 +40,120 @@ div:has(>#OriginalImage) {
         margin: revert;
     }
 }
+
+#Konzentration {
+    container: Konzentration / inline-size;
+}
+
+#KonzentrationLayout {
+    display: grid;
+    gap: 1ch;
+    grid-template-areas:
+        "Heading . PhoneOriginal PhoneMinimal"
+        "Text . PhoneOriginal PhoneMinimal";
+    grid-template-columns: 1fr 0ch auto auto;
+    grid-template-rows: min-content 1fr;
+}
+
+#KonzentrationHeading {
+    grid-area: Heading;
+}
+
+#KonzentrationText {
+    grid-area: Text;
+    place-self: begin;
+}
+
+#PhoneOriginal {
+    grid-area: PhoneOriginal;
+    place-self: center;
+}
+
+#PhoneMinimal {
+    grid-area: PhoneMinimal;
+    place-self: center;
+}
+
+@container Konzentration (width < 120ch) {
+    #KonzentrationLayout {
+        grid-template-areas:
+            "Heading Heading Heading"
+            "Text PhoneOriginal PhoneMinimal";
+        grid-template-columns: 1fr auto auto;
+    }
+}
+
+@container Konzentration (width < 80ch) {
+    #KonzentrationLayout {
+        grid-template-areas:
+            "Heading Heading"
+            "Text PhoneOriginal"
+            "Text PhoneMinimal";
+        grid-template-columns: 1fr auto;
+    }
+}
+
+
+#New {
+    container: New / inline-size;
+}
+
+#NewLayout {
+    display: grid;
+    gap: 1ch;
+    grid-template-areas:
+        "HeadBau PhoneBau . HeadGlas PhoneGlas"
+        "TextBau PhoneBau . TextGlas PhoneGlas";
+    grid-template-columns: 1fr auto 7.5ch 1fr auto;
+}
+
+#HeadBau {
+    grid-area: HeadBau;
+    align-self: end;
+}
+
+#TextBau {
+    grid-area: TextBau;
+}
+
+#PhoneBau {
+    grid-area: PhoneBau;
+    place-self: center;
+}
+
+#HeadGlas {
+    grid-area: HeadGlas;
+    align-self: end;
+}
+
+#TextGlas {
+    grid-area: TextGlas;
+}
+
+#PhoneGlas {
+    grid-area: PhoneGlas;
+    place-self: center;
+}
+
+@container New (width<150ch) {
+    #NewLayout {
+        column-gap: 2ch;
+        grid-template-areas:
+            "HeadBau HeadBau PhoneBau"
+            "TextBau TextBau PhoneBau"
+            "PhoneGlas HeadGlas HeadGlas"
+            "PhoneGlas TextGlas TextGlas";
+        grid-template-columns: auto 1fr auto;
+    }
+}
+@container New (width<80ch) {
+    #NewLayout {
+        column-gap: 2ch;
+        grid-template-areas:
+            "HeadBau HeadBau HeadBau"
+            "TextBau TextBau PhoneBau"
+            "HeadGlas HeadGlas HeadGlas"
+            "PhoneGlas TextGlas TextGlas";
+        grid-template-columns: auto 1fr auto;
+    }
+}
