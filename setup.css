@@ -17,8 +17,9 @@
             background-color var(--transition-time, 0.2s) ease-in-out allow-discrete,
             transform var(--transition-time, 0.2s) ease-in-out allow-discrete,
             width var(--transition-time, 0.2s) ease-in-out allow-discrete,
-            height var(--transition-time, 0.2s) ease-in-out allow-discrete,
-            visibility 0s allow-discrete;
+            height var(--transition-time, 0.2s) ease-in-out allow-discrete
+            /*,visibility 0s allow-discrete*/
+            ;
         transition-behavior: allow-discrete;
         /* 7. Inherit fonts for example form controls */
         font: inherit;
