@@ -41,7 +41,7 @@
 #CodeLayout {
     display: grid;
     gap: 1ch;
-    grid-template-areas: 
+    grid-template-areas:
         "GameStateText GameStateText ButtonText ButtonText"
         "TetrinoText TetrinoText ButtonText ButtonText"
         "GameStateCode GameStateCode ButtonsCode TetPosCode"
@@ -84,6 +84,13 @@
 #TetArrayMetaBlock {
     grid-area: TetArrayMetaBlock;
     container: meta-box / inline-size;
+    height: 100%;
+    width: 100%;
+
+    >* {
+        height: 100%;
+        width: 100%;
+    }
 
     :first-child {
         display: none;
@@ -101,7 +108,53 @@
         }
     }
 }
-@container Code (width<120ch){}
+
+@container Code (width<135ch) {
+    #CodeLayout {
+        display: grid;
+        gap: 1ch;
+        grid-template-areas:
+            "GameStateText ButtonText"
+            "GameStateCode ButtonsCode"
+            "GameStateCode PosRotCode"
+            "TetrinoText TetrinoText"
+            "TetrinoCode TetPosCode"
+            "TetArrayMetaBlock TetArrayMetaBlock"
+        ;
+    }
+}
+@container Code (width<90ch) {
+    #CodeLayout {
+        display: grid;
+        gap: 1ch;
+        grid-template-areas:
+            "GameStateText GameStateText"
+            "GameStateCode GameStateCode"
+            "ButtonText ButtonText"
+            "ButtonsCode PosRotCode"
+            "TetrinoText TetrinoText"
+            "TetrinoCode TetPosCode"
+            "TetArrayMetaBlock TetArrayMetaBlock"
+        ;
+    }
+}
+@container Code (width<69ch) {
+    #CodeLayout {
+        display: grid;
+        gap: 1ch;
+        grid-template-areas:
+            "GameStateText"
+            "GameStateCode"
+            "ButtonText"
+            "ButtonsCode"
+            "TetrinoText"
+            "TetPosCode"
+            "TetrinoCode"
+            "TetArrayMetaBlock"
+            "PosRotCode"
+        ;
+    }
+}
 
 .diagram-container {
     container: DiagramCon / inline-size;
