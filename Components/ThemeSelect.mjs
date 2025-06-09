@@ -4,7 +4,7 @@ import { css, html } from "../script.mjs";
 const template = html`
 <select id="ThemeSelect" aria-label="Wählt Farbthema der Seite aus">
     <option id="ThemeLight" value="ThemeLight">Licht-Thema</option>
-    <option id="ThemeSystem" value="ThemeSystem" selected>System-Thema</option>
+    <!-- <option id="ThemeSystem" value="ThemeSystem" selected>System-Thema</option> -->
     <option id="ThemeDark" value="ThemeDark">Dunkel-Thema</option>
 </select>
 `;
