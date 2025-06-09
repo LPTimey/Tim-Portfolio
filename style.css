@@ -88,13 +88,7 @@
 
     @media screen {
         .system {
-            @media (prefers-color-scheme: dark) {
-                color-scheme: dark;
-            }
-
-            @media (prefers-color-scheme: light) {
-                color-scheme: light;
-            }
+            color-scheme: light dark;
         }
 
         .dark {

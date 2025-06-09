@@ -14,7 +14,7 @@ const style = css`
 `;
 
 /**
- * @typedef {"ThemeLight"|"ThemeSystem"|"ThemeDark"} Theme
+ * @typedef {"ThemeLight"|"ThemeDark"} Theme
  */
 
 export default class ThemeSelect extends HTMLElement {
@@ -23,7 +23,7 @@ export default class ThemeSelect extends HTMLElement {
      */
     get theme() {
         let value = /** @type {Theme|undefined} */ (this.shadowRoot?.querySelector("select")?.value)
-        return value ?? "ThemeSystem";
+        return value ?? "ThemeLight";
     }
     /**
      * 
@@ -57,9 +57,9 @@ export default class ThemeSelect extends HTMLElement {
             case "ThemeLight":
                 document.body.className = "light"
                 break;
-            case "ThemeSystem":
-                document.body.className = "system"
-                break;
+            // case "ThemeSystem":
+            //     document.body.className = "system"
+            //     break;
             case "ThemeDark":
                 document.body.className = "dark"
                 break;
@@ -74,7 +74,7 @@ export default class ThemeSelect extends HTMLElement {
             ThemeSelect.setDocTheme(t);
             ThemeSelect.setLocalStorageTheme(t);
         });
-        this.theme = /** @type {Theme?} */(ThemeSelect.getLocalStorageTheme()) ?? "ThemeSystem";
+        this.theme = /** @type {Theme?} */(ThemeSelect.getLocalStorageTheme()) ?? "ThemeLight";
         ThemeSelect.setDocTheme(this.theme);
     }
     constructor() {
