@@ -1,51 +1,24 @@
 "use strict";
 import { css, html, changeEvent } from "../script.mjs";
-/**
- * 
- * @param {string} id 
- * @returns 
- */
-const template = (id) => html`
-<div hidden>
-    <input type="checkbox" name="${id}" id="${id}" />
-</div>
-<label for="${id}"><slot name="activated"></slot></label>
-<label for="${id}"><slot name="deactivated"></slot></label>
-`;
 
 const style = css`
 @import "setup.css";
 :host{
     display: grid;
     place-items: center;
-     * {
-        width: 100%;
-        height: 100%;
-        grid-column: 1 / -1;
-        grid-row: 1 / -1;
-    }
-}
-label{
     cursor: pointer;
-    *{
+    border-radius: var(--border-r);
+}
+div{
+    border-radius: var(--border-r);
     width: 100%;
     height: 100%;
     object-fit: cover;
-}}
-:host([checked]){
-    [name="deactivated"]{
-        visibility: hidden;
-    }
-    [name="activated"]{
-        visibility: visible;
-    }
-}
-:host(:not([checked])){
-    [name="deactivated"]{
-        visibility: visible
-    }
-    [name="activated"]{
-        visibility: hidden
+    *{
+        border-radius: var(--border-r);
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
 }
     `;
@@ -54,47 +27,31 @@ export default class IconButton extends HTMLElement {
     get value() {
         return this.shadowRoot.querySelector("input")?.value;
     }
-    static get observedAttributes() {
-        return ["id"];
-    }
-    /**
-         * 
-         * @param {string} name name of attribute
-         * @param {*} oldValue old value of attribute
-         * @param {*} newValue new value of attribute
-         */
-    attributeChangedCallback(name, oldValue, newValue) {
-        switch (name) {
-            case "id":
-                this.shadowRoot.innerHTML = style + template(newValue + "box");
-                break;
-        }
-        return;
-    }
 
     connectedCallback() {
-        this.shadowRoot.innerHTML = style + template(this.id + "box");
-        const slots = this.shadowRoot.querySelectorAll('slot');
-        if (this.shadowRoot.querySelector("input")?.checked) {
-            this.setAttribute("checked", "");
-        } else {
-            this.removeAttribute("checked");
-        }
+        this.shadowRoot.innerHTML = style;
+        this.shadowRoot.appendChild(this.content);
 
-        this.shadowRoot.querySelector("input")?.addEventListener("change", (ev) => {
-            // this.setAttribute("checked", ev.target.checked);
-            // this.checked = !!ev.target.checked
-            if (/** @type {HTMLInputElement} */(ev.target).checked) {
-                this.setAttribute("checked", "");
+        const change_content = () => {
+            this.checked = !this.checked;
+            if (this.checked) {
+                this.setAttribute("checked", "")
+                this.content.innerHTML = this.checkedIcon.outerHTML;
             } else {
                 this.removeAttribute("checked");
+                this.content.innerHTML = this.uncheckedIcon.outerHTML;
             }
-            this.dispatchEvent(changeEvent)
-        });
+        }
+        change_content()
+        this.addEventListener("click", change_content);
 
     }
     constructor() {
         super()
+        this.checked = true;
+        this.checkedIcon = this.querySelector(`[slot="activated"]`) ?? document.createElement("div");
+        this.uncheckedIcon = this.querySelector(`[slot="deactivated"]`) ?? document.createElement("div");
+        this.content = document.createElement("div");
         this.attachShadow({ mode: "open" })
         /** @type {ShadowRoot} */
         this.shadowRoot;

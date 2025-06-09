@@ -64,6 +64,7 @@ export default class ThemeSelect extends HTMLElement {
                 document.body.className = "dark"
                 break;
             default:
+                document.body.className = "light"
                 break;
         }
     }

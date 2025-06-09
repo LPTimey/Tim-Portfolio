@@ -48,14 +48,14 @@ header{
     right: 0;
     height: fit-content;
     z-index: 1000000000;
-    background-color: rgba(from var(--bg) r g b / var(--transparency));
+    background-color: rgb(from var(--bg) r g b / var(--transparency));
     -webkit-backdrop-filter: blur(var(--blur-r));
     backdrop-filter: blur(var(--blur-r));
 
 }
 .scrolled{
     /* nur unten ein leichter Schatten */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgb(from var(--fg) r g b / 0.1);
 }
 
 .current{

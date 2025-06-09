@@ -30,6 +30,14 @@ const style = (theme) => css`
     border-radius: var(--border-r);
     overflow: auto;
 }
+:host([no-pre]){
+    /* border: 1px solid red; */
+    display: inline-block;
+    border-radius: 0;
+    overflow: hidden;
+    height:max-content;
+    width: max-content;
+}
 pre,code{
     height: 100%;
     width:  100%;

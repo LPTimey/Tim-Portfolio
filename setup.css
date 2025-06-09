@@ -13,7 +13,11 @@
     :where(*)::before {
         box-sizing: border-box;
         transition:
-            all var(--transition-time, 0.2s) ease-in-out allow-discrete,
+            color var(--transition-time, 0.2s) ease-in-out allow-discrete,
+            background-color var(--transition-time, 0.2s) ease-in-out allow-discrete,
+            transform var(--transition-time, 0.2s) ease-in-out allow-discrete,
+            width var(--transition-time, 0.2s) ease-in-out allow-discrete,
+            height var(--transition-time, 0.2s) ease-in-out allow-discrete,
             visibility 0s allow-discrete;
         transition-behavior: allow-discrete;
         /* 7. Inherit fonts for example form controls */
@@ -674,7 +678,8 @@
     }
 
     :where(.underline,
-        :focus-visible) {
+        /* :focus-visible */
+        ) {
         --transition-time: 400ms;
 
         background:
@@ -688,8 +693,9 @@
         background-repeat: no-repeat;
         transition: background-size var(--transition-time);
 
-        &:where(:hover:not(active),
-            :focus-visible, .permanent, .hover) {
+        &:where(:hover,
+            /* :focus-visible, */
+             .permanent, .hover) {
             background-size: 0 0.1em, 100% 0.1em;
         }
     }
