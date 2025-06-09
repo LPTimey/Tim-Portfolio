@@ -643,6 +643,11 @@
         }
     }
 
+    :where(.no-vis){
+        visibility: hidden;
+        pointer-events: none;
+    }
+
     :where(.no-wrap) {
         white-space: nowrap;
 

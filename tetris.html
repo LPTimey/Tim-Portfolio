@@ -257,72 +257,109 @@
                         </div>
 
                     </div>
-                    <p>
-                        Die Erscheinungsraten der Tetrinos werden mit Hilfe eines Taschensystems generiert.
-                        Diese Tasche generiert alle Tetrinos und randomisiert ihre Order um zu garantieren,
-                        sodass es keine Folge "Ziehungen" gibt ein welcher eine art Tetrino öfter als 2 mal
-                        oder gar nicht vorkommt.
-                    </p>
-                    <div class="diagram-container mermaid margin-b-medium" name="TetrinoDiagram">
-                        <!-- Mermaid-Diagramm im Plain-Script-Tag (sicher für HTML) -->
-                        <script class="diagram-code horizontal" type="text/plain">
-                            graph LR
-                            A["Konstruktor aufgerufen<br>(mit oder ohne Seed)"]
-                            B["set_next_batch()"]
-                            C["Initialisiere Bag<br>mit allen 7 Tetrino-Typen"]
-                            D["Permutiere Bag<br>(Fisher-Yates Shuffle)"]
-                            E["Setze index = 0"]
-                            F["next() aufgerufen"]
-                            G["Gibt bag[index] zurück<br>index += 1"]
-                            H{"index < 7?"}
-                                A --> B
-                                B --> C
-                                C --> D
-                                D --> E
-                                E --> F
-                                F --> G
-                                G --> H
-                                H -- Ja --> F
-                                H -- Nein --> B
-                        </script>
-                        <script class="diagram-code vertical" type="text/plain">
-                            graph TB
-                            A["Konstruktor aufgerufen<br>(mit oder ohne Seed)"]
-                            B["set_next_batch()"]
-                            C["Initialisiere Bag<br>mit allen 7 Tetrino-Typen"]
-                            D["Permutiere Bag<br>(Fisher-Yates Shuffle)"]
-                            E["Setze index = 0"]
-                            F["next() aufgerufen"]
-                            G["Gibt bag[index] zurück<br>index += 1"]
-                            H{"index < 7?"}
-                                A --> B
-                                B --> C
-                                C --> D
-                                D --> E
-                                E --> F
-                                F --> G
-                                G --> H
-                                H -- Ja --> F
-                                H -- Nein --> B
-                        </script>
+                    <div class="margin-b-small no-vis" aria-hidden="true"> x </div>
+                    <div id="BagVisualisation" class="margin-b-medium">
+                        <p id="TetBagText">
+                            Die Erscheinungsraten der Tetrinos werden mit Hilfe eines Taschensystems generiert.
+                            Diese Tasche generiert alle Tetrinos und randomisiert ihre Order um zu garantieren,
+                            sodass es keine Folge "Ziehungen" gibt ein welcher eine art Tetrino öfter als 2 mal
+                            oder gar nicht vorkommt.
+                        </p>
+                        <div class="diagram-container mermaid margin-b-medium" name="TetrinoDiagram"
+                            id="TetrinoDiagram">
+                            <!-- Mermaid-Diagramm im Plain-Script-Tag (sicher für HTML) -->
+                            <script class="diagram-code horizontal" type="text/plain">
+                                graph LR
+                                A["Konstruktor aufgerufen<br>(mit oder ohne Seed)"]
+                                B["set_next_batch()"]
+                                C["Initialisiere Bag<br>mit allen 7 Tetrino-Typen"]
+                                D["Permutiere Bag<br>(Fisher-Yates Shuffle)"]
+                                E["Setze index = 0"]
+                                F["next() aufgerufen"]
+                                G["Gibt bag[index] zurück<br>index += 1"]
+                                H{"index < 7?"}
+                                    A --> B
+                                    B --> C
+                                    C --> D
+                                    D --> E
+                                    E --> F
+                                    F --> G
+                                    G --> H
+                                    H -- Ja --> F
+                                    H -- Nein --> B
+                            </script>
+                            <script class="diagram-code vertical" type="text/plain">
+                                graph TB
+                                A["Konstruktor aufgerufen<br>(mit oder ohne Seed)"]
+                                B["set_next_batch()"]
+                                C["Initialisiere Bag<br>mit allen 7 Tetrino-Typen"]
+                                D["Permutiere Bag<br>(Fisher-Yates Shuffle)"]
+                                E["Setze index = 0"]
+                                F["next() aufgerufen"]
+                                G["Gibt bag[index] zurück<br>index += 1"]
+                                H{"index < 7?"}
+                                    A --> B
+                                    B --> C
+                                    C --> D
+                                    D --> E
+                                    E --> F
+                                    F --> G
+                                    G --> H
+                                    H -- Ja --> F
+                                    H -- Nein --> B
+                            </script>
+                        </div>
+                        <div id="TetBagCode">
+                            <code-block lang="cpp">
+                                <pre>
+                                    using Tetrino as T;
+                                    class TetrinoBag {
+                                        Tetrino bag
+                                          [(uint8_t)T::NrOfTetrinos];
+                                        uint8_t index = 0;
+                                        uint32_t seed = 12345;
+                                        void set_next_batch();
+                                    public:
+                                        TetrinoBag();
+                                        TetrinoBag(uint32_t seed);
+                                        void set_seed(uint32_t seed);
+                                        Tetrino next();
+                                    };
+                                </pre>
+                            </code-block>
+                            <code-block lang="cpp">
+                                <pre>
+                                    using Tetrino as T;
+                                    class TetrinoBag {
+                                        Tetrino bag [(uint8_t)T::NrOfTetrinos];
+                                        uint8_t index = 0;
+                                        uint32_t seed = 12345;
+                                        void set_next_batch();
+                                    public:
+                                        TetrinoBag();
+                                        TetrinoBag(uint32_t seed);
+                                        void set_seed(uint32_t seed);
+                                        Tetrino next();
+                                    };
+                                </pre>
+                            </code-block>
+                            <code-block lang="cpp">
+                                <pre>
+                                    class TetrinoBag {
+                                      Tetrino bag[static_cast&lt;uint8_t&gt;(Tetrino::NrOfTetrinos)];
+                                      uint8_t index = 0;
+                                      uint32_t seed = 12345;
+                                      void set_next_batch();
+                                    public:
+                                      TetrinoBag();
+                                      TetrinoBag(uint32_t seed);
+                                      void set_seed(uint32_t seed);
+                                      Tetrino next();
+                                    };
+                                </pre>
+                            </code-block>
+                        </div>
                     </div>
-                    <code-block lang="cpp">
-                        <pre>
-                            class TetrinoBag {
-                              Tetrino bag[static_cast&lt;uint8_t&gt;(Tetrino::NrOfTetrinos)];
-                              uint8_t index = 0;
-                              uint32_t seed = 12345;
-
-                              void set_next_batch();
-
-                            public:
-                              TetrinoBag();
-                              TetrinoBag(uint32_t seed);
-                              void set_seed(uint32_t seed);
-                              Tetrino next();
-                            };
-                        </pre>
-                    </code-block>
                 </section>
             </div>
         </section>

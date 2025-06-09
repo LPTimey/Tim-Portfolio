@@ -83,7 +83,7 @@
 
 #TetArrayMetaBlock {
     grid-area: TetArrayMetaBlock;
-    container: meta-box / inline-size;
+    container: TetMetaBox / inline-size;
     height: 100%;
     width: 100%;
 
@@ -95,7 +95,7 @@
     :first-child {
         display: none;
 
-        @container meta-box (width < 70ch) {
+        @container TetMetaBox (width < 70ch) {
             display: block;
         }
     }
@@ -103,7 +103,7 @@
     :last-child {
         display: block;
 
-        @container meta-box (width < 70ch) {
+        @container TetMetaBox (width < 70ch) {
             display: none;
         }
     }
@@ -123,6 +123,7 @@
         ;
     }
 }
+
 @container Code (width<90ch) {
     #CodeLayout {
         display: grid;
@@ -138,6 +139,7 @@
         ;
     }
 }
+
 @container Code (width<69ch) {
     #CodeLayout {
         display: grid;
@@ -156,19 +158,141 @@
     }
 }
 
-.diagram-container {
-    container: DiagramCon / inline-size;
+#BagVisualisation {
+    display: grid;
+    gap: 1ch;
+    grid-template-areas:
+        "TetBagText"
+        "TetBagCode"
+        "Dia"
+    ;
 }
 
-@container DiagramCon (width < 110ch) {
+#TetBagText {
+    grid-area: TetBagText;
+}
+
+#TetrinoDiagram {
+    grid-area: Dia;
+    margin: 0;
+    container: DiagramCon / inline-size;
+
+    .vertical {
+        max-width: 35ch !important;
+        margin: auto;
+    }
+}
+
+@container DiagramCon (width < 100ch) {
     .diagram-container .horizontal {
         display: none;
     }
 }
 
-@container DiagramCon (width >=110ch) {
+@container DiagramCon (width >=100ch) {
     .diagram-container .vertical {
         display: none;
+    }
+}
+
+#TetBagCode {
+    grid-area: TetBagCode;
+    container: TetBagMetaBox / inline-size;
+
+    >* {
+        height: 100%;
+        width: 100%;
+    }
+
+}
+
+@container TetBagMetaBox (width >=65ch) {
+    #TetBagCode> :nth-child(1) {
+        display: none;
+    }
+
+    #TetBagCode> :nth-child(2) {
+        display: none;
+    }
+
+    #TetBagCode> :nth-child(3) {
+        display: block;
+    }
+}
+
+@container TetBagMetaBox (width < 65ch) {
+    #TetBagCode> :nth-child(1) {
+        display: none;
+    }
+
+    #TetBagCode> :nth-child(2) {
+        display: block;
+    }
+
+    #TetBagCode> :nth-child(3) {
+        display: none;
+    }
+}
+
+@container TetBagMetaBox (width < 48ch) {
+    #TetBagCode> :nth-child(1) {
+        display: block;
+    }
+
+    #TetBagCode> :nth-child(2) {
+        display: none;
+    }
+
+    #TetBagCode> :nth-child(3) {
+        display: none;
+    }
+}
+
+@container Code (width>128ch) {
+    #BagVisualisation {
+        grid-template-areas:
+            "TetBagText Dia"
+            "TetBagCode Dia"
+        ;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto 1fr;
+    }
+}
+
+@container Code (width>25ch) {
+    #BagVisualisation {
+        grid-template-areas:
+            "TetBagText"
+            "TetBagCode"
+            "Dia"
+        ;
+        grid-template-columns: 1fr ;
+        grid-template-rows: auto auto auto;
+    }
+}
+
+@container Code (width<105ch) {
+    #BagVisualisation {
+        grid-template-areas:
+            "TetBagText Dia"
+            "TetBagCode Dia"
+        ;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto 1fr;
+    }
+}
+
+@container Code (width<69ch) {
+
+    /* @container Code (width<80ch) { */
+    #BagVisualisation {
+        grid-template-areas:
+            "TetBagText"
+            "TetBagCode"
+            "Dia"
+        ;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
     }
 }
 
