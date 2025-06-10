@@ -321,9 +321,8 @@
     place-self: center;
     --pop-top: 50%;
     --pop-left: 50%;
-    --translate-x: -50%;
-    --translate-y: -50%;
-    --pop-translate: translate(var(--translate-x), 1em);
+    --pop-pre-translate: translate(-50%, -50%);
+    --pop-translate: translate(calc(-100% - 1em), calc(-100% - 0.25em));
 
     .marker {
         position: absolute;
@@ -344,7 +343,7 @@
         position: absolute;
         left: var(--pop-left);
         top: var(--pop-top);
-        translate: var(--translate-x) var(--translate-y);
+        translate: -50% -50%;
     }
 
     #UnoR4 {
