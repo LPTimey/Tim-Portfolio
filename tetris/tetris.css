@@ -266,7 +266,7 @@
             "TetBagCode"
             "Dia"
         ;
-        grid-template-columns: 1fr ;
+        grid-template-columns: 1fr;
         grid-template-rows: auto auto auto;
     }
 }
@@ -319,6 +319,11 @@
     height: fit-content;
     grid-area: Img;
     place-self: center;
+    --pop-top: 50%;
+    --pop-left: 50%;
+    --translate-x: -50%;
+    --translate-y: -50%;
+    --pop-translate: translate(var(--translate-x), 1em);
 
     .marker {
         position: absolute;
@@ -335,6 +340,13 @@
         }
     }
 
+    .accent-point {
+        position: absolute;
+        left: var(--pop-left);
+        top: var(--pop-top);
+        translate: var(--translate-x) var(--translate-y);
+    }
+
     #UnoR4 {
         inset: 50% 75% 25% 4%;
     }
@@ -347,10 +359,15 @@
     #Matrix {
         inset: 25% 50% 50% 22%;
         z-index: 2;
+
+        --pop-top: 40%;
     }
 
     #Resistors {
         inset: 6% 1% 27% 50%;
+
+        --pop-top: 20%;
+        --pop-left: 25%;
     }
 
     #Extras {
@@ -359,6 +376,8 @@
 
     #Breadboard {
         inset: 57% 48% 28% 35%;
+
+        --pop-top: 40%
     }
 }
 

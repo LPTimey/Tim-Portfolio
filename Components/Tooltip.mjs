@@ -22,13 +22,15 @@ const style = css`
 #container {
     position: relative;
     display: inline-block;
+    width: 100%;
+    height: 100%;
 }
 
 #popover {
     position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translate(-50%, 10px);
+    top: var(--pop-top, 100%);
+    left: var(--pop-left, 50%);
+    transform: var(--pop-pre-translate, translate(-50%, 10px));
     background: rgb(from var(--bg) r g b / var(--transparency));
     backdrop-filter: blur(var(--border-r));
     -webkit-backdrop-filter: blur(var(--border-r));
@@ -48,7 +50,7 @@ const style = css`
 :host(:hover) #popover, #popover:hover, #container:hover #popover {
     opacity: 1;
     pointer-events: auto;
-    transform: translate(-50%, 4px);
+    transform: var(--pop-translate, translate(-50%, 10px));
 }
 `;
 

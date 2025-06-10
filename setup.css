@@ -19,7 +19,7 @@
             width var(--transition-time, 0.2s) ease-in-out allow-discrete,
             height var(--transition-time, 0.2s) ease-in-out allow-discrete
             /*,visibility 0s allow-discrete*/
-            ;
+        ;
         transition-behavior: allow-discrete;
         /* 7. Inherit fonts for example form controls */
         font: inherit;
@@ -385,13 +385,22 @@
 
     /* #endregion Fit */
 
-
     @media screen and (prefers-reduced-motion: no-preference) {
         .accent-border[accent-border-active] {
             box-shadow: 0 0 0.75ch var(--accent),
                 0 0 1.25ch var(--accent),
                 0 0 2ch var(--accent);
         }
+    }
+
+    :where(.accent-point) {
+        --_width: 2ch;
+        aspect-ratio: 1;
+        border-radius: 100%;
+        width: var(--_width);
+        color: var(--center-color, var(--accent));
+        background-color: var(--center-color, var(--accent));
+        border: calc(var(--_width) / 4) solid var(--border-color, var(--bg));
     }
 
     :where(.button) {
@@ -644,7 +653,7 @@
         }
     }
 
-    :where(.no-vis){
+    :where(.no-vis) {
         visibility: hidden;
         pointer-events: none;
     }
@@ -685,7 +694,7 @@
 
     :where(.underline,
         /* :focus-visible */
-        ) {
+    ) {
         --transition-time: 400ms;
 
         background:
@@ -701,7 +710,7 @@
 
         &:where(:hover,
             /* :focus-visible, */
-             .permanent, .hover) {
+            .permanent, .hover) {
             background-size: 0 0.1em, 100% 0.1em;
         }
     }
