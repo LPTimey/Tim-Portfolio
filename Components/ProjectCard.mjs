@@ -22,7 +22,12 @@ const template = (src, srcDark, alt, href, has_button, isDark) => html`
 ${!has_button || !href ? "" : html`<a href="${href}" class="button">Details</a>`}
 `;
 
-const style = () => css`
+/**
+ * 
+ * @param {boolean?} [has_button] 
+ * @returns 
+ */
+const style = (has_button) => css`
 @import "setup.css";
 @property --translate-y{
     syntax: "<length>";
@@ -43,6 +48,7 @@ const style = () => css`
     border: 1px solid var(--fg);
     overflow: hidden;
     filter: drop-shadow(var(--x) var(--y) var(--blur) rgb(from var(--fg) r g b / 0.1));
+    ${has_button ? "" : " cursor: pointer"}
 }
 :host(:hover){
     animation: 0.2s ease-in-out 0s 1 forwards hover;
@@ -123,8 +129,8 @@ export default class ProjectCard extends HTMLElement {
      * 
      * @param {boolean} [isDark] 
      */
-    render(isDark){
-        this.shadowRoot.innerHTML = style() + template(
+    render(isDark) {
+        this.shadowRoot.innerHTML = style(!this.hasAttribute("no-button")) + template(
             this.getAttribute("src"),
             this.getAttribute("src-dark"),
             this.getAttribute("alt"),
@@ -132,6 +138,26 @@ export default class ProjectCard extends HTMLElement {
             !this.hasAttribute("no-button"),
             isDark ?? lightDark(this, false, true)
         );
+        let url = new URL(this.getAttribute("href") ?? "", window.location.href);
+        if (this.hasAttribute("no-button") && this.hasAttribute("href")) {
+            let isDragging = false;
+
+            this.addEventListener("mousedown", () => {
+                isDragging = false;
+            });
+
+            this.addEventListener("mousemove", () => {
+                isDragging = true;
+            });
+
+            this.addEventListener("click", (event) => {
+                if (isDragging) return; // Nicht klicken, wenn gerade gezogen wurde
+
+                event.preventDefault();
+                console.log("Navigating to:", url.toString());
+                window.location.href = url.toString();
+            });
+        }
     }
     constructor() {
         super()
