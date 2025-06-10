@@ -138,8 +138,8 @@ export default class ProjectCard extends HTMLElement {
             !this.hasAttribute("no-button"),
             isDark ?? lightDark(this, false, true)
         );
-        let url = new URL(this.getAttribute("href") ?? "", window.location.href);
         if (this.hasAttribute("no-button") && this.hasAttribute("href")) {
+            let url = new URL(this.getAttribute("href") ?? "", window.location.href);
             let isDragging = false;
 
             this.addEventListener("mousedown", () => {
