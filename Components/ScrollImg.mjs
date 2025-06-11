@@ -7,10 +7,12 @@ import { css, html } from "../script.mjs";
  * @param {string} alt 
  * @param {number} cols 
  * @param {number} rows 
+ * @param {(string | number)?} [imgWidth]
+ * @param {(string | number)?} [imgHeight]
  * @returns 
  */
-const template = (src, alt, cols, rows) => html`
-${html`<picture><img src="${src}" alt="${alt}" class="scrolling-image" width="${window.innerWidth}" height="${window.innerHeight}" /></picture>`.repeat(cols * rows)}
+const template = (src, alt, cols, rows, imgWidth, imgHeight) => html`
+${html`<picture><img src="${src}" alt="${alt}" class="scrolling-image" width="${imgWidth || window.innerWidth}" height="${imgHeight || window.innerHeight}" /></picture>`.repeat(cols * rows)}
 `;
 
 /**
@@ -72,7 +74,7 @@ const style = (time, cols, bg) => css`
 
 export default class ScrollImage extends HTMLElement {
     static get observedAttributes() {
-        return ["src", "alt", "time", "cols", "rows", "bg"];
+        return ["src", "alt", "time", "cols", "rows", "bg", "img-width", "img-height"];
     }
     /**
          * 
@@ -144,8 +146,19 @@ export default class ScrollImage extends HTMLElement {
     }
     connectedCallback() {
         this.shadowRoot.innerHTML =
-            style(this.getAttribute("time") ?? "0s", Number(this.getAttribute("cols")), this.getAttribute("bg"))
-            + template(this.getAttribute("src") ?? "", this.getAttribute("alt") ?? "", Number(this.getAttribute("cols")), Number(this.getAttribute("rows")));
+            style(
+                this.getAttribute("time") ?? "0s",
+                Number(this.getAttribute("cols")),
+                this.getAttribute("bg")
+            )
+            + template(
+                this.getAttribute("src") ?? "",
+                this.getAttribute("alt") ?? "",
+                Number(this.getAttribute("cols")),
+                Number(this.getAttribute("rows")),
+                this.getAttribute("imgWidth"),
+                this.getAttribute("imgHeight")
+            );
 
         this._initialized = true;
     }

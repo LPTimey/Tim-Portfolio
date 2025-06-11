@@ -11,15 +11,19 @@ import ScrollImage from "./ScrollImg.mjs";
  * @param {(string | number)?} [rows] - Anzahl der Zeilen für das Grid-Layout.
  * @param {string?} [bg] - Hintergrund CSS des Containers (Standard: "white").
  * @param {string?} [imgStyle] - Inline-Stil für das `<img>`-Tag oder `img-style`-Attribut bei `<scroll-img>`.
+ * @param {(string | number)?} [imgWidth]
+ * @param {(string | number)?} [imgHeight]
  * @returns 
  */
-const template = (src, alt, time, cols, rows, bg, imgStyle) => html`
+const template = (src, alt, time, cols, rows, bg, imgStyle, imgWidth, imgHeight) => html`
 ${(src || alt) && (cols || rows) ?
-        html`<scroll-img src="${src}" alt="${alt ?? ""}" id="HeroImage" ${!!time ? html`time="${time}"` : ""} cols="${cols ?? "1"}" rows="${rows ?? "1"}" bg="${bg ?? "white"}" img-style="${imgStyle ?? ""}"></scroll-img>`
-        : src || alt ? html`<img id="HeroImage" src="${src ?? ""}" alt="${alt ?? ""}" style="${imgStyle ?? ""}" width="${window.innerWidth}" height="${window.innerHeight}" /> ` : html``}
+        html`<scroll-img src="${src}" alt="${alt ?? ""}" id="HeroImage" ${!!time ? html`time="${time}"` : ""} cols="${cols ?? "1"}" rows="${rows ?? "1"}" bg="${bg ?? "white"}" img-style="${imgStyle ?? ""}" imgWidth="${imgWidth}" imgHeight="${imgHeight}"></scroll-img>`
+        : src || alt ?
+            html`<img id="HeroImage" src="${src ?? ""}" alt="${alt ?? ""}" style="${imgStyle ?? ""}" width="${imgWidth || window.innerWidth}" height="${imgHeight || window.innerHeight}" /> ` :
+            html``
+    }
 <slot></slot>
 `;
-
 
 /**
  * 
@@ -54,7 +58,7 @@ img{
 
 export default class HeroImg extends HTMLElement {
     static get observedAttributes() {
-        return ["src", "alt", "bg", "time", "cols", "rows", "img-style"];
+        return ["src", "alt", "bg", "time", "cols", "rows", "img-style", "img-width", "img-height"];
     }
     /**
      * 
@@ -103,6 +107,14 @@ export default class HeroImg extends HTMLElement {
                     let hero = this.shadowRoot?.querySelector("img#HeroImage");
                     hero?.setAttribute("style", newValue);
                 }
+                break;
+            }
+            case "img-width": {
+                this.connectedCallback();
+                break;
+            }
+            case "img-height": {
+                this.connectedCallback();
                 break;
             }
             default: {

@@ -13,22 +13,18 @@
     :where(*)::before {
         box-sizing: border-box;
         transition:
-            color var(--transition-time, 0.2s) ease-in-out allow-discrete,
-            background-color var(--transition-time, 0.2s) ease-in-out allow-discrete,
-            transform var(--transition-time, 0.2s) ease-in-out allow-discrete,
-            width var(--transition-time, 0.2s) ease-in-out allow-discrete,
-            height var(--transition-time, 0.2s) ease-in-out allow-discrete
-            /*,visibility 0s allow-discrete*/
-        ;
+            color var(--transition-time, 0.2s) ease-in-out,
+            background-color var(--transition-time, 0.2s) ease-in-out,
+            transform var(--transition-time, 0.2s) ease-in-out,
+            width var(--transition-time, 0.2s) ease-in-out,
+            height var(--transition-time, 0.2s) ease-in-out,
+            box-shadow var(--transition-time, 0.2s) ease-in-out,
+            filter var(--transition-time, 0.2s) ease-in-out;
         transition-behavior: allow-discrete;
         /* 7. Inherit fonts for example form controls */
         font: inherit;
         scroll-behavior: smooth;
         accent-color: var(--accent);
-        /* -webkit-text-size-adjust: 100%; */
-        /* -webkit-text-size-adjust: none;
-        text-size-adjust: none;
-        */
     }
 
     :where(sub, sup) {
