@@ -2,14 +2,7 @@
 <html lang="de">
 
 <head>
-    <script type="importmap">
-        {
-            "imports": {
-                "three": "./vendor/three.js/three.js r176/build/three.module.js",
-                "three/addons/": "./vendor/three.js/three.js r176/examples/jsm/"
-            }
-        }
-    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Hardware und Software interaktionen verstehen">
@@ -66,15 +59,56 @@
                         <tbody>
                             <tr>
                                 <th scope="row">Studienmodul</th>
-                                <td>TMMIP</td>
+                                <td><tool-tip
+                                        style="--pop-top: 0; --pop-left:120%;--pop-translate:translate(0,-30%);--pop-pre-translate:translate(-10%,-30%);">
+                                        <div slot="trigger">TMMIP</div>
+                                        <span slot="content">Technik der Mensch Maschine Interaktion Praktikum</span>
+                                    </tool-tip></td>
                             </tr>
                             <tr>
                                 <th scope="row">Zeitraum</th>
                                 <td>Oktober 2024 - Februar 2025</td>
                             </tr>
-                            <!-- <tr>
-                                 TODO: 
-                            </tr> -->
+                            <tr>
+                                <th scope="row" style="padding-bottom: 0;padding-top: 0.3em;">Tools</th>
+                                <td style="padding-bottom: 0;padding-top: 0.3em;">
+                                    <tool-tip>
+                                        <div slot="trigger"><img class="skill-icon" src="./assets/icons/fritzing.svg"
+                                                alt="" width="40" height="40"></div>
+                                        <span slot="content">Fritzing</span>
+                                    </tool-tip>
+                                    <tool-tip>
+                                        <div slot="trigger"><img class="skill-icon"
+                                                src="./assets/icons/vs-code-svgrepo-com.svg" alt="" width="40"
+                                                height="40"></div>
+                                        <span slot="content">VSCode</span>
+                                    </tool-tip>
+                                    <tool-tip>
+                                        <div slot="trigger"><img class="skill-icon"
+                                                src="./assets/icons/arduino-svgrepo-com.svg" alt="" width="40"
+                                                height="40"></div>
+                                        <span slot="content">Arduino (IDE)</span>
+                                    </tool-tip>
+                                    <tool-tip>
+                                        <div slot="trigger"><img class="skill-icon"
+                                                src="./assets/icons/c-plusplus-svgrepo-com.svg" alt="" width="40"
+                                                height="40"></div>
+                                        <span slot="content">C++</span>
+                                    </tool-tip>
+                                    <tool-tip>
+                                        <div slot="trigger"><img class="skill-icon"
+                                                src="./assets/icons/git-icon-svgrepo-com.svg" alt="" width="40"
+                                                height="40"></div>
+                                        <span slot="content">Git</span>
+                                    </tool-tip>
+                                    <tool-tip>
+                                        <div slot="trigger"><img class="skill-icon invert invert-dark"
+                                                src="./assets/icons/github-icon-svgrepo-com.svg" alt="" width="40"
+                                                height="40"></div>
+                                        <span slot="content">Github</span>
+                                    </tool-tip>
+                                </td>
+                            </tr>
                             <tr>
                                 <th scope="row">Hochschule</th>
                                 <td>Technische Hochschule Ingolstadt</td>
@@ -458,7 +492,6 @@
                         </li>
                         <li>
                             Aufgelistete Hardware oder gleichwertige Komponenten
-                            <!-- TODO: Link zu den technischen Daten -->
                         </li>
                     </ul>
 

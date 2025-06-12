@@ -2,7 +2,6 @@
 "use strict";
 import * as THREE from 'three';
 
-
 export { THREE };
 
 /**
@@ -108,7 +107,6 @@ export function lerp(start, end, t) {
     return start + (end - start) * t;
 }
 
-
 /**
  * Creates a cubic Bézier easing function.
  * @param {number} x1 - X of control point 1.
@@ -203,11 +201,9 @@ export const mirrored = mirrorEase(easeInOut);
 
 export const overshoot = cubicBezier(.48, -0.04, .49, 1.1);
 
-
 export const easeInCirc = cubicBezier(0.55, 0, 1, 0.45)
 export const easeOutCirc = cubicBezier(0, 0.55, 0.45, 1)
 export const easeInOutCirc = cubicBezier(0.85, 0, 0.15, 1)
-
 
 function easeOutElastic(x) {
     const c4 = (2 * Math.PI) / 3;

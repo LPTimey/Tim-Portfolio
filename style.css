@@ -164,9 +164,14 @@
             font-weight: 700;
         }
 
-        > :not(caption)>*>* {
+        > :not(caption)>*>th {
             padding: .5rem .5rem;
-            text-align: left;
+            text-align: start;
+        }
+
+        > :not(caption)>*>td {
+            padding: .5rem .5rem;
+            text-align: start;
         }
     }
 

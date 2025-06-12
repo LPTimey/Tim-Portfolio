@@ -24,6 +24,7 @@
     <script type="module" src="./Components/SiteFooter.mjs"></script>
     <script type="module" src="./Components/HeroImg.mjs"></script>
     <script type="module" src="./Components/CodeBlock.mjs"></script>
+    <script type="module" src="./Components/Tooltip.mjs"></script>
 
     <link rel="shortcut icon" href="assets/Lebenslauf/schönes bild klein@0,25x.png" type="image/x-icon">
 </head>
@@ -60,10 +61,66 @@
                             </tr>
                             <tr>
                                 <th scope="row">Zeitraum</th>
-                                <td>Februar 2025 ongoing</td>
+                                <td>Februar 2025 - ongoing</td>
                             </tr>
                             <tr>
-                                <!-- TODO: -->
+                                <th scope="row" style="padding-bottom: 0;padding-top: 0.3em;">Tools</th>
+                                <td style="padding-bottom: 0;padding-top: 0.3em;">
+                                    <tool-tip>
+                                        <div slot="trigger"><img class="skill-icon" src="./assets/icons/html-5-no-wordmark-svgrepo-com.svg" alt=""
+                                                width="40" height="40"></div>
+                                        <span slot="content">HTML</span>
+                                    </tool-tip>
+                                    <tool-tip>
+                                        <div slot="trigger"><img class="skill-icon" src="./assets/icons/CSS Logo.svg" alt="" width="40" height="40"></div>
+                                        <span slot="content">CSS</span>
+                                    </tool-tip>
+                                    <tool-tip>
+                                        <div slot="trigger"><img class="skill-icon" src="./assets/icons/js-svgrepo-com.svg" alt="" width="40"
+                                                height="40"></div>
+                                        <span slot="content">JavaScript</span>
+                                    </tool-tip>
+                                    <!-- <tool-tip>
+                                        <div slot="trigger"><img class="skill-icon" src="./assets/icons/" alt="" width="40"
+                                                height="40"></div>
+                                        <span slot="content">ThreeJS</span>
+                                    </tool-tip>
+                                    <tool-tip>
+                                        <div slot="trigger"><img class="skill-icon" src="./assets/icons/" alt="" width="40"
+                                                height="40"></div>
+                                        <span slot="content">HighlightJS</span>
+                                    </tool-tip>
+                                    <tool-tip>
+                                        <div slot="trigger"><img class="skill-icon" src="./assets/icons/" alt="" width="40"
+                                                height="40"></div>
+                                        <span slot="content">MermaidJS</span>
+                                    </tool-tip> -->
+                                    <tool-tip>
+                                        <div slot="trigger"><img class="skill-icon" src="./assets/icons/adobe-illustrator-svgrepo-com.svg" alt="" width="40"
+                                                height="40"></div>
+                                        <span slot="content">Adobe Illustrator</span>
+                                    </tool-tip>
+                                    <tool-tip>
+                                        <div slot="trigger"><img class="skill-icon" src="./assets/icons/figma-svgrepo-com.svg" alt="" width="40"
+                                                height="40"></div>
+                                        <span slot="content">Figma</span>
+                                    </tool-tip>
+                                    <tool-tip>
+                                        <div slot="trigger"><img class="skill-icon" src="./assets/icons/vs-code-svgrepo-com.svg" alt="" width="40"
+                                                height="40"></div>
+                                        <span slot="content">VSCode</span>
+                                    </tool-tip>
+                                    <tool-tip>
+                                        <div slot="trigger"><img class="skill-icon" src="./assets/icons/git-icon-svgrepo-com.svg" alt="" width="40"
+                                                height="40"></div>
+                                        <span slot="content">Git</span>
+                                    </tool-tip>
+                                    <tool-tip>
+                                        <div slot="trigger"><img class="skill-icon invert invert-dark"
+                                                src="./assets/icons/github-icon-svgrepo-com.svg" alt="" width="40" height="40"></div>
+                                        <span slot="content">Github</span>
+                                    </tool-tip>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -198,13 +255,6 @@
 &lt;hero-img id="HeroImage" src="https://placehold.co/600x400" alt="Scrolling Image" time="35s" cols="2" rows="3"&gt; &lt;!-- HTMLContent --&gt; &lt;/hero-img&gt;
                                                                 </pre>
                                     </code-block>
-                                </li>
-                                <li>
-                                    <!-- FIXME: destroys everything when open? -->
-                                    <!-- <details>
-                                        <summary>Src:</summary>
-                                        <code-block no-todo lang="Javascript" src="Components/HeroImg.mjs"></code-block>
-                                    </details> -->
                                 </li>
                             </ul>
                         </li>

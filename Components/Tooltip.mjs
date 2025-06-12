@@ -15,7 +15,7 @@ const style = css`
 @import "setup.css";
 
 :host {
-    display: inline-block;
+    display: inline grid;
     position: relative;
 }
 
@@ -44,7 +44,7 @@ const style = css`
     pointer-events: none;
     white-space: nowrap;
     transition: opacity 0.2s ease, transform 0.2s ease;
-    min-width: 120px;
+    /* min-width: 120px; */
 }
 
 :host(:hover) #popover, #popover:hover, #container:hover #popover {
