@@ -149,10 +149,9 @@ div{
 }
 `;
 
-//TODO: Remove, make delay bigger or make the arrows almost gone after fist interaction
 export default class ImgCmp extends HTMLElement {
     static get observedAttributes() {
-        return ["src1", "alt1", "src2", "alt2", "no-clip" /*, "angle" */];
+        return ["src1", "alt1", "src2", "alt2", "no-clip"];
     }
     /**
          * 
@@ -170,7 +169,6 @@ export default class ImgCmp extends HTMLElement {
          * @param {HTMLInputElement} target 
          */
         const clip = (target) => {
-            //TODO: add a way to make cut-of angled like for example / or \ instead of just |
             // @ts-ignore
             this.shadowRoot.querySelector(".img-comp-overlay > img").style.clipPath = `inset(0 ${100 - Number(target.value) / 10}% 0 0)`
         }
