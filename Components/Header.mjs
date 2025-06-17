@@ -21,8 +21,9 @@ const template = html`
                     <li><a href="./styles.html" class="underline link" aria-label="Navigiert zur Themen & Stile">Themen & Stile</a></li>
                     <li><div class="separator"></div></li>
                     <li><a href="./tetris.html" class="underline link" aria-label="Navigiert zur Tetris in Arduino & C">Tetris in Arduino & C</a></li>
-                    <li><div class="separator"></div></li>
-                    <li><a href="./webdesign.html" class="underline link" aria-label="Navigiert zur Website Development">Website Development</a></li>
+                    <!-- //TODO: re add when done -->
+                    <!-- <li><div class="separator"></div></li> -->
+                    <!-- <li><a href="./webdesign.html" class="underline link" aria-label="Navigiert zur Website Development">Website Development</a></li> -->
                 </ul>
             </details></li>
             <li class="grow"></li>
