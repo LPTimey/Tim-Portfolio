@@ -296,6 +296,12 @@
     }
 }
 
+#HardwareImgGrid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(50ch, 1fr));
+    gap: 1rem;
+}
+
 #EinzelteileGrid {
     display: grid;
     grid-template-areas:

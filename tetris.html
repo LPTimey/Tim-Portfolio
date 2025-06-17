@@ -140,6 +140,19 @@
                     <img class="border-r" src="assets/Tetris/Arduino Tetris Block I.jpeg" alt="">
                 </x-carousel>
                 <!-- TODO: Ergebnis -->
+                <p>
+                    Am Ende des Hackathons hatte ich ein funktionsfähiges Tetris Spiel auf der eingebauten Matrix des
+                    Arduino R4, jedoch nicht ohne Abzüge.
+                    Leider waren weder die mitgebrachte noch die gestellte LED-Matrix mit dem neuen R4 kompatibel und
+                    ich musste deswegen bei der eingebauten Matrix bleiben.
+                    Auch ein mit Matrix kompatibler Arduino R3 wurde gestellt, doch dieser war leider mit meinem,
+                    auf dem R4 getestetem, Source-Code nicht kompatibel.
+                </p>
+                <h3>Lessons Learned</h3>
+                <p>
+                    Ohne OS viel weniger zur verfügung
+                    Kompliance mit STL ist stark underschiedlich ...
+                </p>
             </div>
         </section>
         <section class="section" id="Umsetztung">
@@ -150,7 +163,8 @@
 
                     <div id="CodeLayout" class="margin-b-medium">
                         <p id="GameStateText">
-                            Für den Hackathon, habe ich eine Tetris Bibliothek in C++ entwickelt.
+                            Für den Hackathon, habe ich eine Tetris Bibliothek in C++ entwickelt und als Nachbereitung
+                            auf R3 erweitert.
                             Diese basiert auf
                             <a href="#GameStateCode" class="link link-active underline"
                                 hover-border-target="GameStateCode">GameState</a>
@@ -410,72 +424,83 @@
         <section class="section" id="Hardware">
             <h3 class="heading medium margin-b">Hardware</h3>
             <div class="content margin-b-medium">
-                <!-- <img class="border-r" src="./assets/Tetris/Tetris_Steckplatine.png" alt="Schematic"> -->
-                <div id="EinzelteileGrid">
-                    <div class="grow" id="EinzelteileText">
-                        <p hover-border-target="UnoR4">Arduino Uno R4 WiFi</p>
-                        <p hover-border-target="UnoR3">Arduino Uno Rev3</p>
-                        <p hover-border-target="Matrix">Waveshare LED-Matrix</p>
-                        <!-- <p hover-border-target="">funduino screen</p> -->
-                        <p hover-border-target="Extras">Kabel</p>
-                        <p hover-border-target="Extras">Buttons & Button-covers</p>
-                        <p hover-border-target="Resistors">Widerstände</p>
-                        <p hover-border-targets="Breadboard, Extras">BreadBoards</p>
+                <!-- <h4>Einzelteile:</h4> -->
+                <div id="HardwareImgGrid">
+                    <div id="EinzelteileGrid">
+                        <div class="grow" id="EinzelteileText">
+                            <p hover-border-target="UnoR4">Arduino Uno R4 WiFi</p>
+                            <p hover-border-target="UnoR3">Arduino Uno Rev3</p>
+                            <p hover-border-target="Matrix">Waveshare LED-Matrix</p>
+                            <!-- <p hover-border-target="">funduino screen</p> -->
+                            <p hover-border-target="Extras">Kabel</p>
+                            <p hover-border-target="Extras">Buttons & Button-covers</p>
+                            <p hover-border-target="Resistors">Widerstände</p>
+                            <p hover-border-targets="Breadboard, Extras">BreadBoards</p>
+                        </div>
+                        <div class="full children" id="EinzelteileWrapper">
+                            <div class="marker" id="UnoR4">
+                                <tool-tip>
+                                    <div class="full" slot="trigger">
+                                        <div class="accent-point light"></div>
+                                    </div>
+                                    <span slot="content">Arduino Uno R4 WiFi</span>
+                                </tool-tip>
+                            </div>
+                            <div class="marker" id="UnoR3">
+                                <tool-tip>
+                                    <div class="full" slot="trigger">
+                                        <div class="accent-point light"></div>
+                                    </div>
+                                    <span slot="content">Arduino Uno R3</span>
+                                </tool-tip>
+                            </div>
+                            <div class="marker" id="Matrix">
+                                <tool-tip>
+                                    <div class="full" slot="trigger">
+                                        <div class="accent-point light"></div>
+                                    </div>
+                                    <span slot="content">Waveshare LED-Matrix</span>
+                                </tool-tip>
+                            </div>
+                            <div class="marker" id="Resistors">
+                                <tool-tip>
+                                    <div class="full" slot="trigger">
+                                        <div class="accent-point light"></div>
+                                    </div>
+                                    <span slot="content">Widerstände & LEDs</span>
+                                </tool-tip>
+                            </div>
+                            <div class="marker" id="Extras">
+                                <tool-tip>
+                                    <div class="full" slot="trigger">
+                                        <div class="accent-point light"></div>
+                                    </div>
+                                    <span slot="content">Buttons, Kabel & Extras</span>
+                                </tool-tip>
+                            </div>
+                            <div class="marker" id="Breadboard">
+                                <tool-tip>
+                                    <div class="full" slot="trigger">
+                                        <div class="accent-point light"></div>
+                                    </div>
+                                    <span slot="content">Breadboard</span>
+                                </tool-tip>
+                            </div>
+                            <img src="assets/Tetris/Einzelteile.jpg" class="border-r" alt="Bild Einzelteile">
+                        </div>
                     </div>
-                    <div class="full children" id="EinzelteileWrapper">
-                        <div class="marker" id="UnoR4">
-                            <tool-tip>
-                                <div class="full" slot="trigger">
-                                    <div class="accent-point light"></div>
-                                </div>
-                                <span slot="content">Arduino Uno R4 WiFi</span>
-                            </tool-tip>
-                        </div>
-                        <div class="marker" id="UnoR3">
-                            <tool-tip>
-                                <div class="full" slot="trigger">
-                                    <div class="accent-point light"></div>
-                                </div>
-                                <span slot="content">Arduino Uno R3</span>
-                            </tool-tip>
-                        </div>
-                        <div class="marker" id="Matrix">
-                            <tool-tip>
-                                <div class="full" slot="trigger">
-                                    <div class="accent-point light"></div>
-                                </div>
-                                <span slot="content">Waveshare LED-Matrix</span>
-                            </tool-tip>
-                        </div>
-                        <div class="marker" id="Resistors">
-                            <tool-tip>
-                                <div class="full" slot="trigger">
-                                    <div class="accent-point light"></div>
-                                </div>
-                                <span slot="content">Widerstände & LEDs</span>
-                            </tool-tip>
-                        </div>
-                        <div class="marker" id="Extras">
-                            <tool-tip>
-                                <div class="full" slot="trigger">
-                                    <div class="accent-point light"></div>
-                                </div>
-                                <span slot="content">Buttons, Kabel & Extras</span>
-                            </tool-tip>
-                        </div>
-                        <div class="marker" id="Breadboard">
-                            <tool-tip>
-                                <div class="full" slot="trigger">
-                                    <div class="accent-point light"></div>
-                                </div>
-                                <span slot="content">Breadboard</span>
-                            </tool-tip>
-                        </div>
-                        <img src="assets/Tetris/Einzelteile.jpg" class="border-r" alt="Bild Einzelteile">
+                    <div>
+                        <img class="border-r" src="assets/Tetris/Tetris_Steckplatine.png" alt="">
                     </div>
                 </div>
+                <!-- <h4>//TODO</h4> -->
+                <!-- <div>
+                    //TODO: Ausformulierung Hardware
+                    Das Projekt nutzt leider wegen Kompatibilität-Problemen die Matrix nicht.
+                </div> -->
             </div>
         </section>
+        <!-- //TODO: style -->
         <section class="section" id="Run">
             <h2 class="heading large margin-b">How to Run</h2>
             <div class="content flex wrap grow">
@@ -497,6 +522,7 @@
 
                     <h4>Schritt-für-Schritt-Anleitung:</h4>
                     <ol>
+                        <li>Hardware wie <a class="link link-active underline" href="#">oben</a> anbauen.</li>
                         <li>Projekt-ZIP-Datei entpacken</li>
                         <li>Zum Projektordner wechseln</li>
                         <li>Die Arduino IDE hier öffnen</li>
@@ -533,69 +559,6 @@
                     </ol>
                 </div>
 
-            </div>
-        </section>
-
-
-        <hr>
-
-
-        <!-- TODO: Remove everything below and add properly add into main part -->
-        <section class="section content">
-            <h2>Lessons Learned</h2>
-            Ohne OS viel weniger zur verfügung <br>
-            Kompliance mit STL ist stark underschiedlich <br>
-            ...
-
-        </section>
-        <section class="section" id="Content">
-            <h2 class="heading large margin-b">???</h2>
-            <div class="content grid" style="--gap:1rem;">
-                <p> *Arduino stuff</p>
-                <p>Das Tetris-Spiel wurde in C programmiert und auf einem Arduino ausgeführt. Die Anzeige erfolgt auf
-                    dessen
-                    eingebauten
-                    LED-Matrix, während die Steuerung durch externe Tasten ermöglicht wird. Bei der Gestaltung der
-                    Verbindungen wurde
-                    besonderes Augenmerk auf die Kompaktheit und Benutzerfreundlichkeit gelegt. Die Verbindungskabel
-                    wurden
-                    so verlegt, dass
-                    sie nicht vertikal aus dem Breadboard herausragen und die Buttons verdecken. Sie sind kompakt und an
-                    einer Stelle
-                    zusammengeführt welche vom Breadboard zum Arduino führt, um eine effiziente und übersichtliche
-                    Verkabelung zu
-                    gewährleisten.
-                </p>
-                <p>Das eindimensionale Button-Layout wurde so gestaltet, dass die Eingabe intuitiv erfolgt: Links
-                    entspricht
-                    „links“,
-                    rechts entspricht „rechts“ und der vertikale Button befindet sich in der Mitte. Ebenso sind die
-                    Rotationen neben der
-                    jeweiligen Bewegung.
-                </p>
-                <p> *Code und explainer animation </p>
-                <p>Das Spielfeld wurde als eindimensionales Array gespeichert, um im Stack zu bleiben und eine möglichst
-                    effiziente Nutzung
-                    des CPU-Caches zu ermöglichen. Alle Zeilen wurden hintereinander angeordnet, sodass der Index
-                    i=x+x*y
-                    gilt, wobei alle
-                    Variablen positive ganze Zahlen, einschließlich 0, sein können. Zudem müssen die Werte für x kleiner
-                    als
-                    die
-                    Spielfeldbreite und y kleiner als die Spielfeldhöhe sein.
-                </p>
-                <p>Ein Bitflag-System ermöglicht es, mehrere Tasten in einem einzelnen Byte (8 Bits) zu speichern und zu
-                    verwalten, wobei
-                    jeder Bitwert eine bestimmte Taste repräsentiert. Dies wird durch die Verwendung von Bitmasken
-                    erreicht,
-                    bei denen jede
-                    Taste mit einem einzelnen Bit im Byte verknüpft ist.
-                </p>
-                <p>Im gegebenen Code wurde ein enum für die Tastenbelegungen definiert. Dabei bekommt jede Taste einen
-                    Wert,
-                    der eine
-                    Potenz von 2 darstellt. Dadurch wird jeder Wert einer einzigen Bitposition im Byte zugewiesen:
-                </p>
             </div>
         </section>
     </main>
