@@ -21,6 +21,7 @@
     "fiveServer.highlight": true,
     "todo-tree.filtering.excludeGlobs": [
         // "**/node_modules/*/**",
-        "**/vendor/*/**"
+        "**/vendor/*/**",
+        "**/assets/*/**"
     ]
 }

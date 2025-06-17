@@ -24,17 +24,19 @@
                         "bottom": "74%",
                         "left": "43.75%"
                     }
-                },
-                {
-                    "name": "Settings",
-                    "href": "Settings#Overlay",
-                    "pos": {
-                        "top": "0",
-                        "right": "83%",
-                        "bottom": "85%",
-                        "left": "0"
-                    }
-                },
+                }
+                // ,
+                // {
+                //     "name": "Settings",
+                //     "href": "Settings#Overlay",
+                //     "pos": {
+                //         "top": "0",
+                //         "right": "83%",
+                //         "bottom": "85%",
+                //         "left": "0"
+                //     }
+                // }
+                //,
                 // {
                 //     "name": "User",
                 //     "href": "User#Overlay",
@@ -45,26 +47,26 @@
                 //         "left": "83%"
                 //     }
                 // },
-                {
-                    "name": "Language",
-                    "href": "#TODO:",
-                    "pos": {
-                        "top": "85%",
-                        "right": "83%",
-                        "bottom": "0",
-                        "left": "0"
-                    }
-                },
-                {
-                    "name": "Color",
-                    "href": "#TODO:",
-                    "pos": {
-                        "top": "85%",
-                        "right": "0",
-                        "bottom": "0",
-                        "left": "83%"
-                    }
-                }
+                // {
+                //     "name": "Language",
+                //     "href": "",
+                //     "pos": {
+                //         "top": "85%",
+                //         "right": "83%",
+                //         "bottom": "0",
+                //         "left": "0"
+                //     }
+                // },
+                // {
+                //     "name": "Color",
+                //     "href": "",
+                //     "pos": {
+                //         "top": "85%",
+                //         "right": "0",
+                //         "bottom": "0",
+                //         "left": "83%"
+                //     }
+                // }
             ]
         },
         {
@@ -80,17 +82,19 @@
                         "bottom": "74%",
                         "left": "26.25%"
                     }
-                },
-                {
-                    "name": "Settings",
-                    "href": "Settings#Overlay",
-                    "pos": {
-                        "top": "0",
-                        "right": "83%",
-                        "bottom": "85%",
-                        "left": "0"
-                    }
-                },
+                }
+                // ,
+                // {
+                //     "name": "Settings",
+                //     "href": "Settings#Overlay",
+                //     "pos": {
+                //         "top": "0",
+                //         "right": "83%",
+                //         "bottom": "85%",
+                //         "left": "0"
+                //     }
+                // }
+                // ,
                 // {
                 //     "name": "User",
                 //     "href": "User#Overlay",
@@ -101,26 +105,26 @@
                 //         "left": "83%"
                 //     }
                 // },
-                {
-                    "name": "Language",
-                    "href": "#TODO:",
-                    "pos": {
-                        "top": "85%",
-                        "right": "83%",
-                        "bottom": "0",
-                        "left": "0"
-                    }
-                },
-                {
-                    "name": "Color",
-                    "href": "#TODO:",
-                    "pos": {
-                        "top": "85%",
-                        "right": "0",
-                        "bottom": "0",
-                        "left": "83%"
-                    }
-                }
+                // {
+                //     "name": "Language",
+                //     "href": "",
+                //     "pos": {
+                //         "top": "85%",
+                //         "right": "83%",
+                //         "bottom": "0",
+                //         "left": "0"
+                //     }
+                // },
+                // {
+                //     "name": "Color",
+                //     "href": "",
+                //     "pos": {
+                //         "top": "85%",
+                //         "right": "0",
+                //         "bottom": "0",
+                //         "left": "83%"
+                //     }
+                // }
             ]
         },
         {
@@ -156,10 +160,11 @@
                         "bottom": "16%",
                         "left": "22%"
                     }
-                },
+                }
+                // ,
                 // {
                 //     "name": "-",
-                //     "href": "#TODO:",
+                //     "href": "",
                 //     "pos": {
                 //         "top": "51%",
                 //         "right": "21.5%",
@@ -167,46 +172,46 @@
                 //         "left": "51%"
                 //     }
                 // },
-                {
-                    "name": "Settings",
-                    "href": "Settings#Overlay",
-                    "pos": {
-                        "top": "0",
-                        "right": "83%",
-                        "bottom": "85%",
-                        "left": "0"
-                    }
-                },
-                {
-                    "name": "User",
-                    "href": "User#Overlay",
-                    "pos": {
-                        "top": "0",
-                        "right": "0",
-                        "bottom": "85%",
-                        "left": "83%"
-                    }
-                },
-                {
-                    "name": "Language",
-                    "href": "#TODO:",
-                    "pos": {
-                        "top": "85%",
-                        "right": "83%",
-                        "bottom": "0",
-                        "left": "0"
-                    }
-                },
-                {
-                    "name": "Color",
-                    "href": "#TODO:",
-                    "pos": {
-                        "top": "85%",
-                        "right": "0",
-                        "bottom": "0",
-                        "left": "83%"
-                    }
-                }
+                // {
+                //     "name": "Settings",
+                //     "href": "Settings#Overlay",
+                //     "pos": {
+                //         "top": "0",
+                //         "right": "83%",
+                //         "bottom": "85%",
+                //         "left": "0"
+                //     }
+                // },
+                // {
+                //     "name": "User",
+                //     "href": "User#Overlay",
+                //     "pos": {
+                //         "top": "0",
+                //         "right": "0",
+                //         "bottom": "85%",
+                //         "left": "83%"
+                //     }
+                // },
+                // {
+                //     "name": "Language",
+                //     "href": "",
+                //     "pos": {
+                //         "top": "85%",
+                //         "right": "83%",
+                //         "bottom": "0",
+                //         "left": "0"
+                //     }
+                // },
+                // {
+                //     "name": "Color",
+                //     "href": "",
+                //     "pos": {
+                //         "top": "85%",
+                //         "right": "0",
+                //         "bottom": "0",
+                //         "left": "83%"
+                //     }
+                // }
             ]
         },
         {
@@ -233,9 +238,20 @@
                         "left": "21.5%"
                     }
                 },
+                {
+                    "name": "AuswahlAlles",
+                    "href": "AuswahlAlles#Overlay",
+                    "pos": {
+                        "top": "30%",
+                        "right": "23%",
+                        "bottom": "63%",
+                        "left": "72%"
+                    }
+                }
+                // ,
                 // {
-                //     "name": "AllesAuswählen",
-                //     "href": "#TODO:",
+                //     "name": "Settings",
+                //     "href": "Settings#Overlay",
                 //     "pos": {
                 //         "top": "0",
                 //         "right": "83%",
@@ -243,46 +259,113 @@
                 //         "left": "0"
                 //     }
                 // },
+                // {
+                //     "name": "User",
+                //     "href": "User#Overlay",
+                //     "pos": {
+                //         "top": "0",
+                //         "right": "0",
+                //         "bottom": "85%",
+                //         "left": "83%"
+                //     }
+                // },
+                // {
+                //     "name": "Language",
+                //     "href": "",
+                //     "pos": {
+                //         "top": "85%",
+                //         "right": "83%",
+                //         "bottom": "0",
+                //         "left": "0"
+                //     }
+                // },
+                // {
+                //     "name": "Color",
+                //     "href": "",
+                //     "pos": {
+                //         "top": "85%",
+                //         "right": "0",
+                //         "bottom": "0",
+                //         "left": "83%"
+                //     }
+                // }
+            ]
+        },
+        {
+            "name": "AuswahlAlles",
+            "src": "./assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_08 - alles.webp",
+            "links": [
                 {
-                    "name": "Settings",
-                    "href": "Settings#Overlay",
+                    "name": "Weiter",
+                    "href": "Einstellen#Overlay",
                     "pos": {
-                        "top": "0",
-                        "right": "83%",
-                        "bottom": "85%",
-                        "left": "0"
+                        "top": "74.5%",
+                        "right": "20.25%",
+                        "bottom": "15%",
+                        "left": "60.25%"
                     }
                 },
                 {
-                    "name": "User",
-                    "href": "User#Overlay",
+                    "name": "Zurück",
+                    "href": "Home",
                     "pos": {
-                        "top": "0",
-                        "right": "0",
-                        "bottom": "85%",
-                        "left": "83%"
+                        "top": "74.5%",
+                        "right": "59%",
+                        "bottom": "15%",
+                        "left": "21.5%"
                     }
                 },
                 {
-                    "name": "Language",
-                    "href": "#TODO:",
+                    "name": "AllesAuswählen",
+                    "href": "#Back",
                     "pos": {
-                        "top": "85%",
-                        "right": "83%",
-                        "bottom": "0",
-                        "left": "0"
-                    }
-                },
-                {
-                    "name": "Color",
-                    "href": "#TODO:",
-                    "pos": {
-                        "top": "85%",
-                        "right": "0",
-                        "bottom": "0",
-                        "left": "83%"
+                        "top": "30%",
+                        "right": "23%",
+                        "bottom": "63%",
+                        "left": "72%"
                     }
                 }
+                // ,
+                // {
+                //     "name": "Settings",
+                //     "href": "Settings#Overlay",
+                //     "pos": {
+                //         "top": "0",
+                //         "right": "83%",
+                //         "bottom": "85%",
+                //         "left": "0"
+                //     }
+                // },
+                // {
+                //     "name": "User",
+                //     "href": "User#Overlay",
+                //     "pos": {
+                //         "top": "0",
+                //         "right": "0",
+                //         "bottom": "85%",
+                //         "left": "83%"
+                //     }
+                // },
+                // {
+                //     "name": "Language",
+                //     "href": "",
+                //     "pos": {
+                //         "top": "85%",
+                //         "right": "83%",
+                //         "bottom": "0",
+                //         "left": "0"
+                //     }
+                // },
+                // {
+                //     "name": "Color",
+                //     "href": "",
+                //     "pos": {
+                //         "top": "85%",
+                //         "right": "0",
+                //         "bottom": "0",
+                //         "left": "83%"
+                //     }
+                // }
             ]
         },
         {
@@ -318,47 +401,48 @@
                         "bottom": "73%",
                         "left": "23%"
                     }
-                },
-                {
-                    "name": "Settings",
-                    "href": "Settings#Overlay",
-                    "pos": {
-                        "top": "0",
-                        "right": "83%",
-                        "bottom": "85%",
-                        "left": "0"
-                    }
-                },
-                {
-                    "name": "User",
-                    "href": "User#Overlay",
-                    "pos": {
-                        "top": "0",
-                        "right": "0",
-                        "bottom": "85%",
-                        "left": "83%"
-                    }
-                },
-                {
-                    "name": "Language",
-                    "href": "#TODO:",
-                    "pos": {
-                        "top": "85%",
-                        "right": "83%",
-                        "bottom": "0",
-                        "left": "0"
-                    }
-                },
-                {
-                    "name": "Color",
-                    "href": "#TODO:",
-                    "pos": {
-                        "top": "85%",
-                        "right": "0",
-                        "bottom": "0",
-                        "left": "83%"
-                    }
                 }
+                // ,
+                // {
+                //     "name": "Settings",
+                //     "href": "Settings#Overlay",
+                //     "pos": {
+                //         "top": "0",
+                //         "right": "83%",
+                //         "bottom": "85%",
+                //         "left": "0"
+                //     }
+                // },
+                // {
+                //     "name": "User",
+                //     "href": "User#Overlay",
+                //     "pos": {
+                //         "top": "0",
+                //         "right": "0",
+                //         "bottom": "85%",
+                //         "left": "83%"
+                //     }
+                // },
+                // {
+                //     "name": "Language",
+                //     "href": "",
+                //     "pos": {
+                //         "top": "85%",
+                //         "right": "83%",
+                //         "bottom": "0",
+                //         "left": "0"
+                //     }
+                // },
+                // {
+                //     "name": "Color",
+                //     "href": "",
+                //     "pos": {
+                //         "top": "85%",
+                //         "right": "0",
+                //         "bottom": "0",
+                //         "left": "83%"
+                //     }
+                // }
             ]
         },
         {
@@ -404,47 +488,48 @@
                         "bottom": "73%",
                         "left": "43%"
                     }
-                },
-                {
-                    "name": "Settings",
-                    "href": "Settings#Overlay",
-                    "pos": {
-                        "top": "0",
-                        "right": "83%",
-                        "bottom": "85%",
-                        "left": "0"
-                    }
-                },
-                {
-                    "name": "User",
-                    "href": "User#Overlay",
-                    "pos": {
-                        "top": "0",
-                        "right": "0",
-                        "bottom": "85%",
-                        "left": "83%"
-                    }
-                },
-                {
-                    "name": "Language",
-                    "href": "#TODO:",
-                    "pos": {
-                        "top": "85%",
-                        "right": "83%",
-                        "bottom": "0",
-                        "left": "0"
-                    }
-                },
-                {
-                    "name": "Color",
-                    "href": "#TODO:",
-                    "pos": {
-                        "top": "85%",
-                        "right": "0",
-                        "bottom": "0",
-                        "left": "83%"
-                    }
                 }
+                // ,
+                // {
+                //     "name": "Settings",
+                //     "href": "Settings#Overlay",
+                //     "pos": {
+                //         "top": "0",
+                //         "right": "83%",
+                //         "bottom": "85%",
+                //         "left": "0"
+                //     }
+                // },
+                // {
+                //     "name": "User",
+                //     "href": "User#Overlay",
+                //     "pos": {
+                //         "top": "0",
+                //         "right": "0",
+                //         "bottom": "85%",
+                //         "left": "83%"
+                //     }
+                // },
+                // {
+                //     "name": "Language",
+                //     "href": "",
+                //     "pos": {
+                //         "top": "85%",
+                //         "right": "83%",
+                //         "bottom": "0",
+                //         "left": "0"
+                //     }
+                // },
+                // {
+                //     "name": "Color",
+                //     "href": "",
+                //     "pos": {
+                //         "top": "85%",
+                //         "right": "0",
+                //         "bottom": "0",
+                //         "left": "83%"
+                //     }
+                // }
             ]
         },
         {
@@ -470,47 +555,48 @@
                         "bottom": "33.5%",
                         "left": "53.5%"
                     }
-                },
-                {
-                    "name": "Settings",
-                    "href": "Settings#Overlay",
-                    "pos": {
-                        "top": "0",
-                        "right": "83%",
-                        "bottom": "85%",
-                        "left": "0"
-                    }
-                },
-                {
-                    "name": "User",
-                    "href": "User#Overlay",
-                    "pos": {
-                        "top": "0",
-                        "right": "0",
-                        "bottom": "85%",
-                        "left": "83%"
-                    }
-                },
-                {
-                    "name": "Language",
-                    "href": "#TODO:",
-                    "pos": {
-                        "top": "85%",
-                        "right": "83%",
-                        "bottom": "0",
-                        "left": "0"
-                    }
-                },
-                {
-                    "name": "Color",
-                    "href": "#TODO:",
-                    "pos": {
-                        "top": "85%",
-                        "right": "0",
-                        "bottom": "0",
-                        "left": "83%"
-                    }
                 }
+                // ,
+                // {
+                //     "name": "Settings",
+                //     "href": "Settings#Overlay",
+                //     "pos": {
+                //         "top": "0",
+                //         "right": "83%",
+                //         "bottom": "85%",
+                //         "left": "0"
+                //     }
+                // },
+                // {
+                //     "name": "User",
+                //     "href": "User#Overlay",
+                //     "pos": {
+                //         "top": "0",
+                //         "right": "0",
+                //         "bottom": "85%",
+                //         "left": "83%"
+                //     }
+                // },
+                // {
+                //     "name": "Language",
+                //     "href": "",
+                //     "pos": {
+                //         "top": "85%",
+                //         "right": "83%",
+                //         "bottom": "0",
+                //         "left": "0"
+                //     }
+                // },
+                // {
+                //     "name": "Color",
+                //     "href": "",
+                //     "pos": {
+                //         "top": "85%",
+                //         "right": "0",
+                //         "bottom": "0",
+                //         "left": "83%"
+                //     }
+                // }
             ]
         },
         {
