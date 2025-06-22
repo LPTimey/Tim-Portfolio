@@ -138,7 +138,6 @@
                     <img class="border-r" src="assets/Tetris/Matrix.jpeg" alt="">
                     <img class="border-r" src="assets/Tetris/Arduino Tetris Block I.jpeg" alt="">
                 </x-carousel>
-                <!-- TODO: Ergebnis -->
                 <p>
                     Am Ende des Hackathons hatte ich ein funktionsfähiges Tetris Spiel auf der eingebauten Matrix des
                     Arduino R4, jedoch nicht ohne Abzüge.
@@ -147,14 +146,42 @@
                     Auch ein mit Matrix kompatibler Arduino R3 wurde gestellt, doch dieser war leider mit meinem,
                     auf dem R4 getestetem, Source-Code nicht kompatibel.
                 </p>
-                <h3>Lessons Learned</h3>
-                <p>
-                    Ohne OS viel weniger zur verfügung
-                    Kompliance mit STL ist stark underschiedlich ...
+                <h3 class="medium margin-b">Lessons Learned</h3>
+                <ul>
+                    <li>Ohne Betriebssystem steht deutlich weniger Unterstützung zur Verfügung.</li>
+                    <li>Die Kompatibilität mit der STL variiert stark.</li>
+                    <li>Die Arbeit mit Hardware erfordert oft Fingerspitzengefühl; Kurzschlüsse oder Verwirrung sind
+                        schnell möglich.
+                    </li>
+                </ul>
+                <h3 class="medium margin-b">Nachbereitung</h3>
+                <!-- <p>
+                    Nach dem Hackathon, habe ich die Tetris Bibliothek neu geschrieben um auch auf Rev3 Arduino's
+                    funktionieren.
+                    Das habe ich mit dem Ersetzen der CPP-STL hin zu normalem C/C++ stilisierten code (z.B:
+                    <code>std::array</code> zu einfach <code>type_T name[N]</code>)
+                    Außerdem habe ich den GameLoop, welcher vorher mit <code>tick()</code> funktionierte, in
+                    <code>game_tick()</code> und <code>player_tick(Buttons buttons)</code> aufgeteilt um das Spiel
+                    responsiever machen zu können, da eingaben damit nicht nur während dem automatischen fallen gelesen
+                    werden können.
                 </p>
-                <!-- <h3>Nachbereitung</h3> -->
-                <!-- TODO: Ausformulieren -->
-                <p></p>
+                <hr> -->
+                <p>
+                    Nach dem Hackathon habe ich die Tetris-Bibliothek vollständig überarbeitet, sodass sie nun auch auf
+                    Rev3-Arduinos funktioniert.
+                    Dabei ersetzte ich die bisher verwendete C++-STL durch klassischen C/C++-Code.
+                    Beispielsweise wurde
+                    <code-block no-pre lang="cpp">std::array&lt;T,N&gt;</code-block> durch einfache Array-Deklarationen wie <code-block no-pre lang="cpp">type_T name[N]</code-block> ersetzt.
+                </p>
+                <p>
+                    Zudem habe ich den bisherigen GameLoop, der über die Funktion <code>tick()</code> lief, in zwei
+                    getrennte Funktionen aufgeteilt: <br>
+                    <code-block no-pre lang="cpp">bool game_tick();</code-block> und <code-block no-pre lang="cpp">bool
+                        player_tick(Buttons buttons);</code-block>.
+                    Dadurch konnte ich die Eingabeverarbeitung vom automatischen Fallverhalten entkoppeln, was das Spiel
+                    deutlich reaktionsschneller macht.
+                    Eingaben können nun jederzeit erkannt werden, nicht nur während eines Ticks.
+                </p>
             </div>
         </section>
         <section class="section" id="Umsetztung">
@@ -495,11 +522,6 @@
                         <img class="border-r" src="assets/Tetris/Tetris_Steckplatine.png" alt="">
                     </div>
                 </div>
-                <!-- <h4>//TODO</h4> -->
-                <!-- <div>
-                    //TODO: Ausformulierung Hardware
-                    Das Projekt nutzt leider wegen Kompatibilität-Problemen die Matrix nicht.
-                </div> -->
             </div>
         </section>
         <!-- //TODO: style -->

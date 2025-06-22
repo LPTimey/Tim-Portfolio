@@ -32,11 +32,19 @@ const style = (theme) => css`
 }
 :host([no-pre]){
     /* border: 1px solid red; */
-    display: inline-block;
+    display: inline;
     border-radius: 0;
     overflow: hidden;
     height:max-content;
     width: max-content;
+    code{
+        width: max-content;
+        border-radius: 0.5em;
+        padding-inline: 1ch;
+    }
+    pre{
+        width: max-content;
+    }
 }
 pre,code{
     height: 100%;
