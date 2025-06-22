@@ -43,12 +43,6 @@ phone-img,
     max-height: 70dvh;
 }
 
-#InfoCanvas {
-    height: 100%;
-    width: 100%;
-    margin-inline: auto;
-}
-
 video {
     max-height: 60dvh;
     margin-inline: auto;
@@ -66,5 +60,85 @@ video {
     li::before {
         content: "*";
         margin-inline-start: calc(-1 * var(--inset));
+    }
+}
+
+#WatchSect {
+    container: WatchSect / inline-size;
+    width: 100%;
+    overflow: hidden;
+}
+
+#WatchGrid {
+    display: grid;
+    width: 100%;
+    overflow: hidden;
+    grid-template-areas:
+        "WatchText Watch3D"
+        "WatchText DragText";
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: min-content 1fr;
+}
+
+#WatchText {
+    grid-area: WatchText;
+}
+
+#InfoCanvas {
+    aspect-ratio: 1 / 1;
+    grid-area: Watch3D;
+    place-self: center;
+    width: 100%;
+    max-width: 60ch;
+}
+
+#DragText {
+    grid-area: DragText;
+    text-align: center;
+}
+
+@container WatchSect (width < 110ch) {
+    #WatchGrid {
+        gap: 2ch;
+        grid-template-areas:
+            "WatchText"
+            "Watch3D"
+            "DragText";
+        grid-template-columns: 1fr;
+    }
+}
+
+#AppSect {
+    container: AppSect / inline-size;
+    width: 100%;
+    overflow: hidden;
+}
+
+#AppGrid {
+    display: grid;
+    gap: 1ch;
+    width: 100%;
+    overflow: hidden;
+    grid-template-areas:
+        "App3D AppText";
+    grid-template-columns: 1fr 1fr;
+}
+
+#AppText {
+    grid-area: AppText;
+}
+
+#PhoneProto {
+    grid-area: App3D;
+}
+
+
+@container AppSect (width < 110ch) {
+    #AppGrid {
+        gap: 2ch;
+        grid-template-areas:
+            "AppText"
+            "App3D";
+        grid-template-columns: 1fr;
     }
 }
