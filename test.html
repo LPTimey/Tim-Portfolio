@@ -58,6 +58,98 @@
           </script>
     </div>
 
+
+    <style>
+:root {
+  --accent: #007acc; /* oder deine gewünschte Farbe */
+}
+
+.timeline-section {
+  padding: 2rem 1rem;
+  max-width: 800px;
+  margin: 0 auto;
+  font-family: "Inter", sans-serif;
+}
+
+.timeline-section h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  color: var(--accent);
+}
+
+.timeline {
+  position: relative;
+  padding-left: 30px;
+  border-left: 3px solid var(--accent);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 2rem;
+  padding-left: 20px;
+}
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: -10px;
+  top: 5px;
+  width: 15px;
+  height: 15px;
+  background-color: var(--accent);
+  border-radius: 50%;
+  border: 3px solid #fff;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent);
+}
+
+.timeline-date {
+  font-weight: bold;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.timeline-content h3 {
+  margin: 0 0 0.2rem 0;
+  font-size: 1.2rem;
+}
+
+.timeline-content p {
+  margin: 0;
+  color: #555;
+}
+
+
+    </style>
+
+    <section class="timeline-section">
+        <h2>Werdegang</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <span class="timeline-date">2023 – Heute</span>
+                <div class="timeline-content">
+                    <h3>Technische Hochschule Ingolstadt</h3>
+                    <p>UX Design Studium (B.A.)</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <span class="timeline-date">2020 – 2022</span>
+                <div class="timeline-content">
+                    <h3>FOS/BOS Scheyern</h3>
+                    <p>Technik-Zweig</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <span class="timeline-date">2014 – 2020</span>
+                <div class="timeline-content">
+                    <h3>Georg-Hipp Realschule</h3>
+                    <p>Mathematik-Zweig</p>
+                </div>
+            </div>
+        </div>
+    </section>
+      
 </body>
 
 </html>

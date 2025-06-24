@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="about/about.css">
     <script type="module" src="./Components/Header.mjs"></script>
     <script type="module" src="./Components/SiteFooter.mjs"></script>
+    <script type="module" src="./about/about.mjs"></script>
 
     <link rel="shortcut icon" href="assets/Lebenslauf/schönes bild klein@0,25x.png" type="image/x-icon">
 </head>
@@ -119,30 +120,32 @@
         </section>
         <div class="section content grid default" id="LeistungenWerdegangWrapper"
             style="--grid-max-col-count:2;--gap:3rem;--min-col:80ch">
-            <!-- //TODO: Style -->
-            <section id="Werdegang">
+            <!-- //TODO: edit whitespace? -->
+            <section class="timeline-section" id="Werdegang">
                 <h2 class="large margin-b">Werdegang</h2>
-                <div>
-                    <div class="card">
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td>2023 - Jetzt</td>
-                                    <td>Technische Hochschule Ingolstadt</td>
-                                    <td>UXD Bachelor</td>
-                                </tr>
-                                <tr>
-                                    <td>2020 - 2022</td>
-                                    <td>FOS/BOS Scheyern</td>
-                                    <td>Technik Zweig</td>
-                                </tr>
-                                <tr>
-                                    <td>2014 - 2020</td>
-                                    <td>Georg-Hipp Realschule</td>
-                                    <td>Mathe Zweig</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                <div class="card">
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <span class="timeline-date">2023 – Heute</span>
+                            <div class="timeline-content">
+                                <h3>Technische Hochschule Ingolstadt</h3>
+                                <p>UX Design Studium (B.A.)</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <span class="timeline-date">2020 – 2022</span>
+                            <div class="timeline-content">
+                                <h3>FOS/BOS Scheyern</h3>
+                                <p>Technik-Zweig</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <span class="timeline-date">2014 – 2020</span>
+                            <div class="timeline-content">
+                                <h3>Georg-Hipp Realschule</h3>
+                                <p>Mathematik-Zweig</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
