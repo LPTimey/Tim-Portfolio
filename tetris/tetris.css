@@ -408,6 +408,8 @@ div:has(#EinzelteileGrid) {
 }
 
 #Run {
+    container: RunContainer / inline-size;
+
     #RunGrid {
         gap: 4ch;
         display: grid;
@@ -426,11 +428,46 @@ div:has(#EinzelteileGrid) {
         border-radius: var(--border-r);
         border: 1px solid black;
         box-shadow: 0.25rem 0.25rem var(--blur-r) 0 rgb(from var(--fg) r g b / 0.15);
-        .heading{
+
+        .heading {
             margin-inline: auto;
         }
-        .underline.hover{
+
+        .underline.hover {
             height: 0.25em;
+        }
+
+        .vert-sep {
+            margin-top: 2em;
+            margin-bottom: -1em;
+
+            &::before {
+                display: inline-block;
+                position: relative;
+                content: "";
+                background-color: var(--accent);
+                width: 0.5ch;
+                height: 1.5em;
+                border-radius: 0.25ch;
+                margin-inline-end: 1ch;
+                transform: translateY(25%);
+            }
+        }
+
+        ul,
+        ol {
+            margin-inline-start: 3ch;
+        }
+        li{
+            margin-block: 0.5rem;
+        }
+    }
+}
+
+@container RunContainer (width < 140ch) {
+    #Run {
+        #RunGrid {
+            grid-template-columns: 1fr;
         }
     }
 }
