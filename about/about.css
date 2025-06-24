@@ -97,6 +97,7 @@ table {
     position: relative;
     padding-left: 30px;
     border-left: 3px solid var(--accent);
+    overflow-y: clip;
 
     &::before {
         opacity: 0;

@@ -7,7 +7,13 @@ timelines.forEach(timeline => {
         timeline.setAttribute("show-slider", "")
     });
     timeline.addEventListener("mouseleave", ev => {
-        timeline.style.setProperty("--slider-top", `0%`);
+        const percentage =
+            Number(timeline.style.getPropertyValue("--slider-top").replaceAll("%",""));
+        if (!percentage || isNaN(percentage) || percentage <= 50 ) {
+            timeline.style.setProperty("--slider-top", `0%`);
+        }else{
+            timeline.style.setProperty("--slider-top", `100%`);
+        }
         timeline.removeAttribute("show-slider")
     });
     const items = timeline.querySelectorAll(".timeline-item");
