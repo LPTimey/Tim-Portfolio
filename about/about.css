@@ -5,8 +5,8 @@
 #SkillsCard {
     padding: 2rem 2.5ch;
     gap: 5ch;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(43ch, 100%), 1fr));
 }
 
 .skill-icon {
