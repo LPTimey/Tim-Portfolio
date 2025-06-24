@@ -1,0 +1,107 @@
+
+/* Grundlegendes Styling für die Sektion */
+#Run {
+    padding: 2.5rem 1.5rem;
+    background-color: #f9f9f9;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #222;
+}
+
+/* Überschrift Haupt */
+#Run>h2.heading {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: #1a73e8;
+}
+
+/* Flex-Container für die zwei Spalten (Arduino & PC) */
+#Run .content.flex.wrap.grow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.5rem;
+    justify-content: center;
+}
+
+/* Jede Spalte */
+#Run .content>div {
+    background: #fff;
+    box-shadow: 0 4px 10px rgb(0 0 0 / 0.07);
+    border-radius: 8px;
+    padding: 1.8rem 2rem;
+    flex: 1 1 320px;
+    max-width: 480px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Sekundäre Überschriften */
+#Run h3 {
+    font-size: 1.8rem;
+    color: #0d47a1;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #1a73e8;
+    padding-bottom: 0.4rem;
+}
+
+/* Kleinere Überschriften */
+#Run h4 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    margin-bottom: 0.8rem;
+    color: #333;
+    border-left: 4px solid #1a73e8;
+    padding-left: 0.6rem;
+}
+
+/* Listen: Voraussetzung und Schritte */
+#Run ul,
+#Run ol {
+    padding-left: 1.3rem;
+    margin-bottom: 1rem;
+    color: #444;
+    line-height: 1.5;
+}
+
+#Run ol li {
+    margin-bottom: 0.6rem;
+}
+
+/* Links */
+#Run a.link {
+    color: #1a73e8;
+    text-decoration: underline;
+    transition: color 0.3s ease;
+}
+
+#Run a.link:hover,
+#Run a.link-active {
+    color: #0d47a1;
+    font-weight: 600;
+}
+
+/* Code Inline */
+#Run code {
+    background-color: #eaeaea;
+    padding: 0.15rem 0.4rem;
+    border-radius: 3px;
+    font-family: 'Source Code Pro', monospace, monospace;
+    font-size: 0.9rem;
+}
+
+/* Spezielle Flex Spalte bei PC Anleitung */
+#Run ol li.flex.column {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3em;
+}
+
+/* Responsive Anpassung */
+@media (max-width: 700px) {
+    #Run .content.flex.wrap.grow {
+        flex-direction: column;
+        gap: 1.8rem;
+    }
+}

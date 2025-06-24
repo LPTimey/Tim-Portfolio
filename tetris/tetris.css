@@ -296,7 +296,7 @@
     }
 }
 
-#HardwareImgGrid{
+#HardwareImgGrid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(50ch, 1fr));
     gap: 1rem;
@@ -404,5 +404,33 @@ div:has(#EinzelteileGrid) {
 
     #EinzelteileText {
         display: block;
+    }
+}
+
+#Run {
+    #RunGrid {
+        gap: 4ch;
+        display: grid;
+        margin: auto;
+        max-width: fit-content;
+        /* grid-template-columns: repeat(auto-fill, clamp(30ch,1fr,80ch)); */
+        grid-template-columns: 1fr 1fr;
+    }
+
+    #ArduinoCard,
+    #PCCard {
+        display: grid;
+        grid-template-rows: subgrid;
+        grid-row: span 6;
+        padding: 4rem 3rem;
+        border-radius: var(--border-r);
+        border: 1px solid black;
+        box-shadow: 0.25rem 0.25rem var(--blur-r) 0 rgb(from var(--fg) r g b / 0.15);
+        .heading{
+            margin-inline: auto;
+        }
+        .underline.hover{
+            height: 0.25em;
+        }
     }
 }

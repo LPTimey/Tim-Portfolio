@@ -171,7 +171,8 @@
                     Rev3-Arduinos funktioniert.
                     Dabei ersetzte ich die bisher verwendete C++-STL durch klassischen C/C++-Code.
                     Beispielsweise wurde
-                    <code-block no-pre lang="cpp">std::array&lt;T,N&gt;</code-block> durch einfache Array-Deklarationen wie <code-block no-pre lang="cpp">type_T name[N]</code-block> ersetzt.
+                    <code-block no-pre lang="cpp">std::array&lt;T,N&gt;</code-block> durch einfache Array-Deklarationen
+                    wie <code-block no-pre lang="cpp">type_T name[N]</code-block> ersetzt.
                 </p>
                 <p>
                     Zudem habe ich den bisherigen GameLoop, der über die Funktion <code>tick()</code> lief, in zwei
@@ -527,62 +528,63 @@
         <!-- //TODO: style -->
         <section class="section" id="Run">
             <h2 class="heading large margin-b">How to Run</h2>
-            <div class="content flex wrap grow">
-                <div>
-                    <h3>Arduino</h3>
-                    <h4>Voraussetzungen:</h4>
-                    <ul>
-                        <li>
-                            Quellcode (<a href="assets/Tetris/Tetris_new.zip"
-                                class="link underline link-active">Download</a>)
-                        </li>
-                        <li>
-                            Arduino IDE
-                        </li>
-                        <li>
-                            Aufgelistete Hardware oder gleichwertige Komponenten
-                        </li>
-                    </ul>
+            <div class="content">
+                <div id="RunGrid">
+                    <div id="ArduinoCard">
+                        <h3 class="large heading">Arduino</h3>
+                        <div class="underline hover"></div>
+                        <h4 class="medium">Voraussetzungen:</h4>
+                        <ul>
+                            <li>
+                                Quellcode (<a href="assets/Tetris/Tetris_new.zip"
+                                    class="link underline link-active">Download</a>)
+                            </li>
+                            <li>
+                                Arduino IDE
+                            </li>
+                            <li>
+                                Aufgelistete Hardware oder gleichwertige Komponenten
+                            </li>
+                        </ul>
+                        <h4 class="medium">Schritt-für-Schritt-Anleitung:</h4>
+                        <ol>
+                            <li>Hardware wie <a class="link link-active underline" href="#">oben</a> anbauen.</li>
+                            <li>Projekt-ZIP-Datei entpacken</li>
+                            <li>Zum Projektordner wechseln</li>
+                            <li>Die Arduino IDE hier öffnen</li>
+                            <li><code>Tetrino.ino</code> bauen und auf das Arduino-Board flashen</li>
+                        </ol>
+                    </div>
+                    <div id="PCCard">
+                        <h3 class="large heading">PC</h3>
+                        <div class="underline hover"></div>
+                        <h4 class="medium">Voraussetzungen:</h4>
+                        <ul>
+                            <li>
+                                Quellcode (<a href="assets/Tetris/Tetris_new.zip"
+                                    class="link underline link-active">Download</a>)
+                            </li>
+                            <li>
+                                C/C++-Compiler (z.B: clang++)
+                            </li>
+                        </ul>
+                        <h4 class="medium">Schritt-für-Schritt-Anleitung:</h4>
+                        <ol>
+                            <li>Projekt-ZIP-Datei entpacken</li>
+                            <li>Zum Projektordner wechseln</li>
+                            <li class="flex column" style="--gap: 0.1em">
+                                <p><code>nob.c</code> (Buildsystem) zu einer ausführbaren Datei kompilieren & rennen</p>
+                                <p>Unix:</p>
+                                <code-block no-pre lang="bash">clang -o nob nob.c</code-block>
+                                <code-block no-pre lang="bash">./nob</code-block>
+                                <p>Windows:</p>
+                                <code-block no-pre lang="bash">clang -o nob.exe nob.c</code-block>
+                                <code-block no-pre lang="bash">.\nob.exe</code-block>
+                            </li>
+                        </ol>
+                    </div>
 
-                    <h4>Schritt-für-Schritt-Anleitung:</h4>
-                    <ol>
-                        <li>Hardware wie <a class="link link-active underline" href="#">oben</a> anbauen.</li>
-                        <li>Projekt-ZIP-Datei entpacken</li>
-                        <li>Zum Projektordner wechseln</li>
-                        <li>Die Arduino IDE hier öffnen</li>
-                        <li><code>Tetrino.ino</code> bauen und auf das Arduino-Board flashen</li>
-                    </ol>
                 </div>
-
-                <div>
-                    <h3>PC</h3>
-                    <h4>Voraussetzungen:</h4>
-                    <ul>
-                        <li>
-                            Quellcode (<a href="assets/Tetris/Tetris_new.zip"
-                                class="link underline link-active">Download</a>)
-                        </li>
-                        <li>
-                            C/C++-Compiler (clang++)
-                        </li>
-                    </ul>
-
-                    <h4>Schritt-für-Schritt-Anleitung:</h4>
-                    <ol>
-                        <li>Projekt-ZIP-Datei entpacken</li>
-                        <li>Zum Projektordner wechseln</li>
-                        <li class="flex column" style="--gap: 0.1em">
-                            <p><code>nob.c</code> (Buildsystem) zu einer ausführbaren Datei kompilieren & rennen</p>
-                            <p>Unix:</p>
-                            <code-block no-pre lang="bash">clang -o nob nob.c</code-block>
-                            <code-block no-pre lang="bash">./nob</code-block>
-                            <p>Windows:</p>
-                            <code-block no-pre lang="bash">clang -o nob.exe nob.c</code-block>
-                            <code-block no-pre lang="bash">.\nob.exe</code-block>
-                        </li>
-                    </ol>
-                </div>
-
             </div>
         </section>
     </main>
