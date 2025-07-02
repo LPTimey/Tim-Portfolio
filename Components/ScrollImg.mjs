@@ -12,7 +12,7 @@ import { css, html } from "../script.mjs";
  * @returns 
  */
 const template = (src, alt, cols, rows, imgWidth, imgHeight) => html`
-${html`<picture><img src="${src}" alt="${alt}" class="scrolling-image" width="${imgWidth || window.innerWidth}" height="${imgHeight || window.innerHeight}" /></picture>`.repeat(cols * rows)}
+${html`<picture><img loading="lazy" src="${src}" alt="${alt}" class="scrolling-image" width="${imgWidth || window.innerWidth}" height="${imgHeight || window.innerHeight}" /></picture>`.repeat(cols * rows)}
 `;
 
 /**
@@ -112,7 +112,7 @@ export default class ScrollImage extends HTMLElement {
                     for (let i = 0; i < delta; i++) {
                         let img = document.createElement("picture");
                         img.innerHTML = html`
-                        <img src="${this.getAttribute("src") ?? ""}" alt="${this.getAttribute("alt") ?? ""}" class="scrolling-image"/>
+                        <img loading="lazy" src="${this.getAttribute("src") ?? ""}" alt="${this.getAttribute("alt") ?? ""}" class="scrolling-image"/>
                         `
                         document.appendChild(img);
                     }
@@ -126,7 +126,7 @@ export default class ScrollImage extends HTMLElement {
                     for (let i = 0; i < delta; i++) {
                         let img = document.createElement("picture");
                         img.innerHTML = html`
-                        <img src="${this.getAttribute("src") ?? ""}" alt="${this.getAttribute("alt") ?? ""}" class="scrolling-image"/>
+                        <img loading="lazy" src="${this.getAttribute("src") ?? ""}" alt="${this.getAttribute("alt") ?? ""}" class="scrolling-image"/>
                         `
                         document.appendChild(img);
                     }

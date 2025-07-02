@@ -10,7 +10,7 @@ import ScrollImage from "./ScrollImg.mjs";
  * @param {(string | number)?} [cols] - Anzahl der Spalten für das Grid-Layout.
  * @param {(string | number)?} [rows] - Anzahl der Zeilen für das Grid-Layout.
  * @param {string?} [bg] - Hintergrund CSS des Containers (Standard: "white").
- * @param {string?} [imgStyle] - Inline-Stil für das `<img>`-Tag oder `img-style`-Attribut bei `<scroll-img>`.
+ * @param {string?} [imgStyle] - Inline-Stil für das `<img loading="lazy">`-Tag oder `img-style`-Attribut bei `<scroll-img>`.
  * @param {(string | number)?} [imgWidth]
  * @param {(string | number)?} [imgHeight]
  * @returns 
@@ -19,7 +19,7 @@ const template = (src, alt, time, cols, rows, bg, imgStyle, imgWidth, imgHeight)
 ${(src || alt) && (cols || rows) ?
         html`<scroll-img src="${src}" alt="${alt ?? ""}" id="HeroImage" ${!!time ? html`time="${time}"` : ""} cols="${cols ?? "1"}" rows="${rows ?? "1"}" bg="${bg ?? "white"}" img-style="${imgStyle ?? ""}" imgWidth="${imgWidth}" imgHeight="${imgHeight}"></scroll-img>`
         : src || alt ?
-            html`<img id="HeroImage" src="${src ?? ""}" alt="${alt ?? ""}" style="${imgStyle ?? ""}" width="${imgWidth || window.innerWidth}" height="${imgHeight || window.innerHeight}" /> ` :
+            html`<img loading="lazy" id="HeroImage" src="${src ?? ""}" alt="${alt ?? ""}" style="${imgStyle ?? ""}" width="${imgWidth || window.innerWidth}" height="${imgHeight || window.innerHeight}" /> ` :
             html``
     }
 <slot></slot>

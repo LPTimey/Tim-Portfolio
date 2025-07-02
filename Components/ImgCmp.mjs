@@ -12,10 +12,10 @@ import { css, html, double_arrow } from "../script.mjs";
 const template = function (src1, alt1, src2, alt2) {
     return html`
 <div>
-    <img src="${src1}" alt="${alt1}">
+    <img loading="lazy" src="${src1}" alt="${alt1}">
 </div>
 <div class="img-comp-overlay">
-    <img src="${src2}" alt="${alt2}">
+    <img loading="lazy" src="${src2}" alt="${alt2}">
 </div>
 <div>
 
@@ -180,13 +180,13 @@ export default class ImgCmp extends HTMLElement {
         const affordance = (target) => {
             this.shadowRoot.querySelectorAll(".arrow").forEach(
                 (el) => {
-                let delta = 2;
-                if (el.classList.contains("right")) {
-                    delta = (-delta);
-                }
-                // @ts-ignore
-                el.style.right = `calc(${100 - target.value / 10}% + ${delta}em)`;
-            })
+                    let delta = 2;
+                    if (el.classList.contains("right")) {
+                        delta = (-delta);
+                    }
+                    // @ts-ignore
+                    el.style.right = `calc(${100 - target.value / 10}% + ${delta}em)`;
+                })
         }
         affordance(input);
 

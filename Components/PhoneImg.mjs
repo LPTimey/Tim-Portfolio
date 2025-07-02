@@ -9,8 +9,8 @@ import { css, html } from "../script.mjs";
  * @returns 
  */
 const template = (src, alt, phonePrefix) => html`
-${src || alt ? html`<img class="screen" src="${src}" alt="${alt}">` : html`<slot></slot>`}
-<img class="phone" src="${phonePrefix ?? " ./"}assets/iPhone Template [Konvertiert] noBG.png" alt="">
+${src || alt ? html`<img loading="lazy" class="screen" src="${src}" alt="${alt}">` : html`<slot></slot>`}
+<img loading="lazy" class="phone" src="${phonePrefix ?? " ./"}assets/iPhone Template [Konvertiert] noBG.png" alt="">
 `;
 
 /**

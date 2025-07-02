@@ -13,8 +13,8 @@ import { css, html, lightDark } from "../script.mjs";
  */
 const template = (src, srcDark, alt, href, has_button, isDark) => html`
 <picture>
-    <img id="DarkImg" src="${srcDark}" alt="${alt}" style="display:${isDark && srcDark ? 'block' : 'none'}" />
-    <img src="${src}" alt="${alt}" style="display:${isDark && srcDark ? 'none' : 'block'}" />
+    <img loading="lazy" id="DarkImg" src="${srcDark}" alt="${alt}" style="display:${isDark && srcDark ? 'block' : 'none'}" />
+    <img loading="lazy" src="${src}" alt="${alt}" style="display:${isDark && srcDark ? 'none' : 'block'}" />
 </picture>
 <div id="Text">
     <slot></slot>
