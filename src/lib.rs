@@ -16,6 +16,12 @@ macro_rules! include_public {
         include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/public/", $path))
     };
 }
+#[macro_export]
+macro_rules! include_logo {
+    ($path:expr) => {
+        include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/assets/logos/", $path))
+    };
+}
 
 #[macro_export]
 macro_rules! link_public {

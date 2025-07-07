@@ -40,6 +40,14 @@ impl Cli {
             }
 
             let markup = page.to_markup().0;
+            let needs_copy = match fs::read_to_string(&full_path) {
+                Ok(dest_contents) => dest_contents != markup,
+                Err(_) => true, // Ziel existiert nicht => muss kopiert werden
+            };
+            if !needs_copy {
+                println!("✔️  Seite vorhanden: {}", full_path.display());
+                continue;
+            }
             fs::write(&full_path, markup)?;
             println!("✔️  Seite geschrieben: {}", full_path.display());
         }

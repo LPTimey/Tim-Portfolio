@@ -85,6 +85,8 @@
         svg) {
         display: block;
         max-width: 100%;
+        user-drag: none;
+        -webkit-user-drag: none;
     }
 
     :where(img) {
@@ -524,7 +526,7 @@
     --dark: hsl(245 2.04% 9.61%);
     --light: hsl(245 100% 98%);
 
-    --accent: hsl(245 48% 50%);
+    --accent: hsl(245 48% 52%);
     --accent-light: hsl(from var(--accent) h s calc(l + 10));
     --accent-dark: hsl(from var(--accent) h s calc(l - 10));
     --accent-2: light-dark(var(--accent-dark), var(--accent-light));

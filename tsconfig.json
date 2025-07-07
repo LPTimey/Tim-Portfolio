@@ -2,7 +2,7 @@
     "compilerOptions": {
         "target": "esnext",
         "module": "esnext",
-        "baseUrl": ".",
+        "baseUrl": ".public",
         "paths": {
             "three": [
                 "./vendor/three.js/three.js r176/build/three.module.js"

@@ -15,7 +15,7 @@ pub fn default_head(
     html! {
         meta charset="UTF-8";
         meta name="viewport" content="width=device-width, initial-scale=1.0";
-        meta description=(description);
+        meta name="description" content=(description);
         // link rel="stylesheet" href=(path_to_root.clone() + SETUP_CSS );
         link rel="stylesheet" href=(path_to_root.clone() + *STYLE_CSS );
         title{(title)}

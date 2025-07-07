@@ -1,3 +1,5 @@
+"use strict";
+
 // document.getElementById("ThemeSelect").addEventListener("change", function () {
 //     const selected = this.value;
 //     const radios = document.querySelectorAll('input[name="theme"]');
