@@ -1,6 +1,7 @@
 {
     "cSpell.words": [
         "Bento",
+        "bild",
         "DMMS",
         "gltf",
         "Hackathon",
@@ -9,19 +10,23 @@
         "penpot",
         "popovertarget",
         "Ruland",
+        "fieldset",
+        "github",
+        "maud",
+        "parsen",
+        "projekte",
         "Screendesign",
         "slerp",
         "Tetrino",
         "Tetrinos",
+        "stylesheet",
         "wdth",
         "wght"
     ],
-    "fiveServer.host": "0.0.0.0",
-    "fiveServer.port": 80,
-    "fiveServer.highlight": true,
     "todo-tree.filtering.excludeGlobs": [
         // "**/node_modules/*/**",
         "**/vendor/*/**",
         "**/assets/*/**"
     ]
+    "liveServer.settings.root": "./dist"
 }

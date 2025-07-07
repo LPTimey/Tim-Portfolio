@@ -1,0 +1,123 @@
+@layer reset, helpers, global, component;
+/* @import "setup.css"; */
+
+@layer global {
+    /********************************
+     *                              *
+     *            fonts             *
+     *                              *
+     *******************************/
+    /* #region fonts */
+
+    @font-face {
+        font-family: "JetBrains Mono";
+        src: local("JetBrains Mono"), url("./assets/JetBrains_Mono/JetBrainsMono-VariableFont_wght.ttf");
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: "Roboto";
+        src: local("Roboto"), url("./assets/Roboto/Roboto-VariableFont_wdth\,wght.ttf");
+        font-display: swap;
+    }
+
+    /* #endregion fonts */
+
+    /********************************
+     *                              *
+     *         Setup Vars           *
+     *                              *
+     *******************************/
+    /* #region Setup Vars */
+
+    :root {
+        --dark: #181819;
+        --light: #fefffd;
+        --accent-light: #6060ff;
+        --accent-dark: #4141bd;
+
+        --accent: light-dark(var(--accent-light), var(--accent-dark));
+        --accent-2: light-dark(var(--accent-dark), var(--accent-light));
+
+        --fg: light-dark(var(--dark), var(--light));
+        --bg: light-dark(var(--light), var(--dark));
+
+
+        --outer-width: 80dvw;
+        /* --inner-width: calc(var(--outer-width) - 10dvw); */
+        --inner-width: var(--outer-width);
+        --outer-pad-inline: calc((100dvw - var(--outer-width)) / 2);
+        --inner-pad-inline: calc((100dvw - var(--inner-width)) / 2);
+        --border-r: 1rem;
+        --blur-r: 5px;
+        --transparency: 0.75;
+
+        --backup-fonts: 'Segoe UI',
+            Tahoma,
+            Geneva,
+            Verdana,
+            sans-serif;
+        font-family: "JetBrains Mono", var(--backup-fonts);
+
+        --fs-normal: 1rem;
+        --fs-medium: 1.25rem;
+        --fs-large: 1.75rem;
+        --fs-gigantic: 2.5rem;
+
+        --fw-normal: 400;
+        --fw-medium: 550;
+        --fw-large: 700;
+        --fw-gigantic: 900;
+
+        --lh-normal: 0.8em;
+        --lh-medium: 1.0rem;
+        --lh-large: 1.3em;
+        --lh-gigantic: 1.7em;
+
+        --fmb-normal: 0.8em;
+        --fmb-medium: 1.0rem;
+        --fmb-large: 1.3em;
+        --fmb-gigantic: 1.7em;
+
+        scroll-behavior: smooth;
+    }
+
+    @media screen {
+        .system {
+            color-scheme: light dark;
+        }
+
+        .dark {
+            color-scheme: dark;
+        }
+
+        .light {
+            color-scheme: light;
+        }
+    }
+
+    @media print {
+        :root {
+            color-scheme: light !important;
+        }
+    }
+
+
+    /* #endregion Setup Vars */
+
+    * {
+        scroll-padding-top: 6rem;
+    }
+
+    .section {
+        --margin-b: 10rem;
+        width: 100%;
+        margin-block: var(--margin-b);
+        scroll-margin: var(--margin-b);
+
+        &:nth-child(1) {
+            margin-top: calc((var(--margin-b) / 2) + 1rem);
+        }
+    }
+
+}

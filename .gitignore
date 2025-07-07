@@ -3,4 +3,5 @@ refrences/Protfolio Tim Ruland Druck.pdf
 # assets/Design der Mensch Maschine Schnittstelle/WatchOut/title-img.psd
 __MACOSX/
 .DS_Store
-assets/Design der Mensch Maschine Schnittstelle/WatchOut/Dokumentation.pdf
+/target
+/dist

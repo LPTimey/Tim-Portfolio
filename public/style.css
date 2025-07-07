@@ -1,0 +1,706 @@
+@layer reset, helpers;
+
+/********************************
+ *                              *
+ *            Reset             *
+ *                              *
+ *******************************/
+/* #region Reset */
+/* adapted from https://www.joshwcomeau.com/css/custom-css-reset/?from=newsletter*/
+@layer reset {
+
+    /* 1. Use a more-intuitive box-sizing model */
+    :where(*),
+    :where(*)::after,
+    :where(*)::before {
+        box-sizing: border-box;
+        /* 7. Inherit fonts for example form controls */
+        font: inherit;
+        scroll-behavior: smooth;
+        accent-color: var(--accent);
+    }
+
+    :where(sub, sup) {
+        font-size: revert;
+    }
+
+    :where(*) {
+        /* 2. Remove default margin */
+        margin: 0;
+        padding: 0;
+        color: inherit;
+    }
+
+    :where(ol,
+        ul,
+        li) {
+        list-style: none;
+    }
+
+    :where(:focus-visible) {
+        outline: none;
+        outline: 0.15rem solid rgb(from var(--accent) r g b / 0.5);
+    }
+
+    /* 3. Enable keyword animations */
+    @media (prefers-reduced-motion: no-preference) {
+        :where(html) {
+            interpolate-size: allow-keywords;
+        }
+
+        :where(*),
+        :where(*)::after,
+        :where(*)::before {
+            transition:
+                color var(--transition-time, 0.2s) ease-in-out,
+                stroke var(--transition-time, 0.2s) ease-in-out,
+                fill var(--transition-time, 0.2s) ease-in-out,
+                background-color var(--transition-time, 0.2s) ease-in-out,
+                transform var(--transition-time, 0.2s) ease-in-out,
+                width var(--transition-time, 0.2s) ease-in-out,
+                height var(--transition-time, 0.2s) ease-in-out,
+                box-shadow var(--transition-time, 0.2s) ease-in-out,
+                filter var(--transition-time, 0.2s) ease-in-out;
+            transition-behavior: allow-discrete;
+        }
+    }
+
+    :where(body) {
+        /* 4. Add accessible line-height */
+        line-height: 1.5;
+        /* 5. Improve text rendering */
+        -webkit-font-smoothing: antialiased;
+        min-height: 100dvh;
+        color: var(--fg);
+        background-color: var(--bg);
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* 6. Improve media defaults */
+    :where(img,
+        picture,
+        video,
+        canvas,
+        svg) {
+        display: block;
+        max-width: 100%;
+    }
+
+    :where(img) {
+        object-fit: cover;
+    }
+
+    :where(button) {
+        border: none;
+    }
+
+    /* 8. Avoid text overflows */
+    :where(a,
+        p,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6) {
+        overflow-wrap: break-word;
+        text-decoration: none;
+    }
+
+    /* 9. Improve line wrapping */
+    :where(a,
+        p) {
+        text-wrap: stable;
+        text-wrap: pretty;
+    }
+
+    :where(h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6) {
+        text-wrap: balance;
+    }
+
+    :where(select) {
+        background-color: rgba(from var(--bg) r g b / 0);
+        border: none;
+        outline: none;
+        color: var(--fg);
+        cursor: pointer;
+        font-size: 1rem;
+    }
+
+    :where(svg) {
+        fill: var(--fg);
+
+        /* stroke: var(--fg); */
+        &:hover,
+        &.hover {
+            fill: var(--accent-2);
+        }
+    }
+
+    :where(svg.stroke) {
+        /* fill: var(--fg); */
+
+        stroke: var(--fg);
+
+        &:hover,
+        &.hover {
+            stroke: var(--accent-2);
+        }
+    }
+
+    :where(option) {
+        outline: none;
+        border: none;
+        background-color: var(--bg);
+        color: var(--fg);
+    }
+
+    /*
+  10. Create a root stacking context
+*/
+    :where(#root,
+        #__next) {
+        isolation: isolate;
+    }
+
+    /* Für Geräte mit Maus (z. B. Desktop) */
+    @media (hover: hover) and (pointer: fine) {
+
+        :where(.desktop,
+            .desktop *) {
+            visibility: unset;
+            position: unset;
+        }
+
+        :where(.mobile,
+            .mobile *) {
+            visibility: hidden;
+            position: absolute;
+        }
+    }
+
+    /* Für Touch-Geräte (z. B. Smartphones/Tablets) */
+    @media (hover: none) and (pointer: coarse) {
+
+        :where(.desktop,
+            .desktop *) {
+            visibility: hidden;
+            position: absolute;
+        }
+
+        :where(.mobile,
+            .mobile *) {
+            visibility: unset;
+            position: unset;
+        }
+    }
+
+    @media screen {
+
+        :where(.print,
+            .print *) {
+            visibility: hidden;
+            position: absolute;
+        }
+
+        :where(.no_print,
+            .no_print *) {
+            visibility: unset;
+            position: unset;
+        }
+    }
+
+    @media print {
+
+        :where(.print,
+            .print *) {
+            visibility: unset;
+            position: unset;
+        }
+
+        :where(.no_print,
+            .no_print *) {
+            visibility: hidden;
+            position: absolute;
+        }
+    }
+}
+
+/* #endregion Reset */
+
+/* #region Helpers */
+@layer helpers {
+    :where(.accent-text) {
+        color: var(--accent);
+    }
+
+    :where(.accent-2-text) {
+        color: var(--accent-2);
+    }
+
+    :where(.block) {
+        display: block;
+    }
+
+    :where(.btn) {
+        display: inline-block;
+        padding: 0.85em 5ch;
+        border-radius: var(--border-r);
+        font-family: "JetBrains Mono", var(--backup-fonts);
+
+        &:where(.accent-btn) {
+            background-color: var(--accent);
+            color: var(--white);
+
+            @media (hover: hover) {
+                &:hover {
+                    background-color: var(--accent-2);
+                }
+            }
+        }
+
+        &:where(.secondary-btn) {
+            background-color: var(--white);
+            color: var(--accent);
+
+            @media (hover: hover) {
+                &:hover {
+                    color: var(--fg);
+                }
+            }
+        }
+    }
+
+    :where(.content) {
+        padding-inline: var(--padding-inline);
+    }
+
+    :where(.visually-hidden) {
+        clip: rect(0, 0, 0, 0);
+        clip-path: inset(50%);
+        height: 1px;
+        overflow: hidden;
+        position: absolute;
+        white-space: nowrap;
+        width: 1px;
+        pointer-events: none;
+
+        * {
+            pointer-events: none;
+        }
+    }
+}
+
+/* #endregion Helpers */
+
+/********************************
+*                              *
+*            fonts             *
+*                              *
+*******************************/
+/* #region fonts */
+
+@font-face {
+    font-family: "JetBrains Mono";
+    src: local("JetBrains Mono"), url("./assets/JetBrains_Mono/JetBrainsMono-VariableFont_wght.ttf");
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: local("Roboto"), url("./assets/Roboto/Roboto-VariableFont_wdth\,wght.ttf");
+    font-display: swap;
+}
+
+/* #region Font Size Helper Classes */
+.fs-tiny.fs-tiny,
+.label-small {
+    font-size: var(--fs-tiny);
+}
+
+.fs-smallest.fs-smallest,
+.caption {
+    font-size: var(--fs-smallest);
+}
+
+.fs-small.fs-small,
+.ui-small {
+    font-size: var(--fs-small);
+}
+
+.fs-normal.fs-normal,
+.body {
+    font-size: var(--fs-normal);
+}
+
+.fs-medium.fs-medium,
+.body-strong {
+    font-size: var(--fs-medium);
+}
+
+.fs-large.fs-large,
+.subhead {
+    font-size: var(--fs-large);
+}
+
+.fs-gigantic.fs-gigantic,
+.heading {
+    font-size: var(--fs-gigantic);
+}
+
+.fs-mega.fs-mega,
+.hero {
+    font-size: var(--fs-mega);
+}
+
+/* #endregion */
+
+/* #region Font Weight Helper Classes */
+.fw-thin.fw-thin {
+    font-weight: var(--fw-thin);
+}
+
+.fw-normal.fw-normal,
+.label-small,
+.caption,
+.body {
+    font-weight: var(--fw-normal);
+}
+
+.fw-medium.fw-medium,
+.ui-small,
+.body-strong {
+    font-weight: var(--fw-medium);
+}
+
+.fw-bold.fw-bold,
+.subhead {
+    font-weight: var(--fw-bold);
+}
+
+.fw-large.fw-large,
+.heading {
+    font-weight: var(--fw-large);
+}
+
+.fw-gigantic.fw-gigantic,
+.hero {
+    font-weight: var(--fw-gigantic);
+}
+
+/* #endregion */
+
+/* #region Line Height Helper Classes */
+.lh-tight.lh-tight,
+.label-small,
+.caption,
+.ui-small {
+    line-height: var(--lh-tight);
+}
+
+.lh-normal.lh-normal,
+.body,
+.body-strong {
+    line-height: var(--lh-normal);
+}
+
+.lh-medium.lh-medium,
+.subhead,
+.heading {
+    line-height: var(--lh-medium);
+}
+
+.lh-loose.lh-loose,
+.hero {
+    line-height: var(--lh-loose);
+}
+
+.lh-mega.lh-mega {
+    line-height: var(--lh-mega);
+}
+
+/* #endregion */
+
+/* #region Margin Block Helper Classes (für Abstand oben/unten) */
+.fmb-tiny.fmb-tiny {
+    margin-block: var(--fmb-tiny);
+}
+
+.fmb-small.fmb-small {
+    margin-block: var(--fmb-small);
+}
+
+.fmb-normal.fmb-normal {
+    margin-block: var(--fmb-normal);
+}
+
+.fmb-medium.fmb-medium {
+    margin-block: var(--fmb-medium);
+}
+
+.fmb-large.fmb-large {
+    margin-block: var(--fmb-large);
+}
+
+.fmb-gigantic.fmb-gigantic {
+    margin-block: var(--fmb-gigantic);
+}
+
+.fmb-mega.fmb-mega {
+    margin-block: var(--fmb-mega);
+}
+
+/* #endregion */
+/* #endregion fonts */
+
+:root {
+    --white: hsl(0 0% 100%);
+    --black: hsl(0 0% 0%);
+
+    --dark: hsl(245 2.04% 9.61%);
+    --light: hsl(245 100% 98%);
+
+    --accent: hsl(245 48% 50%);
+    --accent-light: hsl(from var(--accent) h s calc(l + 10));
+    --accent-dark: hsl(from var(--accent) h s calc(l - 10));
+    --accent-2: light-dark(var(--accent-dark), var(--accent-light));
+
+    --bg: light-dark(var(--light), var(--dark));
+    --bg-2: light-dark(hsl(from var(--bg) h s calc(l - 5)),
+            hsl(from var(--bg) h s calc(l + 5)));
+    --bg-popup: light-dark(hsl(from var(--bg) h s calc(l - 10)),
+            hsl(from var(--bg) h s calc(l + 10)));
+
+    --text-field-bg: light-dark(hsl(from var(--bg) h s calc(l - 5)),
+            hsl(from var(--bg) h s calc(l + 5)));
+    --fg: light-dark(var(--dark), var(--light));
+    --fg-2: light-dark(hsl(from var(--fg) h s calc(l + 15)),
+            hsl(from var(--fg) h s calc(l - 15)));
+
+    --button: light-dark(hsl(from var(--bg) h s calc(l - 15)),
+            hsl(from var(--bg) h s calc(l + 15)));
+    --link: hsl(from light-dark(var(--accent-dark), var(--accent-light)) calc(h - 5) s calc(l + 10));
+    --stroke: var(--bg);
+
+    --padding-inline: max(3ch, 12dvw);
+    /* --padding-inline: clamp(3ch, 10dvw, 20ch); */
+    --border-r: 1rem;
+    --blur-r: 5px;
+    --transparency: 0.75;
+
+    --backup-fonts: 'Segoe UI',
+        Tahoma,
+        Geneva,
+        Verdana,
+        sans-serif;
+
+    /* Font Sizes – mit feiner Auflösung nach unten und oben */
+    /* 10px – z. B. Tooltips, sehr kleine Labels */
+    --fs-tiny: 0.625rem;
+    /* 12px – z. B. Captions, Meta-Text */
+    --fs-smallest: 0.75rem;
+    /* 14px – z. B. UI-Text, Buttons */
+    --fs-small: 0.875rem;
+    /* 16px – Basisgröße */
+    --fs-normal: 1rem;
+    /* 18px – leicht betonter Text */
+    --fs-medium: 1.125rem;
+    /* 22px – Subheadings */
+    --fs-large: 1.375rem;
+    /* 28px – große Überschriften */
+    --fs-gigantic: 1.75rem;
+    /* 36px – Hero-Titel oder Seitenkopf */
+    /* --fs-mega: 2.25rem; */
+    /* 40px – Hero-Titel oder Seitenkopf */
+    --fs-mega: 2.5rem;
+
+    /* Font Weights */
+    --fw-thin: 300;
+    --fw-normal: 400;
+    --fw-medium: 500;
+    --fw-bold: 600;
+    --fw-large: 700;
+    --fw-gigantic: 800;
+
+    /* Line Heights – angepasst an kleinere Schriftgrößen */
+    /* für UI und kleine Texte */
+    --lh-tight: 1.2;
+    /* optimal für Fließtext */
+    --lh-normal: 1.5;
+    --lh-medium: 1.6;
+    --lh-loose: 1.8;
+    --lh-mega: 2.0;
+
+    /* Margin Block (Abstand nach oben/unten) */
+    --fmb-tiny: 0.5em;
+    --fmb-small: 0.75em;
+    --fmb-normal: 1em;
+    --fmb-medium: 1.25em;
+    --fmb-large: 1.5em;
+    --fmb-gigantic: 2em;
+    --fmb-mega: 2.5em;
+
+    /* font-family: "JetBrains Mono", var(--backup-fonts); */
+    font-family: "Roboto", var(--backup-fonts);
+    font-size: var(--fs-normal);
+    font-weight: var(--fw-normal);
+    line-height: var(--lh-normal);
+    color: var(--fg);
+    background-color: var(--bg);
+
+    scroll-behavior: smooth;
+}
+
+:root:has(input[type="radio"]#System:checked),
+.sys {
+    color-scheme: light dark;
+}
+
+:root:has(input[type="radio"]#Light:checked),
+.light {
+    color-scheme: only light;
+}
+
+:root:has(input[type="radio"]#Dark:checked),
+.dark {
+    color-scheme: only dark;
+}
+
+:root:has(input[type="radio"]#Custom:checked),
+.custom {
+    color-scheme: custom;
+    --bg: var(--cu-bg, var(--bg));
+    --fg: var(--cu-fg, var(--fg));
+}
+
+@media print {
+    :root {
+        color-scheme: only light !important;
+    }
+}
+
+#SiteHeader {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding-inline: var(--padding-inline);
+    position: fixed;
+    top: 0;
+    z-index: 1000000000;
+    background-color: rgb(from var(--bg) r g b / var(--transparency));
+    -webkit-backdrop-filter: blur(var(--blur-r));
+    backdrop-filter: blur(var(--blur-r));
+    align-items: center;
+    padding-block: 1ch;
+    /* border-radius: 0 0 var(--border-r) var(--border-r); */
+
+    nav>ul,
+    >ul {
+        display: flex;
+        gap: 3ch;
+        width: fit-content;
+        align-items: center;
+    }
+
+    summary {
+        user-select: none;
+        cursor: pointer;
+    }
+}
+
+#ThemeSelect {
+    position: relative;
+    padding: 1ch 2ch;
+    border-radius: var(--border-r);
+
+    ul {
+        display: grid;
+        position: absolute;
+    }
+
+    &[open] {
+        background-color: rgb(from var(--bg) r g b / var(--transparency));
+        -webkit-backdrop-filter: blur(var(--blur-r));
+        backdrop-filter: blur(var(--blur-r));
+        border-radius: var(--border-r) var(--border-r) 0 0;
+
+        ul {
+            background-color: rgb(from var(--bg) r g b / var(--transparency));
+            -webkit-backdrop-filter: blur(var(--blur-r));
+            backdrop-filter: blur(var(--blur-r));
+            align-items: center;
+            width: 100%;
+            left: 0;
+            top: 100%;
+            border-radius: 0 0 var(--border-r) var(--border-r);
+            overflow: hidden;
+
+            label {
+                display: block;
+                padding-inline-start: 2ch;
+                padding-block: 0.5em;
+                margin: 0.15em;
+                border-radius: calc(var(--border-r) / 2);
+                cursor: pointer;
+                border: 1px solid rgb(0 0 0 / 0);
+
+                &:last-child {
+                    margin-block-end: 0.25em;
+                }
+
+                &:hover {
+                    background-color: rgb(from var(--bg) r g b / var(--transparency));
+                    -webkit-backdrop-filter: blur(var(--blur-r));
+                    backdrop-filter: blur(var(--blur-r));
+                    border: 1px solid rgb(from var(--fg) r g b / calc(1 - var(--transparency)));
+                }
+            }
+        }
+    }
+
+    /* Standardmäßig ausblenden */
+    summary>span {
+        display: inline grid;
+
+        >* {
+            grid-column: 1;
+            grid-row: 1;
+        }
+
+        span {
+            visibility: hidden;
+        }
+    }
+}
+
+/* Einblenden wenn das entsprechende Radio-Input ausgewählt ist */
+:root:has(input[type="radio"]#System:checked) #ThemeSelect summary span[data-theme="System"],
+:root:has(input[type="radio"]#Light:checked) #ThemeSelect summary span[data-theme="Light"],
+:root:has(input[type="radio"]#Dark:checked) #ThemeSelect summary span[data-theme="Dark"],
+:root:has(input[type="radio"]#Custom:checked) #ThemeSelect summary span[data-theme="Custom"] {
+    visibility: visible;
+}
+
+#Hero {
+    --height: 100dvh;
+    height: var(--height);
+    overflow: hidden;
+}
+
+.sect {
+    padding-block: 8rem;
+
+    &.sect-large-end {
+        padding-block-end: 12rem;
+    }
+
+    &.sect-large-start {
+        padding-block-start: 12rem;
+    }
+}

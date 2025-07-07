@@ -1,0 +1,49 @@
+#Hero {
+    display: grid;
+    grid-template-columns: var(--padding-inline) 1fr var(--padding-inline);
+    grid-template-areas: ". Content .";
+    grid-template-rows: var(--height);
+}
+
+#HeroImg {
+    grid-column: 1 / -1;
+    grid-row: 1;
+
+    >img {
+        height: 100%;
+        width: 100%;
+    }
+}
+
+.hero-content {
+    grid-area: Content;
+    align-self: end;
+    margin-block-end: 5rem;
+}
+
+#AboutMe {
+    display: grid;
+    gap: 1ch 3ch;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+        "Img Head"
+        "Img Text";
+
+    h2 {
+        grid-area: Head;
+    }
+
+    p {
+        grid-area: Text;
+    }
+
+    picture {
+        grid-area: Img;
+        height: auto;
+        width: 20vw;
+        aspect-ratio: 1 / 1;
+        overflow: hidden;
+        border-radius: var(--border-r);
+    }
+}

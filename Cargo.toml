@@ -1,0 +1,14 @@
+[package]
+name = "website"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+maud = "0.27.0"
+strum = { version = "0.27.1", features = [
+    "derive",
+    #"phf"
+] }
+pollster = "0.4.0"
+clap = { version = "4.5", features = ["derive"] }
+Props = {path = "Props"}
