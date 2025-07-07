@@ -281,6 +281,64 @@
         padding-inline: var(--padding-inline);
     }
 
+    :where(.link) {
+        text-decoration: none;
+        /* padding: 0.1em; */
+        color: var(--fg);
+        cursor: pointer;
+
+        /* IMPORTANT: Keep in sync with &:hover */
+        &:where(.link-active) {
+            color: var(--accent-2);
+            fill: var(--accent-2);
+
+            :where(svg) {
+                fill: var(--accent-2);
+            }
+        }
+
+        /* IMPORTANT: Keep in sync with &.link-active */
+        @media (hover: hover) {
+            &:hover {
+                color: var(--accent-2);
+                fill: var(--accent-2);
+
+                :where(svg) {
+                    fill: var(--accent-2);
+                }
+            }
+        }
+    }
+
+    :where(.underline) {
+        --transition-time: 400ms;
+
+        background:
+            /* default */
+            linear-gradient(to right, rgb(from var(--bg) r g b / 0), rgb(from var(--bg) r g b / 0)),
+            /* hover */
+            linear-gradient(to right, var(--accent), var(--accent-2), var(--accent));
+
+        background-size: 100% 0.1em, 0 0.1em;
+        background-position: 100% 100%, 0 100%;
+        background-repeat: no-repeat;
+        transition: background-size var(--transition-time);
+
+        /* IMPORTANT: Keep in sync with &:hover, &:focus-visible */
+        &:where(.underline-active) {
+            background-size: 0 0.1em, 100% 0.1em;
+        }
+
+        /* IMPORTANT: Keep in sync with &.underline-active */
+        @media (hover: hover) {
+
+            &:hover,
+            &:focus-visible {
+                background-size: 0 0.1em, 100% 0.1em;
+            }
+        }
+    }
+
     :where(.visually-hidden) {
         clip: rect(0, 0, 0, 0);
         clip-path: inset(50%);

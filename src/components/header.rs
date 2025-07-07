@@ -42,7 +42,7 @@ pub fn header(current_page: Page) -> maud::Markup {
                     @for (parent, pages) in &grouped {
                         @if let Some(folder) = parent && !folder.is_empty() {
                             details.dismiss {
-                                summary { (capitalize(&folder)) }
+                                summary.link.underline { (capitalize(&folder)) }
                                 ul {
                                     @for page in pages {
                                         li { (nav_link(*page)) }

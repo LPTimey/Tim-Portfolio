@@ -50,7 +50,7 @@ pub fn page(page: Page) -> maud::Markup {
 Mich faszinieren sowohl IT & Programmierung als auch Gestaltung & Design.
 Aus diesem Zusammenspiel zwischen technischer Präzision und gestalterischem Denken ziehe ich die Motivation für meine Projekte.
 Es ermöglicht mir, ansprechende und zugleich effiziente Lösungen zu entwickeln - immer mit einem strukturierten Vorgehen, großer Sorgfalt und einem ausgeprägten Blick für Details.
-Derzeit studiere ich User Experience Design an der Technischen Hochschule Ingolstadt.
+Derzeit studiere ich User Experience Design an der <a target="_blank" href="https://thi.de" class="link link-active underline">Technischen Hochschule Ingolstadt</a>.
 In meinem Studium wie auch in meinem eigenen Schaffen lege ich großen Wert auf Verlässlichkeit, Teamarbeit und einen verantwortungsvollen Umgang mit sensiblen Daten.
 Neben dem Studium musiziere ich, fahre gerne Rad und game, natürlich alles auch mit Freunden.
 

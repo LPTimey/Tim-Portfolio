@@ -35,7 +35,7 @@ pub fn theme_select(current_page: Page, themes: &[(&str, bool)]) -> maud::Markup
         // }
 
         details #ThemeSelect .dismiss{
-            summary{
+            summary.link.underline {
                 span {
                     @for pair in themes {
                         span data-theme=(pair.0) {(pair.0)}
@@ -44,7 +44,7 @@ pub fn theme_select(current_page: Page, themes: &[(&str, bool)]) -> maud::Markup
             }
             ul {
                 @for pair in themes {
-                    li{label for=(pair.0) selected=(pair.1) { (pair.0) }}
+                    li{label.link."underline-child" for=(pair.0) selected=(pair.1) { span{(pair.0)} }}
                 }
             }
         }

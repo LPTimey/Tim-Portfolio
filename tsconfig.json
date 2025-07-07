@@ -33,6 +33,8 @@
         "node_modules",
         "vendor",
         "dist",
-        "doc"
+        "doc",
+        "target",
+        ".git"
     ]
 }

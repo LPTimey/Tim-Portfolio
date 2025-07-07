@@ -1,4 +1,3 @@
-pub mod about;
 pub mod index;
 pub mod projekte;
 
@@ -40,28 +39,24 @@ macro_rules! placeholder_img {
 #[derive(Debug, Clone, Copy, Display, EnumIter, VariantArray)]
 pub enum Page {
     Home,
-    About,
     Watchout,
 }
 impl Page {
     pub fn to_href(self) -> PathBuf {
         match self {
             Page::Home => mod_path_to_href(index::MOD_PATH).unwrap(),
-            Page::About => mod_path_to_href(about::MOD_PATH).unwrap(),
             Page::Watchout => mod_path_to_href(projekte::watchout::MOD_PATH).unwrap(),
         }
     }
     pub fn to_markup(self) -> Markup {
         match self {
             Page::Home => index::page(self),
-            Page::About => about::page(self),
             Page::Watchout => projekte::watchout::page(self),
         }
     }
     pub fn metadata(self) {
         match self {
             Page::Home => todo!(),
-            Page::About => todo!(),
             Page::Watchout => todo!(),
         }
     }
