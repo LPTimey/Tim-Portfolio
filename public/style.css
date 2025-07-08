@@ -241,6 +241,138 @@
 
 /* #region Helpers */
 @layer helpers {
+
+    /* Old */
+    /* :where(.accent-background) {
+        background: linear-gradient(135deg,
+                var(--accent-dark),
+                var(--accent),
+                var(--accent-light));
+        color: var(--white);
+        padding: 4rem 2rem;
+    } */
+    :where(.accent-background) {
+        position: relative;
+
+        color: var(--white);
+        z-index: 2;
+        overflow: hidden;
+
+        --op-min: 0.05;
+        --op-max: 0.15;
+        --base-scale: 75%;
+        --blur: 0.75rem;
+
+        &::before {
+            position: absolute;
+            z-index: -1;
+            content: "";
+            background: url("./assets/noise/blobs.svg");
+            mix-blend-mode: soft-light;
+            inset: 0;
+            width: auto;
+            height: auto;
+            opacity: 0.1;
+            /* -webkit-backdrop-filter: blur(var(--blur-r));
+            backdrop-filter: blur(var(--blur-r)); */
+            filter: blur(var(--blur));
+            animation: float-gently 30s infinite ease-in-out;
+            animation: move-randomly 30s infinite ease-in-out;
+            display: inline-block;
+            background-size: var(--base-scale);
+        }
+
+        &::after {
+            position: absolute;
+            z-index: -2;
+            content: "";
+            background:
+                /* Layer 1: Radial highlight */
+                radial-gradient(circle at top left,
+                    hsla(from var(--accent) h s calc(l + 20) / 0.3) 0%,
+                    transparent 60%),
+
+                /* Layer 2: Subtle noise texture overlay Diagonales raster */
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cg fill='none' stroke='%23ffffff15' stroke-width='0.5'%3E%3Cpath d='M0 0 L40 40' /%3E%3Cpath d='M40 0 L0 40' /%3E%3C/g%3E%3C/svg%3E"),
+                /* url("./assets/noise/blobs.svg") repeat, */
+
+                /* Layer 3: Diagonal linear gradient with depth */
+                linear-gradient(135deg,
+                    var(--accent-dark) 0%,
+                    var(--accent) 50%,
+                    var(--accent-light) 100%);
+
+            background-blend-mode: overlay, overlay, normal;
+            inset: 0;
+            width: auto;
+            height: auto;
+        }
+    }
+
+    @keyframes move-randomly {
+        0% {
+            transform: translate(0%, 0%) scale(1);
+            opacity: var(--op-max);
+        }
+
+        20% {
+            transform: translate(5%, -5%) scale(calc(1 * 1.05));
+            opacity: calc((var(--op-min) + var(--op-max)) / 2);
+        }
+
+        40% {
+            transform: translate(-7%, 4%) scale(calc(1 * 0.95));
+            opacity: var(--op-min);
+        }
+
+        60% {
+            transform: translate(6%, 6%) scale(calc(1 * 1.1));
+            opacity: var(--op-max);
+        }
+
+        80% {
+            transform: translate(-4%, -3%) scale(calc(1 * 0.9));
+            opacity: calc((var(--op-min) + var(--op-max)) / 2);
+        }
+
+        100% {
+            transform: translate(0%, 0%) scale(1);
+            opacity: var(--op-max);
+        }
+    }
+
+    @keyframes float-gently {
+        0% {
+            transform: translate(0%, 0%) scale(1) rotate(0deg);
+            opacity: var(--op-max);
+        }
+
+        20% {
+            transform: translate(1.5%, -1.5%) scale(calc(1 * 1.015)) rotate(1deg);
+            opacity: calc((var(--op-min) + var(--op-max)) / 1.7);
+        }
+
+        40% {
+            transform: translate(-2%, 1%) scale(calc(1 * 0.99)) rotate(-1deg);
+            opacity: var(--op-min);
+        }
+
+        60% {
+            transform: translate(1.2%, 2%) scale(calc(1 * 1.02)) rotate(1.5deg);
+            opacity: calc((var(--op-min) + var(--op-max)) / 1.6);
+        }
+
+        80% {
+            transform: translate(-1%, -1%) scale(1) rotate(-0.5deg);
+            opacity: calc((var(--op-min) + var(--op-max)) / 1.5);
+        }
+
+        100% {
+            transform: translate(0%, 0%) scale(1) rotate(0deg);
+            opacity: var(--op-max);
+        }
+    }
+
     :where(.accent-text) {
         color: var(--accent);
     }

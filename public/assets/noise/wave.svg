@@ -1,0 +1,15 @@
+<svg viewBox="0 0 1440 144" fill="none" preserveAspectRatio="none"
+    xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0_8_31)">
+        <path
+            d="M1054.33 76.272C984.732 89.22 917.34 112.428 847.932 126.504C749.064 146.568 646.104 147.78 547.392 126.972C451.464 106.8 351.996 57.6001 257.208 32.6041C173.148 10.4281 81.372 1.29611 5.20552e-06 29.0041L1.52588e-05 144L1440 144L1440 111.18C1317.04 64.555 1183.66 52.4827 1054.33 76.272Z"
+            fill="var(--fill, white)" />
+    </g>
+    <defs>
+        <clipPath id="clip0_8_31">
+            <rect width="1440" height="144" fill="var(--fill, white)"
+                transform="translate(1440 144) rotate(180)" />
+        </clipPath>
+    </defs>
+</svg>
+    

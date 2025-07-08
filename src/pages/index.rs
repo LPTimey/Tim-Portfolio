@@ -4,7 +4,7 @@ use crate::{
     components::{
         self, Component, footer::footer, head::default_head, header::header, project_card,
     },
-    include_logo, placeholder_img,
+    include_logo, include_public, placeholder_img,
 };
 
 use super::*;
@@ -154,18 +154,24 @@ Ich freue mich, wenn du dir einen Eindruck von meiner Arbeit verschaffst. Bei Fr
                     }
                 }
 
-                section #Projects .sect{
+                section #Projects .sect."accent-background"{
+                    div .cut."top-cut" {(PreEscaped(include_public!("assets/noise/wave.svg")))}
                     div .content{
                         (html(project_card::MarkupProps{title:"WatchOut",description:"Eine Uhr und eine App um Menschen mit Demenz und deren Familie zu helfen ihr Leben sorgloser zu leben.",img:"",theme:"DMMS"}))
                         (html(project_card::MarkupProps{title:"Drucker Touchscreen",description:"",img:"",theme:"Screendesign"}))
                         (html(project_card::MarkupProps{title:"Themen & Stile",description:"",img:"",theme:"Screendesign"}))
                         (html(project_card::MarkupProps{title:"Tetris in Arduino & C",description:"",img:"",theme:"Programmieren"}))
                     }
-                    div .content {
+                    div .content #AllProjects {
                         div.line{}
-                        a class="btn secondary-btn" { "Alle Projekte" }
+                        a class="btn secondary-btn fw-medium" { "Alle Projekte" }
                         div.line{}
                     }
+                    div .cut."bot-cut" {(PreEscaped(include_public!("assets/noise/waves-opacity.svg")))}
+                }
+
+                section.sect.content {
+                    "sdölfakjsdöflkjasdöflkjasödlfkjasöldfkj"
                 }
             }
             (footer())

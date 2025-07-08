@@ -1,6 +1,6 @@
 mod components;
 mod pages;
-use std::{ops::Deref, path::Path};
+use std::{fmt::Display, ops::Deref, path::Path};
 
 pub use pages::*;
 
@@ -30,6 +30,7 @@ macro_rules! link_public {
     };
 }
 
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Link(&'static str);
 impl Deref for Link {
     type Target = &'static str;
@@ -46,6 +47,11 @@ impl From<Link> for &'static str {
 impl From<&'static str> for Link {
     fn from(value: &'static str) -> Self {
         Self(value)
+    }
+}
+impl Display for Link {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", self.0)
     }
 }
 
