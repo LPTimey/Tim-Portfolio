@@ -38,10 +38,10 @@ pub fn header(current_page: Page) -> maud::Markup {
     html! {
         header #SiteHeader {
             nav {
-                ul {
+                ul #NavLinks {
                     @for (parent, pages) in &grouped {
                         @if let Some(folder) = parent && !folder.is_empty() {
-                            details.dismiss {
+                            details.dismiss."nav-group"{
                                 summary.link.underline { (capitalize(&folder)) }
                                 ul {
                                     @for page in pages {
@@ -57,12 +57,14 @@ pub fn header(current_page: Page) -> maud::Markup {
                     }
                 }
             }
-            ul {
-                li { (theme_select(current_page,&[("System", false),
-                ("Light", true),
-                ("Dark", false),
-                ("Custom", false)])) }
-                li { a target="_blank" href="https://github.com/#TODO:AddLink" { (PreEscaped(GIT_HUB_ICON)) /*"GitHub"*/ } }
+            ul #Extern{
+                li { (theme_select(current_page,&[
+                        ("System", false),
+                        ("Light", true),
+                        ("Dark", false),
+                        ("Custom", false)
+                    ])) }
+                li { a target="_blank" href="https://github.com/LPTimey/Tim-Portfolio" { (PreEscaped(GIT_HUB_ICON)) /*"GitHub"*/ } }
             }
         }
     }

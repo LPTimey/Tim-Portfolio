@@ -646,9 +646,11 @@
 }
 
 #SiteHeader {
-    width: 100%;
     display: flex;
+    align-items: center;
     justify-content: space-between;
+    width: 100%;
+    padding-block: 1ch;
     padding-inline: var(--padding-inline);
     position: fixed;
     top: 0;
@@ -656,8 +658,6 @@
     background-color: rgb(from var(--bg) r g b / var(--transparency));
     -webkit-backdrop-filter: blur(var(--blur-r));
     backdrop-filter: blur(var(--blur-r));
-    align-items: center;
-    padding-block: 1ch;
     /* border-radius: 0 0 var(--border-r) var(--border-r); */
 
     nav>ul,
@@ -725,16 +725,23 @@
     }
 
     /* Standardmäßig ausblenden */
-    summary>span {
-        display: inline grid;
-
-        >* {
-            grid-column: 1;
-            grid-row: 1;
+    summary {
+        summary {
+            user-select: none;
+            cursor: pointer;
         }
 
-        span {
-            visibility: hidden;
+        >span {
+            display: inline grid;
+
+            >* {
+                grid-column: 1;
+                grid-row: 1;
+            }
+
+            span {
+                visibility: hidden;
+            }
         }
     }
 }
