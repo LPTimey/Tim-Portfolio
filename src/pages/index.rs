@@ -91,23 +91,23 @@ Aus diesem Zusammenspiel zwischen technischer Präzision und gestalterischem Den
 Es ermöglicht mir, ansprechende und zugleich effiziente Lösungen zu entwickeln - immer mit einem strukturierten Vorgehen, großer Sorgfalt und einem ausgeprägten Blick für Details.
 Derzeit studiere ich User Experience Design an der <a target="_blank" href="https://thi.de" class="link link-active underline">Technischen Hochschule Ingolstadt</a>.
 In meinem Studium wie auch in meinem eigenen Schaffen lege ich großen Wert auf Verlässlichkeit, Teamarbeit und einen verantwortungsvollen Umgang mit sensiblen Daten.
-Neben dem Studium musiziere ich, fahre gerne Rad und game, natürlich alles auch mit Freunden.
-
+Neben dem Studium musiziere ich, fahre gerne Rad und game, natürlich alles auch mit Freunden.<br>
+<br>
 Ich freue mich, wenn du dir einen Eindruck von meiner Arbeit verschaffst. Bei Fragen oder Interesse an einer Zusammenarbeit, melde dich gerne!
                         "#))
                     }
                 }
 
-                section #Erfahrung .content.sect {
+                section #Erfahrung .content.sect."sect-small-start" {
+                    h2.heading."fmb-large" { "Meine Erfahrung" }
                     div #Werdegang {
-                        h2{ "Werdegang" }
                         div .timeline {
                             div ."timeline-item" {
                                 span ."timeline-date" {
                                     "2023 - Heute"
                                 }
                                 div ."timeline-content" {
-                                    h3 { "Technische Hochschule Ingolstadt" }
+                                    h4 { "Technische Hochschule Ingolstadt" }
                                     p { "UX Design Studium (B.A.)" }
                                 }
                             }
@@ -116,7 +116,7 @@ Ich freue mich, wenn du dir einen Eindruck von meiner Arbeit verschaffst. Bei Fr
                                     "2020 - 2022"
                                 }
                                 div ."timeline-content" {
-                                    h3{ "FOS/BOS Scheyern" }
+                                    h4{ "FOS/BOS Scheyern" }
                                     p{"Technik-Zweig"}
                                 }
                             }
@@ -125,22 +125,20 @@ Ich freue mich, wenn du dir einen Eindruck von meiner Arbeit verschaffst. Bei Fr
                                     "2014 - 2020"
                                 }
                                 div ."timeline-content" {
-                                    h3 { "Georg-Hipp Realschule" }
+                                    h4 { "Georg-Hipp Realschule" }
                                     p { "Mathematik-Zweig" }
                                 }
                             }
                         }
                     }
                     div #Skills{
-                        h2 { "Skills" }
                         div #SkillCategories {
                             @for (i,category) in skills.iter().enumerate(){
                                 div .category{
-                                    h3 { (category.0) }
-
-                                    div {
+                                    h4 ."category-title"."body-strong" { (category.0) }
+                                    ul."skills-list"{
                                         @for (j,svg) in category.1.iter().enumerate() {
-                                            div ."skill-icon"{
+                                            li ."skill-icon"{
                                                 (PreEscaped(
                                                     svg
                                                     // stop svg's from changing each others styles, by having duplicate ids
@@ -162,6 +160,11 @@ Ich freue mich, wenn du dir einen Eindruck von meiner Arbeit verschaffst. Bei Fr
                         (html(project_card::MarkupProps{title:"Drucker Touchscreen",description:"",img:"",theme:"Screendesign"}))
                         (html(project_card::MarkupProps{title:"Themen & Stile",description:"",img:"",theme:"Screendesign"}))
                         (html(project_card::MarkupProps{title:"Tetris in Arduino & C",description:"",img:"",theme:"Programmieren"}))
+                    }
+                    div .content {
+                        div.line{}
+                        a class="btn secondary-btn" { "Alle Projekte" }
+                        div.line{}
                     }
                 }
             }

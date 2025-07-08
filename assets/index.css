@@ -51,6 +51,28 @@
     }
 }
 
+#Erfahrung {
+    display: grid;
+    grid-template-areas:
+        "Heading Heading"
+        "Werdegang Skills";
+    align-items: center;
+
+    >h2 {
+        grid-area: Heading;
+    }
+}
+
+#Werdegang {
+    grid-area: Werdegang;
+    display: grid;
+    align-items: center;
+}
+
+#Skills {
+    grid-area: Skills;
+}
+
 .timeline {
     position: relative;
     padding-left: 30px;
@@ -115,26 +137,44 @@
 }
 
 #SkillCategories {
-    gap: 5ch;
+    gap: 2em;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(43ch, 100%), 1fr));
-}
-
-.skill-icon {
-    height: 3em;
-    aspect-ratio: 1;
-    svg{
-        height: 100%;
-        stroke: revert;
-        fill: revert;
-    }
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
 }
 
 .category-title {
-    margin-bottom: 1rem;
+    align-self: center;
+}
+
+.category {
+    display: grid;
+    grid-template-columns: subgrid;
+    grid-template-rows: subgrid;
+    grid-row: span 2;
+    gap: 0.75em;
 }
 
 .category-title,
 .category {
     width: fit-content;
+}
+
+.skills-list {
+    display: grid;
+    gap: 1ch;
+    grid-template-columns: repeat(auto-fit, 3em);
+    grid-auto-flow: dense;
+    grid-auto-rows: auto;
+}
+
+.skill-icon {
+    height: 3em;
+    aspect-ratio: 1;
+
+    svg {
+        height: 100%;
+        stroke: revert;
+        fill: revert;
+    }
 }
