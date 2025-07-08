@@ -5,10 +5,25 @@ use strum::IntoEnumIterator;
 
 use crate::{GIT_HUB_ICON, Page, capitalize, components::theme_select::theme_select};
 
+fn group_pages() -> BTreeMap<Option<String>, Vec<Page>> {
+    let mut grouped: BTreeMap<Option<String>, Vec<Page>> = BTreeMap::new();
+    for page in Page::iter() {
+        let parent = page.to_href().parent().and_then(|p| {
+            if p == Path::new(".") {
+                None
+            } else {
+                Some(p.display().to_string())
+            }
+        });
+        grouped.entry(parent).or_default().push(page);
+    }
+    grouped
+}
+
 pub fn header(current_page: Page) -> maud::Markup {
     let underline = |page: Page| {
         if current_page.to_href() == page.to_href() {
-            "hover"
+            "underline-active"
         } else {
             ""
         }
@@ -24,30 +39,34 @@ pub fn header(current_page: Page) -> maud::Markup {
     };
 
     // Gruppiere Seiten nach Ordner (oder None für Top-Level)
-    let mut grouped: BTreeMap<Option<String>, Vec<Page>> = BTreeMap::new();
-    for page in Page::iter() {
-        let href = page.to_href();
-        let parent = match href.parent() {
-            Some(p) if p == Path::new(".") => None,
-            Some(p) => Some(p.display().to_string()),
-            None => None,
-        };
-        grouped.entry(parent).or_default().push(page);
-    }
+    let grouped = group_pages();
+    let mut groups = Vec::new();
+    let group_name = |name: &str| {
+        (
+            format!("{}Group", capitalize(&name)),
+            format!("{}Children", capitalize(&name)),
+        )
+    };
 
     html! {
         header #SiteHeader {
             nav {
-                ul #NavLinks {
+                menu #NavLinks {
                     @for (parent, pages) in &grouped {
                         @if let Some(folder) = parent && !folder.is_empty() {
-                            details.dismiss."nav-group"{
-                                summary.link.underline { (capitalize(&folder)) }
-                                ul {
-                                    @for page in pages {
-                                        li { (nav_link(*page)) }
-                                    }
-                                }
+                            details.dismiss."nav-group" #(group_name(&folder).0) for=(group_name(&folder).1) role="group"{
+                                summary.link.underline role="button" { (capitalize(&folder)) }
+                                ({
+                                    groups.push((capitalize(&folder),html!{@for page in pages {
+                                        li role="menuitem" { (nav_link(*page)) }
+                                    }}));
+                                    ""
+                                })
+                                // ul role="menu" {
+                                //     @for page in pages {
+                                //         li role="menuitem" { (nav_link(*page)) }
+                                //     }
+                                // }
                             }
                         } @else {
                             @for page in pages {
@@ -65,6 +84,18 @@ pub fn header(current_page: Page) -> maud::Markup {
                         ("Custom", false)
                     ])) }
                 li { a target="_blank" href="https://github.com/LPTimey/Tim-Portfolio" { (PreEscaped(GIT_HUB_ICON)) /*"GitHub"*/ } }
+            }
+            div #Groups{
+                @for (name,children) in groups.iter(){
+                    menu ."nav-group" #(group_name(name).1) {(children)}
+                }
+            }
+            style{
+                @for (name,_) in groups.iter(){
+                    ({
+                        let (group,children) = group_name(name);
+                        PreEscaped(format!("#SiteHeader:has(#{group}[open]) #{children}{{opacity:1;height:fit-content;}}"))})
+                }
             }
         }
     }

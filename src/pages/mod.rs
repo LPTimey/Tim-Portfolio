@@ -39,25 +39,50 @@ macro_rules! placeholder_img {
 #[derive(Debug, Clone, Copy, Display, EnumIter, VariantArray)]
 pub enum Page {
     Home,
+    #[strum(to_string = "Alle Projekte")]
+    Projekte,
     Watchout,
+    Printer,
+    Styles,
+    Tetris,
+    Ergomote,
+    WebDev,
 }
 impl Page {
     pub fn to_href(self) -> PathBuf {
         match self {
             Page::Home => mod_path_to_href(index::MOD_PATH).unwrap(),
+            Page::Projekte => mod_path_to_href(projekte::index::MOD_PATH).unwrap(),
             Page::Watchout => mod_path_to_href(projekte::watchout::MOD_PATH).unwrap(),
+            Page::Printer => mod_path_to_href(projekte::printer::MOD_PATH).unwrap(),
+            Page::Styles => mod_path_to_href(projekte::styles_themes::MOD_PATH).unwrap(),
+            Page::Tetris => mod_path_to_href(projekte::tetris::MOD_PATH).unwrap(),
+            Page::Ergomote => mod_path_to_href(projekte::ergomote::MOD_PATH).unwrap(),
+            Page::WebDev => mod_path_to_href(projekte::webdev::MOD_PATH).unwrap(),
         }
     }
     pub fn to_markup(self) -> Markup {
         match self {
             Page::Home => index::page(self),
+            Page::Projekte => projekte::index::page(self),
             Page::Watchout => projekte::watchout::page(self),
+            Page::Printer => projekte::printer::page(self),
+            Page::Styles => projekte::styles_themes::page(self),
+            Page::Tetris => projekte::tetris::page(self),
+            Page::Ergomote => projekte::ergomote::page(self),
+            Page::WebDev => projekte::webdev::page(self),
         }
     }
     pub fn metadata(self) {
         match self {
             Page::Home => todo!(),
+            Page::Projekte=> todo!(),
             Page::Watchout => todo!(),
+            Page::Printer => todo!(),
+            Page::Styles => todo!(),
+            Page::Tetris => todo!(),
+            Page::Ergomote => todo!(),
+            Page::WebDev => todo!(),
         }
     }
     pub fn path_to_root(self) -> String {

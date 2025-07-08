@@ -52,16 +52,18 @@
         :where(*)::after,
         :where(*)::before {
             transition:
-                color var(--transition-time, 0.2s) ease-in-out,
-                stroke var(--transition-time, 0.2s) ease-in-out,
-                fill var(--transition-time, 0.2s) ease-in-out,
                 background-color var(--transition-time, 0.2s) ease-in-out,
-                transform var(--transition-time, 0.2s) ease-in-out,
-                width var(--transition-time, 0.2s) ease-in-out,
-                height var(--transition-time, 0.2s) ease-in-out,
                 box-shadow var(--transition-time, 0.2s) ease-in-out,
-                filter var(--transition-time, 0.2s) ease-in-out;
+                color var(--transition-time, 0.2s) ease-in-out,
+                fill var(--transition-time, 0.2s) ease-in-out,
+                filter var(--transition-time, 0.2s) ease-in-out,
+                height var(--transition-time, 0.2s) ease-in-out,
+                opacity var(--transition-time, 0.2s) ease-in-out,
+                stroke var(--transition-time, 0.2s) ease-in-out,
+                transform var(--transition-time, 0.2s) ease-in-out,
+                width var(--transition-time, 0.2s) ease-in-out;
             transition-behavior: allow-discrete;
+            interpolate-size: allow-keywords;
         }
     }
 
@@ -646,31 +648,64 @@
 }
 
 #SiteHeader {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    display: grid;
+    grid-template-areas:
+        "nav extern"
+        "groups groups";
+    grid-template-columns: 1fr auto;
+
     width: 100%;
     padding-block: 1ch;
     padding-inline: var(--padding-inline);
+
     position: fixed;
     top: 0;
     z-index: 1000000000;
+
     background-color: rgb(from var(--bg) r g b / var(--transparency));
     -webkit-backdrop-filter: blur(var(--blur-r));
     backdrop-filter: blur(var(--blur-r));
     /* border-radius: 0 0 var(--border-r) var(--border-r); */
 
-    nav>ul,
-    >ul {
+    nav {
+        grid-area: nav;
+    }
+
+    #NavLinks {
         display: flex;
-        gap: 3ch;
-        width: fit-content;
         align-items: center;
+        height: 100%;
+        gap: 2ch;
+    }
+
+    #Extern {
+        grid-area: extern;
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        gap: 2ch;
+    }
+
+    #Groups {
+        grid-area: groups;
+
+        .nav-group {
+            display: flex;
+            opacity: 0;
+            height: 0px;
+        }
     }
 
     summary {
         user-select: none;
         cursor: pointer;
+    }
+}
+
+@starting-style {
+    .nav-group-children {
+        opacity: 0;
+        height: 0;
     }
 }
 
