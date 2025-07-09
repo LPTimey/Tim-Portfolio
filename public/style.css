@@ -392,7 +392,6 @@
         font-family: "JetBrains Mono", var(--backup-fonts);
         position: relative;
         translate: 0 0;
-        transition: translate 0.25s cubic-bezier(0.68, -0.6, 0.32, 1.6), box-shadow 0.25s cubic-bezier(0.68, -0.6, 0.32, 1.6);
         cursor: pointer;
         z-index: 1;
 
@@ -400,7 +399,11 @@
             box-shadow: 0.25rem 0.5rem 5px hsl(from var(--black) h s l / 0.1);
         }
 
-        @media (hover: hover) {
+        @media (prefers-reduced-motion: no-preference) {
+            transition: translate 0.25s cubic-bezier(0.68, -0.6, 0.32, 1.6), box-shadow 0.25s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+        }
+
+        @media (hover: hover) and (prefers-reduced-motion: no-preference) {
             &:hover {
                 translate: 0 -10%;
 
@@ -976,43 +979,12 @@
     padding: 1rem;
     font-size: 2rem;
     background-color: var(--white);
-    /* border: 1pt solid var(--black); */
-    /* box-shadow: calc(10px) calc(5px) 5px hsl(from var(--black) h s l / 0.15); */
     z-index: 100;
     isolation: isolate;
 
     svg {
         fill: var(--accent);
     }
-
-    /* +.shadow {
-        transition: translate 0.25s cubic-bezier(0.68, -0.6, 0.32, 1.6);
-        position: fixed;
-        bottom: 4.5rem;
-        right: 4.75rem;
-        border-radius: 50%;
-        padding: 1rem;
-        font-size: 2rem;
-        background-color: hsl(from var(--black) h s l / 0.1);
-        box-shadow: 0 0 5px hsl(from var(--black) h s l / 0.1);
-        z-index: 99;
-        pointer-events: none;
-
-        svg {
-            fill: transparent;
-        }
-
-    }
-
-    @media (hover: hover) {
-        &:hover+.shadow {
-            translate: 0.25rem 10%;
-        }
-
-        &:active+.shadow {
-            translate: -0.25rem -5%;
-        }
-    } */
 }
 
 .sect {
