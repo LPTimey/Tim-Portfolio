@@ -3,7 +3,7 @@ extern crate proc_macro;
 use convert_case::{Case, Casing};
 use proc_macro::TokenStream;
 use quote::{format_ident, quote};
-use syn::{FnArg, ItemFn, Pat, PatIdent, parse_macro_input};
+use syn::{parse_macro_input, spanned::Spanned, FnArg, ItemFn, Pat, PatIdent};
 
 #[proc_macro_attribute]
 pub fn with_props(_attr: TokenStream, item: TokenStream) -> TokenStream {
@@ -11,6 +11,7 @@ pub fn with_props(_attr: TokenStream, item: TokenStream) -> TokenStream {
     let mut input_fn = parse_macro_input!(item as ItemFn);
     let fn_name = &input_fn.sig.ident;
     let vis = &input_fn.vis;
+    let vis = syn::Visibility::Public(syn::token::Pub { span: input_fn.vis.span() });
 
     // Props-Struct-Name erzeugen, z.B. MarkupProps
     let props_name = format_ident!("{}Props", fn_name.to_string().to_case(Case::UpperCamel));

@@ -75,7 +75,7 @@ pub fn page(page: Page) -> maud::Markup {
                     div ."hero-content"{
                         h1."fmb-large"{
                             span."fs-large"."lh-tight"{ "Willkommen, hier" } br;
-                            span.hero."lh-normal"{ "wo die Details scheinen" }
+                            span.hero."lh-normal"."fw-gigantic"{ "wo die Details scheinen" }
                         }
                         a class="btn accent-btn" href="#AboutMe" { "Entdecke mehr" }
                     }

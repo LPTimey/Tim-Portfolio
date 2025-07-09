@@ -1,0 +1,11 @@
+.project-card{
+    display: block;
+    container: ProjectCardContainer / inline-size;
+}
+
+.pjc-grid{
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-rows: 3fr 1fr 1fr 1fr;
+}

@@ -599,9 +599,13 @@
     font-weight: var(--fw-large);
 }
 
-.fw-gigantic.fw-gigantic,
-.hero {
+.fw-gigantic.fw-gigantic {
     font-weight: var(--fw-gigantic);
+}
+
+.fw-ginormous.fw-ginormous,
+.hero {
+    font-weight: var(--fw-ginormous);
 }
 
 /* #endregion */
@@ -737,6 +741,7 @@
     --fw-bold: 600;
     --fw-large: 700;
     --fw-gigantic: 800;
+    --fw-ginormous: 900;
 
     /* Line Heights – angepasst an kleinere Schriftgrößen */
     /* für UI und kleine Texte */
