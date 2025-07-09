@@ -6,7 +6,7 @@ use std::{ops::Deref, path::PathBuf};
 use maud::{Markup, html};
 use strum::{Display, EnumIter, VariantArray};
 
-use crate::{Link, include_asset, link_public, path_to_root};
+use crate::{Link, include_asset, link_public, path_to_root, projekte::ProjectMetadata};
 
 fn mod_path_to_href(mod_path: &str) -> Option<PathBuf> {
     // Entferne alles bis "pages::"
@@ -36,7 +36,7 @@ macro_rules! placeholder_img {
     };
 }
 
-#[derive(Debug, Clone, Copy, Display, EnumIter, VariantArray)]
+#[derive(Debug, Clone, Copy, Display, EnumIter, VariantArray, PartialEq, Eq)]
 pub enum Page {
     Home,
     #[strum(to_string = "Alle Projekte")]
@@ -73,17 +73,11 @@ impl Page {
             Page::WebDev => projekte::webdev::page(self),
         }
     }
-    pub fn metadata(self) {
-        match self {
-            Page::Home => todo!(),
-            Page::Projekte=> todo!(),
-            Page::Watchout => todo!(),
-            Page::Printer => todo!(),
-            Page::Styles => todo!(),
-            Page::Tetris => todo!(),
-            Page::Ergomote => todo!(),
-            Page::WebDev => todo!(),
-        }
+    pub fn projects() -> Vec<ProjectMetadata> {
+        Self::VARIANTS
+            .iter()
+            .flat_map(|page| ProjectMetadata::try_from(*page))
+            .collect()
     }
     pub fn path_to_root(self) -> String {
         path_to_root(self.to_href().deref())

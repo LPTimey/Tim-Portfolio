@@ -30,11 +30,13 @@
         "**/*.mjs"
     ],
     "exclude": [
-        "node_modules",
-        "vendor",
-        "dist",
-        "doc",
-        "target",
-        ".git"
+        "**/node_modules/*",
+        "**/vendor/*",
+        "**/dist/*",
+        "**/doc/*",
+        "**/src/*",
+        "**/assets/*",
+        "**/target/*",
+        "**/.git/*"
     ]
 }

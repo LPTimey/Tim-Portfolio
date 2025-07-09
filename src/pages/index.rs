@@ -16,10 +16,10 @@ pub const ICH: Link = link_public!("assets/Lebenslauf/schönes bild.JPG");
 
 pub fn page(page: Page) -> maud::Markup {
     let Component {
-        html,
+        html: project_card_html,
         style: card_style,
         script: card_script,
-    } = components::project_card::component();
+    } = project_card::component();
 
     let skills = vec![
         (
@@ -77,11 +77,11 @@ pub fn page(page: Page) -> maud::Markup {
                             span."fs-large"."lh-tight"{ "Willkommen, hier" } br;
                             span.hero."lh-normal"."fw-gigantic"{ "wo die Details scheinen" }
                         }
-                        a class="btn accent-btn" href="#AboutMe" { "Entdecke mehr" }
+                        a .btn."accent-btn".shadow href="#AboutMe" { "Entdecke mehr" }
                     }
                 }
 
-                section #AboutMe .content.sect."sect-large-start" {
+                section #AboutMe .content.sect."sect-large-start"."sect-small-end" {
                     h2.heading{ span."accent-text"{ "Hi! " } "Ich bin Tim." }
                     picture{img src=(page.path_to_root() + *ICH) alt="";}
                     p{
@@ -156,15 +156,14 @@ Ich freue mich, wenn du dir einen Eindruck von meiner Arbeit verschaffst. Bei Fr
 
                 section #Projects .sect."accent-background"{
                     div .cut."top-cut" {(PreEscaped(include_public!("assets/noise/wave.svg")))}
-                    div .content{
-                        (html(project_card::MarkupProps{title:"WatchOut",description:"Eine Uhr und eine App um Menschen mit Demenz und deren Familie zu helfen ihr Leben sorgloser zu leben.",img:"",theme:"DMMS"}))
-                        (html(project_card::MarkupProps{title:"Drucker Touchscreen",description:"",img:"",theme:"Screendesign"}))
-                        (html(project_card::MarkupProps{title:"Themen & Stile",description:"",img:"",theme:"Screendesign"}))
-                        (html(project_card::MarkupProps{title:"Tetris in Arduino & C",description:"",img:"",theme:"Programmieren"}))
+                    div .content #ProjectList{
+                        @for project in Page::projects(){
+                            @if project.favorite { (project_card_html(project)) }
+                        }
                     }
                     div .content #AllProjects {
                         div.line{}
-                        a class="btn secondary-btn fw-medium" { "Alle Projekte" }
+                        a class="btn secondary-btn fw-medium shadow" { "Alle Projekte" }
                         div.line{}
                     }
                     div .cut."bot-cut" {(PreEscaped(include_public!("assets/noise/waves-opacity.svg")))}

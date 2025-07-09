@@ -45,6 +45,23 @@ document.addEventListener("keydown", (event) => {
 
 //#endregion Dismiss
 
+//#region ToTop
+
+/** min scroll in px bis sichtbar */
+const toTopButtonDelta = 100;
+const toTop = /** @type {HTMLAnchorElement} */(document.getElementById("ReturnToTop"));
+toTop.style.visibility = "hidden";
+
+window.addEventListener("scroll",(ev)=>{
+    if (window.pageYOffset < toTopButtonDelta) {
+        toTop.style.visibility = "hidden"
+    } else {
+        toTop.style.visibility = "visible"
+    }
+})
+
+//#endregion ToTop
+
 /**
  * 
  * @param {string} jsonc 

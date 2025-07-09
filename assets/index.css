@@ -18,7 +18,7 @@
 .hero-content {
     grid-area: Content;
     align-self: end;
-    margin-block-end: 5rem;
+    margin-block-end: 7rem;
 }
 
 #AboutMe {
@@ -216,7 +216,12 @@
     }
 }
 
+#ProjectList{
+    margin-block-end: 2rem;
+}
+
 #AllProjects {
+    margin-block: 3rem;
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     place-items: center;
