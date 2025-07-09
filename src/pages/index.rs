@@ -108,7 +108,7 @@ Ich freue mich, wenn du dir einen Eindruck von meiner Arbeit verschaffst. Bei Fr
                                 }
                                 div ."timeline-content" {
                                     h4 { "Technische Hochschule Ingolstadt" }
-                                    p { "UX Design Studium (B.S.)" }
+                                    p { "UX Design Studium (B.Sc.)" }
                                 }
                             }
                             div ."timeline-item" {
