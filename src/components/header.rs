@@ -3,7 +3,7 @@ use std::{collections::BTreeMap, path::Path};
 use maud::{PreEscaped, html};
 use strum::IntoEnumIterator;
 
-use crate::{GIT_HUB_ICON, Page, capitalize, components::theme_select::theme_select};
+use crate::{capitalize, components::theme_select::theme_select, include_asset, Page, GIT_HUB_ICON};
 
 fn group_pages() -> BTreeMap<Option<String>, Vec<Page>> {
     let mut grouped: BTreeMap<Option<String>, Vec<Page>> = BTreeMap::new();
@@ -49,6 +49,12 @@ pub fn header(current_page: Page) -> maud::Markup {
     };
 
     html! {
+        form #ShowMobileNavForm ."visually-hidden"{
+            input type="checkbox" #ShowMobileNav;
+        }
+        label for="ShowMobileNav" #BurgerToggle .btn."secondary-btn".shadow aria-label="Menü öffnen" {
+            (PreEscaped(include_asset!("icons/burger.svg")))
+        }
         header #SiteHeader {
             nav {
                 menu #NavLinks {
@@ -94,7 +100,7 @@ pub fn header(current_page: Page) -> maud::Markup {
                 @for (name,_) in groups.iter(){
                     ({
                         let (group,children) = group_name(name);
-                        PreEscaped(format!("#SiteHeader:has(#{group}[open]) #{children}{{opacity:1;height:fit-content;}}"))})
+                        PreEscaped(format!("#SiteHeader:has(#{group}[open]) #{children}{{opacity:1;height:fit-content;pointer-events: revert;}}"))})
                 }
             }
         }

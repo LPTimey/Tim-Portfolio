@@ -830,7 +830,7 @@
 
     position: fixed;
     top: 0;
-    z-index: 1000000000;
+    z-index: 100;
 
     background-color: rgb(from var(--bg) r g b / var(--transparency));
     -webkit-backdrop-filter: blur(var(--blur-r));
@@ -867,14 +867,104 @@
 
         .nav-group {
             display: flex;
+            flex-wrap: wrap;
             opacity: 0;
             height: 0px;
+            pointer-events: none;
         }
     }
 
     summary {
         user-select: none;
         cursor: pointer;
+    }
+}
+
+#BurgerToggle {
+    display: none;
+    position: fixed;
+    top: min(5rem, 5vw);
+    right: min(5rem, 5vw);
+    padding: 1ch;
+    border-radius: calc(var(--border-r) / 1.5);
+    z-index: 101;
+}
+
+@media (width<60ch) {
+    #BurgerToggle {
+        display: block;
+    }
+
+    :root:has(#ShowMobileNav:not(:checked)) #SiteHeader {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+
+    :root:has(#ShowMobileNav:checked) #BurgerToggle {
+        box-shadow: none;
+        filter: none;
+    }
+
+
+    #SiteHeader {
+        width: auto;
+        height: auto;
+        inset: 0;
+        position: fixed;
+        grid-template-areas:
+            "."
+            "extern"
+            "nav"
+            "groups"
+            ".";
+        grid-template-columns: auto;
+        grid-template-rows: 1fr auto auto auto 1fr;
+        font-size: var(--fs-large);
+
+        nav {
+            grid-area: nav;
+        }
+
+        #NavLinks {
+            display: grid;
+            align-items: center;
+            gap: 2ch;
+            height: auto;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #Extern {
+            height: fit-content;
+            grid-area: extern;
+            display: grid;
+            justify-content: center;
+            align-items: center;
+            gap: 2ch;
+        }
+
+        #Groups {
+            height: auto;
+            grid-area: groups;
+            display: grid;
+            justify-content: center;
+            align-items: center;
+
+            >* {
+                grid-row: 1;
+                grid-column: 1;
+            }
+
+            .nav-group {
+                display: grid;
+                opacity: 0;
+                height: 0px;
+                pointer-events: none;
+                justify-content: center;
+                align-items: center;
+            }
+        }
     }
 }
 
@@ -973,8 +1063,8 @@
 
 #ReturnToTop {
     position: fixed;
-    bottom: 5rem;
-    right: 5rem;
+    bottom: min(5rem, 5vw);
+    right: min(5rem, 5vw);
     border-radius: 50%;
     padding: 1rem;
     font-size: 2rem;

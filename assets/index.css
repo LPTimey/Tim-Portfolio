@@ -22,44 +22,80 @@
 }
 
 #AboutMe {
-    display: grid;
-    gap: 1ch 3ch;
-    grid-template-columns: 2fr 5fr;
-    grid-template-rows: auto 1fr;
-    grid-template-areas:
-        "Img Head"
-        "Img Text";
+    container: AboutMe / inline-size;
 
-    h2 {
-        grid-area: Head;
+    .content {
+        display: grid;
+        gap: 1ch 3ch;
+        grid-template-columns: 2fr 5fr;
+        grid-template-rows: auto 1fr;
+        grid-template-areas:
+            "Img Head"
+            "Img Text";
+
+        h2 {
+            grid-area: Head;
+        }
+
+        p {
+            grid-area: Text;
+            max-width: 80ch;
+        }
+
+        picture {
+            grid-area: Img;
+            height: auto;
+            width: auto;
+            /* width: 20vw; */
+            max-height: 40vh;
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            border-radius: var(--border-r);
+        }
     }
+}
 
-    p {
-        grid-area: Text;
-        max-width: 80ch;
-    }
+@container AboutMe (width < 120ch) {
+    #AboutMe .content {
+        grid-template-areas:
+            "Head"
+            "Img"
+            "Text";
+        grid-template-columns: 1fr;
 
-    picture {
-        grid-area: Img;
-        height: auto;
-        width: auto;
-        /* width: 20vw; */
-        max-height: 40vh;
-        aspect-ratio: 1 / 1;
-        overflow: hidden;
-        border-radius: var(--border-r);
+        picture {
+            place-self: center;
+        }
     }
 }
 
 #Erfahrung {
-    display: grid;
-    grid-template-areas:
-        "Heading Heading"
-        "Werdegang Skills";
-    align-items: center;
+    container: Erfahrung / inline-size;
+    .content {
+        display: grid;
+        grid-template-areas:
+            "Heading Heading"
+            "Werdegang Skills";
+        align-items: center;
+        gap: 4rem;
 
-    >h2 {
-        grid-area: Heading;
+        >h2 {
+            grid-area: Heading;
+        }
+    }
+}
+
+@container Erfahrung (width < 120ch) {
+    #Erfahrung .content {
+        grid-template-areas:
+            "Heading"
+            "Skills"
+            "Werdegang";
+        grid-template-columns: 1fr;
+
+        picture {
+            place-self: center;
+        }
     }
 }
 
@@ -180,7 +216,7 @@
 }
 
 #Projects {
-    height: 150vh;
+    min-height: 150vh;
     --base-scale: 80%;
     --blur: 1.5em;
 }
@@ -216,7 +252,7 @@
     }
 }
 
-#ProjectList{
+#ProjectList {
     margin-block-end: 2rem;
 }
 
