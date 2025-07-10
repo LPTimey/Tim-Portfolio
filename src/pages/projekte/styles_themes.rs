@@ -9,13 +9,16 @@ const DESCRIPTION: &str =
     r#"Ein Experiment, welches die Wichtigkeit eines Ansprechenden Visual Designs zeigt."#;
 
 pub const MOD_PATH: &str = module_path!();
-pub const META_DATA: ProjectMetadata = ProjectMetadata {
-    title_img: link_public!(""),
-    name: "Themen & Stile",
-    description: DESCRIPTION,
-    category: projekte::Category::Screendesign,
-    favorite: true,
-};
+pub fn meta_data() -> ProjectMetadata {
+    ProjectMetadata {
+        title_img: link_public!(""),
+        name: "Themen & Stile",
+        description: DESCRIPTION,
+        category: projekte::Category::Screendesign,
+        favorite: true,
+        path: mod_path_to_href(MOD_PATH).expect("A valid path"),
+    }
+}
 
 pub fn page(page: Page) -> maud::Markup {
     html! {

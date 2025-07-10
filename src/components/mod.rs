@@ -1,15 +1,22 @@
+use maud::Markup;
+
 use crate::Link;
 
 pub mod footer;
 pub mod head;
 pub mod header;
+pub mod hero;
 pub mod page;
 pub mod project_card;
+pub mod scrolling_img;
 pub mod theme_select;
-pub mod hero;
 
-pub struct Component<T> {
-    pub html: T,
+// Definiere ein Trait
+pub trait ScriptType {}
+impl ScriptType for Link {}
+impl ScriptType for () {}
+pub struct Component<T, S: ScriptType> {
+    pub html: fn(T)->Markup,
     pub style: Link,
-    pub script: Link,
+    pub script: S,
 }

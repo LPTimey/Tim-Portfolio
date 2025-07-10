@@ -3,6 +3,19 @@
     grid-template-columns: var(--padding-inline) 1fr var(--padding-inline);
     grid-template-areas: ". Content .";
     grid-template-rows: var(--height);
+    position: relative;
+    z-index: 1;
+    isolation: isolate;
+
+    &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        width: auto;
+        height: auto;
+        z-index: -1;
+        background: linear-gradient(rgba(0 0 0 / 0) 75%, var(--bg));
+    }
 }
 
 #HeroImg {
@@ -19,6 +32,7 @@
     grid-area: Content;
     align-self: end;
     margin-block-end: 7rem;
+    color: var(--dark);
 }
 
 #AboutMe {
@@ -71,6 +85,7 @@
 
 #Erfahrung {
     container: Erfahrung / inline-size;
+
     .content {
         display: grid;
         grid-template-areas:

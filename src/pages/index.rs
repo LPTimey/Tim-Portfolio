@@ -1,8 +1,11 @@
+use std::time::Duration;
+
 use maud::PreEscaped;
 
 use crate::{
     components::{
         self, Component, footer::footer, head::default_head, header::header, project_card,
+        scrolling_img,
     },
     include_logo, include_public, placeholder_img,
 };
@@ -18,8 +21,13 @@ pub fn page(page: Page) -> maud::Markup {
     let Component {
         html: project_card_html,
         style: card_style,
-        script: card_script,
+        ..
     } = project_card::component();
+    let Component {
+        html: scroll_img_html,
+        style: scroll_img_style,
+        ..
+    } = scrolling_img::component();
 
     let skills = vec![
         (
@@ -64,14 +72,16 @@ pub fn page(page: Page) -> maud::Markup {
             (default_head("Home","TODO: Add description", page.path_to_root()))
             style { (PreEscaped(STYLE)) }
             link rel="stylesheet" href=(page.path_to_root() + *card_style );
-            script type="module" src=(page.path_to_root() + *card_script ){}
+            // script type="module" src=(page.path_to_root() + *card_script ){}
+            link rel="stylesheet" href=(page.path_to_root() + *scroll_img_style );
         }
 
         body{
             (header(page))
             main{
                 section #Hero{
-                    picture #HeroImg{img src=(*placeholder_img!(600,400)) alt="";}
+                    // picture #HeroImg{img src=(*placeholder_img!(600,400)) alt="";}
+                    div #HeroImg{(scroll_img_html(scrolling_img::MarkupProps { img: Link((page.path_to_root()+*link_public!("assets/Title-img.webp")).leak()), rows: 3, columns: 3, duration: Duration::from_secs(50) }))}
                     div ."hero-content"{
                         h1."fmb-large"{
                             span."fs-large"."lh-tight"{ "Willkommen, hier" } br;
@@ -80,6 +90,7 @@ pub fn page(page: Page) -> maud::Markup {
                         a .btn."accent-btn".shadow href="#AboutMe" { "Entdecke mehr" }
                     }
                 }
+
 
                 section #AboutMe .sect."sect-large-start"."sect-small-end" {
                     div.content {
@@ -162,7 +173,14 @@ Ich freue mich, wenn du dir einen Eindruck von meiner Arbeit verschaffst. Bei Fr
                     div .cut."top-cut" {(PreEscaped(include_public!("assets/noise/wave.svg")))}
                     div .content #ProjectList{
                         @for project in Page::projects(){
-                            @if project.favorite { (project_card_html(project)) }
+                            @if project.favorite {
+                                (project_card_html(
+                                    project_card::MarkupProps {
+                                        data: project,
+                                        path_to_root: page.path_to_root()
+                                    }
+                                ))
+                            }
                         }
                     }
                     div .content #AllProjects {

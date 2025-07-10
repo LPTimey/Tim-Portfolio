@@ -4,10 +4,10 @@ use crate::{components::Component, link_public, projekte::ProjectMetadata, Link}
 
 use Props::with_props;
 
-// #[with_props]
-fn markup(data: ProjectMetadata) -> maud::Markup {
+#[with_props]
+fn markup(data: ProjectMetadata, path_to_root: String) -> maud::Markup {
     html! {
-        div ."project-card" {
+        a ."project-card" href=(path_to_root + &data.path.display().to_string()) {
             div ."pjc-grid"{
                 picture{img src=(data.title_img) alt="";}
                 h3 { (data.name) }
@@ -20,13 +20,11 @@ fn markup(data: ProjectMetadata) -> maud::Markup {
 fn style() -> Link {
     link_public!("components/project_card.css")
 }
-fn script() -> Link {
-    link_public!("components/project_card.js")
-}
-pub fn component() -> Component<fn(ProjectMetadata) -> PreEscaped<String>> {
+
+pub fn component() -> Component<MarkupProps,()> {
     Component {
         html: markup,
         style: style(),
-        script: script(),
+        script: (),
     }
 }

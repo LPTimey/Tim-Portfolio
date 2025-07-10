@@ -871,6 +871,7 @@
             opacity: 0;
             height: 0px;
             pointer-events: none;
+            gap: 2ch;
         }
     }
 

@@ -8,7 +8,7 @@ use strum::{Display, EnumIter, VariantArray};
 
 use crate::{Link, include_asset, link_public, path_to_root, projekte::ProjectMetadata};
 
-fn mod_path_to_href(mod_path: &str) -> Option<PathBuf> {
+pub fn mod_path_to_href(mod_path: &str) -> Option<PathBuf> {
     // Entferne alles bis "pages::"
     let trimmed = match mod_path.find("pages::") {
         Some(idx) => &mod_path[(idx + "pages::".len())..],

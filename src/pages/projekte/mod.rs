@@ -1,3 +1,5 @@
+use std::path::PathBuf;
+
 use strum::Display;
 
 use crate::{Link, Page};
@@ -21,6 +23,7 @@ pub enum Category {
 }
 
 pub struct ProjectMetadata {
+    pub path: PathBuf,
     pub title_img: Link,
     pub name: &'static str,
     pub description: &'static str,
@@ -32,12 +35,12 @@ impl ProjectMetadata {
         match page {
             Page::Home => None,
             Page::Projekte => None,
-            Page::Watchout => Some(watchout::META_DATA),
-            Page::Printer => Some(printer::META_DATA),
-            Page::Styles => Some(styles_themes::META_DATA),
-            Page::Tetris => Some(tetris::META_DATA),
-            Page::Ergomote => Some(ergomote::META_DATA),
-            Page::WebDev => Some(webdev::META_DATA),
+            Page::Watchout => Some(watchout::meta_data()),
+            Page::Printer => Some(printer::meta_data()),
+            Page::Styles => Some(styles_themes::meta_data()),
+            Page::Tetris => Some(tetris::meta_data()),
+            Page::Ergomote => Some(ergomote::meta_data()),
+            Page::WebDev => Some(webdev::meta_data()),
         }
     }
 }
