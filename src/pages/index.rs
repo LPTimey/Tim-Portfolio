@@ -29,7 +29,8 @@ pub fn page(page: Page) -> maud::Markup {
         ..
     } = scrolling_img::component();
 
-    let skills = [(
+    let skills = [
+        (
             "Design",
             vec![
                 include_logo!("adobe-illustrator-svgrepo-com.svg"),
@@ -63,7 +64,8 @@ pub fn page(page: Page) -> maud::Markup {
                 include_logo!("cpp-svgrepo-com.svg"),
                 include_logo!("python-svgrepo-com.svg"),
             ],
-        )];
+        ),
+    ];
 
     components::page::page(html! {
         head{
@@ -78,14 +80,14 @@ pub fn page(page: Page) -> maud::Markup {
             (header(page))
             main{
                 section #Hero{
-                    // picture #HeroImg{img src=(*placeholder_img!(600,400)) alt="";}
+                    // picture #HeroImg{img draggable="false" src=(*placeholder_img!(600,400)) alt="";}
                     div #HeroImg{(scroll_img_html(scrolling_img::MarkupProps { img: Link((page.path_to_root()+*link_public!("assets/Title-img.webp")).leak()), rows: 3, columns: 3, duration: Duration::from_secs(50) }))}
                     div ."hero-content"{
                         h1."fmb-large"{
                             span."fs-large"."lh-tight"{ "Willkommen, hier" } br;
                             span.hero."lh-normal"."fw-gigantic"{ "wo die Details scheinen" }
                         }
-                        a .btn."accent-btn".shadow href="#AboutMe" { "Entdecke mehr" }
+                        a draggable="false" .btn."accent-btn".shadow href="#AboutMe" { "Entdecke mehr" }
                     }
                 }
 
@@ -93,7 +95,7 @@ pub fn page(page: Page) -> maud::Markup {
                 section #AboutMe .sect."sect-large-start"."sect-small-end" {
                     div.content {
                         h2.heading{ span."accent-text"{ "Hi! " } "Ich bin Tim." }
-                        picture{img src=(page.path_to_root() + *ICH) alt="";}
+                        picture{img draggable="false" src=(page.path_to_root() + *ICH) alt="";}
                         p{
                             (PreEscaped(r#"
 Mich faszinieren sowohl IT & Programmierung als auch Gestaltung & Design.
@@ -185,7 +187,7 @@ Ich freue mich, wenn du dir einen Eindruck von meiner Arbeit verschaffst. Bei Fr
                     }
                     div .content #AllProjects {
                         div.line{}
-                        a class="btn secondary-btn fw-medium shadow" { "Alle Projekte" }
+                        a draggable="false" class="btn secondary-btn fw-medium shadow" { "Alle Projekte" }
                         div.line{}
                     }
                     div .cut."bot-cut" {(PreEscaped(include_public!("assets/noise/waves-opacity.svg")))}

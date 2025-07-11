@@ -23,31 +23,31 @@ pub enum Category {
 }
 
 pub trait TitleImg {
-    fn light(&self)->Link;
-    fn dark(&self)->Link;
+    fn light(&self) -> Link;
+    fn dark(&self) -> Link;
 }
-impl TitleImg for Link{
-    fn dark(&self)->Link {
+impl TitleImg for Link {
+    fn dark(&self) -> Link {
         *self
     }
-    fn light(&self)->Link {
+    fn light(&self) -> Link {
         *self
     }
 }
-impl TitleImg for LightDark<Link>{
-    fn light(&self)->Link {
+impl TitleImg for LightDark<Link> {
+    fn light(&self) -> Link {
         self.light
     }
 
-    fn dark(&self)->Link {
+    fn dark(&self) -> Link {
         self.dark
     }
 }
-impl TitleImg for (Link,Link){
-    fn light(&self)->Link {
+impl TitleImg for (Link, Link) {
+    fn light(&self) -> Link {
         self.0
     }
-    fn dark(&self)->Link {
+    fn dark(&self) -> Link {
         self.1
     }
 }

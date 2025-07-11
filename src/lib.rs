@@ -25,6 +25,10 @@ macro_rules! include_logo {
 
 #[macro_export]
 macro_rules! link_public {
+    ($path: literal) => {{
+        const _: &[u8] = include_bytes!(concat!(env!("CARGO_MANIFEST_DIR"), "/public/", $path));
+        $crate::Link($path)
+    }};
     ($path:expr) => {
         $crate::Link($path)
     };
@@ -55,9 +59,9 @@ impl Display for Link {
     }
 }
 
-pub struct LightDark<T>{
+pub struct LightDark<T> {
     pub light: T,
-    pub dark: T
+    pub dark: T,
 }
 
 pub fn path_to_root(page_path: &Path) -> String {

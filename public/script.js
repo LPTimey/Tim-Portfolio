@@ -52,15 +52,36 @@ const toTopButtonDelta = 100;
 const toTop = /** @type {HTMLAnchorElement} */(document.getElementById("ReturnToTop"));
 toTop.style.visibility = "hidden";
 
-window.addEventListener("scroll",(ev)=>{
+window.addEventListener("scroll", (ev) => {
     if (window.pageYOffset < toTopButtonDelta) {
-        toTop.style.visibility = "hidden"
+        toTop.style.visibility = "hidden";
     } else {
-        toTop.style.visibility = "visible"
+        toTop.style.visibility = "visible";
     }
 })
 
 //#endregion ToTop
+
+//#region noDrag
+
+let noDrags = document.querySelectorAll('[draggable="false"]');
+
+noDrags.forEach(el => {
+    let isDragging = false;
+    el.addEventListener("mousedown", () => {
+        isDragging = false;
+    });
+    el.addEventListener("mousemove", () => {
+        isDragging = true;
+    });
+    el.addEventListener("click", (event) => {
+        if (isDragging) {
+            event.preventDefault()
+        }
+    })
+});
+
+//#endregion noDrag
 
 /**
  * 

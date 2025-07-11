@@ -3,7 +3,9 @@ use std::{collections::BTreeMap, path::Path};
 use maud::{PreEscaped, html};
 use strum::IntoEnumIterator;
 
-use crate::{capitalize, components::theme_select::theme_select, include_asset, Page, GIT_HUB_ICON};
+use crate::{
+    GIT_HUB_ICON, Page, capitalize, components::theme_select::theme_select, include_asset,
+};
 
 fn group_pages() -> BTreeMap<Option<String>, Vec<Page>> {
     let mut grouped: BTreeMap<Option<String>, Vec<Page>> = BTreeMap::new();
@@ -31,7 +33,7 @@ pub fn header(current_page: Page) -> maud::Markup {
 
     let nav_link = |page: Page| {
         html! {
-            a href=(current_page.path_to_root() + &page.to_href().display().to_string() + "#")
+            a draggable="false" href=(current_page.path_to_root() + &page.to_href().display().to_string() + "#")
               class=(format!("link underline {}", underline(page))) {
                 (page)
             }
@@ -89,7 +91,7 @@ pub fn header(current_page: Page) -> maud::Markup {
                         ("Dark", false),
                         ("Custom", false)
                     ])) }
-                li { a target="_blank" href="https://github.com/LPTimey/Tim-Portfolio" { (PreEscaped(GIT_HUB_ICON)) /*"GitHub"*/ } }
+                li { a draggable="false" target="_blank" href="https://github.com/LPTimey/Tim-Portfolio" { (PreEscaped(GIT_HUB_ICON)) /*"GitHub"*/ } }
             }
             div #Groups{
                 @for (name,children) in groups.iter(){

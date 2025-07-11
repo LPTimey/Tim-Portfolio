@@ -12,8 +12,8 @@ pub const MOD_PATH: &str = module_path!();
 pub fn meta_data() -> ProjectMetadata {
     ProjectMetadata {
         title_img: Box::new(LightDark {
-            light: link_public!("assets/WebSite/title-img-light.webp"),
-            dark: link_public!("assets/WebSite/title-img-dark.webp"),
+            light: link_public!((path_to_root(mod_path_to_href(MOD_PATH).expect("A valid path").as_path()) + "assets/WebSite/title-img-light.webp").leak()),
+            dark: link_public!((path_to_root(mod_path_to_href(MOD_PATH).expect("A valid path").as_path()) + "assets/WebSite/title-img-dark.webp").leak()),
         }),
         name: "Website Development",
         description: DESCRIPTION,

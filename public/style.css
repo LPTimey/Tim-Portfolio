@@ -88,8 +88,8 @@
         svg) {
         display: block;
         max-width: 100%;
-        user-drag: none;
         -webkit-user-drag: none;
+        /* user-drag: none; */
     }
 
     :where(img) {
@@ -446,15 +446,19 @@
             /* border: 1px solid var(--accent); */
 
             @media (hover: hover) {
-                &:hover {
-                    /* color: var(--fg); */
-                }
+                /* &:hover {
+                     color: var(--fg);
+                } */
             }
         }
     }
 
     :where(.content) {
         padding-inline: var(--padding-inline);
+    }
+
+    :where(.grow){
+        flex-grow: 1;
     }
 
     :where(.link) {
@@ -1110,6 +1114,13 @@
     --height: 100dvh;
     height: var(--height);
     overflow: hidden;
+}
+
+#SiteFooter{
+    width: 100%;
+    height: auto;
+    padding: 2rem var(--padding-inline);
+    background-color: var(--bg-2);
 }
 
 #ReturnToTop {

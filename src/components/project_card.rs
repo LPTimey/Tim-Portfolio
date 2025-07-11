@@ -11,11 +11,11 @@ fn markup(
     reactive_color: bool,
 ) -> maud::Markup {
     html! {
-        a ."project-card" "in-grid"=(is_in_grid) href=(path_to_root + &data.path.display().to_string()) {
+        a ."project-card" draggable="false" "in-grid"=(is_in_grid) href=(path_to_root + &data.path.display().to_string()) {
             div ."pjc-grid" "reactive-color"=(reactive_color) {
                 picture{
-                    img ."light-only" loading="lazy" src=(*data.title_img.light());
-                    img ."dark-only" loading="lazy" src=(*data.title_img.dark());
+                    img draggable="false" ."light-only" loading="lazy" src=(*data.title_img.light());
+                    img draggable="false" ."dark-only" loading="lazy" src=(*data.title_img.dark());
                 }
                 h3 { (data.name) }
                 h4 { (data.category) }

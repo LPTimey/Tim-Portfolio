@@ -82,7 +82,4 @@ impl Page {
     pub fn path_to_root(self) -> String {
         path_to_root(self.to_href().deref())
     }
-    pub fn is_project(self) -> bool {
-        todo!()
-    }
 }

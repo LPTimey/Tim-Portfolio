@@ -1,7 +1,11 @@
 .project-card {
     display: block;
     position: relative;
-    container: ProjectCardContainer / inline-size;
+    /* FIXME: container with subgrid on Chromium
+     * being a container breaks in chromium
+     * as it seams containers can't be subgrid there?
+    */
+    /* container: ProjectCardContainer / inline-size; */
     border-radius: var(--border-r);
     overflow: hidden;
     /* border: 1px solid var(--fg); */

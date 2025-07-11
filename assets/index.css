@@ -249,7 +249,6 @@
 }
 
 #Projects {
-    min-height: 150vh;
     --base-scale: 80%;
     --blur: 1.5em;
 }
@@ -289,6 +288,7 @@
     margin-block-end: 2rem;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-auto-rows: auto;
     gap: 2rem;
 }
 
