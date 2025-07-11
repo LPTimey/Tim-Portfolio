@@ -17,7 +17,7 @@ fn markup(
                     img draggable="false" ."light-only" loading="lazy" src=(*data.title_img.light());
                     img draggable="false" ."dark-only" loading="lazy" src=(*data.title_img.dark());
                 }
-                h3 { (data.name) }
+                h3 .subhead { (data.name) }
                 h4 { (data.category) }
                 p { (data.description) }
             }

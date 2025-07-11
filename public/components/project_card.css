@@ -54,8 +54,8 @@
     grid-template-columns: 0 1fr 0;
     grid-template-areas:
         "Img Img Img"
-        ". Category ."
         ". Title ."
+        ". Category ."
         ". Text .";
     background-color: var(--light);
     color: var(--dark);
