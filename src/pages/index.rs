@@ -7,7 +7,7 @@ use crate::{
         self, Component, footer::footer, head::default_head, header::header, project_card,
         scrolling_img,
     },
-    include_logo, include_public, placeholder_img,
+    include_logo, include_public,
 };
 
 use super::*;
@@ -29,8 +29,7 @@ pub fn page(page: Page) -> maud::Markup {
         ..
     } = scrolling_img::component();
 
-    let skills = vec![
-        (
+    let skills = [(
             "Design",
             vec![
                 include_logo!("adobe-illustrator-svgrepo-com.svg"),
@@ -64,8 +63,7 @@ pub fn page(page: Page) -> maud::Markup {
                 include_logo!("cpp-svgrepo-com.svg"),
                 include_logo!("python-svgrepo-com.svg"),
             ],
-        ),
-    ];
+        )];
 
     components::page::page(html! {
         head{

@@ -1,14 +1,9 @@
 #![allow(non_snake_case)]
 
-use std::collections::HashSet;
-
 use convert_case::{Case, Casing};
 use proc_macro::TokenStream;
 use quote::{format_ident, quote};
-use syn::{
-    FnArg, GenericArgument, GenericParam, ItemFn, Lifetime, Pat, PatIdent, PathArguments, Type,
-    TypePath, parse_macro_input, spanned::Spanned,
-};
+use syn::{FnArg, GenericParam, ItemFn, Pat, PatIdent, parse_macro_input, spanned::Spanned};
 
 #[proc_macro_attribute]
 pub fn with_props(_attr: TokenStream, item: TokenStream) -> TokenStream {
@@ -22,7 +17,7 @@ pub fn with_props(_attr: TokenStream, item: TokenStream) -> TokenStream {
 
     // Props-Struct-Name erzeugen, z.B. MarkupProps
     let props_name = format_ident!("{}Props", fn_name.to_string().to_case(Case::UpperCamel));
-    let type_param_idents = fn_generics
+    let type_param_ident_s = fn_generics
         .params
         .iter()
         .filter_map(|param| {
@@ -33,10 +28,10 @@ pub fn with_props(_attr: TokenStream, item: TokenStream) -> TokenStream {
             }
         })
         .collect::<Vec<_>>();
-    let generics_tokens = if type_param_idents.is_empty() {
+    let generics_tokens = if type_param_ident_s.is_empty() {
         quote! {}
     } else {
-        quote! { <#(#type_param_idents),*> } // generische Parameter mit <...>
+        quote! { <#(#type_param_ident_s),*> } // generische Parameter mit <...>
     };
 
     // Sammle alle Parameter in Felder fürs Struct
@@ -63,7 +58,7 @@ pub fn with_props(_attr: TokenStream, item: TokenStream) -> TokenStream {
         .inputs
         .push(syn::parse_quote! { props: #props_name #generics_tokens });
 
-    // Erzeuge Destrukturierung am Anfang der Funktion
+    // Destructure Props für die Funktion
     let block = &input_fn.block;
     input_fn.block = syn::parse_quote! {{
         let #props_name { #(#bindings),* } = props;

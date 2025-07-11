@@ -43,8 +43,8 @@ pub fn header(current_page: Page) -> maud::Markup {
     let mut groups = Vec::new();
     let group_name = |name: &str| {
         (
-            format!("{}Group", capitalize(&name)),
-            format!("{}Children", capitalize(&name)),
+            format!("{}Group", capitalize(name)),
+            format!("{}Children", capitalize(name)),
         )
     };
 
@@ -60,10 +60,10 @@ pub fn header(current_page: Page) -> maud::Markup {
                 menu #NavLinks {
                     @for (parent, pages) in &grouped {
                         @if let Some(folder) = parent && !folder.is_empty() {
-                            details.dismiss."nav-group" #(group_name(&folder).0) for=(group_name(&folder).1) role="group"{
+                            details.dismiss."nav-group" #(group_name(folder).0) for=(group_name(folder).1) role="group"{
                                 summary.link.underline role="button" { (capitalize(&folder)) }
                                 ({
-                                    groups.push((capitalize(&folder),html!{@for page in pages {
+                                    groups.push((capitalize(folder),html!{@for page in pages {
                                         li role="menuitem" { (nav_link(*page)) }
                                     }}));
                                     ""
