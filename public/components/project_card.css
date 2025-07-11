@@ -24,7 +24,7 @@
         }
 
         &:active {
-            translate: 0 -0.5rem;
+            translate: 0 0.5rem;
             box-shadow: var(--shadow-active);
         }
     }
