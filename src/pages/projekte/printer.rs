@@ -10,7 +10,7 @@ const DESCRIPTION: &str = r#"Anpassung des Hochschuldrucker UIs für bessere Les
 pub const MOD_PATH: &str = module_path!();
 pub fn meta_data() -> ProjectMetadata {
     ProjectMetadata {
-        title_img: Box::new(link_public!("")),
+        title_img: Box::new(link_public!("assets/Screendesign/Drucker/title-img-zoomed.webp")),
         name: "Drucker Touchscreen",
         description: DESCRIPTION,
         category: projekte::Category::Screendesign,

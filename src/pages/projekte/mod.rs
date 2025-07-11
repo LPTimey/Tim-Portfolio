@@ -2,7 +2,7 @@ use std::path::PathBuf;
 
 use strum::Display;
 
-use crate::{Link, Page};
+use crate::{LightDark, Link, Page};
 
 pub mod ergomote;
 pub mod index;
@@ -34,12 +34,21 @@ impl TitleImg for Link{
         *self
     }
 }
-impl TitleImg for (Link,Link){
-    fn dark(&self)->Link {
-        self.1
+impl TitleImg for LightDark<Link>{
+    fn light(&self)->Link {
+        self.light
     }
+
+    fn dark(&self)->Link {
+        self.dark
+    }
+}
+impl TitleImg for (Link,Link){
     fn light(&self)->Link {
         self.0
+    }
+    fn dark(&self)->Link {
+        self.1
     }
 }
 

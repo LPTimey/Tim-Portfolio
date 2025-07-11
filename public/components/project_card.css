@@ -1,28 +1,85 @@
 .project-card {
     display: block;
+    position: relative;
     container: ProjectCardContainer / inline-size;
     border-radius: var(--border-r);
     overflow: hidden;
+    /* border: 1px solid var(--fg); */
+    --row-span: 5;
+    --col-span: 3;
+    display: grid;
+    box-shadow: var(--shadow-default);
+
+    @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+        &:hover {
+            translate: 0 -0.5rem;
+            box-shadow: var(--shadow-hover);
+        }
+
+        &:active {
+            translate: 0 -0.5rem;
+            box-shadow: var(--shadow-active);
+        }
+    }
+}
+
+.project-card[in-grid="true"] {
+    grid-template-columns: subgrid;
+    grid-template-rows: subgrid;
+    grid-column: span var(--col-span);
+    grid-row: span var(--row-span);
+}
+
+.project-card[in-grid="false"],
+.project-card:not([in-grid="true"]) {
+    grid-template-columns: repeat(var(--col-span), 1fr);
+    grid-template-rows: repeat(var(--row-span), auto);
 }
 
 .pjc-grid {
-    height: 100%;
-    width: 100%;
+    height: auto;
+    width: auto;
     display: grid;
-    gap: 1rem;
-    grid-template-rows: auto auto 1rem;
+    --padding: 1rem;
+    column-gap: var(--padding);
+    row-gap: 0;
+    grid-template-rows: subgrid;
     grid-template-columns: 0 1fr 0;
     grid-template-areas:
         "Img Img Img"
-        ". Text ."
-        ". . .";
+        ". Category ."
+        ". Title ."
+        ". Text .";
     background-color: var(--bg);
     color: var(--fg);
 
-    picture{
+    grid-column: span var(--col-span);
+    grid-row: span var(--row-span);
+
+    picture {
         grid-area: Img;
+        max-height: 40vh;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+        padding-bottom: var(--padding);
+
+        img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
     }
-    .info{
+
+    h4 {
+        grid-area: Category;
+    }
+
+    h3 {
+        grid-area: Title;
+    }
+
+    p {
         grid-area: Text;
     }
 }

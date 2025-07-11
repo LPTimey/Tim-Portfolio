@@ -55,6 +55,11 @@ impl Display for Link {
     }
 }
 
+pub struct LightDark<T>{
+    pub light: T,
+    pub dark: T
+}
+
 pub fn path_to_root(page_path: &Path) -> String {
     let depth = page_path
         .parent() // z. B. "projects"

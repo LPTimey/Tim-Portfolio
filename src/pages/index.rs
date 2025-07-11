@@ -177,7 +177,8 @@ Ich freue mich, wenn du dir einen Eindruck von meiner Arbeit verschaffst. Bei Fr
                                 (project_card_html(
                                     project_card::MarkupProps {
                                         data: project,
-                                        path_to_root: page.path_to_root()
+                                        path_to_root: page.path_to_root(),
+                                        is_in_grid: true,
                                     }
                                 ))
                             }

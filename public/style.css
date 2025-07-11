@@ -396,11 +396,14 @@
         z-index: 1;
 
         &:where(.shadow) {
-            box-shadow: 0.25rem 0.5rem 5px hsl(from var(--black) h s l / 0.1);
+            box-shadow: var(--shadow-default);
+            --x-shift: 0%;
+            --y-shift: 0%;
         }
 
         @media (prefers-reduced-motion: no-preference) {
-            transition: translate 0.25s cubic-bezier(0.68, -0.6, 0.32, 1.6), box-shadow 0.25s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+            transition: translate 0.25s cubic-bezier(0.68, -0.6, 0.32, 1.6),
+                box-shadow 0.25s cubic-bezier(0.68, -0.6, 0.32, 1.6);
         }
 
         @media (hover: hover) and (prefers-reduced-motion: no-preference) {
@@ -408,7 +411,9 @@
                 translate: 0 -10%;
 
                 &:where(.shadow) {
-                    box-shadow: 0.5rem 1.25rem 5px hsl(from var(--black) h s l / 0.1);
+                    --x-shift: 0%;
+                    --y-shift: -10%;
+                    box-shadow: var(--shadow-hover);
                 }
             }
 
@@ -416,7 +421,9 @@
                 translate: 0 10%;
 
                 &:where(.shadow) {
-                    box-shadow: 0rem 0rem 5px hsl(from var(--black) h s l / 0.1);
+                    --x-shift: 0%;
+                    --y-shift: 10%;
+                    box-shadow: var(--shadow-active);
                 }
             }
         }
@@ -475,6 +482,25 @@
                 :where(svg) {
                     fill: var(--accent-2);
                 }
+            }
+        }
+    }
+
+    :where(.shadow:not(.btn)) {
+        box-shadow: var(--shadow-default);
+
+
+        @media (prefers-reduced-motion: no-preference) {
+            transition: box-shadow 0.25s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+        }
+
+        @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+            &:hover {
+                box-shadow: var(--shadow-hover);
+            }
+
+            &:active {
+                box-shadow: var(--shadow-active);
             }
         }
     }
@@ -724,6 +750,9 @@
     --border-r: 1rem;
     --blur-r: 5px;
     --transparency: 0.75;
+    --shadow-default: 0.25rem 0.5rem 5px hsl(from var(--black) h s l / 0.15);
+    --shadow-hover: calc(0.25rem + var(--x-shift, 0.25rem)) calc(0.5rem + var(--y-shift, 0.75rem)) 5px hsl(from var(--black) h s l / 0.15);
+    --shadow-active: 0rem 0rem 5px hsl(from var(--black) h s l / 0.15);
 
     --backup-fonts: 'Segoe UI',
         Tahoma,
@@ -792,16 +821,36 @@
 :root:has(input[type="radio"]#System:checked),
 .sys {
     color-scheme: light dark;
+
+    @media (prefers-color-scheme: light) {
+        .dark-only {
+            display: none !important;
+        }
+    }
+
+    @media (prefers-color-scheme: dark) {
+        .light-only {
+            display: none !important;
+        }
+    }
 }
 
 :root:has(input[type="radio"]#Light:checked),
 .light {
     color-scheme: only light;
+
+    .dark-only {
+        display: none !important;
+    }
 }
 
 :root:has(input[type="radio"]#Dark:checked),
 .dark {
     color-scheme: only dark;
+
+    .light-only {
+        display: none !important;
+    }
 }
 
 :root:has(input[type="radio"]#Custom:checked),
