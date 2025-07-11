@@ -12,7 +12,7 @@ pub mod tetris;
 pub mod watchout;
 pub mod webdev;
 
-#[derive(Debug, Clone, Copy, Display, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Display)]
 pub enum Category {
     DMMS,
     Screendesign,
@@ -22,9 +22,30 @@ pub enum Category {
     ProduktDesign,
 }
 
+pub trait TitleImg {
+    fn light(&self)->Link;
+    fn dark(&self)->Link;
+}
+impl TitleImg for Link{
+    fn dark(&self)->Link {
+        *self
+    }
+    fn light(&self)->Link {
+        *self
+    }
+}
+impl TitleImg for (Link,Link){
+    fn dark(&self)->Link {
+        self.1
+    }
+    fn light(&self)->Link {
+        self.0
+    }
+}
+
 pub struct ProjectMetadata {
     pub path: PathBuf,
-    pub title_img: Link,
+    pub title_img: Box<dyn TitleImg>,
     pub name: &'static str,
     pub description: &'static str,
     pub category: Category,

@@ -10,7 +10,7 @@ const DESCRIPTION: &str = r#"Spiele-Entwicklung auf embedded systems mit manuell
 pub const MOD_PATH: &str = module_path!();
 pub fn meta_data() -> ProjectMetadata {
     ProjectMetadata {
-        title_img: link_public!(""),
+        title_img: Box::new(link_public!("")),
         name: "Tetris in Arduino & C",
         description: DESCRIPTION,
         category: projekte::Category::Programmieren,

@@ -1,11 +1,28 @@
-.project-card{
+.project-card {
     display: block;
     container: ProjectCardContainer / inline-size;
+    border-radius: var(--border-r);
+    overflow: hidden;
 }
 
-.pjc-grid{
+.pjc-grid {
     height: 100%;
     width: 100%;
     display: grid;
-    grid-template-rows: 3fr auto auto auto;
+    gap: 1rem;
+    grid-template-rows: auto auto 1rem;
+    grid-template-columns: 0 1fr 0;
+    grid-template-areas:
+        "Img Img Img"
+        ". Text ."
+        ". . .";
+    background-color: var(--bg);
+    color: var(--fg);
+
+    picture{
+        grid-area: Img;
+    }
+    .info{
+        grid-area: Text;
+    }
 }

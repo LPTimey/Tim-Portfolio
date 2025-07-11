@@ -10,7 +10,7 @@ const DESCRIPTION: &str = r#"Die Geschichte der Entwicklung dieser Website."#;
 pub const MOD_PATH: &str = module_path!();
 pub fn meta_data() -> ProjectMetadata {
     ProjectMetadata {
-        title_img: link_public!(""),
+        title_img: Box::new((link_public!(""),link_public!(""))),
         name: "Website Development",
         description: DESCRIPTION,
         category: projekte::Category::Programmieren,

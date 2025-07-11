@@ -30,7 +30,7 @@ macro_rules! link_public {
     };
 }
 
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Link(&'static str);
 impl Deref for Link {
     type Target = &'static str;

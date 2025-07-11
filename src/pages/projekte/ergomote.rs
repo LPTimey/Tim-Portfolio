@@ -10,7 +10,7 @@ const DESCRIPTION: &str = r#"//TODO:"#;
 pub const MOD_PATH: &str = module_path!();
 pub fn meta_data() -> ProjectMetadata {
     ProjectMetadata {
-        title_img: link_public!(""),
+        title_img: Box::new(link_public!("")),
         name: "Ergomote",
         description: DESCRIPTION,
         category: projekte::Category::Design3D,
