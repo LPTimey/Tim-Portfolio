@@ -11,6 +11,9 @@
     box-shadow: var(--shadow-default);
 
     @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+        transition: translate 0.25s cubic-bezier(0.68, -0.6, 0.32, 1.6),
+            box-shadow 0.25s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+
         &:hover {
             translate: 0 -0.5rem;
             box-shadow: var(--shadow-hover);
@@ -50,11 +53,16 @@
         ". Category ."
         ". Title ."
         ". Text .";
-    background-color: var(--bg);
-    color: var(--fg);
+    background-color: var(--light);
+    color: var(--dark);
 
     grid-column: span var(--col-span);
     grid-row: span var(--row-span);
+
+    &[reactive-color="true"] {
+        background-color: var(--bg);
+        color: var(--fg);
+    }
 
     picture {
         grid-area: Img;

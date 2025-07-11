@@ -177,6 +177,7 @@ Ich freue mich, wenn du dir einen Eindruck von meiner Arbeit verschaffst. Bei Fr
                                         data: project,
                                         path_to_root: page.path_to_root(),
                                         is_in_grid: true,
+                                        reactive_color: false,
                                     }
                                 ))
                             }
@@ -191,7 +192,7 @@ Ich freue mich, wenn du dir einen Eindruck von meiner Arbeit verschaffst. Bei Fr
                 }
 
                 section.sect.content {
-                    "sdölfakjsdöflkjasdöflkjasödlfkjasöldfkj"
+                    "lorem"
                 }
             }
             (footer())

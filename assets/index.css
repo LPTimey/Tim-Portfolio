@@ -33,6 +33,24 @@
     align-self: end;
     margin-block-end: 7rem;
     color: var(--dark);
+
+    h1 {
+        .fs-large {
+            text-shadow:
+                -1px -1px 0 rgba(from var(--white) r g b / 0.25),
+                1px -1px 0 rgba(from var(--white) r g b / 0.25),
+                -1px 1px 0 rgba(from var(--white) r g b / 0.25),
+                1px 1px 0 rgba(from var(--white) r g b / 0.25);
+        }
+
+        .fw-gigantic {
+            text-shadow:
+                -1px -1px 0 rgba(from var(--white) r g b / 0.5),
+                1px -1px 0 rgba(from var(--white) r g b / 0.5),
+                -1px 1px 0 rgba(from var(--white) r g b / 0.5),
+                1px 1px 0 rgba(from var(--white) r g b / 0.5);
+        }
+    }
 }
 
 #AboutMe {
