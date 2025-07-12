@@ -1,6 +1,6 @@
 use maud::{PreEscaped, Render, html};
 
-use crate::{Link, components::Component, link_public, projekte::ProjectMetadata};
+use crate::{Link, components::Component, link_public};
 use Props::with_props;
 
 #[derive(Debug)]

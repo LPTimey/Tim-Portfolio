@@ -1,5 +1,13 @@
+use maud::PreEscaped;
+
 use crate::{
-    components::{footer::footer, head::head, header::header},
+    components::{
+        Component,
+        footer::footer,
+        head::{default_head, head},
+        header::header,
+        project_table,
+    },
     projekte::ProjectMetadata,
 };
 
@@ -7,11 +15,23 @@ use super::super::*;
 
 const DESCRIPTION: &str =
     r#"Ein Experiment, welches die Wichtigkeit eines Ansprechenden Visual Designs zeigt."#;
-
+const CONTENT: PreEscaped<&'static str> = PreEscaped(
+    r#"
+Im Rahmen dieses Projekts habe ich einen bestehenden Screen einer App oder Website analysiert, 
+nachgebaut und anschließend in drei unterschiedlichen UI-Stilen neugestaltet. 
+Ziel war es, verschiedene Designtrends zu untersuchen und deren Wirkung auf unterschiedliche Zielgruppen zu reflektieren. 
+Neben der gestalterischen Umsetzung lag der Fokus auf der stilistischen Recherche, 
+einer Zielgruppenanalyse sowie der fundierten Begründung des Designprozesses.
+"#,
+);
 pub const MOD_PATH: &str = module_path!();
 pub fn meta_data() -> ProjectMetadata {
     ProjectMetadata {
-        title_img: Box::new(link_public!((path_to_root(mod_path_to_href(MOD_PATH).expect("A valid path").as_path()) + "assets/Screendesign/Styles/title-img.webp").leak())),
+        title_img: Box::new(link_public!(
+            (path_to_root(mod_path_to_href(MOD_PATH).expect("A valid path").as_path())
+                + "assets/Screendesign/Styles/title-img.webp")
+                .leak()
+        )),
         name: "Themen & Stile",
         description: DESCRIPTION,
         category: projekte::Category::Screendesign,
@@ -21,12 +41,42 @@ pub fn meta_data() -> ProjectMetadata {
 }
 
 pub fn page(page: Page) -> maud::Markup {
+    let Component {
+        html: table_html,
+        style: table_style,
+        ..
+    } = project_table::component();
+
     html! {
-        (head("Style","TODO: Add description",page.path_to_root()))
+        head{
+            (default_head("Style","TODO: Add description",page.path_to_root()))
+            link rel="stylesheet" href=(page.path_to_root()+*table_style);
+        }
 
         body{
             (header(page))
-            main{}
+            main{
+                section #Hero{
+                    picture #HeroImg{img draggable="false" src=(page.path_to_root()+*meta_data().title_img.light()) alt="";}
+                }
+                (table_html(project_table::MarkupProps {
+                    title: "UI-Stile im Screendesign".into(),
+                    graphic: html!{
+                        picture{
+                            img loading="lazy" draggable="false" id="OriginalImage"
+                                src=(page.path_to_root()+*link_public!("/assets/Screendesign/Styles/Tim_Ruland_Styles_Screendesign_Original_with_new.webp"))
+                                data-source="https://medium.muz.li/weekly-design-inspiration-368-273380298382" alt="";
+                        }
+                    }.into(),
+                    rows:&[
+                        ("Studienmodul", "Gestaltung").into(),
+                        ("Zeitraum", "Oktober 2023 - Februar 2024").into(),
+                        ("Tools", "").into(),
+                        ("Hochschule", "Technische Hochschule Ingolstadt").into(),
+                    ],
+                    text: CONTENT.into()
+                }))
+            }
             (footer())
         }
     }

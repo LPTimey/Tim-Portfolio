@@ -14,7 +14,8 @@ use crate::{
 use super::super::*;
 
 const DESCRIPTION: &str = r#"Eine Uhr und eine App um Menschen mit Demenz und deren Familie zu helfen ihr Leben sorgloser zu leben."#;
-const CONTENT: PreEscaped<&'static str> = PreEscaped(r#"
+const CONTENT: PreEscaped<&'static str> = PreEscaped(
+    r#"
 <p> Demenz hat tiefgreifende Auswirkungen auf das Leben der Betroffenen und ihrer
     Familienangehörigen.
     Watch out unterstützt die Angehörigen dabei, einen klaren Überblick über die Situation zu
@@ -36,7 +37,8 @@ const CONTENT: PreEscaped<&'static str> = PreEscaped(r#"
     Die App ist simpel und minimal für leichte und schnelle Nutzung.
     Sie bietet einen Überblick, Benachrichtigen & Notruffunktionen.
 </p>
-"#);
+"#,
+);
 pub const MOD_PATH: &str = module_path!();
 pub fn meta_data() -> ProjectMetadata {
     ProjectMetadata {
@@ -109,6 +111,60 @@ pub fn page(page: Page) -> maud::Markup {
                     rows,
                     text: CONTENT.into()
                 }))
+                section.sect.content #WatchSect{
+                    div #WatchGrid{
+                        h2{ "Uhr" }
+                        div #WatchText{
+                            p {
+                                "Da Demenz oft die vertrauten Gewohnheiten und Erinnerungen der Betroffenen am längsten
+                                bewahrt, wurde die Uhr im klassischen, analogen Design gestaltet."
+                            }
+                            p{
+                                "Die Gestaltung zielt darauf ab, der Uhr eine vertraute Bedeutung zu verleihen.
+                                Um den Bedürfnissen der oft älteren Zielgruppe gerecht zu werden,
+                                sind sowohl die Ziffern als auch die Zeiger gut lesbar und groß.
+                                Zudem ist die Uhr ergonomisch abgerundet und aus einem weichen Material
+                                gefertigt, um Verletzungen vorzubeugen."
+                            }
+                            p {
+                                "Die Uhr sendet GPS-Daten, verfügt über eine aktive Fallerkennung und eine
+                                Notruffunktion mit den 2 Knöpfen. Zusätzlich behält sie ihre Funktion als gewöhnliche Analoguhr
+                                mit Krone bei."
+                            }
+                        }
+                        div #WatchInfoCanvas{
+                            canvas{}
+                        }
+                    }
+                }
+                section.sect.content #AppSect{
+                    div #AppGrid{
+                        h2{ "Begleitapp" }
+                        div #AppText{
+                            p {
+                                "Die mit der Uhr verbundene App wurde nach dem Prinzip der Schlichtheit gestaltet."
+                            }
+                            p {
+                                "Die Startseite bietet einen Überblick über die letzten Ereignisse.
+                                Um die Übersichtlichkeit zu gewährleisten, sind diese Ereignisse zusammengefasst,
+                                nach Zeit sortiert und farblich nach Schweregrad kategorisiert.
+                                Außerdem ermöglicht die Übersicht, die uhrtragende Person, gespeicherte Kontakte
+                                oder die Notfallstelle direkt anzurufen."
+                            }
+                            p {
+                                "In der Historie werden neben den aktuellen Ereignissen auch vergangene Ereignisse
+                                angezeigt, die detaillierte Einblicke in frühere Aktivitäten und Notfälle bieten."
+                            }
+                            p {
+                                "Zusätzlich enthält die App eine Karte, mit der die Position der erkrankten Person
+                                sowie die anderer Angehöriger überprüft werden kann."
+                            }
+                        }
+                        div #AppInfoCanvas{
+                            canvas{}
+                        }
+                    }
+                }
             }
             (footer())
         }
