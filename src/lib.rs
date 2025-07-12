@@ -1,5 +1,6 @@
 mod components;
 mod pages;
+
 use std::{fmt::Display, ops::Deref, path::Path};
 
 pub use pages::*;

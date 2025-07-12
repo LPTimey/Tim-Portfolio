@@ -1114,6 +1114,24 @@
     --height: 100dvh;
     height: var(--height);
     overflow: hidden;
+
+    display: grid;
+    grid-template-columns: var(--padding-inline) 1fr var(--padding-inline);
+    grid-template-areas: ". Content .";
+    grid-template-rows: var(--height);
+    position: relative;
+    z-index: 1;
+    isolation: isolate;
+}
+
+#HeroImg {
+    grid-column: 1 / -1;
+    grid-row: 1;
+
+    >img {
+        height: 100%;
+        width: 100%;
+    }
 }
 
 #SiteFooter{

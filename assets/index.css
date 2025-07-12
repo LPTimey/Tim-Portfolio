@@ -1,12 +1,4 @@
 #Hero {
-    display: grid;
-    grid-template-columns: var(--padding-inline) 1fr var(--padding-inline);
-    grid-template-areas: ". Content .";
-    grid-template-rows: var(--height);
-    position: relative;
-    z-index: 1;
-    isolation: isolate;
-
     &::after {
         content: "";
         position: absolute;
@@ -15,16 +7,6 @@
         height: auto;
         z-index: -1;
         background: linear-gradient(rgba(0 0 0 / 0) 75%, var(--bg));
-    }
-}
-
-#HeroImg {
-    grid-column: 1 / -1;
-    grid-row: 1;
-
-    >img {
-        height: 100%;
-        width: 100%;
     }
 }
 

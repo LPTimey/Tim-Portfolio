@@ -1,0 +1,93 @@
+:has(>#GeneralInfo) {
+    container: GenInfoCont / inline-size;
+}
+
+#GeneralInfo {
+    display: grid;
+    gap: 1rem;
+    grid-template-areas:
+        "Graphic Table"
+        "Graphic Content";
+    grid-template-rows: min-content 1fr;
+}
+
+#TlDrTable {
+    grid-area: Table;
+    width: fit-content;
+    height: fit-content;
+}
+
+#TlDrTable {
+    caption-side: bottom;
+    border-collapse: collapse;
+    border-radius: var(--border-r);
+    /* border: 1px solid rgba(0, 0, 0, 0.1); */
+
+    tr {
+        border-color: inherit;
+        border-style: solid;
+        border-width: 0;
+        border-bottom: 1px solid rgb(from var(--fg) r g b / 0.25);
+    }
+
+    th {
+        font-weight: 700;
+    }
+
+    > :not(caption)>*>th {
+        padding: .5rem .5rem;
+        text-align: start;
+    }
+
+    > :not(caption)>*>td {
+        padding: .5rem .5rem;
+        text-align: start;
+    }
+}
+
+#Graphic {
+    grid-area: Graphic;
+    justify-self: center;
+    align-self: center;
+    overflow: hidden;
+    border-radius: var(--border-r);
+    width: 100%;
+    height: 100%;
+    >*{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+
+#IntroContent {
+    grid-area: Content;
+    height: 100%;
+}
+
+@container GenInfoCont (width < 150ch) {
+    #GeneralInfo {
+        display: grid;
+        grid-template-areas:
+            "Graphic Table"
+            "Content Content";
+    }
+
+    #TlDrTable {
+        margin: auto;
+    }
+}
+
+@container GenInfoCont (width < 107ch) {
+    #GeneralInfo {
+        display: grid;
+        grid-template-areas:
+            "Graphic"
+            "Table"
+            "Content";
+    }
+
+    #TlDrTable {
+        margin: revert;
+    }
+}
