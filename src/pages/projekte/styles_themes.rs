@@ -1,13 +1,7 @@
 use maud::PreEscaped;
 
 use crate::{
-    components::{
-        Component,
-        footer::footer,
-        head::{default_head, head},
-        header::header,
-        project_table,
-    },
+    components::{Component, footer::footer, head::default_head, header::header, project_table},
     projekte::ProjectMetadata,
 };
 
