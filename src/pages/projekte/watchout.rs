@@ -2,11 +2,12 @@ use maud::PreEscaped;
 
 use crate::{
     components::{
-        Component,
+        self, Component,
         footer::footer,
         head::default_head,
         header::header,
         project_table::{self},
+        three_js_setup::import_map,
     },
     projekte::ProjectMetadata,
 };
@@ -81,10 +82,12 @@ pub fn page(page: Page) -> maud::Markup {
     let video_href = page.path_to_root()
         + *link_public!("assets/Design der Mensch Maschine Schnittstelle/WatchOut/Video720_1.mp4");
 
-    html! {
+    components::page::page(html! {
         head{
-            (default_head("Watchout","TODO: Add description",page.path_to_root()))
+            (import_map(page))
+            (default_head("WatchOut - Tim Ruland","Die ProduktKonzeptSeite von dem WatchOut-Gruppenprojekt",page.path_to_root()))
             link rel="stylesheet" href=(page.path_to_root()+*table_style);
+            script type="module" src=(page.path_to_root()+*link_public!("watchout.js")){}
         }
 
         body{
@@ -132,9 +135,7 @@ pub fn page(page: Page) -> maud::Markup {
                                 mit Krone bei."
                             }
                         }
-                        div #WatchInfoCanvas{
-                            canvas{}
-                        }
+                        canvas #WatchInfoCanvas{}
                     }
                 }
                 section.sect.content #AppSect{
@@ -168,5 +169,5 @@ pub fn page(page: Page) -> maud::Markup {
             }
             (footer())
         }
-    }
+    })
 }

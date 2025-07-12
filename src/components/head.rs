@@ -1,6 +1,6 @@
 use std::path::PathBuf;
 
-use maud::html;
+use maud::{html, PreEscaped};
 use strum::IntoEnumIterator;
 
 use crate::{Page, SCRIPT_MJS, STYLE_CSS};
@@ -20,6 +20,10 @@ pub fn default_head(
         link rel="stylesheet" href=(path_to_root.clone() + *STYLE_CSS );
         title{(title)}
         script type="module" src=(path_to_root.clone() + *SCRIPT_MJS){}
+        link rel="shortcut icon" href=(path_to_root.clone()+"assets/Lebenslauf/schönes bild klein@0,25x.png") type="image/x-icon";
+        script{
+            (PreEscaped(format!("window.pathToRoot='{}';",path_to_root)))
+        }
 
         @for page in Page::iter() {
             link rel="prefetch" href=(path_to_root.to_string()+&page.to_href().display().to_string());
