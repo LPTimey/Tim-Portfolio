@@ -1,4 +1,4 @@
-use std::path::PathBuf;
+use std::{fmt::Debug, path::PathBuf};
 
 use strum::Display;
 
@@ -21,8 +21,18 @@ pub enum Category {
     Programmieren,
     ProduktDesign,
 }
+impl PartialOrd for Category {
+    fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
+        Some(self.cmp(other))
+    }
+}
+impl Ord for Category {
+    fn cmp(&self, other: &Self) -> std::cmp::Ordering {
+        self.to_string().cmp(&other.to_string())
+    }
+}
 
-pub trait TitleImg {
+pub trait TitleImg: Debug {
     fn light(&self) -> Link;
     fn dark(&self) -> Link;
 }
@@ -52,6 +62,18 @@ impl TitleImg for (Link, Link) {
     }
 }
 
+trait SortProjects {
+    fn sort_by_name_ref(&mut self) -> &mut Self;
+    fn sort_by_name(mut self) -> Self
+    where
+        Self: Sized,
+    {
+        let _ = self.sort_by_name_ref();
+        self
+    }
+}
+
+#[derive(Debug)]
 pub struct ProjectMetadata {
     pub path: PathBuf,
     pub title_img: Box<dyn TitleImg>,
@@ -72,5 +94,17 @@ impl ProjectMetadata {
             Page::Ergomote => Some(ergomote::meta_data()),
             Page::WebDev => Some(webdev::meta_data()),
         }
+    }
+}
+impl SortProjects for Vec<ProjectMetadata> {
+    fn sort_by_name_ref(&mut self) -> &mut Self {
+        self.sort_by(|a, b| a.name.cmp(b.name));
+        self
+    }
+}
+impl SortProjects for [ProjectMetadata] {
+    fn sort_by_name_ref(&mut self) -> &mut Self {
+        self.sort_by(|a, b| a.name.cmp(b.name));
+        self
     }
 }

@@ -64,7 +64,7 @@ window.addEventListener("scroll", (ev) => {
 
 //#region noDrag
 
-let noDrags = document.querySelectorAll('[draggable="false"]');
+const noDrags = document.querySelectorAll('[draggable="false"]');
 
 noDrags.forEach(el => {
     let isDragging = false;
@@ -83,6 +83,32 @@ noDrags.forEach(el => {
 
 //#endregion noDrag
 
+//#region DodgeHeader
+
+const dodgers = document.querySelectorAll(".dodge-header");
+const headerBar = /** @type {HTMLElement} */(document.querySelector("#SiteHeader"));
+
+window.addEventListener("DOMContentLoaded", () => {
+    if (!dodgers || dodgers.length === 0 || !headerBar) {
+        return;
+    }
+    const fn = () => {
+        dodgers.forEach(el => {
+            if (!(el instanceof HTMLElement)) { return; }
+            if (headerBar.clientHeight >= window.innerHeight) {
+                el.style.height = "0";
+                return;
+            }
+            el.style.height = String(headerBar.clientHeight) + "px";
+        });
+    };
+    fn()
+    window.setInterval(fn, 500);
+})
+
+//#endregion DodgeHeader
+
+//#region Parsing
 /**
  * 
  * @param {string} jsonc 
@@ -98,6 +124,9 @@ export function parseJSONC(jsonc) {
     // JSON parsen
     return JSON.parse(jsonc);
 }
+//#endregion Parsing
+
+//#region Truncating
 
 /**
  * 
@@ -174,9 +203,9 @@ export function extractRangeByLineColumn(text, from, to) {
 
     return extracted.join('\n');
 }
+//#endregion Truncating
 
-
-
+//#region ?
 /**
  * 
  * @param {HTMLElement} el 
@@ -191,16 +220,9 @@ export const changeEvent = new Event('change', {
     cancelable: true,
     composed: true,
 });
+//#endregion ?
 
-const tooltips = document.querySelectorAll("[data-tooltip]")
-tooltips.forEach((el) => {
-    let tooltip = document.createElement("div");
-    tooltip.classList.add("tooltip");
-    tooltip.innerHTML = el.getAttribute("data-tooltip") ?? tooltip.innerHTML;
-    el.appendChild(tooltip);
-});
-// console.log(tooltips)
-
+//#region HoverBorder
 const [...hoverBorderTargets] = document.querySelectorAll("[hover-border-target]");
 hoverBorderTargets
     .map(el =>
@@ -235,3 +257,4 @@ hoverBorderMultiTargets
                 targets?.forEach(target => { target?.classList.remove("accent-border"); })
             })
         });
+//#endregion HoverBorder

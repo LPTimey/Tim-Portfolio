@@ -1,5 +1,8 @@
-use crate::components::{
-    Component, footer::footer, head::default_head, header::header, project_card,
+use maud::PreEscaped;
+
+use crate::{
+    components::{Component, footer::footer, head::default_head, header::header, project_card},
+    projekte::SortProjects,
 };
 
 use super::super::*;
@@ -16,21 +19,28 @@ pub fn page(page: Page) -> maud::Markup {
     html! {
         head{
             (default_head("Projekte","TODO: Add description",page.path_to_root()))
+            style{
+                (PreEscaped(include_asset!("projekte.css")))
+            }
             link rel="stylesheet" href=(page.path_to_root() + *card_style );
         }
 
         body{
             (header(page))
+            div."dodge-header"{}
             main{
-                @for project in Page::projects(){
+
+                section #Projects .content{
+                    @for project in Page::projects().sort_by_name(){
                     (project_card_html(
                         project_card::MarkupProps {
                             data: project,
                             path_to_root: page.path_to_root(),
-                            is_in_grid: false,
-                            reactive_color: false,
+                            is_in_grid: true,
+                            reactive_color: true,
                         }
                     ))
+                    }
                 }
             }
             (footer())

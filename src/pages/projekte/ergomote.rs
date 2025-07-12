@@ -5,12 +5,16 @@ use crate::{
 
 use super::super::*;
 
-const DESCRIPTION: &str = r#"//TODO:"#;
+const DESCRIPTION: &str = r#"Eine Fernbedienung, die durch komfortable Form, pragmatische Bedienung und bewusst hochwertiger Materialität, die Nutzer zum Halten einlädt und mit ihrer Stabilität überzeugt."#;
 
 pub const MOD_PATH: &str = module_path!();
 pub fn meta_data() -> ProjectMetadata {
     ProjectMetadata {
-        title_img: Box::new(link_public!((path_to_root(mod_path_to_href(MOD_PATH).expect("A valid path").as_path()) + ".TODO").leak())),
+        title_img: Box::new(link_public!(
+            (path_to_root(mod_path_to_href(MOD_PATH).expect("A valid path").as_path())
+                + "assets/Ergomote/render3.png")
+                .leak()
+        )),
         name: "Ergomote",
         description: DESCRIPTION,
         category: projekte::Category::Design3D,

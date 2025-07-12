@@ -34,7 +34,7 @@ macro_rules! link_public {
     };
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub struct Link(&'static str);
 impl Deref for Link {
     type Target = &'static str;
@@ -59,6 +59,7 @@ impl Display for Link {
     }
 }
 
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord)]
 pub struct LightDark<T> {
     pub light: T,
     pub dark: T,

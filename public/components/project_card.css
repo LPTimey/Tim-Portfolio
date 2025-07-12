@@ -64,7 +64,7 @@
     grid-row: span var(--row-span);
 
     &[reactive-color="true"] {
-        background-color: var(--bg);
+        background-color: light-dark(var(--bg),var(--bg-2));
         color: var(--fg);
     }
 
@@ -93,5 +93,6 @@
 
     p {
         grid-area: Text;
+        padding-bottom: var(--padding);
     }
 }

@@ -689,32 +689,32 @@
 /* #endregion */
 
 /* #region Margin Block Helper Classes (für Abstand oben/unten) */
-.fmb-tiny.fmb-tiny {
-    margin-block: var(--fmb-tiny);
+.mb-tiny.mb-tiny {
+    margin-block: var(--mb-tiny);
 }
 
-.fmb-small.fmb-small {
-    margin-block: var(--fmb-small);
+.mb-small.mb-small {
+    margin-block: var(--mb-small);
 }
 
-.fmb-normal.fmb-normal {
-    margin-block: var(--fmb-normal);
+.mb-normal.mb-normal {
+    margin-block: var(--mb-normal);
 }
 
-.fmb-medium.fmb-medium {
-    margin-block: var(--fmb-medium);
+.mb-medium.mb-medium {
+    margin-block: var(--mb-medium);
 }
 
-.fmb-large.fmb-large {
-    margin-block: var(--fmb-large);
+.mb-large.mb-large {
+    margin-block: var(--mb-large);
 }
 
-.fmb-gigantic.fmb-gigantic {
-    margin-block: var(--fmb-gigantic);
+.mb-gigantic.mb-gigantic {
+    margin-block: var(--mb-gigantic);
 }
 
-.fmb-mega.fmb-mega {
-    margin-block: var(--fmb-mega);
+.mb-mega.mb-mega {
+    margin-block: var(--mb-mega);
 }
 
 /* #endregion */
@@ -804,13 +804,13 @@
     --lh-mega: 2.0;
 
     /* Margin Block (Abstand nach oben/unten) */
-    --fmb-tiny: 0.5em;
-    --fmb-small: 0.75em;
-    --fmb-normal: 1em;
-    --fmb-medium: 1.25em;
-    --fmb-large: 1.5em;
-    --fmb-gigantic: 2em;
-    --fmb-mega: 2.5em;
+    --mb-tiny: 0.5em;
+    --mb-small: 0.75em;
+    --mb-normal: 1em;
+    --mb-medium: 1.25em;
+    --mb-large: 1.5em;
+    --mb-gigantic: 2em;
+    --mb-mega: 2.5em;
 
     /* font-family: "JetBrains Mono", var(--backup-fonts); */
     font-family: "Roboto", var(--backup-fonts);

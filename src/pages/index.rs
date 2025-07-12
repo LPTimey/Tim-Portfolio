@@ -83,7 +83,7 @@ pub fn page(page: Page) -> maud::Markup {
                     // picture #HeroImg{img draggable="false" src=(*placeholder_img!(600,400)) alt="";}
                     div #HeroImg{(scroll_img_html(scrolling_img::MarkupProps { img: Link((page.path_to_root()+*link_public!("assets/Title-img.webp")).leak()), rows: 3, columns: 3, duration: Duration::from_secs(50) }))}
                     div ."hero-content"{
-                        h1."fmb-large"{
+                        h1."mb-large"{
                             span."fs-large"."lh-tight"{ "Willkommen, hier" } br;
                             span.hero."lh-normal"."fw-gigantic"{ "wo die Details scheinen" }
                         }
@@ -171,6 +171,11 @@ Ich freue mich, wenn du dir einen Eindruck von meiner Arbeit verschaffst. Bei Fr
 
                 section #Projects .sect."accent-background"{
                     div .cut."top-cut" {(PreEscaped(include_public!("assets/noise/wave.svg")))}
+                    div.content."mb-gigantic"{
+                        h2.heading{
+                            "Meine Top Projekte"
+                        }
+                    }
                     div .content #ProjectList{
                         @for project in Page::projects(){
                             @if project.favorite {
@@ -187,14 +192,14 @@ Ich freue mich, wenn du dir einen Eindruck von meiner Arbeit verschaffst. Bei Fr
                     }
                     div .content #AllProjects {
                         div.line{}
-                        a draggable="false" class="btn secondary-btn fw-medium shadow" { "Alle Projekte" }
+                        a draggable="false" href=(page.path_to_root()+Page::Projekte.to_href().to_str().expect("A valid path")) class="btn secondary-btn fw-medium shadow" { "Alle Projekte" }
                         div.line{}
                     }
                     div .cut."bot-cut" {(PreEscaped(include_public!("assets/noise/waves-opacity.svg")))}
                 }
 
                 section.sect.content {
-                    "lorem"
+                    ""
                 }
             }
             (footer())
