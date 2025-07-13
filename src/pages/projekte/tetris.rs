@@ -42,7 +42,7 @@ pub fn page(page: Page) -> maud::Markup {
 
     html! {
         head{
-            (default_head("Tetris","TODO: Add description",page.path_to_root()))
+            (default_head("Tetris","//TODO: Add description",page.path_to_root()))
             link rel="stylesheet" href=(page.path_to_root()+*table_style);
         }
 
@@ -63,7 +63,7 @@ pub fn page(page: Page) -> maud::Markup {
                     rows:&[
                         ("Studienmodul", "TMMIP").into(),
                         ("Zeitraum", "Oktober 2024 - Februar 2025").into(),
-                        ("Tools", "").into(),
+                        ("Tools", "Fritzing, VSCode, ArduinoIDE, C++, git, GitHub").into(),
                         ("Hochschule", "Technische Hochschule Ingolstadt").into(),
                     ],
                     text: CONTENT.into()

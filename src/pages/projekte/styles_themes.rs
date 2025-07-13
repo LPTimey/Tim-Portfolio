@@ -65,7 +65,7 @@ pub fn page(page: Page) -> maud::Markup {
                     rows:&[
                         ("Studienmodul", "Gestaltung").into(),
                         ("Zeitraum", "Oktober 2023 - Februar 2024").into(),
-                        ("Tools", "").into(),
+                        ("Tools", "Illustrator, git, GitHub").into(),
                         ("Hochschule", "Technische Hochschule Ingolstadt").into(),
                     ],
                     text: CONTENT.into()

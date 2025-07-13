@@ -75,7 +75,7 @@ pub fn page(page: Page) -> maud::Markup {
                                         href="https://niiiicolaas.github.io/Nicolas-Weber-Portfolio/" target="_blank"
                                         rel="noopener noreferrer">
                                         Nicolas Weber</a>"#)).into(),
-        ("Tools", "DMMS").into(),
+        ("Tools", "Illustrator, Photoshop, Premiere Pro, XD, Audacity, Blender, git, GitHub").into(),
         ("Hochschule", "Technische Hochschule Ingolstadt").into(),
     ];
 

@@ -84,6 +84,7 @@ export function addLight(scene, position) {
     const color = 0xFFFFFF;
     const intensity = 2;
     const light = new THREE.DirectionalLight(color, intensity);
+    // @ts-ignore
     light.position.set(position.x, position.y, position.z);
     scene.add(light);
 }
@@ -106,7 +107,7 @@ export function rendererNeedsResize(renderer) {
 /**
  * 
  * @param {THREE.WebGLRenderer} renderer 
- * @param {THREE.Camera} camera 
+ * @param {THREE.PerspectiveCamera | THREE.OrthographicCamera} camera 
  * @returns if resize was necessary
  */
 export function resize(renderer, camera) {
@@ -120,9 +121,13 @@ export function resize(renderer, camera) {
         renderer.setPixelRatio(pixelRatio);
         renderer.setSize(width, height, false);
 
+        // @ts-ignore
         if (camera.isPerspectiveCamera) {
+            camera =/** @type {THREE.PerspectiveCamera} */(camera)
             camera.aspect = width / height;
+        // @ts-ignore
         } else if (camera.isOrthographicCamera) {
+            camera =/** @type {THREE.OrthographicCamera} */(camera)
             const frustumHeight = camera.top - camera.bottom;
             const aspect = width / height;
             const frustumWidth = frustumHeight * aspect;

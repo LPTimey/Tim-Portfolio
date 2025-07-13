@@ -2,16 +2,16 @@
     "compilerOptions": {
         "target": "esnext",
         "module": "esnext",
-        "baseUrl": "./public",
+        "baseUrl": "./public/",
         "paths": {
             "three": [
-                "./vendor/three.js/three.js r176/build/three.module.js"
+                "./vendor/three.js/three.js-r178/build/three.module.js"
             ],
             "three/addons/*": [
-                "./vendor/three.js/three.js r176/examples/jsm/*"
+                "./vendor/three.js/three.js-r178/examples/jsm/*"
             ],
             "three/fonts/*": [
-                "./vendor/three.js/three.js r176/examples/fonts/*"
+                "./vendor/three.js/three.js-r178/examples/fonts/*"
             ]
         },
         "strict": true,
