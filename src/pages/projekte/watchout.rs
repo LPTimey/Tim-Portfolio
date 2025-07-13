@@ -19,11 +19,11 @@ const CONTENT: PreEscaped<&'static str> = PreEscaped(
     r#"
 <p> Demenz hat tiefgreifende Auswirkungen auf das Leben der Betroffenen und ihrer
     Familienangehörigen.
-    Watch out unterstützt die Angehörigen dabei, einen klaren Überblick über die Situation zu
+    WatchOut unterstützt die Angehörigen dabei, einen klaren Überblick über die Situation zu
     behalten und schnell eingreifen zu können.
 </p>
 <p>
-    Watch Out besteht aus zwei Teilen: Uhr & Begleitapp.
+    WatchOut besteht aus zwei Teilen: Uhr & Begleitapp.
 </p>
 <p>
     Da Demenz oft die vertrauten Gewohnheiten und Erinnerungen der Betroffenen am längsten
@@ -48,7 +48,7 @@ pub fn meta_data() -> ProjectMetadata {
                 "assets/Design der Mensch Maschine Schnittstelle/WatchOut/title-img-flipp-bg.webp")
                 .leak()
             )),
-        name: "Watch Out",
+        name: "WatchOut",
         description: DESCRIPTION,
         category: projekte::Category::DMMS,
         favorite: true,
@@ -104,7 +104,7 @@ pub fn page(page: Page) -> maud::Markup {
                     }
                 }
                 (table_html(project_table::MarkupProps {
-                    title: "Watchout: Motivation & Generelles".into(),
+                    title: "WatchOut: Motivation & Generelles".into(),
                     graphic: html!{
                         video controls{
                             source src=(video_href) type="video/mp4";
