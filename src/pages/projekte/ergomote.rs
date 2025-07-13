@@ -67,7 +67,7 @@ pub fn page(page: Page) -> maud::Markup {
                                         rel="noopener noreferrer">
                                         Nicolas Weber</a>
                                     & <a class="link link-active underline"
-                                        href="//TODO:" target="_blank"
+                                        href="https://github.com/niroet" target="_blank"
                                         rel="noopener noreferrer">
                                         Niklas Röthlingshöfer</a>"#)).into(),
                         ("Zeitraum", "Mai 2025 - Juni 2025").into(),
