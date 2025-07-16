@@ -7,6 +7,16 @@
     transform: translateX(-50%);
     animation: var(--duration, 50s) linear 0s infinite running scroll;
     z-index: -2;
+
+    picture {
+        display: block;
+
+        img {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+    }
 }
 
 @keyframes scroll {

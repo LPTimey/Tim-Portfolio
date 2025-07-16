@@ -6,6 +6,7 @@ pub mod footer;
 pub mod head;
 pub mod header;
 pub mod hero;
+pub mod img;
 pub mod page;
 pub mod project_card;
 pub mod project_table;

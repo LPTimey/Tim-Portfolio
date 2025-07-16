@@ -1,7 +1,7 @@
 use maud::PreEscaped;
 
 use crate::{
-    components::{Component, footer::footer, head::default_head, header::header, project_table},
+    components::{footer::footer, head::default_head, header::header, img, project_table, Component},
     projekte::ProjectMetadata,
 };
 
@@ -51,7 +51,7 @@ pub fn page(page: Page) -> maud::Markup {
             (header(page))
             main{
                 section #Hero{
-                    picture #HeroImg{img draggable="false" src=(page.path_to_root()+*meta_data().title_img.light()) alt="";}
+                    picture #HeroImg{(img::img (Link((page.path_to_root()+*meta_data().title_img.light()).leak()),"",None,&[],None))}
                 }
                 (table_html(project_table::MarkupProps {
                     title: "UI-Stile im Screendesign".into(),

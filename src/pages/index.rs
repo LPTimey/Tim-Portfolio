@@ -4,8 +4,7 @@ use maud::PreEscaped;
 
 use crate::{
     components::{
-        self, Component, footer::footer, head::default_head, header::header, project_card,
-        scrolling_img,
+        self, footer::footer, head::default_head, header::header, img::img, project_card, scrolling_img, Component
     },
     include_logo, include_public,
 };
@@ -15,7 +14,7 @@ pub const MOD_PATH: &str = module_path!();
 
 pub const STYLE: &str = include_asset!("index.css");
 pub const SCRIPT: &str = include_asset!("index.js");
-pub const ICH: Link = link_public!("assets/Lebenslauf/schönes bild.JPG");
+pub const ICH: Link = link_public!("assets/Lebenslauf/schönes bild klein bg@0,33x.jpg");
 
 pub fn page(page: Page) -> maud::Markup {
     let Component {
@@ -71,7 +70,7 @@ pub fn page(page: Page) -> maud::Markup {
         head{
             (default_head("Home","TODO: Add description", page.path_to_root()))
             style { (PreEscaped(STYLE)) }
-            link rel="stylesheet" href=(page.path_to_root() + *card_style );
+            link rel="stylesheet" defer href=(page.path_to_root() + *card_style );
             // script type="module" src=(page.path_to_root() + *card_script ){}
             link rel="stylesheet" href=(page.path_to_root() + *scroll_img_style );
         }
@@ -121,7 +120,7 @@ Ich freue mich, wenn du dir einen Eindruck von meiner Arbeit verschaffst. Bei Fr
                                         "2023 - Heute"
                                     }
                                     div ."timeline-content" {
-                                        h4 { "Technische Hochschule Ingolstadt" }
+                                        h3 { "Technische Hochschule Ingolstadt" }
                                         p { "UX Design Studium (B.Sc.)" }
                                     }
                                 }
@@ -130,7 +129,7 @@ Ich freue mich, wenn du dir einen Eindruck von meiner Arbeit verschaffst. Bei Fr
                                         "2020 - 2022"
                                     }
                                     div ."timeline-content" {
-                                        h4{ "FOS/BOS Scheyern" }
+                                        h3{ "FOS/BOS Scheyern" }
                                         p{"Technik-Zweig"}
                                     }
                                 }
@@ -139,7 +138,7 @@ Ich freue mich, wenn du dir einen Eindruck von meiner Arbeit verschaffst. Bei Fr
                                         "2014 - 2020"
                                     }
                                     div ."timeline-content" {
-                                        h4 { "Georg-Hipp Realschule" }
+                                        h3 { "Georg-Hipp Realschule" }
                                         p { "Mathematik-Zweig" }
                                     }
                                 }
@@ -149,7 +148,7 @@ Ich freue mich, wenn du dir einen Eindruck von meiner Arbeit verschaffst. Bei Fr
                             div #SkillCategories {
                                 @for (i,category) in skills.iter().enumerate(){
                                     div .category{
-                                        h4 ."category-title"."body-strong" { (category.0) }
+                                        h3 ."category-title"."body-strong" { (category.0) }
                                         ul."skills-list"{
                                             @for (j,svg) in category.1.iter().enumerate() {
                                                 li ."skill-icon"{

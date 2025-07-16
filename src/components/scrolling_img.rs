@@ -1,12 +1,12 @@
 use maud::{PreEscaped, html};
 
-use crate::{Link, components::Component, link_public};
+use crate::{components::{img, Component}, link_public, Link};
 
 use Props::with_props;
 
 #[with_props]
 fn markup(img: Link, rows: u8, columns: u8, duration: std::time::Duration) -> maud::Markup {
-    let imgs = html! {picture{img draggable="false" src=(img);}}
+    let imgs = html! {picture{(img::img(img, "",None,&[],None))}}
         .into_string()
         .repeat(rows as usize * columns as usize);
 

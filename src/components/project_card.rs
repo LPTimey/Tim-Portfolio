@@ -1,6 +1,11 @@
 use maud::html;
 
-use crate::{Link, components::Component, link_public, projekte::ProjectMetadata};
+use crate::{
+    Link,
+    components::{Component, img},
+    link_public,
+    projekte::ProjectMetadata,
+};
 use Props::with_props;
 
 #[with_props]
@@ -14,8 +19,8 @@ fn markup(
         a ."project-card" draggable="false" "in-grid"=(is_in_grid) href=(path_to_root + &data.path.display().to_string()) {
             div ."pjc-grid" "reactive-color"=(reactive_color) {
                 picture{
-                    img draggable="false" ."light-only" loading="lazy" src=(*data.title_img.light());
-                    img draggable="false" ."dark-only" loading="lazy" src=(*data.title_img.dark());
+                    (img::img(data.title_img.light(), "", None, &["light-only"], None))
+                    (img::img(data.title_img.dark(), "", None, &["dark-only"], None))
                 }
                 h3 .subhead { (data.name) }
                 h4 { (data.category) }

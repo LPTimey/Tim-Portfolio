@@ -2,8 +2,10 @@ use maud::PreEscaped;
 
 use crate::{
     components::{
-        self, footer::footer, head::default_head, header::header, project_table, Component
-    }, placeholder_img, projekte::ProjectMetadata
+        self, Component, footer::footer, head::default_head, header::header, img, project_table,
+    },
+    placeholder_img,
+    projekte::ProjectMetadata,
 };
 
 use super::super::*;
@@ -45,14 +47,13 @@ pub fn page(page: Page) -> maud::Markup {
             (header(page))
             main{
                 section #Hero{
-                    picture #HeroImg{img draggable="false" src=(page.path_to_root()+*meta_data().title_img.light()) alt="";}
+                    picture #HeroImg{(img::img (Link((page.path_to_root()+*meta_data().title_img.light()).leak()),"",None,&[],None))}
                 }
                 (table_html(project_table::MarkupProps {
                     title: "//TODO:".into(),
                     graphic: html!{
                         picture{
-                            img loading="lazy" draggable="false"
-                                src=(page.path_to_root()+*link_public!("assets/Ergomote/render.png")) alt="";
+                            (img::img (Link((page.path_to_root()+*link_public!("assets/Ergomote/render.png")).leak()),"",None,&[],None))
                         }
                     }.into(),
                     rows:&[

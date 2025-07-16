@@ -1,8 +1,11 @@
 mod components;
 mod pages;
 
-use std::{fmt::Display, ops::Deref, path::Path};
+use std::{
+    fmt::Display, fs::{self, File}, io::BufReader, ops::Deref, path::{Path, PathBuf}
+};
 
+use image::ImageReader;
 pub use pages::*;
 
 #[macro_export]
@@ -37,6 +40,46 @@ macro_rules! link_public {
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub struct Link(&'static str);
+impl Link {
+    pub fn exists(&self) -> bool {
+        PathBuf::from(self.0).exists()
+    }
+    pub fn get_img_dimensions(&self) -> Option<(usize, usize)> {
+        let path = self.into_public_path();
+
+        if !path.exists() {
+            return None;
+        }
+
+        let file = std::fs::File::open(path).ok()?;
+        let reader = std::io::BufReader::new(file);
+
+        let image = ImageReader::new(reader)
+            .with_guessed_format()
+            .ok()?
+            .into_dimensions()
+            .ok()?;
+
+        Some((image.0 as usize, image.1 as usize))
+    }
+    pub fn get_img_dimensions_panic(&self)->(usize, usize){
+        self.get_img_dimensions().expect("a valid img")
+    }
+    /// Entfernt führende ../ oder ./ und prependet "public/"
+    pub fn into_public_path(&self) -> PathBuf {
+        let mut cleaned = self.0;
+
+        // Entferne führende "../" oder "./"
+        while cleaned.starts_with("../") {
+            cleaned = &cleaned[3..];
+        }
+        if cleaned.starts_with("./") {
+            cleaned = &cleaned[2..];
+        }
+
+        Path::new("public").join(cleaned)
+    }
+}
 impl Deref for Link {
     type Target = &'static str;
 
@@ -90,4 +133,20 @@ pub fn capitalize(str: &str) -> String {
         })
         .collect::<Vec<_>>()
         .join(" ")
+}
+
+/// Entfernt `.` und `..` sauber aus Pfaden (ohne zu canonicalizen)
+fn normalize_path(path: &Path) -> PathBuf {
+    let mut result = PathBuf::new();
+    for comp in path.components() {
+        use std::path::Component;
+        match comp {
+            Component::ParentDir => {
+                result.pop();
+            }
+            Component::CurDir => {}
+            other => result.push(other.as_os_str()),
+        }
+    }
+    result
 }
