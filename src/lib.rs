@@ -42,7 +42,7 @@ macro_rules! link_public {
 pub struct Link(&'static str);
 impl Link {
     pub fn exists(&self) -> bool {
-        PathBuf::from(self.0).exists()
+        self.into_public_path().exists()
     }
     pub fn get_img_dimensions(&self) -> Option<(usize, usize)> {
         let path = self.into_public_path();
