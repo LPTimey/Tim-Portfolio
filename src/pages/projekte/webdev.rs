@@ -1,4 +1,3 @@
-use maud::PreEscaped;
 
 use crate::{
     components::{self, footer::footer, head::default_head, header::header, project_table, Component}, placeholder_img, projekte::ProjectMetadata, LightDark

@@ -4,7 +4,6 @@ use crate::{
     components::{
         self, Component, footer::footer, head::default_head, header::header, img, project_table,
     },
-    placeholder_img,
     projekte::ProjectMetadata,
 };
 

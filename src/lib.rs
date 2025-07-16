@@ -2,7 +2,7 @@ mod components;
 mod pages;
 
 use std::{
-    fmt::Display, fs::{self, File}, io::BufReader, ops::Deref, path::{Path, PathBuf}
+    fmt::Display, ops::Deref, path::{Path, PathBuf}
 };
 
 use image::ImageReader;
@@ -133,20 +133,4 @@ pub fn capitalize(str: &str) -> String {
         })
         .collect::<Vec<_>>()
         .join(" ")
-}
-
-/// Entfernt `.` und `..` sauber aus Pfaden (ohne zu canonicalizen)
-fn normalize_path(path: &Path) -> PathBuf {
-    let mut result = PathBuf::new();
-    for comp in path.components() {
-        use std::path::Component;
-        match comp {
-            Component::ParentDir => {
-                result.pop();
-            }
-            Component::CurDir => {}
-            other => result.push(other.as_os_str()),
-        }
-    }
-    result
 }

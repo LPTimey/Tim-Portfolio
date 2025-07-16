@@ -30,15 +30,3 @@ pub fn default_head(
         }
     }
 }
-
-pub fn head(
-    title: &str,
-    description: &str,
-    path_to_root: impl Into<PathBuf>,
-) -> maud::Markup {
-    html!(
-        head{
-            (default_head(title, description, path_to_root))
-        }
-    )
-}

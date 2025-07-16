@@ -4,7 +4,7 @@ use maud::PreEscaped;
 
 use crate::{
     components::{
-        self, footer::footer, head::default_head, header::header, img::img, project_card, scrolling_img, Component
+        self, footer::footer, head::default_head, header::header, project_card, scrolling_img, Component
     },
     include_logo, include_public,
 };
