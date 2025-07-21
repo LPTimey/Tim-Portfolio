@@ -1,7 +1,7 @@
 use maud::PreEscaped;
 
 use crate::{
-    components::{Component, footer::footer, head::default_head, header::header, project_card},
+    components::{footer::footer, head::default_head, header::header, page, project_card, Component},
     projekte::SortProjects,
 };
 
@@ -16,7 +16,7 @@ pub fn page(page: Page) -> maud::Markup {
         ..
     } = project_card::component();
 
-    html! {
+    page::page(page.path_to_root(),html! {
         head{
             (default_head("Projekte","TODO: Add description",page.path_to_root()))
             style{
@@ -45,5 +45,5 @@ pub fn page(page: Page) -> maud::Markup {
             }
             (footer())
         }
-    }
+    })
 }

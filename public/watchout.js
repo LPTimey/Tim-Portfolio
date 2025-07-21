@@ -62,8 +62,9 @@ export async function initInfoSpin() {
 
         requestAnimationFrame(animate);
 
-
-        resize(renderer, camera);
+        if (rendererNeedsResize(renderer)) {
+            resize(renderer, camera);
+        }
 
         // required if controls.enableDamping or controls.autoRotate are set to true
         controls.update();
@@ -71,6 +72,7 @@ export async function initInfoSpin() {
         renderer.render(scene, camera);
 
     }
+    renderer.render(scene, camera);
     animate()
 }
 
@@ -112,37 +114,31 @@ export function rendererNeedsResize(renderer) {
  */
 export function resize(renderer, camera) {
 
-    if (rendererNeedsResize(renderer)) {
-        const canvas = renderer.domElement;
-        const pixelRatio = window.devicePixelRatio;
-        const width = canvas.clientWidth;
-        const height = canvas.clientHeight;
+    const canvas = renderer.domElement;
+    const pixelRatio = window.devicePixelRatio;
+    const width = canvas.clientWidth;
+    const height = canvas.clientHeight;
 
-        renderer.setPixelRatio(pixelRatio);
-        renderer.setSize(width, height, false);
+    renderer.setPixelRatio(pixelRatio);
+    renderer.setSize(width, height, false);
 
+    // @ts-ignore
+    if (camera instanceof THREE.PerspectiveCamera) {
+        camera.aspect = width / height;
         // @ts-ignore
-        if (camera.isPerspectiveCamera) {
-            camera =/** @type {THREE.PerspectiveCamera} */(camera)
-            camera.aspect = width / height;
-        // @ts-ignore
-        } else if (camera.isOrthographicCamera) {
-            camera =/** @type {THREE.OrthographicCamera} */(camera)
-            const frustumHeight = camera.top - camera.bottom;
-            const aspect = width / height;
-            const frustumWidth = frustumHeight * aspect;
+    } else if (camera instanceof THREE.OrthographicCamera) {
+        const frustumHeight = camera.top - camera.bottom;
+        const aspect = width / height;
+        const frustumWidth = frustumHeight * aspect;
 
-            const dx = (camera.left + camera.right) / 2;
-            const dy = (camera.top + camera.bottom) / 2;
+        const dx = (camera.left + camera.right) / 2;
+        const dy = (camera.top + camera.bottom) / 2;
 
-            camera.left = dx - frustumWidth / 2;
-            camera.right = dx + frustumWidth / 2;
-            camera.top = dy + frustumHeight / 2;
-            camera.bottom = dy - frustumHeight / 2;
-        }
-
-        camera.updateProjectionMatrix();
-        return true;
+        camera.left = dx - frustumWidth / 2;
+        camera.right = dx + frustumWidth / 2;
+        camera.top = dy + frustumHeight / 2;
+        camera.bottom = dy - frustumHeight / 2;
     }
-    return false;
+
+    camera.updateProjectionMatrix();
 }

@@ -1,6 +1,10 @@
-
 use crate::{
-    components::{self, footer::footer, head::default_head, header::header, project_table, Component}, placeholder_img, projekte::ProjectMetadata, LightDark
+    LightDark,
+    components::{
+        self, Component, footer::footer, head::default_head, header::header, project_table,
+    },
+    placeholder_img,
+    projekte::ProjectMetadata,
 };
 
 use super::super::*;
@@ -38,36 +42,39 @@ pub fn page(page: Page) -> maud::Markup {
         ..
     } = project_table::component();
 
-    components::page::page(html! {
-        head{
-            (default_head("WebDev","//TODO: Add description",page.path_to_root()))
-            link rel="stylesheet" href=(page.path_to_root()+*table_style);
-        }
-
-        body{
-            (header(page))
-            main{
-                section #Hero{
-                    picture #HeroImg{img draggable="false" src=(page.path_to_root()+*meta_data().title_img.light()) alt="";}
-                }
-                (table_html(project_table::MarkupProps {
-                    title: "Webentwicklung: Design und Programmieren".into(),
-                    graphic: html!{
-                        picture{
-                            img loading="lazy" draggable="false"
-                                src=(placeholder_img!(1200,800)) alt="";
-                        }
-                    }.into(),
-                    rows:&[
-                        ("Studienmodul", "Produktdesign").into(),
-                        ("Zeitraum", "Februar 2025 - ongoing").into(),
-                        ("Tools", "Rust, HTML, CSS, JS, Illustrator, Figma, VSCode, Neovim, git, GitHub").into(),
-                        ("Hochschule", "Technische Hochschule Ingolstadt").into(),
-                    ],
-                    text: CONTENT.into()
-                }))
+    components::page::page(
+        page.path_to_root(),
+        html! {
+            head{
+                (default_head("WebDev","//TODO: Add description",page.path_to_root()))
+                link rel="stylesheet" href=(page.path_to_root()+*table_style);
             }
-            (footer())
-        }
-    })
+
+            body{
+                (header(page))
+                main{
+                    section #Hero{
+                        picture #HeroImg{img draggable="false" src=(page.path_to_root()+*meta_data().title_img.light()) alt="";}
+                    }
+                    (table_html(project_table::MarkupProps {
+                        title: "Webentwicklung: Design und Programmieren".into(),
+                        graphic: html!{
+                            picture{
+                                img loading="lazy" draggable="false"
+                                    src=(placeholder_img!(1200,800)) alt="";
+                            }
+                        }.into(),
+                        rows:&[
+                            ("Studienmodul", "Produktdesign").into(),
+                            ("Zeitraum", "Februar 2025 - ongoing").into(),
+                            ("Tools", "Rust, HTML, CSS, JS, Illustrator, Figma, VSCode, Neovim, git, GitHub").into(),
+                            ("Hochschule", "Technische Hochschule Ingolstadt").into(),
+                        ],
+                        text: CONTENT.into()
+                    }))
+                }
+                (footer())
+            }
+        },
+    )
 }

@@ -10,7 +10,7 @@ pub fn footer() -> maud::Markup {
         footer #SiteFooter{
             "Kreiert mit Rust, HTML, CSS & JS (+ ThreeJS & highlight.js) von Tim Ruland © 2025"
         }
-        a href="#" draggable="false" .btn."secondary-btn".shadow #ReturnToTop{ (PreEscaped(UP_ICON)) }
+        a href="#" draggable="false" .btn."secondary-btn".shadow #ReturnToTop aria-label="scroll back to Top"{ (PreEscaped(UP_ICON)) }
     }
 }
 

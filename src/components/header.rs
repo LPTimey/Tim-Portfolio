@@ -52,6 +52,7 @@ pub fn header(current_page: Page) -> maud::Markup {
 
     html! {
         form #ShowMobileNavForm ."visually-hidden"{
+            label for="ShowMobileNav" {"Toggle Nav"}
             input type="checkbox" #ShowMobileNav;
         }
         label for="ShowMobileNav" #BurgerToggle .btn."secondary-btn".shadow aria-label="Menü öffnen" {
@@ -59,20 +60,20 @@ pub fn header(current_page: Page) -> maud::Markup {
         }
         header #SiteHeader {
             nav {
-                menu #NavLinks {
+                menu #NavLinks{
                     @for (parent, pages) in &grouped {
                         @if let Some(folder) = parent && !folder.is_empty() {
-                            details.dismiss."nav-group" #(group_name(folder).0) for=(group_name(folder).1) role="group"{
-                                summary.link.underline role="button" { (capitalize(&folder)) }
+                            details.dismiss."nav-group" #(group_name(folder).0) for=(group_name(folder).1){
+                                summary.link.underline { (capitalize(&folder)) }
                                 ({
                                     groups.push((capitalize(folder),html!{@for page in pages {
-                                        li role="menuitem" { (nav_link(*page)) }
+                                        li { (nav_link(*page)) }
                                     }}));
                                     ""
                                 })
-                                // ul role="menu" {
+                                // ul {
                                 //     @for page in pages {
-                                //         li role="menuitem" { (nav_link(*page)) }
+                                //         li { (nav_link(*page)) }
                                 //     }
                                 // }
                             }
@@ -91,7 +92,7 @@ pub fn header(current_page: Page) -> maud::Markup {
                         ("Dark", false),
                         ("Custom", false)
                     ])) }
-                li { a draggable="false" target="_blank" href="https://github.com/LPTimey/Tim-Portfolio" { (PreEscaped(GIT_HUB_ICON)) /*"GitHub"*/ } }
+                li { a draggable="false" target="_blank" href="https://github.com/LPTimey/Tim-Portfolio" aria-label="Mein Github"{ (PreEscaped(GIT_HUB_ICON)) /*"GitHub"*/ } }
             }
             div #Groups{
                 @for (name,children) in groups.iter(){

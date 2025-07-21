@@ -1,7 +1,7 @@
 use maud::PreEscaped;
 
 use crate::{
-    components::{footer::footer, head::default_head, header::header, img, project_table, Component},
+    components::{footer::footer, head::default_head, header::header, img, page, project_table, Component},
     projekte::ProjectMetadata,
 };
 
@@ -36,7 +36,7 @@ pub fn page(page: Page) -> maud::Markup {
         ..
     } = project_table::component();
 
-    html! {
+    page::page(page.path_to_root(),html! {
         head{
             (default_head("Drucker","TODO: Add description",page.path_to_root()))
             link rel="stylesheet" href=(page.path_to_root()+*table_style);
@@ -69,5 +69,5 @@ pub fn page(page: Page) -> maud::Markup {
             }
             (footer())
         }
-    }
+    })
 }

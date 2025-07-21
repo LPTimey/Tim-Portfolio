@@ -4,7 +4,8 @@ use maud::PreEscaped;
 
 use crate::{
     components::{
-        self, footer::footer, head::default_head, header::header, project_card, scrolling_img, Component
+        self, Component, footer::footer, head::default_head, header::header, project_card,
+        scrolling_img,
     },
     include_logo, include_public,
 };
@@ -66,37 +67,39 @@ pub fn page(page: Page) -> maud::Markup {
         ),
     ];
 
-    components::page::page(html! {
-        head{
-            (default_head("Home","TODO: Add description", page.path_to_root()))
-            style { (PreEscaped(STYLE)) }
-            link rel="stylesheet" defer href=(page.path_to_root() + *card_style );
-            // script type="module" src=(page.path_to_root() + *card_script ){}
-            link rel="stylesheet" href=(page.path_to_root() + *scroll_img_style );
-        }
+    components::page::page(
+        page.path_to_root(),
+        html! {
+            head{
+                (default_head("Home","TODO: Add description", page.path_to_root()))
+                style { (PreEscaped(STYLE)) }
+                link rel="stylesheet" defer href=(page.path_to_root() + *card_style );
+                // script type="module" src=(page.path_to_root() + *card_script ){}
+                link rel="stylesheet" href=(page.path_to_root() + *scroll_img_style );
+            }
 
-        body{
-            (header(page))
-            main{
-                section #Hero{
-                    // picture #HeroImg{img draggable="false" src=(*placeholder_img!(600,400)) alt="";}
-                    div #HeroImg{(scroll_img_html(scrolling_img::MarkupProps { img: Link((page.path_to_root()+*link_public!("assets/Title-img.webp")).leak()), rows: 3, columns: 3, duration: Duration::from_secs(50) }))}
-                    div ."hero-content"{
-                        h1."mb-large"{
-                            span."fs-large"."lh-tight"{ "Willkommen, hier" } br;
-                            span.hero."lh-normal"."fw-gigantic"{ "wo die Details scheinen" }
+            body{
+                (header(page))
+                main{
+                    section #Hero{
+                        // picture #HeroImg{img draggable="false" src=(*placeholder_img!(600,400)) alt="";}
+                        div #HeroImg{(scroll_img_html(scrolling_img::MarkupProps { img: Link((page.path_to_root()+*link_public!("assets/Title-img.webp")).leak()), rows: 3, columns: 3, duration: Duration::from_secs(50) }))}
+                        div ."hero-content"{
+                            h1."mb-large"{
+                                span."fs-large"."lh-tight"{ "Willkommen, hier" } br;
+                                span.hero."lh-normal"."fw-gigantic"{ "wo die Details scheinen" }
+                            }
+                            a draggable="false" .btn."accent-btn".shadow href="#AboutMe" { span{"Entdecke mehr"} }
                         }
-                        a draggable="false" .btn."accent-btn".shadow href="#AboutMe" { span{"Entdecke mehr"} }
                     }
-                }
 
 
-                section #AboutMe .sect."sect-large-start"."sect-small-end" {
-                    div.content {
-                        h2.heading{ span."accent-text"{ "Hi! " } "Ich bin Tim." }
-                        picture{img draggable="false" src=(page.path_to_root() + *ICH) alt="";}
-                        p{
-                            (PreEscaped(r#"
+                    section #AboutMe .sect."sect-large-start"."sect-small-end" {
+                        div.content {
+                            h2.heading{ span."accent-text"{ "Hi! " } "Ich bin Tim." }
+                            picture{img draggable="false" src=(page.path_to_root() + *ICH) alt="";}
+                            p{
+                                (PreEscaped(r#"
 Mich faszinieren sowohl IT & Programmierung als auch Gestaltung & Design.
 Aus diesem Zusammenspiel zwischen technischer Präzision und gestalterischem Denken ziehe ich die Motivation für meine Projekte.
 Es ermöglicht mir, ansprechende und zugleich effiziente Lösungen zu entwickeln - immer mit einem strukturierten Vorgehen, großer Sorgfalt und einem ausgeprägten Blick für Details.
@@ -106,58 +109,59 @@ Neben dem Studium musiziere ich, fahre gerne Rad und game, natürlich alles auch
 <br>
 Ich freue mich, wenn du dir einen Eindruck von meiner Arbeit verschaffst. Bei Fragen oder Interesse an einer Zusammenarbeit, melde dich gerne!
                             "#))
+                            }
                         }
                     }
-                }
 
-                section #Erfahrung .sect."sect-small-start" {
-                    div.content{
-                        h2.heading { "Meine Erfahrung" }
-                        div #Werdegang {
-                            div .timeline {
-                                div ."timeline-item" {
-                                    span ."timeline-date" {
-                                        "2023 - Heute"
+                    section #Erfahrung .sect."sect-small-start" {
+                        div.content{
+                            h2.heading { "Meine Erfahrung" }
+                            div #Werdegang {
+                                div .timeline {
+                                    div ."timeline-item" {
+                                        span ."timeline-date" {
+                                            "2023 - Heute"
+                                        }
+                                        div ."timeline-content" {
+                                            h3 { "Technische Hochschule Ingolstadt" }
+                                            p { "UX Design Studium (B.Sc.)" }
+                                        }
                                     }
-                                    div ."timeline-content" {
-                                        h3 { "Technische Hochschule Ingolstadt" }
-                                        p { "UX Design Studium (B.Sc.)" }
+                                    div ."timeline-item" {
+                                        span ."timeline-date" {
+                                            "2020 - 2022"
+                                        }
+                                        div ."timeline-content" {
+                                            h3{ "FOS/BOS Scheyern" }
+                                            p{"Technik-Zweig"}
+                                        }
                                     }
-                                }
-                                div ."timeline-item" {
-                                    span ."timeline-date" {
-                                        "2020 - 2022"
-                                    }
-                                    div ."timeline-content" {
-                                        h3{ "FOS/BOS Scheyern" }
-                                        p{"Technik-Zweig"}
-                                    }
-                                }
-                                div ."timeline-item" {
-                                    span ."timeline-date" {
-                                        "2014 - 2020"
-                                    }
-                                    div ."timeline-content" {
-                                        h3 { "Georg-Hipp Realschule" }
-                                        p { "Mathematik-Zweig" }
+                                    div ."timeline-item" {
+                                        span ."timeline-date" {
+                                            "2014 - 2020"
+                                        }
+                                        div ."timeline-content" {
+                                            h3 { "Georg-Hipp Realschule" }
+                                            p { "Mathematik-Zweig" }
+                                        }
                                     }
                                 }
                             }
-                        }
-                        div #Skills{
-                            div #SkillCategories {
-                                @for (i,category) in skills.iter().enumerate(){
-                                    div .category{
-                                        h3 ."category-title"."body-strong" { (category.0) }
-                                        ul."skills-list"{
-                                            @for (j,svg) in category.1.iter().enumerate() {
-                                                li ."skill-icon"{
-                                                    (PreEscaped(
-                                                        svg
-                                                        // stop svg's from changing each others styles, by having duplicate ids
-                                                        .replace("url(#", &format!("url(#{i}{j}"))
-                                                        .replace("id=\"", &format!("id=\"{i}{j}"))
-                                                    ))
+                            div #Skills{
+                                div #SkillCategories {
+                                    @for (i,category) in skills.iter().enumerate(){
+                                        div .category{
+                                            h3 ."category-title"."body-strong" { (category.0) }
+                                            ul."skills-list"{
+                                                @for (j,svg) in category.1.iter().enumerate() {
+                                                    li ."skill-icon"{
+                                                        (PreEscaped(
+                                                            svg
+                                                            // stop svg's from changing each others styles, by having duplicate ids
+                                                            .replace("url(#", &format!("url(#{i}{j}"))
+                                                            .replace("id=\"", &format!("id=\"{i}{j}"))
+                                                        ))
+                                                    }
                                                 }
                                             }
                                         }
@@ -166,43 +170,43 @@ Ich freue mich, wenn du dir einen Eindruck von meiner Arbeit verschaffst. Bei Fr
                             }
                         }
                     }
-                }
 
-                section #Projects .sect."accent-background"{
-                    div .cut."top-cut" {(PreEscaped(include_public!("assets/noise/wave.svg")))}
-                    div.content."mb-gigantic"{
-                        h2.heading{
-                            "Meine Top Projekte"
-                        }
-                    }
-                    div .content #ProjectList{
-                        @for project in Page::projects(){
-                            @if project.favorite {
-                                (project_card_html(
-                                    project_card::MarkupProps {
-                                        data: project,
-                                        path_to_root: page.path_to_root(),
-                                        is_in_grid: true,
-                                        reactive_color: false,
-                                    }
-                                ))
+                    section #Projects .sect."accent-background"{
+                        div .cut."top-cut" {(PreEscaped(include_public!("assets/noise/wave.svg")))}
+                        div.content."mb-gigantic"{
+                            h2.heading{
+                                "Meine Top Projekte"
                             }
                         }
+                        div .content #ProjectList{
+                            @for project in Page::projects(){
+                                @if project.favorite {
+                                    (project_card_html(
+                                        project_card::MarkupProps {
+                                            data: project,
+                                            path_to_root: page.path_to_root(),
+                                            is_in_grid: true,
+                                            reactive_color: false,
+                                        }
+                                    ))
+                                }
+                            }
+                        }
+                        div .content #AllProjects {
+                            div.line{}
+                            a draggable="false" href=(page.path_to_root()+Page::Projekte.to_href().to_str().expect("A valid path")) class="btn secondary-btn fw-medium shadow" { span{"Alle Projekte"} }
+                            div.line{}
+                        }
+                        div .cut."bot-cut" {(PreEscaped(include_public!("assets/noise/waves-opacity.svg")))}
                     }
-                    div .content #AllProjects {
-                        div.line{}
-                        a draggable="false" href=(page.path_to_root()+Page::Projekte.to_href().to_str().expect("A valid path")) class="btn secondary-btn fw-medium shadow" { span{"Alle Projekte"} }
-                        div.line{}
-                    }
-                    div .cut."bot-cut" {(PreEscaped(include_public!("assets/noise/waves-opacity.svg")))}
-                }
 
-                section.sect.content {
-                    ""
+                    section.sect.content {
+                        ""
+                    }
                 }
+                (footer())
+                script{(PreEscaped(SCRIPT))}
             }
-            (footer())
-            script{(PreEscaped(SCRIPT))}
-        }
-    })
+        },
+    )
 }

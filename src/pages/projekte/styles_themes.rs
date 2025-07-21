@@ -1,7 +1,9 @@
 use maud::PreEscaped;
 
 use crate::{
-    components::{footer::footer, head::default_head, header::header, img, project_table, Component},
+    components::{
+        Component, footer::footer, head::default_head, header::header, img, page, project_table,
+    },
     projekte::ProjectMetadata,
 };
 
@@ -41,37 +43,40 @@ pub fn page(page: Page) -> maud::Markup {
         ..
     } = project_table::component();
 
-    html! {
-        head{
-            (default_head("Style","TODO: Add description",page.path_to_root()))
-            link rel="stylesheet" href=(page.path_to_root()+*table_style);
-        }
-
-        body{
-            (header(page))
-            main{
-                section #Hero{
-                    picture #HeroImg{(img::img (Link((page.path_to_root()+*meta_data().title_img.light()).leak()),"",None,&[],None))}
-                }
-                (table_html(project_table::MarkupProps {
-                    title: "UI-Stile im Screendesign".into(),
-                    graphic: html!{
-                        picture{
-                            img loading="lazy" draggable="false" id="OriginalImage"
-                                src=(page.path_to_root()+*link_public!("/assets/Screendesign/Styles/Tim_Ruland_Styles_Screendesign_Original_with_new.webp"))
-                                data-source="https://medium.muz.li/weekly-design-inspiration-368-273380298382" alt="";
-                        }
-                    }.into(),
-                    rows:&[
-                        ("Studienmodul", "Gestaltung").into(),
-                        ("Zeitraum", "Oktober 2023 - Februar 2024").into(),
-                        ("Tools", "Illustrator, git, GitHub").into(),
-                        ("Hochschule", "Technische Hochschule Ingolstadt").into(),
-                    ],
-                    text: CONTENT.into()
-                }))
+    page::page(
+        page.path_to_root(),
+        html! {
+            head{
+                (default_head("Style","TODO: Add description",page.path_to_root()))
+                link rel="stylesheet" href=(page.path_to_root()+*table_style);
             }
-            (footer())
-        }
-    }
+
+            body{
+                (header(page))
+                main{
+                    section #Hero{
+                        picture #HeroImg{(img::img (Link((page.path_to_root()+*meta_data().title_img.light()).leak()),"",None,&[],None))}
+                    }
+                    (table_html(project_table::MarkupProps {
+                        title: "UI-Stile im Screendesign".into(),
+                        graphic: html!{
+                            picture{
+                                img loading="lazy" draggable="false" id="OriginalImage"
+                                    src=(page.path_to_root()+*link_public!("/assets/Screendesign/Styles/Tim_Ruland_Styles_Screendesign_Original_with_new.webp"))
+                                    data-source="https://medium.muz.li/weekly-design-inspiration-368-273380298382" alt="";
+                            }
+                        }.into(),
+                        rows:&[
+                            ("Studienmodul", "Gestaltung").into(),
+                            ("Zeitraum", "Oktober 2023 - Februar 2024").into(),
+                            ("Tools", "Illustrator, git, GitHub").into(),
+                            ("Hochschule", "Technische Hochschule Ingolstadt").into(),
+                        ],
+                        text: CONTENT.into()
+                    }))
+                }
+                (footer())
+            }
+        },
+    )
 }

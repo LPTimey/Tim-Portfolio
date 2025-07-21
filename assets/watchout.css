@@ -1,0 +1,58 @@
+#FinishSect {
+    --accent-bg: url("../assets/Design der Mensch Maschine Schnittstelle/WatchOut/app bg.webp") no-repeat center center / cover;
+    --accent-bg-c: var(--dark);
+}
+
+#WatchGrid {
+    margin-bottom: 5rem;
+    display: grid;
+    grid-template-areas:
+        "Heading Watch"
+        "Text Watch";
+    grid-template-rows: auto auto;
+    grid-auto-rows: auto;
+    gap: 2ch;
+
+    h2 {
+        grid-area: Heading;
+        align-self: end;
+    }
+}
+
+#WatchText {
+    grid-area: Text;
+}
+
+#WatchInfoCanvas {
+    grid-area: Watch;
+    width: auto;
+    height: 40vh;
+    aspect-ratio: 1.5 / 1;
+}
+
+#AppGrid {
+    margin-top: 5rem;
+    display: grid;
+    grid-template-areas:
+        "Phone Heading"
+        "Phone Text";
+    grid-template-rows: auto auto;
+    grid-auto-rows: auto;
+    gap: 2ch;
+
+    h2 {
+        grid-area: Heading;
+        align-self: end;
+    }
+}
+
+#AppText {
+    grid-area: Text;
+}
+
+#AppInfo {
+    grid-area: Phone;
+    width: auto;
+    height: 40vh;
+    aspect-ratio: 1 / 1;
+}

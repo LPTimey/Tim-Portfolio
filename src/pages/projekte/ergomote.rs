@@ -35,7 +35,7 @@ pub fn page(page: Page) -> maud::Markup {
         ..
     } = project_table::component();
 
-    components::page::page(html! {
+    components::page::page(page.path_to_root(),html! {
         head{
             (default_head("Ergomote","TODO: Add description",page.path_to_root()))
 
