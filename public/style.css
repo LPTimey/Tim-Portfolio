@@ -511,25 +511,6 @@
         }
     }
 
-    :where(.shadow:not(.btn)) {
-        box-shadow: var(--shadow-default);
-
-
-        @media (prefers-reduced-motion: no-preference) {
-            transition: box-shadow 0.25s var(--spring-ease);
-        }
-
-        @media (hover: hover) and (prefers-reduced-motion: no-preference) {
-            &:hover {
-                box-shadow: var(--shadow-hover);
-            }
-
-            &:active {
-                box-shadow: var(--shadow-active);
-            }
-        }
-    }
-
     :where(.underline) {
         --transition-time: 400ms;
 

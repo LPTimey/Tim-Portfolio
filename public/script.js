@@ -64,21 +64,35 @@ window.addEventListener("scroll", (ev) => {
 
 //#region noDrag
 
-const noDrags = document.querySelectorAll('[draggable="false"]');
+const noDrags = /** @type {NodeListOf<HTMLElement>} */(document.querySelectorAll('[draggable="false"]'));
+
 
 noDrags.forEach(el => {
     let isDragging = false;
-    el.addEventListener("mousedown", () => {
+    let startX = 0;
+    let startY = 0;
+    const dragThresholdPixel = 5; // Mindestbewegung in Pixeln
+
+    el.addEventListener("mousedown", (e) => {
+        e = (e);
         isDragging = false;
+        startX = e.clientX;
+        startY = e.clientY;
     });
-    el.addEventListener("mousemove", () => {
-        isDragging = true;
+
+    el.addEventListener("mousemove", (e) => {
+        const dx = Math.abs(e.clientX - startX);
+        const dy = Math.abs(e.clientY - startY);
+        if (dx > dragThresholdPixel || dy > dragThresholdPixel) {
+            isDragging = true;
+        }
     });
+
     el.addEventListener("click", (event) => {
         if (isDragging) {
-            event.preventDefault()
+            event.preventDefault();
         }
-    })
+    });
 });
 
 //#endregion noDrag
