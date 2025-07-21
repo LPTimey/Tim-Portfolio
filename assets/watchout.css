@@ -1,5 +1,5 @@
 #FinishSect {
-    --accent-bg: url("../assets/Design der Mensch Maschine Schnittstelle/WatchOut/app bg.webp") no-repeat center center / cover;
+    --accent-bg: var(--grid-bg), url("../assets/Design der Mensch Maschine Schnittstelle/WatchOut/app bg.webp") no-repeat center center / cover;
     --accent-bg-c: var(--dark);
 }
 

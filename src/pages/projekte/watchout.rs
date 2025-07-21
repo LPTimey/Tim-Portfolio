@@ -126,7 +126,7 @@ pub fn page(page: Page) -> maud::Markup {
                         section.content #WatchSect{
 
                             div #WatchGrid{
-                                h2{ "Uhr" }
+                                h2.heading{ "Uhr" }
                                 div #WatchText{
                                     p {
                                         "Da Demenz oft die vertrauten Gewohnheiten und Erinnerungen der Betroffenen am längsten
@@ -150,7 +150,7 @@ pub fn page(page: Page) -> maud::Markup {
                         }
                         section.content #AppSect{
                             div #AppGrid{
-                                h2{ "Begleitapp" }
+                                h2.heading{ "Begleitapp" }
                                 div #AppText{
                                     p {
                                         "Die mit der Uhr verbundene App wurde nach dem Prinzip der Schlichtheit gestaltet."
