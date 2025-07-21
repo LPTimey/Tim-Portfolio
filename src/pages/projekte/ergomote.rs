@@ -35,29 +35,34 @@ pub fn page(page: Page) -> maud::Markup {
         ..
     } = project_table::component();
 
-    components::page::page(page.path_to_root(),html! {
-        head{
-            (default_head("Ergomote","TODO: Add description",page.path_to_root()))
+    components::page::page(
+        page.path_to_root(),
+        html! {
+            head{
+                (default_head("Ergomote","TODO: Add description",page.path_to_root()))
 
-            link rel="stylesheet" href=(page.path_to_root()+*table_style);
-        }
+                link rel="stylesheet" href=(page.path_to_root()+*table_style);
+                style{
+                        (PreEscaped(include_asset!("ergomote.css")))
+                    }
+            }
 
-        body{
-            (header(page))
-            main{
-                section #Hero{
-                    picture #HeroImg{(img::img (Link((page.path_to_root()+*meta_data().title_img.light()).leak()),"",None,&[],None))}
-                }
-                (table_html(project_table::MarkupProps {
-                    title: "//TODO:".into(),
-                    graphic: html!{
-                        picture{
-                            (img::img (Link((page.path_to_root()+*link_public!("assets/Ergomote/render.png")).leak()),"",None,&[],None))
-                        }
-                    }.into(),
-                    rows:&[
-                        ("Studienmodul", "Produktdesign").into(),
-                        ("Team", PreEscaped(r#"<a class="link link-active underline"
+            body{
+                (header(page))
+                main{
+                    section #Hero{
+                        picture #HeroImg{(img::img (Link((page.path_to_root()+*meta_data().title_img.light()).leak()),"",None,&[],None))}
+                    }
+                    (table_html(project_table::MarkupProps {
+                        title: "Ergomote".into(),
+                        graphic: html!{
+                            picture{
+                                (img::img (Link((page.path_to_root()+*link_public!("assets/Ergomote/render.png")).leak()),"",None,&[],None))
+                            }
+                        }.into(),
+                        rows:&[
+                            ("Studienmodul", "Produktdesign").into(),
+                            ("Team", PreEscaped(r#"<a class="link link-active underline"
                                         href="https://mangonssen.github.io/portfolio/" target="_blank"
                                         rel="noopener noreferrer">
                                         Marc Obst</a>,
@@ -70,14 +75,15 @@ pub fn page(page: Page) -> maud::Markup {
                                         href="https://github.com/niroet" target="_blank"
                                         rel="noopener noreferrer">
                                         Niklas Röthlingshöfer</a>"#)).into(),
-                        ("Zeitraum", "Mai 2025 - Juni 2025").into(),
-                        ("Tools", "Figma, Blender, Photoshop, git, GitHub").into(),
-                        ("Hochschule", "Technische Hochschule Ingolstadt").into(),
-                    ],
-                    text: CONTENT.into()
-                }))
+                            ("Zeitraum", "Mai 2025 - Juni 2025").into(),
+                            ("Tools", "Figma, Blender, Photoshop, git, GitHub").into(),
+                            ("Hochschule", "Technische Hochschule Ingolstadt").into(),
+                        ],
+                        text: CONTENT.into()
+                    }))
+                }
+                (footer())
             }
-            (footer())
-        }
-    })
+        },
+    )
 }

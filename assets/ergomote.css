@@ -1,0 +1,16 @@
+#Hero picture {
+    position: relative;
+}
+
+#Hero img {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    height: auto;
+    /* mind. so hoch wie Container */
+    min-height: 100%;
+    /* Bild proportional */
+    width: auto;
+    max-width: none;
+}

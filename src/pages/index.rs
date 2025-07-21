@@ -71,11 +71,11 @@ pub fn page(page: Page) -> maud::Markup {
         page.path_to_root(),
         html! {
             head{
-                style { (PreEscaped(STYLE)) }
                 (default_head("Home","TODO: Add description", page.path_to_root()))
                 link rel="stylesheet" href=(page.path_to_root() + *card_style );
                 // script type="module" src=(page.path_to_root() + *card_script ){}
                 link rel="stylesheet" href=(page.path_to_root() + *scroll_img_style );
+                style { (PreEscaped(STYLE)) }
             }
 
             body{
