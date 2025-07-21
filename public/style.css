@@ -430,23 +430,6 @@
             color: var(--accent);
         }
 
-        &:where(.shadow)::after {
-            content: "";
-            border-radius: inherit;
-            position: absolute;
-            display: block;
-            inset: -0.2rem;
-            width: auto;
-            height: auto;
-            background-color: var(--black);
-            z-index: -1;
-            transform: translate(0.25rem, 0.35rem);
-            pointer-events: none;
-            opacity: calc(1 - var(--transparency));
-            filter: blur(0.25rem);
-            transition: inherit;
-        }
-
         @media (prefers-reduced-motion: no-preference) {
             transition: transform 0.25s var(--spring-ease),
                 translate 0.25s var(--spring-ease);
@@ -454,20 +437,10 @@
             @media (hover: hover) {
                 &:hover {
                     translate: 0 -10%;
-
-                    &:where(.shadow)::after {
-                        transform: translate(calc(0.5rem), calc(0.25rem + 2 * 0.5rem)) scale(1.01);
-                        opacity: 0.2;
-                    }
                 }
 
                 &:active {
                     translate: 0 10%;
-
-                    &:where(.shadow)::after {
-                        transform: translate(0, 0);
-                        opacity: 0.2;
-                    }
                 }
             }
         }
@@ -510,6 +483,46 @@
         }
     }
 
+    :where(.shadow) {
+        &::after {
+            content: "";
+            border-radius: inherit;
+            position: absolute;
+            display: block;
+            inset: -0.2rem;
+            width: auto;
+            height: auto;
+            background-color: var(--black);
+            z-index: -1;
+            transform: translate(0.25rem, 0.35rem);
+            pointer-events: none;
+            opacity: calc(1 - var(--transparency));
+            filter: blur(0.25rem);
+            transition: inherit;
+        }
+
+        @media (prefers-reduced-motion: no-preference) {
+            transition: transform 0.25s var(--spring-ease),
+                translate 0.25s var(--spring-ease);
+
+            @media (hover: hover) {
+                &:hover {
+                    &::after {
+                        transform: translate(calc(0.5rem), calc(0.25rem + 2 * 0.5rem)) scale(1.01);
+                        opacity: 0.2;
+                    }
+                }
+
+                &:active {
+                    ::after {
+                        transform: translate(0, 0);
+                        opacity: 0.2;
+                    }
+                }
+            }
+        }
+    }
+
     :where(.underline) {
         position: relative;
         --transition-time: 400ms;
@@ -533,6 +546,7 @@
         }
 
         @media (hover: hover) {
+
             &:hover::after,
             &:focus-visible::after {
                 transform: scaleX(1);
