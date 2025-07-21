@@ -8,11 +8,12 @@ timelines.forEach(timeline => {
     });
     timeline.addEventListener("mouseleave", ev => {
         const percentage =
-            Number(timeline.style.getPropertyValue("--slider-top").replaceAll("%", ""));
+            Number(timeline.style.getPropertyValue("--slider-top").replaceAll("px", ""));
         if (!percentage || isNaN(percentage) || percentage <= 50) {
-            timeline.style.setProperty("--slider-top", `0%`);
+            timeline.style.setProperty("--slider-top", `0px`);
         } else {
-            timeline.style.setProperty("--slider-top", `100%`);
+            const timelineRect = timeline.getBoundingClientRect();
+            timeline.style.setProperty("--slider-top", `${timelineRect.height}px`);
         }
         timeline.removeAttribute("show-slider")
     });
@@ -27,10 +28,10 @@ timelines.forEach(timeline => {
             const relativeY = itemCenter - timelineRect.top;
 
             // Prozentwert berechnen
-            const percentage = (relativeY / timelineRect.height) * 100;
+            // const percentage = (relativeY / timelineRect.height) * 100;
 
             // Setzen der CSS-Variable
-            timeline.style.setProperty("--slider-top", `${percentage}%`);
+            timeline.style.setProperty("--slider-top", `${relativeY}px`);
         });
     })
 })

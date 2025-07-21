@@ -53,7 +53,6 @@
         :where(*)::before {
             transition:
                 background-color var(--transition-time, 0.2s) ease-in-out,
-                box-shadow var(--transition-time, 0.2s) ease-in-out,
                 color var(--transition-time, 0.2s) ease-in-out,
                 fill var(--transition-time, 0.2s) ease-in-out,
                 filter var(--transition-time, 0.2s) ease-in-out,
@@ -410,7 +409,7 @@
             inset: 0;
             z-index: 1;
             width: auto;
-                height: auto;
+            height: auto;
             background-color: inherit;
             transition: inherit;
         }
@@ -512,30 +511,31 @@
     }
 
     :where(.underline) {
+        position: relative;
         --transition-time: 400ms;
 
-        background:
-            /* default */
-            linear-gradient(to right, rgb(from var(--bg) r g b / 0), rgb(from var(--bg) r g b / 0)),
-            /* hover */
-            linear-gradient(to right, var(--accent), var(--accent-2), var(--accent));
-
-        background-size: 100% 0.1em, 0 0.1em;
-        background-position: 100% 100%, 0 100%;
-        background-repeat: no-repeat;
-        transition: background-size var(--transition-time);
-
-        /* IMPORTANT: Keep in sync with &:hover, &:focus-visible */
-        &:where(.underline-active) {
-            background-size: 0 0.1em, 100% 0.1em;
+        &::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 0.1em;
+            width: 100%;
+            background: linear-gradient(to right, var(--accent), var(--accent-2), var(--accent));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform var(--transition-time) ease;
+            pointer-events: none;
         }
 
-        /* IMPORTANT: Keep in sync with &.underline-active */
-        @media (hover: hover) {
+        &.underline-active::after {
+            transform: scaleX(1);
+        }
 
-            &:hover,
-            &:focus-visible {
-                background-size: 0 0.1em, 100% 0.1em;
+        @media (hover: hover) {
+            &:hover::after,
+            &:focus-visible::after {
+                transform: scaleX(1);
             }
         }
     }

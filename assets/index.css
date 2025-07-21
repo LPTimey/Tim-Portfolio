@@ -133,7 +133,7 @@
 
     &::before {
         opacity: 0;
-        transition: opacity 0.5s ease-in-out, top 0.5s cubic-bezier(0.3, 0, 0.5, 1.5);
+        transition: opacity 0.5s ease-in-out, transform 0.5s cubic-bezier(0.3, 0, 0.5, 1.5);
         display: inline-block;
         content: "";
         background-color: var(--accent);
@@ -142,9 +142,8 @@
         width: 1em;
         height: 0.25em;
         z-index: 1;
-        top: var(--slider-top, 0%);
         left: 0%;
-        transform: translate(-50%, -50%);
+        transform: translate(-50%, calc(-50% + var(--slider-top, 0px)));
     }
 
     &[show-slider]::before {
