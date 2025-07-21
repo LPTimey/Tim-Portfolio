@@ -390,13 +390,30 @@
 
         position: relative;
         isolation: isolate;
-        z-index: 1;
 
         padding: 0.85em 5ch;
         font-family: "JetBrains Mono", var(--backup-fonts);
         cursor: pointer;
 
         border-radius: var(--border-r);
+
+        >* {
+            position: relative;
+            z-index: 1;
+        }
+
+        &::before {
+            content: "";
+            border-radius: inherit;
+            position: absolute;
+            display: block;
+            inset: 0;
+            z-index: 1;
+            width: auto;
+                height: auto;
+            background-color: inherit;
+            transition: inherit;
+        }
 
         &:where(.accent-btn) {
             background-color: var(--accent);
@@ -417,19 +434,17 @@
         &:where(.shadow)::after {
             content: "";
             border-radius: inherit;
-            background-color: var(--black);
-            filter: blur(0.25rem);
-
-            display: block;
             position: absolute;
-            z-index: -1;
+            display: block;
             inset: -0.2rem;
-
-            pointer-events: none;
-
-            opacity: calc(1 - var(--transparency));
+            width: auto;
+            height: auto;
+            background-color: var(--black);
+            z-index: -1;
             transform: translate(0.25rem, 0.35rem);
-
+            pointer-events: none;
+            opacity: calc(1 - var(--transparency));
+            filter: blur(0.25rem);
             transition: inherit;
         }
 

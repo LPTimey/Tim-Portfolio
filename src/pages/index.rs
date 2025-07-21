@@ -86,7 +86,7 @@ pub fn page(page: Page) -> maud::Markup {
                             span."fs-large"."lh-tight"{ "Willkommen, hier" } br;
                             span.hero."lh-normal"."fw-gigantic"{ "wo die Details scheinen" }
                         }
-                        a draggable="false" .btn."accent-btn".shadow href="#AboutMe" { "Entdecke mehr" }
+                        a draggable="false" .btn."accent-btn".shadow href="#AboutMe" { span{"Entdecke mehr"} }
                     }
                 }
 
@@ -191,20 +191,14 @@ Ich freue mich, wenn du dir einen Eindruck von meiner Arbeit verschaffst. Bei Fr
                     }
                     div .content #AllProjects {
                         div.line{}
-                        a draggable="false" href=(page.path_to_root()+Page::Projekte.to_href().to_str().expect("A valid path")) class="btn secondary-btn fw-medium shadow" { "Alle Projekte" }
+                        a draggable="false" href=(page.path_to_root()+Page::Projekte.to_href().to_str().expect("A valid path")) class="btn secondary-btn fw-medium shadow" { span{"Alle Projekte"} }
                         div.line{}
                     }
                     div .cut."bot-cut" {(PreEscaped(include_public!("assets/noise/waves-opacity.svg")))}
                 }
 
                 section.sect.content {
-                    a draggable="false" href="" .btn.shadow { "Test"}
-                    br;
-                    br;
-                    br;
-                    div .btn.shadow{
-                        "test2"
-                    }
+                    ""
                 }
             }
             (footer())
