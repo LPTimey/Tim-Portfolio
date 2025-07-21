@@ -1,31 +1,60 @@
 .project-card {
     display: block;
     position: relative;
+    isolation: isolate;
     /* FIXME: container with subgrid on Chromium
      * being a container breaks in chromium
      * as it seams containers can't be subgrid there?
     */
     /* container: ProjectCardContainer / inline-size; */
     border-radius: var(--border-r);
-    overflow: hidden;
+    /* overflow: hidden; */
     /* border: 1px solid var(--fg); */
     --row-span: 5;
     --col-span: 3;
     display: grid;
-    box-shadow: var(--shadow-default);
+
+    &::after {
+        content: "";
+        border-radius: inherit;
+        position: absolute;
+        display: block;
+        inset: -0.2rem;
+        width: auto;
+        height: auto;
+        background-color: black;
+        z-index: -1;
+        transform: translate(0.25rem, 0.35rem);
+        pointer-events: none;
+        opacity: calc(1 - var(--transparency));
+        filter: blur(0.25rem);
+    }
 
     @media (hover: hover) and (prefers-reduced-motion: no-preference) {
-        transition: translate 0.25s var(--spring-ease),
-            box-shadow 0.25s var(--spring-ease);
+
+        &,
+        &::after {
+            transition: transform 0.25s var(--spring-ease),
+                translate 0.25s var(--spring-ease),
+                opacity 0.25s var(--spring-ease);
+        }
 
         &:hover {
             translate: 0 -0.5rem;
-            box-shadow: var(--shadow-hover);
+
+            &::after {
+                transform: translate(calc(0.5rem), calc(0.25rem + 2 * 0.5rem)) scale(1.01);
+                opacity: 0.2;
+            }
         }
 
         &:active {
             translate: 0 0.5rem;
-            box-shadow: var(--shadow-active);
+
+            &::after {
+                transform: translate(0, 0);
+                opacity: 0.2;
+            }
         }
     }
 }
@@ -49,6 +78,8 @@
     display: grid;
     --padding: 1rem;
     column-gap: var(--padding);
+    border-radius: inherit;
+    overflow: hidden;
     row-gap: 0;
     grid-template-rows: subgrid;
     grid-template-columns: 0 1fr 0;
@@ -64,7 +95,7 @@
     grid-row: span var(--row-span);
 
     &[reactive-color="true"] {
-        background-color: light-dark(var(--bg),var(--bg-2));
+        background-color: light-dark(var(--bg), var(--bg-2));
         color: var(--fg);
     }
 
