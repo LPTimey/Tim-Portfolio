@@ -198,7 +198,13 @@ Ich freue mich, wenn du dir einen Eindruck von meiner Arbeit verschaffst. Bei Fr
                 }
 
                 section.sect.content {
-                    ""
+                    a draggable="false" href="" .btn.shadow { "Test"}
+                    br;
+                    br;
+                    br;
+                    div .btn.shadow{
+                        "test2"
+                    }
                 }
             }
             (footer())
