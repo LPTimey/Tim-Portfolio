@@ -1,0 +1,102 @@
+use std::{collections::HashMap, fmt::Display};
+
+use Props::with_props;
+use maud::{Markup, html};
+
+use crate::{
+    Link,
+    components::{Component, img::img},
+    link_public,
+};
+
+pub struct HyperMap(pub HashMap<String, MapNode>);
+pub struct MapNode {
+    pub buttons: Vec<(InsetPercent, Href)>,
+    pub img: Link,
+    pub overlay: bool,
+    pub default: bool
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
+pub struct InsetPercent {
+    pub top: u8,
+    pub right: u8,
+    pub bottom: u8,
+    pub left: u8,
+}
+impl InsetPercent {
+    pub fn new(top: u8, right: u8, bottom: u8, left: u8) -> Self {
+        Self {
+            top,
+            right,
+            bottom,
+            left,
+        }
+    }
+
+    pub fn to_style(&self) -> String {
+        let Self {
+            top,
+            right,
+            bottom,
+            left,
+        } = self;
+        format!("top:{top}%;right:{right}%;bottom:{bottom}%;left:{left}%;")
+    }
+}
+
+pub enum Href {
+    Back,
+    BackThen(String),
+    Specific(String),
+}
+impl Display for Href {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Href::Back => {
+                write!(f, "#Back")
+            }
+            Href::BackThen(str) => {
+                write!(f, "{}:{}", Self::Back, str)
+            }
+            Href::Specific(str) => {
+                write!(f, "{str}")
+            }
+        }
+    }
+}
+
+#[with_props]
+pub fn markup(map: HyperMap, path_to_root: String) -> Markup {
+    html! {
+        div ."hyper-img"{
+            @for page in map.0.iter(){
+                div."hi-page-wrapper" for=(page.0){
+                    picture."hi-page" #(page.0) data-active=(page.1.default){
+                        (img(Link(format!("{path_to_root}{}",*page.1.img).leak()), "", None, &[], None))
+                        @for button in page.1.buttons.iter(){
+                            @if !format!("{}",button.1).contains(page.0){
+                                button style=(button.0.to_style()) href=(button.1) aria-label=(format!("link to: {}",button.1)){}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+fn style() -> Link {
+    link_public!("components/hyper_img.css")
+}
+fn script() -> Link {
+    link_public!("components/hyper_img.js")
+}
+
+pub fn component() -> Component<MarkupProps, Link> {
+    Component {
+        html: markup,
+        style: style(),
+        script: script(),
+    }
+}

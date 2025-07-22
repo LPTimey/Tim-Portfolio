@@ -9,7 +9,13 @@ pub fn img(
     class: &[&str],
     style: Option<&str>
 ) -> Markup {
-    let img_d = src.get_img_dimensions_panic();
+    let img_d = match src.get_img_dimensions(){
+        Some(d) => d,
+        None => {
+            eprintln!("cant find img {}",*src);
+            (0,0)
+        },
+    };
     html! {
         img
             src=(*src)
