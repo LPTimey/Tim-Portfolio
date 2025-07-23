@@ -9,6 +9,7 @@ pub mod hero;
 pub mod hyper_img;
 pub mod img;
 pub mod page;
+pub mod phone_border;
 pub mod project_card;
 pub mod project_table;
 pub mod scrolling_img;

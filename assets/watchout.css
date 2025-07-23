@@ -53,6 +53,6 @@
 #AppInfo {
     grid-area: Phone;
     width: auto;
-    height: 40vh;
+    height: 50vh;
     aspect-ratio: 1 / 1;
 }

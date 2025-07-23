@@ -23,8 +23,10 @@ for (const hyperImg of hyperImages) {
                 deactivatePage(hyperImg, history);
             } else if (directive.startsWith('#Back:')) {
                 deactivatePage(hyperImg, history);
-                activatePage(hyperImg, history, hyperImg.querySelector(`.hi-page-wrapper[for="${directive.replace("#Back:")}"]`));
+                // @ts-ignore
+                activatePage(hyperImg, history, hyperImg.querySelector(`.hi-page-wrapper[for="${directive.replace("#Back:","")}"]`));
             } else {
+                // @ts-ignore
                 activatePage(hyperImg, history, hyperImg.querySelector(`.hi-page-wrapper[for="${directive}"]`))
             }
             console.info(history)
@@ -52,7 +54,7 @@ function activatePage(hyperImg, history, pageWrapper) {
         history.push(id);
     }
     pageWrapper.style.setProperty(`--z-i`, `${history.length - 1}`);
-    for(const page of hyperImg.querySelectorAll(".hi-page")){
+    for (const page of /** @type {NodeListOf<HTMLElement>} */(hyperImg.querySelectorAll(".hi-page"))){
         page.style.setProperty(`--z-i`, `-1`);
     }
     pageWrapper.querySelector(".hi-page")?.setAttribute("data-active", `${true}`);

@@ -9,7 +9,7 @@ use crate::{
         head::default_head,
         header::header,
         hyper_img::{self, Href, HyperMap, InsetPercent, MapNode},
-        img,
+        img, phone_border,
         project_table::{self},
         three_js_setup::import_map,
     },
@@ -69,6 +69,12 @@ pub fn page(page: Page) -> maud::Markup {
     } = project_table::component();
 
     let Component {
+        html: phone_border_html,
+        style: phone_border_style,
+        ..
+    } = phone_border::component();
+
+    let Component {
         html: hyper_img_html,
         style: hyper_img_style,
         script: hyper_img_script,
@@ -103,6 +109,7 @@ pub fn page(page: Page) -> maud::Markup {
                 (default_head("WatchOut - Tim Ruland","Die ProduktKonzeptSeite von dem WatchOut-Gruppenprojekt",page.path_to_root()))
                 link rel="stylesheet" href=(page.path_to_root()+*table_style);
                 link rel="stylesheet" href=(page.path_to_root()+*hyper_img_style);
+                link rel="stylesheet" href=(page.path_to_root()+*phone_border_style);
                 style{
                     (PreEscaped(include_asset!("watchout.css")))
                 }
@@ -183,7 +190,7 @@ pub fn page(page: Page) -> maud::Markup {
                                     }
                                 }
                                 div #AppInfo{
-                                    (hyper_img_html(hyper_img::MarkupProps { map: watchout_hi_map(), path_to_root: page.path_to_root() }))
+                                    (phone_border_html(phone_border::MarkupProps{content: hyper_img_html(hyper_img::MarkupProps { map: watchout_hi_map(), path_to_root: page.path_to_root() }), path_to_root: page.path_to_root()}))
                                 }
                             }
                         }

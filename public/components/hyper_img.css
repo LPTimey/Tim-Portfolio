@@ -36,6 +36,7 @@
     height: auto;
     width: auto;
     object-fit: contain;
+    border-radius: var(--border-r);
 }
 
 .hi-page button {
