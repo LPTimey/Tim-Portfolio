@@ -76,7 +76,7 @@ pub fn markup(map: HyperMap, path_to_root: String) -> Markup {
                     picture."hi-page" #(page.0) data-active=(page.1.default){
                         (img(Link(format!("{path_to_root}{}",*page.1.img).leak()), "", None, &[], None))
                         @for button in page.1.buttons.iter(){
-                            @if !format!("{}",button.1).contains(page.0){
+                            @if !format!("{}",button.1).ends_with(page.0){
                                 button type="button" style=(button.0.to_style()) href=(button.1) aria-label=(format!("link to: {}",button.1)){}
                             }
                         }

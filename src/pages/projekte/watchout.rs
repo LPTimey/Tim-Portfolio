@@ -289,8 +289,16 @@ pub fn watchout_hi_map() -> HyperMap {
             Href::Specific(call_list_str.to_string()),
         ),
         (
-            InsetPercent::new(81, 7, 12, 7),
-            Href::Specific(call_list_str.to_string()),
+            InsetPercent::new(32, 30, 54, 45),
+            Href::Specific(map_overlay_helen_str.to_string()),
+        ),
+        (
+            InsetPercent::new(50, 15, 40, 70),
+            Href::Specific(map_overlay_joe_str.to_string()),
+        ),
+        (
+            InsetPercent::new(62, 62, 28, 23),
+            Href::Specific(map_overlay_gunther_str.to_string()),
         ),
     ];
     map_links.extend_from_slice(&navbar);
@@ -306,7 +314,25 @@ pub fn watchout_hi_map() -> HyperMap {
         },
     );
 
-    let mut map_overlay_helen_links = vec![];
+    let mut map_overlay_helen_links = vec![
+        (
+            InsetPercent::new(39, 12, 51, 12),
+            Href::Specific(home_str.to_string()),
+        ),
+        (
+            InsetPercent::new(81, 7, 12, 7),
+            Href::Specific(call_list_str.to_string()),
+        ),
+        // Top
+        (InsetPercent::new(0, 0, 72, 0), Href::Back),
+        // Left
+        (InsetPercent::new(0, 93, 21, 0), Href::Back),
+        // Right
+        (InsetPercent::new(0, 0, 21, 93), Href::Back),
+        // Bottom
+        (InsetPercent::new(60, 0, 21, 0), Href::Back),
+    ];
+    map_overlay_helen_links.extend_from_slice(&navbar);
     let map_overlay_helen = (
         map_overlay_helen_str.to_string(),
         MapNode {
@@ -319,7 +345,21 @@ pub fn watchout_hi_map() -> HyperMap {
         },
     );
 
-    let mut map_overlay_joe_links = vec![];
+    let mut map_overlay_joe_links = vec![
+        (
+            InsetPercent::new(81, 7, 12, 7),
+            Href::Specific(call_list_str.to_string()),
+        ),
+        // Top
+        (InsetPercent::new(0, 0, 72, 0), Href::Back),
+        // Left
+        (InsetPercent::new(0, 93, 21, 0), Href::Back),
+        // Right
+        (InsetPercent::new(0, 0, 21, 93), Href::Back),
+        // Bottom
+        (InsetPercent::new(60, 0, 21, 0), Href::Back),
+    ];
+    map_overlay_joe_links.extend_from_slice(&navbar);
     let map_overlay_joe = (
         map_overlay_joe_str.to_string(),
         MapNode {
@@ -332,7 +372,21 @@ pub fn watchout_hi_map() -> HyperMap {
         },
     );
 
-    let mut map_overlay_gunther_links = vec![];
+    let mut map_overlay_gunther_links = vec![
+        (
+            InsetPercent::new(81, 7, 12, 7),
+            Href::Specific(call_list_str.to_string()),
+        ),
+        // Top
+        (InsetPercent::new(0, 0, 72, 0), Href::Back),
+        // Left
+        (InsetPercent::new(0, 93, 21, 0), Href::Back),
+        // Right
+        (InsetPercent::new(0, 0, 21, 93), Href::Back),
+        // Bottom
+        (InsetPercent::new(60, 0, 21, 0), Href::Back),
+    ];
+    map_overlay_gunther_links.extend_from_slice(&navbar);
     let map_overlay_gunther = (
         map_overlay_gunther_str.to_string(),
         MapNode {
@@ -359,7 +413,20 @@ pub fn watchout_hi_map() -> HyperMap {
         },
     );
 
-    let mut event_overlay_links = vec![(InsetPercent::new(0, 0, 0, 0), Href::Back)];
+    let mut event_overlay_links = vec![
+        (
+            InsetPercent::new(38, 15, 44, 15),
+            Href::Specific(map_str.to_string()),
+        ),
+        // Top
+        (InsetPercent::new(0, 0, 76, 0), Href::Back),
+        // Left
+        (InsetPercent::new(0, 93, 21, 0), Href::Back),
+        // Right
+        (InsetPercent::new(0, 0, 21, 93), Href::Back),
+        // Bottom
+        (InsetPercent::new(66, 0, 21, 0), Href::Back),
+    ];
     event_overlay_links.extend_from_slice(&navbar);
     let event_overlay = (
         event_overlay_str.to_string(),
@@ -373,7 +440,21 @@ pub fn watchout_hi_map() -> HyperMap {
         },
     );
 
-    let mut event_overlay_passive_links = vec![];
+    let mut event_overlay_passive_links = vec![
+        (
+            InsetPercent::new(38, 15, 44, 15),
+            Href::Specific(map_str.to_string()),
+        ),
+        // Top
+        (InsetPercent::new(0, 0, 76, 0), Href::Back),
+        // Left
+        (InsetPercent::new(0, 93, 21, 0), Href::Back),
+        // Right
+        (InsetPercent::new(0, 0, 21, 93), Href::Back),
+        // Bottom
+        (InsetPercent::new(66, 0, 21, 0), Href::Back),
+    ];
+    event_overlay_passive_links.extend_from_slice(&navbar);
     let event_overlay_passive = (
         event_overlay_passive_str.to_string(),
         MapNode {
@@ -386,7 +467,8 @@ pub fn watchout_hi_map() -> HyperMap {
         },
     );
 
-    let mut call_list_links = vec![];
+    let mut call_list_links = vec![(InsetPercent::new(0, 0, 53, 0), Href::Back)];
+    call_list_links.extend_from_slice(&navbar);
     let call_list = (
         call_list_str.to_string(),
         MapNode {
