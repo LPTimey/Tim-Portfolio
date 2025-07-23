@@ -14,7 +14,7 @@ pub struct MapNode {
     pub buttons: Vec<(InsetPercent, Href)>,
     pub img: Link,
     pub overlay: bool,
-    pub default: bool
+    pub default: bool,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
@@ -45,6 +45,7 @@ impl InsetPercent {
     }
 }
 
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord)]
 pub enum Href {
     Back,
     BackThen(String),
@@ -76,7 +77,7 @@ pub fn markup(map: HyperMap, path_to_root: String) -> Markup {
                         (img(Link(format!("{path_to_root}{}",*page.1.img).leak()), "", None, &[], None))
                         @for button in page.1.buttons.iter(){
                             @if !format!("{}",button.1).contains(page.0){
-                                button style=(button.0.to_style()) href=(button.1) aria-label=(format!("link to: {}",button.1)){}
+                                button type="button" style=(button.0.to_style()) href=(button.1) aria-label=(format!("link to: {}",button.1)){}
                             }
                         }
                     }

@@ -233,8 +233,17 @@ pub fn watchout_hi_map() -> HyperMap {
         ),
     ];
 
-    let mut home_links = vec![];
-    home_links.extend(navbar);
+    let mut home_links = vec![
+        (
+            InsetPercent::new(40, 10, 50, 10),
+            Href::Specific(event_overlay_str.to_string()),
+        ),
+        (
+            InsetPercent::new(81, 7, 13, 7),
+            Href::Specific(call_list_str.to_string()),
+        ),
+    ];
+    home_links.extend_from_slice(&navbar);
     let home = (
         home_str.to_string(),
         MapNode {
@@ -247,10 +256,25 @@ pub fn watchout_hi_map() -> HyperMap {
         },
     );
 
+    let mut history_links = vec![
+        (
+            InsetPercent::new(81, 7, 12, 7),
+            Href::Specific(call_list_str.to_string()),
+        ),
+        (
+            InsetPercent::new(33, 8, 56, 8),
+            Href::Specific(event_overlay_str.to_string()),
+        ),
+        (
+            InsetPercent::new(69, 8, 21, 8),
+            Href::Specific(event_overlay_passive_str.to_string()),
+        ),
+    ];
+    history_links.extend_from_slice(&navbar);
     let history = (
         history_str.to_string(),
         MapNode {
-            buttons: vec![],
+            buttons: history_links,
             img: link_public!(
                 "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/History  – 1 Log.png"
             ),
@@ -259,10 +283,21 @@ pub fn watchout_hi_map() -> HyperMap {
         },
     );
 
+    let mut map_links = vec![
+        (
+            InsetPercent::new(81, 7, 12, 7),
+            Href::Specific(call_list_str.to_string()),
+        ),
+        (
+            InsetPercent::new(81, 7, 12, 7),
+            Href::Specific(call_list_str.to_string()),
+        ),
+    ];
+    map_links.extend_from_slice(&navbar);
     let map = (
         map_str.to_string(),
         MapNode {
-            buttons: vec![],
+            buttons: map_links,
             img: link_public!(
                 "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/Map – 1.png"
             ),
@@ -271,10 +306,11 @@ pub fn watchout_hi_map() -> HyperMap {
         },
     );
 
+    let mut map_overlay_helen_links = vec![];
     let map_overlay_helen = (
         map_overlay_helen_str.to_string(),
         MapNode {
-            buttons: vec![],
+            buttons: map_overlay_helen_links,
             img: link_public!(
                 "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/Map Overlay – 1 – Event.png"
             ),
@@ -283,10 +319,11 @@ pub fn watchout_hi_map() -> HyperMap {
         },
     );
 
+    let mut map_overlay_joe_links = vec![];
     let map_overlay_joe = (
         map_overlay_joe_str.to_string(),
         MapNode {
-            buttons: vec![],
+            buttons: map_overlay_joe_links,
             img: link_public!(
                 "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/Map Overlay – 2 – Joe.png"
             ),
@@ -295,10 +332,11 @@ pub fn watchout_hi_map() -> HyperMap {
         },
     );
 
+    let mut map_overlay_gunther_links = vec![];
     let map_overlay_gunther = (
         map_overlay_gunther_str.to_string(),
         MapNode {
-            buttons: vec![],
+            buttons: map_overlay_gunther_links,
             img: link_public!(
                 "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/Map Overlay – 2 – Gunther.png"
             ),
@@ -307,10 +345,12 @@ pub fn watchout_hi_map() -> HyperMap {
         },
     );
 
+    let mut settings_links = vec![];
+    settings_links.extend_from_slice(&navbar);
     let settings = (
         settings_str.to_string(),
         MapNode {
-            buttons: vec![],
+            buttons: settings_links,
             img: link_public!(
                 "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/Settings – 1.png"
             ),
@@ -319,10 +359,12 @@ pub fn watchout_hi_map() -> HyperMap {
         },
     );
 
+    let mut event_overlay_links = vec![(InsetPercent::new(0, 0, 0, 0), Href::Back)];
+    event_overlay_links.extend_from_slice(&navbar);
     let event_overlay = (
         event_overlay_str.to_string(),
         MapNode {
-            buttons: vec![],
+            buttons: event_overlay_links,
             img: link_public!(
                 "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/Message Overlay – new.png"
             ),
@@ -331,10 +373,11 @@ pub fn watchout_hi_map() -> HyperMap {
         },
     );
 
+    let mut event_overlay_passive_links = vec![];
     let event_overlay_passive = (
         event_overlay_passive_str.to_string(),
         MapNode {
-            buttons: vec![],
+            buttons: event_overlay_passive_links,
             img: link_public!(
                 "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/Message Overlay seen.png"
             ),
@@ -343,10 +386,11 @@ pub fn watchout_hi_map() -> HyperMap {
         },
     );
 
+    let mut call_list_links = vec![];
     let call_list = (
         call_list_str.to_string(),
         MapNode {
-            buttons: vec![],
+            buttons: call_list_links,
             img: link_public!(
                 "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/Call List Expanded.png"
             ),
