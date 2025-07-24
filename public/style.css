@@ -541,7 +541,7 @@
                 }
 
                 &:active {
-                    ::after {
+                    &::after {
                         transform: translate(0, 0);
                         opacity: 0.2;
                     }
