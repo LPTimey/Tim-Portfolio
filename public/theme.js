@@ -7,10 +7,15 @@
 //         radio.checked = radio.value === selected;
 //     });
 // });
-const select = document.getElementById("ThemeSelect");
-const radios = document.querySelectorAll('input[name="theme"]');
+/** @type {HTMLSelectElement} */
+const select = /***/(document.getElementById("ThemeSelect"));
+/** @type {NodeListOf<HTMLInputElement>} */
+const radios = /***/(document.querySelectorAll('input[name="theme"]'));
 
-// Funktion: Theme setzen
+/**
+ * 
+ * @param {string} value Themenname
+ */
 function setTheme(value) {
     radios.forEach(radio => {
         radio.checked = (radio.value === value);
@@ -18,26 +23,22 @@ function setTheme(value) {
     select.value = value;
 }
 
-// 1. Wiederherstellen aus localStorage oder Default (Radio-Button checked)
 const storedTheme = localStorage.getItem("preferredTheme");
 if (storedTheme) {
     setTheme(storedTheme);
 } else {
-    // Falls kein gespeicherter Wert: current checked Radio übernehmen
     const checkedRadio = Array.from(radios).find(r => r.checked);
     if (checkedRadio) {
         select.value = checkedRadio.value;
     }
 }
 
-// 2. EventListener: Änderung im <select>
 select.addEventListener("change", function () {
     const selected = this.value;
     setTheme(selected);
     localStorage.setItem("preferredTheme", selected);
 });
 
-// 3. Optional: Theme auch setzen, wenn Radio manuell geändert wird
 radios.forEach(radio => {
     radio.addEventListener("change", function () {
         if (this.checked) {
