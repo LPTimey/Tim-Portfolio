@@ -1,7 +1,7 @@
 use maud::PreEscaped;
 
 use crate::{
-    components::{footer::footer, head::default_head, header::header, img, page, project_table, Component}, placeholder_img, projekte::ProjectMetadata
+    components::{footer::footer, head::default_head, header::header, img, page, project_table::{self, with_sub_heading}, Component}, placeholder_img, projekte::ProjectMetadata
 };
 
 use super::super::*;
@@ -53,7 +53,8 @@ pub fn page(page: Page) -> maud::Markup {
                     picture #HeroImg{(img::img (Link((page.path_to_root()+*meta_data().title_img.light()).leak()),"",None,&[],None))}
                 }
                 (table_html(project_table::MarkupProps {
-                    title: "Tetris auf dem Arduino?".into(),
+                    // title: "Tetris auf dem Arduino?".into(),
+                    title: with_sub_heading("Tetris auf dem Arduino?","Programmieren"),
                     graphic: html!{
                         picture{
                             img loading="lazy" draggable="false"

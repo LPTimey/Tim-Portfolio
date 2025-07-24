@@ -88,6 +88,16 @@ impl<T: Into<String>> From<(T, Link)> for Graphic {
     }
 }
 
+pub fn with_sub_heading(title: &str, sub: &str) -> Content {
+    html! {
+        span."fw-normal"."ui-small"."lh-tight".block{
+            (sub)
+        }
+        (title)
+    }
+    .into()
+}
+
 #[with_props]
 fn markup<'a>(title: Content, graphic: Graphic, rows: &'a [Row], text: Content) -> maud::Markup {
     html! {

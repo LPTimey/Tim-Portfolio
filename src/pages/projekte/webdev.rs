@@ -1,10 +1,7 @@
 use crate::{
-    LightDark,
     components::{
-        self, Component, footer::footer, head::default_head, header::header, project_table,
-    },
-    placeholder_img,
-    projekte::ProjectMetadata,
+        self, footer::footer, head::default_head, header::header, project_table::{self, with_sub_heading}, Component
+    }, placeholder_img, projekte::ProjectMetadata, LightDark
 };
 
 use super::super::*;
@@ -58,7 +55,8 @@ pub fn page(page: Page) -> maud::Markup {
                         picture #HeroImg{img draggable="false" src=(page.path_to_root()+*meta_data().title_img.light()) alt="";}
                     }
                     (table_html(project_table::MarkupProps {
-                        title: "Webentwicklung: Design und Programmieren".into(),
+                        // title: "Webentwicklung: Design und Programmieren".into(),
+                        title: with_sub_heading("Webentwicklung","Design & Programmieren"),
                         graphic: html!{
                             picture{
                                 img loading="lazy" draggable="false"

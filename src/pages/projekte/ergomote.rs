@@ -2,7 +2,7 @@ use maud::PreEscaped;
 
 use crate::{
     components::{
-        self, Component, footer::footer, head::default_head, header::header, img, project_table,
+        self, footer::footer, head::default_head, header::header, img, project_table::{self, with_sub_heading}, Component
     },
     projekte::ProjectMetadata,
 };
@@ -54,7 +54,8 @@ pub fn page(page: Page) -> maud::Markup {
                         picture #HeroImg{(img::img (Link((page.path_to_root()+*meta_data().title_img.light()).leak()),"",None,&[],None))}
                     }
                     (table_html(project_table::MarkupProps {
-                        title: "Ergomote".into(),
+                        // title: "Ergomote".into(),
+                        title: with_sub_heading("Ergomote","3D- & Produktdesign"),
                         graphic: html!{
                             picture{
                                 (img::img (Link((page.path_to_root()+*link_public!("assets/Ergomote/render.png")).leak()),"",None,&[],None))

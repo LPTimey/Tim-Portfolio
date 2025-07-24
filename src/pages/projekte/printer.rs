@@ -1,7 +1,7 @@
 use maud::PreEscaped;
 
 use crate::{
-    components::{footer::footer, head::default_head, header::header, img, page, project_table, Component},
+    components::{footer::footer, head::default_head, header::header, img, page, project_table::{self, with_sub_heading}, Component},
     projekte::ProjectMetadata,
 };
 
@@ -51,7 +51,8 @@ pub fn page(page: Page) -> maud::Markup {
                     }
                 }
                 (table_html(project_table::MarkupProps {
-                    title: "Drucker: Motivation & Generelles".into(),
+                    // title: "Drucker: Motivation & Generelles".into(),
+                    title: with_sub_heading("Drucker Re-Design","Screendesign"),
                     graphic: html!{
                         video controls{
                             source src=("video_href") type="video/mp4";

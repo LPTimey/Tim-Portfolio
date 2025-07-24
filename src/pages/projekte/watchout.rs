@@ -4,14 +4,7 @@ use maud::PreEscaped;
 
 use crate::{
     components::{
-        self, Component,
-        footer::footer,
-        head::default_head,
-        header::header,
-        hyper_img::{self, Href, HyperMap, InsetPercent, MapNode},
-        img, phone_border,
-        project_table::{self},
-        three_js_setup::import_map,
+        self, footer::footer, head::default_head, header::header, hyper_img::{self, Href, HyperMap, InsetPercent, MapNode}, img, phone_border, project_table::{self, with_sub_heading}, three_js_setup::import_map, Component
     },
     include_public,
     projekte::ProjectMetadata,
@@ -52,7 +45,8 @@ pub fn meta_data() -> ProjectMetadata {
                 (path_to_root(mod_path_to_href(MOD_PATH).expect("A valid path").as_path()) + 
                 "assets/Design der Mensch Maschine Schnittstelle/WatchOut/title-img-flipp-bg.webp")
                 .leak()
-            ).into(),
+            )
+        .into(),
         name: "WatchOut",
         description: DESCRIPTION,
         category: projekte::Category::DMMS,
@@ -129,7 +123,13 @@ pub fn page(page: Page) -> maud::Markup {
                         }
                     }
                     (table_html(project_table::MarkupProps {
-                        title: "WatchOut: Motivation & Generelles".into(),
+                        // title: html!{
+                        //     span."fw-normal"."ui-small"."lh-tight".block{
+                        //         "Design der Mensch-Maschine-Schnittstelle"
+                        //     }
+                        //     "WatchOut: Motivation & Generelles"
+                        // }.into(),
+                        title: with_sub_heading("WatchOut App & Uhr","Design der Mensch-Maschine-Schnittstelle"),
                         graphic: html!{
                             video controls{
                                 source src=(video_href) type="video/mp4";
