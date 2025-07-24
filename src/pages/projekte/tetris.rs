@@ -50,7 +50,7 @@ pub fn page(page: Page) -> maud::Markup {
             (header(page))
             main{
                 section #Hero{
-                    picture #HeroImg{(img::img (Link((page.path_to_root()+*meta_data().title_img.light()).leak()),"",None,&[],None))}
+                    picture #HeroImg{(img::img (meta_data().title_img.light(),"",None,&[],None))}
                 }
                 (table_html(project_table::MarkupProps {
                     // title: "Tetris auf dem Arduino?".into(),

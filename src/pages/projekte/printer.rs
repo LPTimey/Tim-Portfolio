@@ -1,7 +1,15 @@
 use maud::PreEscaped;
 
 use crate::{
-    components::{footer::footer, head::default_head, header::header, img, page, project_table::{self, with_sub_heading}, Component},
+    components::{
+        Component,
+        footer::footer,
+        head::default_head,
+        header::header,
+        hyper_img::{self, Href, HyperMap, InsetPercent, MapNode},
+        img, page,
+        project_table::{self, with_sub_heading},
+    },
     projekte::ProjectMetadata,
 };
 
@@ -20,7 +28,8 @@ pub fn meta_data() -> ProjectMetadata {
             (path_to_root(mod_path_to_href(MOD_PATH).expect("A valid path").as_path())
                 + "assets/Screendesign/Drucker/title-img-zoomed.webp")
                 .leak()
-        ).into(),
+        )
+        .into(),
         name: "Drucker Touchscreen",
         description: DESCRIPTION,
         category: projekte::Category::Screendesign,
@@ -36,39 +45,290 @@ pub fn page(page: Page) -> maud::Markup {
         ..
     } = project_table::component();
 
-    page::page(page.path_to_root(),html! {
-        head{
-            (default_head("Drucker","TODO: Add description",page.path_to_root()))
-            link rel="stylesheet" href=(page.path_to_root()+*table_style);
-        }
+    let Component {
+        html: hy_img_html,
+        style: hy_img_style,
+        script: hy_img_script,
+    } = hyper_img::component();
 
-        body{
-            (header(page))
-            main{
-                section #Hero{
-                    picture #HeroImg{
-                        (img::img (Link((page.path_to_root()+*meta_data().title_img.light()).leak()),"",None,&[],None))
-                    }
-                }
-                (table_html(project_table::MarkupProps {
-                    // title: "Drucker: Motivation & Generelles".into(),
-                    title: with_sub_heading("Drucker Re-Design","Screendesign"),
-                    graphic: html!{
-                        video controls{
-                            source src=("video_href") type="video/mp4";
-                            a href=("video_href") type="video/mp4"{}
-                        }
-                    }.into(),
-                    rows:&[
-                        ("Studienmodul", "Projekt Gestaltung II").into(),
-                        ("Zeitraum", "März 2024 - Juli 2024").into(),
-                        ("Tools", "Illustrator, XD, git, GitHub").into(),
-                        ("Hochschule", "Technische Hochschule Ingolstadt").into(),
-                    ],
-                    text: CONTENT.into()
-                }))
+    page::page(
+        page.path_to_root(),
+        html! {
+            head{
+                script type="module" src=(page.path_to_root()+*hy_img_script) {}
+                (default_head("Drucker","TODO: Add description",page.path_to_root()))
+                link rel="stylesheet" href=(page.path_to_root()+*hy_img_style);
+                link rel="stylesheet" href=(page.path_to_root()+*table_style);
             }
-            (footer())
-        }
-    })
+
+            body{
+                (header(page))
+                main{
+                    section #Hero{
+                        picture #HeroImg{(img::img (meta_data().title_img.light(),"",None,&[],None))}
+                    }
+                    (table_html(project_table::MarkupProps {
+                        // title: "Drucker: Motivation & Generelles".into(),
+                        title: with_sub_heading("Drucker Re-Design","Screendesign"),
+                        // graphic: (page.path_to_root(),meta_data().title_img.light()).into(),
+                        graphic: html!{(hy_img_html(hyper_img::MarkupProps { map: hyper_map(), path_to_root: page.path_to_root() }))}.into(),
+                        rows:&[
+                            ("Studienmodul", "Projekt Gestaltung II").into(),
+                            ("Zeitraum", "März 2024 - Juli 2024").into(),
+                            ("Tools", "Illustrator, XD, git, GitHub").into(),
+                            ("Hochschule", "Technische Hochschule Ingolstadt").into(),
+                        ],
+                        text: CONTENT.into()
+                    }))
+                }
+                (footer())
+            }
+        },
+    )
+}
+
+pub fn hyper_map() -> HyperMap {
+    let mut hyper_map = HyperMap::default();
+    let map = &mut hyper_map.0;
+
+    const LOGIN_STR: &'static str = "Login";
+    const LOGIN_CARD_STR: &'static str = "Login_Card";
+    const HOME_STR: &'static str = "Home";
+    const SETTINGS_STR: &'static str = "Settings";
+    const LANG_STR: &'static str = "Language";
+    const COLOR_STR: &'static str = "Color";
+    const USER_STR: &'static str = "User";
+    const AUSWAHL_STR: &'static str = "Auswahl";
+    const AUSWAHL_ALLES_STR: &'static str = "AuswahlAlles";
+    const EINSTELLEN_STR: &'static str = "Einstellen";
+    const DRUCKEN_STR: &'static str = "Drucken";
+    const AFTER_STR: &'static str = "After";
+
+    let nav = [
+        (
+            InsetPercent::new(0, 83, 85, 0),
+            Href::Specific(SETTINGS_STR.to_string()),
+        ),
+        (
+            InsetPercent::new(85, 83, 0, 0),
+            Href::Specific(LANG_STR.to_string()),
+        ),
+        (
+            InsetPercent::new(85, 0, 0, 83),
+            Href::Specific(COLOR_STR.to_string()),
+        ),
+    ];
+    let nav_user = (
+        InsetPercent::new(0, 0, 85, 83),
+        Href::Specific(USER_STR.to_string()),
+    );
+
+    let mut login_links = vec![
+        (
+            InsetPercent::new(17, 39, 74, 43),
+            Href::Specific(LOGIN_CARD_STR.to_string()),
+        ),
+        (
+            InsetPercent::new(67, 32, 23, 32),
+            Href::Specific(HOME_STR.to_string()),
+        ),
+    ];
+    login_links.extend_from_slice(&nav);
+    let login = (
+        LOGIN_STR.to_string(),
+        MapNode {
+            buttons: login_links,
+            img: link_public!(
+                "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_05.png"
+            ),
+            alpha: false,
+            default: true,
+        },
+    );
+
+    let mut login_card_links = vec![(
+        InsetPercent::new(17, 56, 74, 26),
+        Href::Specific(LOGIN_STR.to_string()),
+    )];
+    login_card_links.extend_from_slice(&nav);
+    let login_card = (
+        LOGIN_CARD_STR.to_string(),
+        MapNode {
+            buttons: login_card_links,
+            img: link_public!(
+                "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_06.png"
+            ),
+            alpha: false,
+            default: false,
+        },
+    );
+
+    let mut home_links = vec![
+        (
+            InsetPercent::new(16, 50, 51, 22),
+            Href::Specific(AUSWAHL_STR.to_string()),
+        ),
+        (
+            InsetPercent::new(16, 21, 51, 51),
+            Href::Specific(EINSTELLEN_STR.to_string()),
+        ),
+        (
+            InsetPercent::new(51, 50, 16, 22),
+            Href::Specific(EINSTELLEN_STR.to_string()),
+        ),
+    ];
+    home_links.extend_from_slice(&nav);
+    home_links.push(nav_user.clone());
+    let home = (
+        HOME_STR.to_string(),
+        MapNode {
+            buttons: home_links,
+            img: link_public!(
+                "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_07.png"
+            ),
+            alpha: false,
+            default: false,
+        },
+    );
+
+    let mut auswahl_links = vec![
+        (
+            InsetPercent::new(74, 20, 15, 60),
+            Href::Specific(EINSTELLEN_STR.to_string()),
+        ),
+        (InsetPercent::new(74, 59, 15, 21), Href::Back),
+        (
+            InsetPercent::new(30, 23, 63, 72),
+            Href::Specific(AUSWAHL_ALLES_STR.to_string()),
+        ),
+    ];
+    auswahl_links.extend_from_slice(&nav);
+    auswahl_links.push(nav_user.clone());
+    let auswahl = (
+        AUSWAHL_STR.to_string(),
+        MapNode {
+            buttons: auswahl_links,
+            img: link_public!(
+                "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_08.png"
+            ),
+            alpha: false,
+            default: false,
+        },
+    );
+
+    let mut auswahl_alles_links = vec![
+        (
+            InsetPercent::new(74, 20, 15, 60),
+            Href::Specific(EINSTELLEN_STR.to_string()),
+        ),
+        (
+            InsetPercent::new(74, 59, 15, 21),
+            Href::Specific(HOME_STR.to_string()),
+        ),
+        (InsetPercent::new(30, 23, 63, 72), Href::Back),
+    ];
+    auswahl_alles_links.extend_from_slice(&nav);
+    auswahl_alles_links.push(nav_user.clone());
+    let auswahl_alles = (
+        AUSWAHL_ALLES_STR.to_string(),
+        MapNode {
+            buttons: auswahl_alles_links,
+            img: link_public!(
+                "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_08 - alles.webp"
+            ),
+            alpha: false,
+            default: false,
+        },
+    );
+
+    let mut einstellen_links = vec![
+        (
+            InsetPercent::new(74, 20, 15, 60),
+            Href::Specific(DRUCKEN_STR.to_string()),
+        ),
+        (InsetPercent::new(74, 59, 15, 21), Href::Back),
+        (
+            InsetPercent::new(18, 58, 73, 23),
+            Href::Specific(AUSWAHL_STR.to_string()),
+        ),
+    ];
+    einstellen_links.extend_from_slice(&nav);
+    einstellen_links.push(nav_user.clone());
+    let einstellen = (
+        EINSTELLEN_STR.to_string(),
+        MapNode {
+            buttons: einstellen_links,
+            img: link_public!(
+                "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_09.png"
+            ),
+            alpha: false,
+            default: false,
+        },
+    );
+
+    let mut drucken_links = vec![
+        (
+            InsetPercent::new(74, 20, 15, 60),
+            Href::Specific(AFTER_STR.to_string()),
+        ),
+        (InsetPercent::new(74, 59, 15, 21), Href::Back),
+        (
+            InsetPercent::new(18, 58, 73, 23),
+            Href::Specific(AUSWAHL_STR.to_string()),
+        ),
+        (
+            InsetPercent::new(18, 40, 73, 43),
+            Href::Specific(EINSTELLEN_STR.to_string()),
+        ),
+    ];
+    drucken_links.extend_from_slice(&nav);
+    drucken_links.push(nav_user.clone());
+    let drucken = (
+        DRUCKEN_STR.to_string(),
+        MapNode {
+            buttons: drucken_links,
+            img: link_public!(
+                "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_13.png"
+            ),
+            alpha: false,
+            default: false,
+        },
+    );
+
+    let mut after_links = vec![
+        (
+            InsetPercent::new(33, 52, 33, 7),
+            Href::Specific(LOGIN_STR.to_string()),
+        ),
+        (
+            InsetPercent::new(33, 9, 33, 53),
+            Href::Specific(HOME_STR.to_string()),
+        ),
+    ];
+    after_links.extend_from_slice(&nav);
+    after_links.push(nav_user.clone());
+    let after = (
+        AFTER_STR.to_string(),
+        MapNode {
+            buttons: after_links,
+            img: link_public!(
+                "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_21.png"
+            ),
+            alpha: false,
+            default: false,
+        },
+    );
+
+    map.extend([
+        login,
+        login_card,
+        home,
+        auswahl,
+        auswahl_alles,
+        einstellen,
+        drucken,
+        after,
+    ]);
+
+    hyper_map
 }

@@ -4,7 +4,14 @@ use maud::PreEscaped;
 
 use crate::{
     components::{
-        self, footer::footer, head::default_head, header::header, hyper_img::{self, Href, HyperMap, InsetPercent, MapNode}, img, phone_border, project_table::{self, with_sub_heading}, three_js_setup::import_map, Component
+        self, Component,
+        footer::footer,
+        head::default_head,
+        header::header,
+        hyper_img::{self, Href, HyperMap, InsetPercent, MapNode},
+        img, phone_border,
+        project_table::{self, with_sub_heading},
+        three_js_setup::import_map,
     },
     include_public,
     projekte::ProjectMetadata,
@@ -113,7 +120,7 @@ pub fn page(page: Page) -> maud::Markup {
                 (header(page))
                 main{
                     section #Hero{
-                        picture #HeroImg{(img::img (Link((page.path_to_root()+*meta_data().title_img.light()).leak()),"",None,&[],None))}
+                        picture #HeroImg{(img::img (meta_data().title_img.light(),"",None,&[],None))}
                         div ."hero-content"{
                             h1."mb-large"{
                                 span."fs-large"."lh-tight"{ "Willkommen, hier" } br;
@@ -210,55 +217,55 @@ pub fn page(page: Page) -> maud::Markup {
 pub fn watchout_hi_map() -> HyperMap {
     let mut h_map = HashMap::new();
 
-    let home_str = "News";
-    let history_str = "History";
-    let map_str = "Map";
-    let map_overlay_helen_str = "Map_overlay_Helen";
-    let map_overlay_joe_str = "Map_overlay_Joe";
-    let map_overlay_gunther_str = "Map_overlay_Gunther";
-    let settings_str = "Settings";
-    let event_overlay_str = "Event_overlay";
-    let event_overlay_passive_str = "Event_overlay_passive";
-    let call_list_str = "CallList";
+    const HOME_STR: &'static str = "News";
+    const HISTORY_STR: &'static str = "History";
+    const MAP_STR: &'static str = "Map";
+    const MAP_OVERLAY_HELEN_STR: &'static str = "Map_overlay_Helen";
+    const MAP_OVERLAY_JOE_STR: &'static str = "Map_overlay_Joe";
+    const MAP_OVERLAY_GUNTHER_STR: &'static str = "Map_overlay_Gunther";
+    const SETTINGS_STR: &'static str = "Settings";
+    const EVENT_OVERLAY_STR: &'static str = "Event_overlay";
+    const EVENT_OVERLAY_PASSIVE_STR: &'static str = "Event_overlay_passive";
+    const CALL_LIST_STR: &'static str = "CallList";
 
-    let navbar = vec![
+    let navbar = [
         (
             InsetPercent::new(90, 75, 2, 10),
-            Href::Specific(home_str.to_string()),
+            Href::Specific(HOME_STR.to_string()),
         ),
         (
             InsetPercent::new(90, 53, 2, 31),
-            Href::Specific(history_str.to_string()),
+            Href::Specific(HISTORY_STR.to_string()),
         ),
         (
             InsetPercent::new(90, 30, 2, 52),
-            Href::Specific(map_str.to_string()),
+            Href::Specific(MAP_STR.to_string()),
         ),
         (
             InsetPercent::new(90, 10, 2, 75),
-            Href::Specific(settings_str.to_string()),
+            Href::Specific(SETTINGS_STR.to_string()),
         ),
     ];
 
     let mut home_links = vec![
         (
             InsetPercent::new(40, 10, 50, 10),
-            Href::Specific(event_overlay_str.to_string()),
+            Href::Specific(EVENT_OVERLAY_STR.to_string()),
         ),
         (
             InsetPercent::new(81, 7, 13, 7),
-            Href::Specific(call_list_str.to_string()),
+            Href::Specific(CALL_LIST_STR.to_string()),
         ),
     ];
     home_links.extend_from_slice(&navbar);
     let home = (
-        home_str.to_string(),
+        HOME_STR.to_string(),
         MapNode {
             buttons: home_links,
             img: link_public!(
                 "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/Recent Events  – log.png"
             ),
-            overlay: false,
+            alpha: false,
             default: true,
         },
     );
@@ -266,26 +273,26 @@ pub fn watchout_hi_map() -> HyperMap {
     let mut history_links = vec![
         (
             InsetPercent::new(81, 7, 12, 7),
-            Href::Specific(call_list_str.to_string()),
+            Href::Specific(CALL_LIST_STR.to_string()),
         ),
         (
             InsetPercent::new(33, 8, 56, 8),
-            Href::Specific(event_overlay_str.to_string()),
+            Href::Specific(EVENT_OVERLAY_STR.to_string()),
         ),
         (
             InsetPercent::new(69, 8, 21, 8),
-            Href::Specific(event_overlay_passive_str.to_string()),
+            Href::Specific(EVENT_OVERLAY_PASSIVE_STR.to_string()),
         ),
     ];
     history_links.extend_from_slice(&navbar);
     let history = (
-        history_str.to_string(),
+        HISTORY_STR.to_string(),
         MapNode {
             buttons: history_links,
             img: link_public!(
                 "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/History  – 1 Log.png"
             ),
-            overlay: false,
+            alpha: false,
             default: false,
         },
     );
@@ -293,30 +300,30 @@ pub fn watchout_hi_map() -> HyperMap {
     let mut map_links = vec![
         (
             InsetPercent::new(81, 7, 12, 7),
-            Href::Specific(call_list_str.to_string()),
+            Href::Specific(CALL_LIST_STR.to_string()),
         ),
         (
             InsetPercent::new(32, 30, 54, 45),
-            Href::Specific(map_overlay_helen_str.to_string()),
+            Href::Specific(MAP_OVERLAY_HELEN_STR.to_string()),
         ),
         (
             InsetPercent::new(50, 15, 40, 70),
-            Href::Specific(map_overlay_joe_str.to_string()),
+            Href::Specific(MAP_OVERLAY_JOE_STR.to_string()),
         ),
         (
             InsetPercent::new(62, 62, 28, 23),
-            Href::Specific(map_overlay_gunther_str.to_string()),
+            Href::Specific(MAP_OVERLAY_GUNTHER_STR.to_string()),
         ),
     ];
     map_links.extend_from_slice(&navbar);
     let map = (
-        map_str.to_string(),
+        MAP_STR.to_string(),
         MapNode {
             buttons: map_links,
             img: link_public!(
                 "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/Map – 1.png"
             ),
-            overlay: false,
+            alpha: false,
             default: false,
         },
     );
@@ -324,11 +331,11 @@ pub fn watchout_hi_map() -> HyperMap {
     let mut map_overlay_helen_links = vec![
         (
             InsetPercent::new(39, 12, 51, 12),
-            Href::Specific(home_str.to_string()),
+            Href::Specific(HOME_STR.to_string()),
         ),
         (
             InsetPercent::new(81, 7, 12, 7),
-            Href::Specific(call_list_str.to_string()),
+            Href::Specific(CALL_LIST_STR.to_string()),
         ),
         // Top
         (InsetPercent::new(0, 0, 72, 0), Href::Back),
@@ -341,13 +348,13 @@ pub fn watchout_hi_map() -> HyperMap {
     ];
     map_overlay_helen_links.extend_from_slice(&navbar);
     let map_overlay_helen = (
-        map_overlay_helen_str.to_string(),
+        MAP_OVERLAY_HELEN_STR.to_string(),
         MapNode {
             buttons: map_overlay_helen_links,
             img: link_public!(
                 "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/Map Overlay – 1 – Event.png"
             ),
-            overlay: true,
+            alpha: true,
             default: false,
         },
     );
@@ -355,7 +362,7 @@ pub fn watchout_hi_map() -> HyperMap {
     let mut map_overlay_joe_links = vec![
         (
             InsetPercent::new(81, 7, 12, 7),
-            Href::Specific(call_list_str.to_string()),
+            Href::Specific(CALL_LIST_STR.to_string()),
         ),
         // Top
         (InsetPercent::new(0, 0, 72, 0), Href::Back),
@@ -368,13 +375,13 @@ pub fn watchout_hi_map() -> HyperMap {
     ];
     map_overlay_joe_links.extend_from_slice(&navbar);
     let map_overlay_joe = (
-        map_overlay_joe_str.to_string(),
+        MAP_OVERLAY_JOE_STR.to_string(),
         MapNode {
             buttons: map_overlay_joe_links,
             img: link_public!(
                 "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/Map Overlay – 2 – Joe.png"
             ),
-            overlay: true,
+            alpha: true,
             default: false,
         },
     );
@@ -382,7 +389,7 @@ pub fn watchout_hi_map() -> HyperMap {
     let mut map_overlay_gunther_links = vec![
         (
             InsetPercent::new(81, 7, 12, 7),
-            Href::Specific(call_list_str.to_string()),
+            Href::Specific(CALL_LIST_STR.to_string()),
         ),
         // Top
         (InsetPercent::new(0, 0, 72, 0), Href::Back),
@@ -395,13 +402,13 @@ pub fn watchout_hi_map() -> HyperMap {
     ];
     map_overlay_gunther_links.extend_from_slice(&navbar);
     let map_overlay_gunther = (
-        map_overlay_gunther_str.to_string(),
+        MAP_OVERLAY_GUNTHER_STR.to_string(),
         MapNode {
             buttons: map_overlay_gunther_links,
             img: link_public!(
                 "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/Map Overlay – 2 – Gunther.png"
             ),
-            overlay: true,
+            alpha: true,
             default: false,
         },
     );
@@ -409,13 +416,13 @@ pub fn watchout_hi_map() -> HyperMap {
     let mut settings_links = vec![];
     settings_links.extend_from_slice(&navbar);
     let settings = (
-        settings_str.to_string(),
+        SETTINGS_STR.to_string(),
         MapNode {
             buttons: settings_links,
             img: link_public!(
                 "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/Settings – 1.png"
             ),
-            overlay: false,
+            alpha: false,
             default: false,
         },
     );
@@ -423,7 +430,7 @@ pub fn watchout_hi_map() -> HyperMap {
     let mut event_overlay_links = vec![
         (
             InsetPercent::new(38, 15, 44, 15),
-            Href::Specific(map_str.to_string()),
+            Href::Specific(MAP_STR.to_string()),
         ),
         // Top
         (InsetPercent::new(0, 0, 76, 0), Href::Back),
@@ -436,13 +443,13 @@ pub fn watchout_hi_map() -> HyperMap {
     ];
     event_overlay_links.extend_from_slice(&navbar);
     let event_overlay = (
-        event_overlay_str.to_string(),
+        EVENT_OVERLAY_STR.to_string(),
         MapNode {
             buttons: event_overlay_links,
             img: link_public!(
                 "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/Message Overlay – new.png"
             ),
-            overlay: true,
+            alpha: true,
             default: false,
         },
     );
@@ -450,7 +457,7 @@ pub fn watchout_hi_map() -> HyperMap {
     let mut event_overlay_passive_links = vec![
         (
             InsetPercent::new(38, 15, 44, 15),
-            Href::Specific(map_str.to_string()),
+            Href::Specific(MAP_STR.to_string()),
         ),
         // Top
         (InsetPercent::new(0, 0, 76, 0), Href::Back),
@@ -463,13 +470,13 @@ pub fn watchout_hi_map() -> HyperMap {
     ];
     event_overlay_passive_links.extend_from_slice(&navbar);
     let event_overlay_passive = (
-        event_overlay_passive_str.to_string(),
+        EVENT_OVERLAY_PASSIVE_STR.to_string(),
         MapNode {
             buttons: event_overlay_passive_links,
             img: link_public!(
                 "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/Message Overlay seen.png"
             ),
-            overlay: true,
+            alpha: true,
             default: false,
         },
     );
@@ -477,13 +484,13 @@ pub fn watchout_hi_map() -> HyperMap {
     let mut call_list_links = vec![(InsetPercent::new(0, 0, 53, 0), Href::Back)];
     call_list_links.extend_from_slice(&navbar);
     let call_list = (
-        call_list_str.to_string(),
+        CALL_LIST_STR.to_string(),
         MapNode {
             buttons: call_list_links,
             img: link_public!(
                 "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/Call List Expanded.png"
             ),
-            overlay: true,
+            alpha: true,
             default: false,
         },
     );

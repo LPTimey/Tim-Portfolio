@@ -9,11 +9,12 @@ use crate::{
     link_public,
 };
 
+#[derive(Default)]
 pub struct HyperMap(pub HashMap<String, MapNode>);
 pub struct MapNode {
     pub buttons: Vec<(InsetPercent, Href)>,
     pub img: Link,
-    pub overlay: bool,
+    pub alpha: bool,
     pub default: bool,
 }
 

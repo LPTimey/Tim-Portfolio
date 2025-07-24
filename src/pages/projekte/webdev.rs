@@ -1,6 +1,6 @@
 use crate::{
     components::{
-        self, footer::footer, head::default_head, header::header, project_table::{self, with_sub_heading}, Component
+        self, footer::footer, head::default_head, header::header, img, project_table::{self, with_sub_heading}, Component
     }, placeholder_img, projekte::ProjectMetadata, LightDark
 };
 
@@ -52,7 +52,7 @@ pub fn page(page: Page) -> maud::Markup {
                 (header(page))
                 main{
                     section #Hero{
-                        picture #HeroImg{img draggable="false" src=(page.path_to_root()+*meta_data().title_img.light()) alt="";}
+                        picture #HeroImg{(img::img (meta_data().title_img.light(),"",None,&[],None))}
                     }
                     (table_html(project_table::MarkupProps {
                         // title: "Webentwicklung: Design und Programmieren".into(),
