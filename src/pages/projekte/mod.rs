@@ -32,33 +32,33 @@ impl Ord for Category {
     }
 }
 
-pub trait TitleImg: Debug {
-    fn light(&self) -> Link;
-    fn dark(&self) -> Link;
+#[derive(Debug, Clone, PartialEq, Eq, Display)]
+pub enum ThemeLink {
+    Single(Link),
+    LightDark(LightDark<Link>),
 }
-impl TitleImg for Link {
-    fn dark(&self) -> Link {
-        *self
+impl ThemeLink {
+    pub fn light(&self) -> Link {
+        match self {
+            ThemeLink::Single(link) => *link,
+            ThemeLink::LightDark(light_dark) => light_dark.light,
+        }
     }
-    fn light(&self) -> Link {
-        *self
-    }
-}
-impl TitleImg for LightDark<Link> {
-    fn light(&self) -> Link {
-        self.light
-    }
-
-    fn dark(&self) -> Link {
-        self.dark
+    pub fn dark(&self) -> Link {
+        match self {
+            ThemeLink::Single(link) => *link,
+            ThemeLink::LightDark(light_dark) => light_dark.dark,
+        }
     }
 }
-impl TitleImg for (Link, Link) {
-    fn light(&self) -> Link {
-        self.0
+impl From<Link> for ThemeLink{
+    fn from(value: Link) -> Self {
+        Self::Single(value)
     }
-    fn dark(&self) -> Link {
-        self.1
+}
+impl From<LightDark<Link>> for ThemeLink{
+    fn from(value: LightDark<Link>) -> Self {
+        Self::LightDark(value)
     }
 }
 
@@ -76,7 +76,7 @@ trait SortProjects {
 #[derive(Debug)]
 pub struct ProjectMetadata {
     pub path: PathBuf,
-    pub title_img: Box<dyn TitleImg>,
+    pub title_img: ThemeLink,
     pub name: &'static str,
     pub description: &'static str,
     pub category: Category,

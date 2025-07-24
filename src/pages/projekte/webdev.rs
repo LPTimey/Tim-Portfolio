@@ -15,7 +15,7 @@ const CONTENT: &str = r#"Die Geschichte der Entwicklung dieser Website."#;
 pub const MOD_PATH: &str = module_path!();
 pub fn meta_data() -> ProjectMetadata {
     ProjectMetadata {
-        title_img: Box::new(LightDark {
+        title_img: LightDark {
             light: link_public!(
                 (path_to_root(mod_path_to_href(MOD_PATH).expect("A valid path").as_path())
                     + "assets/WebSite/title-img-light.webp")
@@ -26,7 +26,8 @@ pub fn meta_data() -> ProjectMetadata {
                     + "assets/WebSite/title-img-dark.webp")
                     .leak()
             ),
-        }),
+        }
+        .into(),
         name: "Website Development",
         description: DESCRIPTION,
         category: projekte::Category::Programmieren,

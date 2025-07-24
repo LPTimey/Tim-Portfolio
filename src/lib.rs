@@ -2,7 +2,9 @@ mod components;
 mod pages;
 
 use std::{
-    fmt::Display, ops::Deref, path::{Path, PathBuf}
+    fmt::Display,
+    ops::Deref,
+    path::{Path, PathBuf},
 };
 
 use image::ImageReader;
@@ -62,7 +64,7 @@ impl Link {
 
         Some((image.0 as usize, image.1 as usize))
     }
-    pub fn get_img_dimensions_panic(&self)->(usize, usize){
+    pub fn get_img_dimensions_panic(&self) -> (usize, usize) {
         self.get_img_dimensions().expect("a valid img")
     }
     /// Entfernt führende ../ oder ./ und prependet "public/"

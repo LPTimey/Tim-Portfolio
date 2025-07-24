@@ -4,11 +4,16 @@
 
 #GeneralInfo {
     display: grid;
-    gap: 1rem;
+    gap: 1.5rem;
     grid-template-areas:
+        "Graphic ."
+        "Graphic Heading"
         "Graphic Table"
-        "Graphic Content";
-    grid-template-rows: min-content 1fr;
+        "Graphic ."
+        "Graphic Content"
+        "Graphic .";
+    grid-template-rows: min-content auto;
+    grid-template-columns: 1fr 1fr;
 }
 
 #TlDrTable {
@@ -53,7 +58,8 @@
     border-radius: var(--border-r);
     width: 100%;
     height: 100%;
-    >*{
+
+    >* {
         width: 100%;
         height: 100%;
         object-fit: cover;
@@ -63,18 +69,27 @@
 #IntroContent {
     grid-area: Content;
     height: 100%;
+    columns: 60ch;
 }
 
-@container GenInfoCont (width < 150ch) {
+#IntroTitle {
+    grid-area: Heading;
+}
+
+@container GenInfoCont (width < 200ch) {
     #GeneralInfo {
         display: grid;
         grid-template-areas:
+            "Graphic ."
+            "Graphic Heading"
             "Graphic Table"
+            "Graphic ."
             "Content Content";
+        grid-template-rows: min-content auto auto min-content;
     }
 
     #TlDrTable {
-        margin: auto;
+        margin: revert;
     }
 }
 
@@ -82,9 +97,12 @@
     #GeneralInfo {
         display: grid;
         grid-template-areas:
+            "Heading"
             "Graphic"
             "Table"
             "Content";
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
     }
 
     #TlDrTable {

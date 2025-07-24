@@ -91,23 +91,21 @@ impl<T: Into<String>> From<(T, Link)> for Graphic {
 #[with_props]
 fn markup<'a>(title: Content, graphic: Graphic, rows: &'a [Row], text: Content) -> maud::Markup {
     html! {
-        section.sect #Intro{
-            h2.content.heading{(title)}
-            div.content{
-                div #GeneralInfo{
-                    div #Graphic{
-                        (graphic)
-                    }
-                    table id="TlDrTable" role="presentation" aria-label="Projektinformationen"{
-                        tbody{
-                            @for row in rows{
-                                (row)
-                            }
+        section.sect.content #Intro{
+            div #GeneralInfo{
+                h2.heading #IntroTitle{(title)}
+                div #Graphic{
+                    (graphic)
+                }
+                table id="TlDrTable" role="presentation" aria-label="Projektinformationen"{
+                    tbody{
+                        @for row in rows{
+                            (row)
                         }
                     }
-                    div #IntroContent{
-                        (text)
-                    }
+                }
+                div #IntroContent{
+                    (text)
                 }
             }
         }
