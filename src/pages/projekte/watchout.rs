@@ -120,7 +120,7 @@ pub fn page(page: Page) -> maud::Markup {
                 (header(page))
                 main{
                     section #Hero{
-                        picture #HeroImg{(img::img (meta_data().title_img.light(),"",None,&[],None))}
+                        picture #HeroImg{(img::img ("",meta_data().title_img.light(),"",None,&[],None))}
                         div ."hero-content"{
                             h1."mb-large"{
                                 span."fs-large"."lh-tight"{ "Willkommen, hier" } br;

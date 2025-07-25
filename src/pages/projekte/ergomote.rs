@@ -51,14 +51,14 @@ pub fn page(page: Page) -> maud::Markup {
                 (header(page))
                 main{
                     section #Hero{
-                        picture #HeroImg{(img::img (meta_data().title_img.light(),"",None,&[],None))}
+                        picture #HeroImg{(img::img ("",meta_data().title_img.light(),"",None,&[],None))}
                     }
                     (table_html(project_table::MarkupProps {
                         // title: "Ergomote".into(),
                         title: with_sub_heading("Ergomote","3D- & Produktdesign"),
                         graphic: html!{
                             picture{
-                                (img::img (Link((page.path_to_root()+*link_public!("assets/Ergomote/render.png")).leak()),"",None,&[],None))
+                                (img::img (page.path_to_root(),link_public!("assets/Ergomote/render.png"),"",None,&[],None))
                             }
                         }.into(),
                         rows:&[

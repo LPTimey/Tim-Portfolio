@@ -1,0 +1,40 @@
+#Login {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    padding-bottom: 5rem;
+}
+
+#PrintPath {
+    padding-top: 5rem;
+    display: grid;
+    gap: 1rem;
+    height: fit-content;
+    grid-template-areas:
+        "Text    Text    Text       Home       Home    Home"
+        "Auswahl Auswahl Einstellen Einstellen Drucken Drucken";
+    grid-template-rows: auto 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+
+    >div {
+        grid-area: Text;
+        height: fit-content;
+    }
+
+    >picture:nth-of-type(1) {
+        grid-area: Home;
+        height: fit-content;
+    }
+
+    >picture:nth-of-type(2) {
+        grid-area: Auswahl;
+    }
+
+    >picture:nth-of-type(3) {
+        grid-area: Einstellen;
+    }
+
+    >picture:nth-of-type(4) {
+        grid-area: Drucken;
+    }
+}

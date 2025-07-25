@@ -55,7 +55,7 @@ pub fn page(page: Page) -> maud::Markup {
                 (header(page))
                 main{
                     section #Hero{
-                        picture #HeroImg{(img::img (meta_data().title_img.light(),"",None,&[],None))}
+                        picture #HeroImg{(img::img ("",meta_data().title_img.light(),"",None,&[],None))}
                     }
                     (table_html(project_table::MarkupProps {
                         // title: "UI-Stile im Screendesign".into(),

@@ -87,7 +87,9 @@
         svg) {
         display: block;
         max-width: 100%;
+        height: auto;
         -webkit-user-drag: none;
+        border-radius: var(--border-r);
         /* user-drag: none; */
     }
 
@@ -1178,6 +1180,7 @@
     >img {
         height: 100%;
         width: 100%;
+        border-radius: 0;
     }
 }
 

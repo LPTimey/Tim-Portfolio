@@ -3,6 +3,7 @@ use maud::{self, Markup, html};
 use crate::Link;
 
 pub fn img(
+    pre_src: impl Into<String>,
     src: Link,
     alt: &str,
     id: Option<&str>,
@@ -18,7 +19,7 @@ pub fn img(
     };
     html! {
         img
-            src=(*src)
+            src=(pre_src.into()+*src)
             alt=(alt)
             width=(img_d.0)
             height=(img_d.1)

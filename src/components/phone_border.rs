@@ -12,7 +12,7 @@ pub fn markup(content: Markup, path_to_root: String) -> Markup {
     html! {
         div."phone-border"{
             picture."phone-pic"{
-                (img(Link((path_to_root+*link_public!("assets/iPhone Template [Konvertiert] noBG.png")).leak()), "", None, &["phone"], None))
+                (img(path_to_root,link_public!("assets/iPhone Template [Konvertiert] noBG.png"), "", None, &["phone"], None))
                 div."pic-content"{(content)}
             }
         }

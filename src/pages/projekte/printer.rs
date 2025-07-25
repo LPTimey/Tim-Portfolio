@@ -18,6 +18,15 @@ use super::super::*;
 const DESCRIPTION: &str = r#"Anpassung des Hochschuldrucker UIs für bessere Les- und Bedienbarkeit ohne den Verlust von Features."#;
 const CONTENT: PreEscaped<&'static str> = PreEscaped(
     r#"
+    Drucker sind berüchtigt für frustrierende Bedienung. 
+    Veraltete Benutzeroberflächen, verschachtelte Menüs und unklare Abläufe sorgen oft dafür, 
+    dass sie nicht so funktionieren, wie es Nutzer erwarten.
+
+    Im Rahmen eines Studienprojekts habe ich das veraltete, wenig benutzerfreundliche UI der 
+    hochschuleigenen Drucker neu gestaltet. Das Redesign optimiert insbesondere die Touch-Bedienung 
+    durch größere Buttons, klarere Nutzerführung und eine reduzierte Komplexität. Der Login-Bildschirm 
+    ist vereinfacht, zentrale Funktionen wie Sprache und Tintenfüllstand sind direkt zugänglich, und 
+    der gesamte Druckprozess wird durch eine klar strukturierte Schritt-für-Schritt-Navigation begleitet.
 "#,
 );
 
@@ -56,16 +65,17 @@ pub fn page(page: Page) -> maud::Markup {
         html! {
             head{
                 script type="module" src=(page.path_to_root()+*hy_img_script) {}
-                (default_head("Drucker","TODO: Add description",page.path_to_root()))
+                (default_head("Drucker",DESCRIPTION,page.path_to_root()))
                 link rel="stylesheet" href=(page.path_to_root()+*hy_img_style);
                 link rel="stylesheet" href=(page.path_to_root()+*table_style);
+                style{(PreEscaped(include_asset!("printer.css")))}
             }
 
             body{
                 (header(page))
                 main{
                     section #Hero{
-                        picture #HeroImg{(img::img (meta_data().title_img.light(),"",None,&[],None))}
+                        picture #HeroImg{(img::img (page.path_to_root(),link_public!("assets/Screendesign/Drucker/title-img.webp"),"",None,&[],None))}
                     }
                     (table_html(project_table::MarkupProps {
                         // title: "Drucker: Motivation & Generelles".into(),
@@ -80,6 +90,79 @@ pub fn page(page: Page) -> maud::Markup {
                         ],
                         text: CONTENT.into()
                     }))
+                    section.sect.content #Login{
+                        picture{(img::img(
+                            page.path_to_root(),
+                            link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_05.png"),
+                            "",
+                            None,
+                            &[],
+                            None)
+                        )}
+                        p{r#"
+
+Drucker sind leider oft dafür bekannt, nicht so zu funktionieren, wie es die Nutzer erwarten. Ein großer Teil dieses Problems liegt in der meist unzureichenden Nutzererfahrung (UX).
+
+Oft beginnt dies schon bei einem überladenen Login-Bildschirm. Der neue Login-Bildschirm wurde jedoch vereinfacht und ist mit großen Buttons und gut lesbarem Text für kleine Touchscreens optimiert.
+
+Die wichtigsten Einstellungen des Drucker-UIs, wie Sprache und Füllstand, sind sofort sichtbar und können einfach angepasst werden. Weitere Einstellungen sind ebenfalls schnell und problemlos erreichbar.
+"#}
+                    }
+                    section.sect.content #PrintPath{
+                        div{(PreEscaped(r#"<p>Nach dem Login mit Passwort oder NFC-Karte wird
+                        der Nutzername zusammen mit dem Kontostand in
+                        der Anzeigeschablone angezeigt.
+                    </p>
+                    <ul class="list">
+                        <li>Die Druckoptionen sind groß, kontrastreich und mit
+                            klaren Icons versehen, um die Bedienung zu erleichtern.
+                        </li>
+                        <li>Das Abmelden erfolgt über das Nutzermenü, das über
+                            den Nutzernamen-Knopf erreichbar ist.
+                        </li>
+                        <li>Der Nutzer wird von einem klar strukturierten Leitfaden
+                            durch den gesamten Druckprozess geführt,
+                            sodass er stets weiß, wo er ist und welcher Schritt als
+                            nächstes kommt.
+                        </li>
+                        <li>Der aktuelle Schritt wird hervorgehoben, während
+                            noch nicht abgeschlossene Schritte ausgegraut bleiben,
+                            um Verwirrung zu vermeiden.
+                        </li>
+                    </ul>"#))}
+                        picture{(img::img(
+                            page.path_to_root(),
+                            link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_05.png"),
+                            "",
+                            None,
+                            &[],
+                            None)
+                        )}
+                        picture{(img::img(
+                            page.path_to_root(),
+                            link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_05.png"),
+                            "",
+                            None,
+                            &[],
+                            None)
+                        )}
+                        picture{(img::img(
+                            page.path_to_root(),
+                            link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_05.png"),
+                            "",
+                            None,
+                            &[],
+                            None)
+                        )}
+                        picture{(img::img(
+                            page.path_to_root(),
+                            link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_05.png"),
+                            "",
+                            None,
+                            &[],
+                            None)
+                        )}
+                    }
                 }
                 (footer())
             }
@@ -91,18 +174,18 @@ pub fn hyper_map() -> HyperMap {
     let mut hyper_map = HyperMap::default();
     let map = &mut hyper_map.0;
 
-    const LOGIN_STR: &'static str = "Login";
-    const LOGIN_CARD_STR: &'static str = "Login_Card";
-    const HOME_STR: &'static str = "Home";
-    const SETTINGS_STR: &'static str = "Settings";
-    const LANG_STR: &'static str = "Language";
-    const COLOR_STR: &'static str = "Color";
-    const USER_STR: &'static str = "User";
-    const AUSWAHL_STR: &'static str = "Auswahl";
-    const AUSWAHL_ALLES_STR: &'static str = "AuswahlAlles";
-    const EINSTELLEN_STR: &'static str = "Einstellen";
-    const DRUCKEN_STR: &'static str = "Drucken";
-    const AFTER_STR: &'static str = "After";
+    const LOGIN_STR: &'static str = "LoginPage";
+    const LOGIN_CARD_STR: &'static str = "Login_CardPage";
+    const HOME_STR: &'static str = "HomePage";
+    const SETTINGS_STR: &'static str = "SettingsPage";
+    const LANG_STR: &'static str = "LanguagePage";
+    const COLOR_STR: &'static str = "ColorPage";
+    const USER_STR: &'static str = "UserPage";
+    const AUSWAHL_STR: &'static str = "AuswahlPage";
+    const AUSWAHL_ALLES_STR: &'static str = "AuswahlAllesPage";
+    const EINSTELLEN_STR: &'static str = "EinstellenPage";
+    const DRUCKEN_STR: &'static str = "DruckenPage";
+    const AFTER_STR: &'static str = "AfterPage";
 
     let nav = [
         (
@@ -133,7 +216,7 @@ pub fn hyper_map() -> HyperMap {
             Href::Specific(HOME_STR.to_string()),
         ),
     ];
-    login_links.extend_from_slice(&nav);
+    // login_links.extend_from_slice(&nav);
     let login = (
         LOGIN_STR.to_string(),
         MapNode {
@@ -150,7 +233,7 @@ pub fn hyper_map() -> HyperMap {
         InsetPercent::new(17, 56, 74, 26),
         Href::Specific(LOGIN_STR.to_string()),
     )];
-    login_card_links.extend_from_slice(&nav);
+    // login_card_links.extend_from_slice(&nav);
     let login_card = (
         LOGIN_CARD_STR.to_string(),
         MapNode {
@@ -177,8 +260,8 @@ pub fn hyper_map() -> HyperMap {
             Href::Specific(EINSTELLEN_STR.to_string()),
         ),
     ];
-    home_links.extend_from_slice(&nav);
-    home_links.push(nav_user.clone());
+    // home_links.extend_from_slice(&nav);
+    // home_links.push(nav_user.clone());
     let home = (
         HOME_STR.to_string(),
         MapNode {
@@ -202,8 +285,8 @@ pub fn hyper_map() -> HyperMap {
             Href::Specific(AUSWAHL_ALLES_STR.to_string()),
         ),
     ];
-    auswahl_links.extend_from_slice(&nav);
-    auswahl_links.push(nav_user.clone());
+    // auswahl_links.extend_from_slice(&nav);
+    // auswahl_links.push(nav_user.clone());
     let auswahl = (
         AUSWAHL_STR.to_string(),
         MapNode {
@@ -227,8 +310,8 @@ pub fn hyper_map() -> HyperMap {
         ),
         (InsetPercent::new(30, 23, 63, 72), Href::Back),
     ];
-    auswahl_alles_links.extend_from_slice(&nav);
-    auswahl_alles_links.push(nav_user.clone());
+    // auswahl_alles_links.extend_from_slice(&nav);
+    // auswahl_alles_links.push(nav_user.clone());
     let auswahl_alles = (
         AUSWAHL_ALLES_STR.to_string(),
         MapNode {
@@ -252,8 +335,8 @@ pub fn hyper_map() -> HyperMap {
             Href::Specific(AUSWAHL_STR.to_string()),
         ),
     ];
-    einstellen_links.extend_from_slice(&nav);
-    einstellen_links.push(nav_user.clone());
+    // einstellen_links.extend_from_slice(&nav);
+    // einstellen_links.push(nav_user.clone());
     let einstellen = (
         EINSTELLEN_STR.to_string(),
         MapNode {
@@ -281,8 +364,8 @@ pub fn hyper_map() -> HyperMap {
             Href::Specific(EINSTELLEN_STR.to_string()),
         ),
     ];
-    drucken_links.extend_from_slice(&nav);
-    drucken_links.push(nav_user.clone());
+    // drucken_links.extend_from_slice(&nav);
+    // drucken_links.push(nav_user.clone());
     let drucken = (
         DRUCKEN_STR.to_string(),
         MapNode {
@@ -305,8 +388,8 @@ pub fn hyper_map() -> HyperMap {
             Href::Specific(HOME_STR.to_string()),
         ),
     ];
-    after_links.extend_from_slice(&nav);
-    after_links.push(nav_user.clone());
+    // after_links.extend_from_slice(&nav);
+    // after_links.push(nav_user.clone());
     let after = (
         AFTER_STR.to_string(),
         MapNode {
