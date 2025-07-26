@@ -99,40 +99,52 @@ pub fn page(page: Page) -> maud::Markup {
                             &[],
                             None)
                         )}
-                        p{r#"
+                        div {
+                            h2.heading{ "Login" }
+                            p{
+                                r#"
+                                Drucker sind leider oft dafür bekannt, nicht so zu funktionieren, wie es die Nutzer erwarten. Ein großer Teil dieses Problems liegt in der meist unzureichenden Nutzererfahrung (UX).
 
-Drucker sind leider oft dafür bekannt, nicht so zu funktionieren, wie es die Nutzer erwarten. Ein großer Teil dieses Problems liegt in der meist unzureichenden Nutzererfahrung (UX).
+                                Oft beginnt dies schon bei einem überladenen Login-Bildschirm. Der neue Login-Bildschirm wurde jedoch vereinfacht und ist mit großen Buttons und gut lesbarem Text für kleine Touchscreens optimiert.
 
-Oft beginnt dies schon bei einem überladenen Login-Bildschirm. Der neue Login-Bildschirm wurde jedoch vereinfacht und ist mit großen Buttons und gut lesbarem Text für kleine Touchscreens optimiert.
-
-Die wichtigsten Einstellungen des Drucker-UIs, wie Sprache und Füllstand, sind sofort sichtbar und können einfach angepasst werden. Weitere Einstellungen sind ebenfalls schnell und problemlos erreichbar.
-"#}
+                                Die wichtigsten Einstellungen des Drucker-UIs, wie Sprache und Füllstand, sind sofort sichtbar und können einfach angepasst werden. Weitere Einstellungen sind ebenfalls schnell und problemlos erreichbar.
+                                "#
+                            }
+                        }
                     }
                     section.sect.content #PrintPath{
-                        div{(PreEscaped(r#"<p>Nach dem Login mit Passwort oder NFC-Karte wird
-                        der Nutzername zusammen mit dem Kontostand in
-                        der Anzeigeschablone angezeigt.
-                    </p>
-                    <ul class="list">
-                        <li>Die Druckoptionen sind groß, kontrastreich und mit
-                            klaren Icons versehen, um die Bedienung zu erleichtern.
-                        </li>
-                        <li>Das Abmelden erfolgt über das Nutzermenü, das über
-                            den Nutzernamen-Knopf erreichbar ist.
-                        </li>
-                        <li>Der Nutzer wird von einem klar strukturierten Leitfaden
-                            durch den gesamten Druckprozess geführt,
-                            sodass er stets weiß, wo er ist und welcher Schritt als
-                            nächstes kommt.
-                        </li>
-                        <li>Der aktuelle Schritt wird hervorgehoben, während
-                            noch nicht abgeschlossene Schritte ausgegraut bleiben,
-                            um Verwirrung zu vermeiden.
-                        </li>
-                    </ul>"#))}
+                        div{
+                            h2.heading{ "Druckvorgang" }
+                            p {
+                                "Nach dem Login mit Passwort oder NFC-Karte wird
+                                der Nutzername zusammen mit dem Kontostand in
+                                der Anzeigeschablone angezeigt."
+                            }
+                            ul.list{
+                                li{
+                                    "Die Druckoptionen sind groß, kontrastreich und mit
+                                    klaren Icons versehen, um die Bedienung zu erleichtern."
+                                }
+                                li{
+                                    "Das Abmelden erfolgt über das Nutzermenü, das über
+                                    den Nutzernamen-Knopf erreichbar ist."
+                                }
+                                li{
+                                    "Der Nutzer wird von einem klar strukturierten Leitfaden
+                                    durch den gesamten Druckprozess geführt,
+                                    sodass er stets weiß, wo er ist und welcher Schritt als
+                                    nächstes kommt."
+                                }
+                                li{
+                                    "Der aktuelle Schritt wird hervorgehoben, während
+                                    noch nicht abgeschlossene Schritte ausgegraut bleiben,
+                                    um Verwirrung zu vermeiden."
+                                }
+                            }
+                        }
                         picture{(img::img(
                             page.path_to_root(),
-                            link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_05.png"),
+                            link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_07.png"),
                             "",
                             None,
                             &[],
@@ -140,7 +152,7 @@ Die wichtigsten Einstellungen des Drucker-UIs, wie Sprache und Füllstand, sind 
                         )}
                         picture{(img::img(
                             page.path_to_root(),
-                            link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_05.png"),
+                            link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_08.png"),
                             "",
                             None,
                             &[],
@@ -148,7 +160,7 @@ Die wichtigsten Einstellungen des Drucker-UIs, wie Sprache und Füllstand, sind 
                         )}
                         picture{(img::img(
                             page.path_to_root(),
-                            link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_05.png"),
+                            link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_09.png"),
                             "",
                             None,
                             &[],
@@ -156,7 +168,7 @@ Die wichtigsten Einstellungen des Drucker-UIs, wie Sprache und Füllstand, sind 
                         )}
                         picture{(img::img(
                             page.path_to_root(),
-                            link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_05.png"),
+                            link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_13.png"),
                             "",
                             None,
                             &[],
@@ -187,7 +199,7 @@ pub fn hyper_map() -> HyperMap {
     const DRUCKEN_STR: &'static str = "DruckenPage";
     const AFTER_STR: &'static str = "AfterPage";
 
-    let nav = [
+    let _nav = [
         (
             InsetPercent::new(0, 83, 85, 0),
             Href::Specific(SETTINGS_STR.to_string()),
@@ -201,12 +213,12 @@ pub fn hyper_map() -> HyperMap {
             Href::Specific(COLOR_STR.to_string()),
         ),
     ];
-    let nav_user = (
+    let _nav_user = (
         InsetPercent::new(0, 0, 85, 83),
         Href::Specific(USER_STR.to_string()),
     );
 
-    let mut login_links = vec![
+    let login_links = vec![
         (
             InsetPercent::new(17, 39, 74, 43),
             Href::Specific(LOGIN_CARD_STR.to_string()),
@@ -229,7 +241,7 @@ pub fn hyper_map() -> HyperMap {
         },
     );
 
-    let mut login_card_links = vec![(
+    let login_card_links = vec![(
         InsetPercent::new(17, 56, 74, 26),
         Href::Specific(LOGIN_STR.to_string()),
     )];
@@ -246,7 +258,7 @@ pub fn hyper_map() -> HyperMap {
         },
     );
 
-    let mut home_links = vec![
+    let home_links = vec![
         (
             InsetPercent::new(16, 50, 51, 22),
             Href::Specific(AUSWAHL_STR.to_string()),
@@ -274,7 +286,7 @@ pub fn hyper_map() -> HyperMap {
         },
     );
 
-    let mut auswahl_links = vec![
+    let auswahl_links = vec![
         (
             InsetPercent::new(74, 20, 15, 60),
             Href::Specific(EINSTELLEN_STR.to_string()),
@@ -299,7 +311,7 @@ pub fn hyper_map() -> HyperMap {
         },
     );
 
-    let mut auswahl_alles_links = vec![
+    let auswahl_alles_links = vec![
         (
             InsetPercent::new(74, 20, 15, 60),
             Href::Specific(EINSTELLEN_STR.to_string()),
@@ -324,7 +336,7 @@ pub fn hyper_map() -> HyperMap {
         },
     );
 
-    let mut einstellen_links = vec![
+    let einstellen_links = vec![
         (
             InsetPercent::new(74, 20, 15, 60),
             Href::Specific(DRUCKEN_STR.to_string()),
@@ -349,7 +361,7 @@ pub fn hyper_map() -> HyperMap {
         },
     );
 
-    let mut drucken_links = vec![
+    let drucken_links = vec![
         (
             InsetPercent::new(74, 20, 15, 60),
             Href::Specific(AFTER_STR.to_string()),
@@ -378,7 +390,7 @@ pub fn hyper_map() -> HyperMap {
         },
     );
 
-    let mut after_links = vec![
+    let after_links = vec![
         (
             InsetPercent::new(33, 52, 33, 7),
             Href::Specific(LOGIN_STR.to_string()),

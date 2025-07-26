@@ -512,6 +512,16 @@
         }
     }
 
+    :where(ul.list li) {
+        list-style: disc;
+        margin-inline-start: 2ch;
+    }
+
+    :where(ol.list li) {
+        list-style: decimal;
+        margin-inline-start: 2ch;
+    }
+
     :where(.shadow) {
         &::after {
             content: "";

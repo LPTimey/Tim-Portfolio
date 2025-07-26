@@ -155,19 +155,19 @@ pub fn page(page: Page) -> maud::Markup {
                                 div #WatchText{
                                     p {
                                         "Da Demenz oft die vertrauten Gewohnheiten und Erinnerungen der Betroffenen am längsten
-                                        bewahrt, wurde die Uhr im klassischen, analogen Design gestaltet."
+                                        bewahrt, wurde die Uhr im klassischen, analogen Design gestaltet. "
                                     }
                                     p{
                                         "Die Gestaltung zielt darauf ab, der Uhr eine vertraute Bedeutung zu verleihen.
                                     Um den Bedürfnissen der oft älteren Zielgruppe gerecht zu werden,
                                     sind sowohl die Ziffern als auch die Zeiger gut lesbar und groß.
                                     Zudem ist die Uhr ergonomisch abgerundet und aus einem weichen Material
-                                    gefertigt, um Verletzungen vorzubeugen."
+                                    gefertigt, um Verletzungen vorzubeugen. "
                                     }
                                     p {
                                         "Die Uhr sendet GPS-Daten, verfügt über eine aktive Fallerkennung und eine
                                     Notruffunktion mit den 2 Knöpfen. Zusätzlich behält sie ihre Funktion als gewöhnliche Analoguhr
-                                    mit Krone bei."
+                                    mit Krone bei. "
                                     }
                                 }
                                 canvas #WatchInfoCanvas{}
@@ -178,22 +178,22 @@ pub fn page(page: Page) -> maud::Markup {
                                 h2.heading{ "Begleitapp" }
                                 div #AppText{
                                     p {
-                                        "Die mit der Uhr verbundene App wurde nach dem Prinzip der Schlichtheit gestaltet."
+                                        "Die mit der Uhr verbundene App wurde nach dem Prinzip der Schlichtheit gestaltet. "
                                     }
                                     p {
                                         "Die Startseite bietet einen Überblick über die letzten Ereignisse.
                                     Um die Übersichtlichkeit zu gewährleisten, sind diese Ereignisse zusammengefasst,
                                     nach Zeit sortiert und farblich nach Schweregrad kategorisiert.
                                     Außerdem ermöglicht die Übersicht, die uhrtragende Person, gespeicherte Kontakte
-                                    oder die Notfallstelle direkt anzurufen."
+                                    oder die Notfallstelle direkt anzurufen. "
                                     }
                                     p {
                                         "In der Historie werden neben den aktuellen Ereignissen auch vergangene Ereignisse
-                                        angezeigt, die detaillierte Einblicke in frühere Aktivitäten und Notfälle bieten."
+                                        angezeigt, die detaillierte Einblicke in frühere Aktivitäten und Notfälle bieten. "
                                     }
                                     p {
                                         "Zusätzlich enthält die App eine Karte, mit der die Position der erkrankten Person
-                                        sowie die anderer Angehöriger überprüft werden kann."
+                                        sowie die anderer Angehöriger überprüft werden kann. "
                                     }
                                 }
                                 div #AppInfo{
