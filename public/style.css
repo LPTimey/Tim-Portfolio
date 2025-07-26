@@ -89,7 +89,7 @@
         max-width: 100%;
         height: auto;
         -webkit-user-drag: none;
-        border-radius: var(--border-r);
+        &:not(svg){border-radius: var(--border-r);}
         /* user-drag: none; */
     }
 
