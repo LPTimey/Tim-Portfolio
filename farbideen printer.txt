@@ -1,0 +1,8 @@
+| Element       | Farbe                             | Beschreibung                              |
+| ------------- | --------------------------------- | ----------------------------------------- |
+| **BG-Base**   | `hsl(245 40% 92%)`                | Sehr helles Violett (UI-Fläche)           |
+| **BG-Accent** | `hsl(245 48% 52%)`                | Deine Haupt-Akzentfarbe (z. B. für Blobs) |
+| **Blob 1**    | `hsl(280 60% 70%) / 0.3`          | Leicht rosa-violetter Blob                |
+| **Blob 2**    | `hsl(200 70% 80%) / 0.2`          | Cyan-Blau als Kontrast                    |
+| **Blob 3**    | `hsl(160 60% 80%) / 0.15`         | Minziger grüner Blob (aus Mocha Palette)  |
+| **Text**      | `#1e1e2e` oder `hsl(240 20% 15%)` | Dunkel für Kontrast                       |
