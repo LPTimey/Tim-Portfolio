@@ -2,9 +2,14 @@ use maud::PreEscaped;
 
 use crate::{
     components::{
-        self, footer::footer, head::default_head, header::header, img, project_table::{self, with_sub_heading}, Component
+        self, Component,
+        footer::footer,
+        head::default_head,
+        header::header,
+        img,
+        project_table::{self, with_sub_heading},
     },
-    projekte::ProjectMetadata,
+    projects::ProjectMetadata,
 };
 
 use super::super::*;
@@ -19,16 +24,17 @@ pub fn meta_data() -> ProjectMetadata {
             (path_to_root(mod_path_to_href(MOD_PATH).expect("A valid path").as_path())
                 + "assets/Ergomote/render3.png")
                 .leak()
-        ).into(),
+        )
+        .into(),
         name: "Ergomote",
         description: DESCRIPTION,
-        category: projekte::Category::Design3D,
+        category: projects::Category::Design3D,
         favorite: false,
         path: mod_path_to_href(MOD_PATH).expect("A valid path"),
     }
 }
 
-pub fn page(page: Page) -> maud::Markup {
+pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
     let Component {
         html: table_html,
         style: table_style,
@@ -36,19 +42,19 @@ pub fn page(page: Page) -> maud::Markup {
     } = project_table::component();
 
     components::page::page(
-        page.path_to_root(),
+        page.path_to_root(lang),
         html! {
             head{
-                (default_head("Ergomote","TODO: Add description",page.path_to_root()))
+                (default_head("Ergomote","TODO: Add description",page.path_to_root(lang),lang))
 
-                link rel="stylesheet" href=(page.path_to_root()+*table_style);
+                link rel="stylesheet" href=(page.path_to_root(lang)+*table_style);
                 style{
                         (PreEscaped(include_asset!("ergomote.css")))
                     }
             }
 
             body{
-                (header(page))
+                (header(page,lang))
                 main{
                     section #Hero{
                         picture #HeroImg{(img::img ("",meta_data().title_img.light(),"",None,&[],None))}
@@ -58,7 +64,7 @@ pub fn page(page: Page) -> maud::Markup {
                         title: with_sub_heading("Ergomote","3D- & Produktdesign"),
                         graphic: html!{
                             picture{
-                                (img::img (page.path_to_root(),link_public!("assets/Ergomote/render.png"),"",None,&[],None))
+                                (img::img (page.path_to_root(lang),link_public!("assets/Ergomote/render.png"),"",None,&[],None))
                             }
                         }.into(),
                         rows:&[

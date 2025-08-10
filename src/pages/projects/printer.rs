@@ -10,7 +10,7 @@ use crate::{
         img, page,
         project_table::{self, with_sub_heading},
     },
-    projekte::ProjectMetadata,
+    projects::ProjectMetadata,
 };
 
 use super::super::*;
@@ -41,13 +41,13 @@ pub fn meta_data() -> ProjectMetadata {
         .into(),
         name: "Drucker Touchscreen",
         description: DESCRIPTION,
-        category: projekte::Category::Screendesign,
+        category: projects::Category::Screendesign,
         favorite: true,
         path: mod_path_to_href(MOD_PATH).expect("A valid path"),
     }
 }
 
-pub fn page(page: Page) -> maud::Markup {
+pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
     let Component {
         html: table_html,
         style: table_style,
@@ -61,27 +61,27 @@ pub fn page(page: Page) -> maud::Markup {
     } = hyper_img::component();
 
     page::page(
-        page.path_to_root(),
+        page.path_to_root(lang),
         html! {
             head{
-                script type="module" src=(page.path_to_root()+*hy_img_script) {}
-                (default_head("Drucker",DESCRIPTION,page.path_to_root()))
-                link rel="stylesheet" href=(page.path_to_root()+*hy_img_style);
-                link rel="stylesheet" href=(page.path_to_root()+*table_style);
+                script type="module" src=(page.path_to_root(lang)+*hy_img_script) {}
+                (default_head("Drucker",DESCRIPTION,page.path_to_root(lang),lang))
+                link rel="stylesheet" href=(page.path_to_root(lang)+*hy_img_style);
+                link rel="stylesheet" href=(page.path_to_root(lang)+*table_style);
                 style{(PreEscaped(include_asset!("printer.css")))}
             }
 
             body{
-                (header(page))
+                (header(page,lang))
                 main{
                     section #Hero{
-                        picture #HeroImg{(img::img (page.path_to_root(),link_public!("assets/Screendesign/Drucker/title-img.webp"),"",None,&[],None))}
+                        picture #HeroImg{(img::img (page.path_to_root(lang),link_public!("assets/Screendesign/Drucker/title-img.webp"),"",None,&[],None))}
                     }
                     (table_html(project_table::MarkupProps {
                         // title: "Drucker: Motivation & Generelles".into(),
                         title: with_sub_heading("Drucker Re-Design","Screendesign"),
-                        // graphic: (page.path_to_root(),meta_data().title_img.light()).into(),
-                        graphic: html!{(hy_img_html(hyper_img::MarkupProps { map: hyper_map(), path_to_root: page.path_to_root() }))}.into(),
+                        // graphic: (page.path_to_root(lang),meta_data().title_img.light()).into(),
+                        graphic: html!{(hy_img_html(hyper_img::MarkupProps { map: hyper_map(), path_to_root: page.path_to_root(lang) }))}.into(),
                         rows:&[
                             ("Studienmodul", "Projekt Gestaltung II").into(),
                             ("Zeitraum", "März 2024 - Juli 2024").into(),
@@ -92,7 +92,7 @@ pub fn page(page: Page) -> maud::Markup {
                     }))
                     section.sect.content #Login{
                         picture{(img::img(
-                            page.path_to_root(),
+                            page.path_to_root(lang),
                             link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_05.png"),
                             "",
                             None,
@@ -143,7 +143,7 @@ pub fn page(page: Page) -> maud::Markup {
                             }
                         }
                         picture{(img::img(
-                            page.path_to_root(),
+                            page.path_to_root(lang),
                             link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_07.png"),
                             "",
                             None,
@@ -151,7 +151,7 @@ pub fn page(page: Page) -> maud::Markup {
                             None)
                         )}
                         picture{(img::img(
-                            page.path_to_root(),
+                            page.path_to_root(lang),
                             link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_08.png"),
                             "",
                             None,
@@ -159,7 +159,7 @@ pub fn page(page: Page) -> maud::Markup {
                             None)
                         )}
                         picture{(img::img(
-                            page.path_to_root(),
+                            page.path_to_root(lang),
                             link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_09.png"),
                             "",
                             None,
@@ -167,7 +167,7 @@ pub fn page(page: Page) -> maud::Markup {
                             None)
                         )}
                         picture{(img::img(
-                            page.path_to_root(),
+                            page.path_to_root(lang),
                             link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_13.png"),
                             "",
                             None,

@@ -1,12 +1,17 @@
 pub mod index;
-pub mod projekte;
+pub mod projects;
 
-use std::{ops::Deref, path::PathBuf};
+use std::{fmt::Display, ops::Deref, path::PathBuf};
 
+use i18n_embed::LanguageLoader;
 use maud::{Markup, html};
-use strum::{Display, EnumIter, VariantArray};
+use strum::{EnumIter, VariantArray};
+use unic_langid::{langid, LanguageIdentifier};
 
-use crate::{Link, include_asset, link_public, path_to_root, projekte::ProjectMetadata};
+use crate::{
+    Link, get_core_language_loader, include_asset, link_public, path_to_root,
+    projects::ProjectMetadata,
+};
 
 pub fn mod_path_to_href(mod_path: &str) -> Option<PathBuf> {
     // Entferne alles bis "pages::"
@@ -15,9 +20,11 @@ pub fn mod_path_to_href(mod_path: &str) -> Option<PathBuf> {
         None => return None,
     };
 
-    let replaced = trimmed.replace("::", "/");
-
-    Some(PathBuf::from(format!("{replaced}.html")))
+    let mut replaced = trimmed
+        .split("::")
+        .fold(PathBuf::new(), |buf, string| buf.join(string));
+    replaced.set_extension("html");
+    Some(replaced)
 }
 
 pub const STYLE_CSS: Link = link_public!("style.css");
@@ -36,11 +43,10 @@ macro_rules! placeholder_img {
     };
 }
 
-#[derive(Debug, Clone, Copy, Display, EnumIter, VariantArray, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, EnumIter, VariantArray, PartialEq, Eq)]
 pub enum Page {
     Home,
-    #[strum(to_string = "Alle Projekte")]
-    Projekte,
+    Projects,
     Watchout,
     Printer,
     Styles,
@@ -49,28 +55,28 @@ pub enum Page {
     WebDev,
 }
 impl Page {
-    pub fn to_href(self) -> PathBuf {
-        match self {
+    pub fn to_href(self, lang: &LanguageIdentifier) -> PathBuf {
+        PathBuf::new().join(lang.to_string()).join(match self {
             Page::Home => mod_path_to_href(index::MOD_PATH).unwrap(),
-            Page::Projekte => mod_path_to_href(projekte::index::MOD_PATH).unwrap(),
-            Page::Watchout => mod_path_to_href(projekte::watchout::MOD_PATH).unwrap(),
-            Page::Printer => mod_path_to_href(projekte::printer::MOD_PATH).unwrap(),
-            Page::Styles => mod_path_to_href(projekte::styles_themes::MOD_PATH).unwrap(),
-            Page::Tetris => mod_path_to_href(projekte::tetris::MOD_PATH).unwrap(),
-            Page::Ergomote => mod_path_to_href(projekte::ergomote::MOD_PATH).unwrap(),
-            Page::WebDev => mod_path_to_href(projekte::webdev::MOD_PATH).unwrap(),
-        }
+            Page::Projects => mod_path_to_href(projects::index::MOD_PATH).unwrap(),
+            Page::Watchout => mod_path_to_href(projects::watchout::MOD_PATH).unwrap(),
+            Page::Printer => mod_path_to_href(projects::printer::MOD_PATH).unwrap(),
+            Page::Styles => mod_path_to_href(projects::styles_themes::MOD_PATH).unwrap(),
+            Page::Tetris => mod_path_to_href(projects::tetris::MOD_PATH).unwrap(),
+            Page::Ergomote => mod_path_to_href(projects::ergomote::MOD_PATH).unwrap(),
+            Page::WebDev => mod_path_to_href(projects::webdev::MOD_PATH).unwrap(),
+        })
     }
-    pub fn to_markup(self) -> Markup {
+    pub fn to_markup(self, lang: &LanguageIdentifier) -> Markup {
         match self {
-            Page::Home => index::page(self),
-            Page::Projekte => projekte::index::page(self),
-            Page::Watchout => projekte::watchout::page(self),
-            Page::Printer => projekte::printer::page(self),
-            Page::Styles => projekte::styles_themes::page(self),
-            Page::Tetris => projekte::tetris::page(self),
-            Page::Ergomote => projekte::ergomote::page(self),
-            Page::WebDev => projekte::webdev::page(self),
+            Page::Home => index::page(self, lang),
+            Page::Projects => projects::index::page(self, lang),
+            Page::Watchout => projects::watchout::page(self, lang),
+            Page::Printer => projects::printer::page(self, lang),
+            Page::Styles => projects::styles_themes::page(self, lang),
+            Page::Tetris => projects::tetris::page(self, lang),
+            Page::Ergomote => projects::ergomote::page(self, lang),
+            Page::WebDev => projects::webdev::page(self, lang),
         }
     }
     pub fn projects() -> Vec<ProjectMetadata> {
@@ -79,7 +85,21 @@ impl Page {
             .flat_map(|page| ProjectMetadata::try_from(*page))
             .collect()
     }
-    pub fn path_to_root(self) -> String {
-        path_to_root(self.to_href().deref())
+    pub fn path_to_root(self, lang: &LanguageIdentifier) -> String {
+        path_to_root(self.to_href(lang).deref())
     }
+    pub fn to_localized_string(self, lang: &LanguageIdentifier) -> String {
+        let loader = get_core_language_loader().select_languages(&[lang]);
+        match self {
+            Page::Home => loader.get("Home").to_string(),
+            Page::Projects => loader.get("all-projects").to_string(),
+            Page::Watchout => loader.get("Watchout").to_string(),
+            Page::Printer => loader.get("Printer").to_string(),
+            Page::Styles => loader.get("Styles").to_string(),
+            Page::Tetris => loader.get("Tetris").to_string(),
+            Page::Ergomote => loader.get("Ergomote").to_string(),
+            Page::WebDev => loader.get("WebDev").to_string(),
+        }
+    }
+
 }

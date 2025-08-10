@@ -51,12 +51,12 @@ impl ThemeLink {
         }
     }
 }
-impl From<Link> for ThemeLink{
+impl From<Link> for ThemeLink {
     fn from(value: Link) -> Self {
         Self::Single(value)
     }
 }
-impl From<LightDark<Link>> for ThemeLink{
+impl From<LightDark<Link>> for ThemeLink {
     fn from(value: LightDark<Link>) -> Self {
         Self::LightDark(value)
     }
@@ -86,7 +86,7 @@ impl ProjectMetadata {
     pub fn try_from(page: Page) -> Option<Self> {
         match page {
             Page::Home => None,
-            Page::Projekte => None,
+            Page::Projects => None,
             Page::Watchout => Some(watchout::meta_data()),
             Page::Printer => Some(printer::meta_data()),
             Page::Styles => Some(styles_themes::meta_data()),

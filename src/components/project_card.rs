@@ -4,7 +4,7 @@ use crate::{
     Link,
     components::{Component, img},
     link_public,
-    projekte::ProjectMetadata,
+    projects::ProjectMetadata,
 };
 use Props::with_props;
 

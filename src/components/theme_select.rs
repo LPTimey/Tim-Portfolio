@@ -1,8 +1,10 @@
 use maud::html;
+use unic_langid::LanguageIdentifier;
 
-use crate::{Page, THEME_JS};
+use crate::{get_core_language_loader, Page, THEME_JS};
 
-pub fn theme_select(current_page: Page, themes: &[(&str, bool)]) -> maud::Markup {
+pub fn theme_select(current_page: Page, themes: &[(&str, bool)], lang: &LanguageIdentifier) -> maud::Markup {
+    let loader = get_core_language_loader().select_languages(&[lang]);
     let theme = |name: &str, default: bool| {
         html! {
             label for=(name) class="visually-hidden" { (name) }
@@ -38,17 +40,17 @@ pub fn theme_select(current_page: Page, themes: &[(&str, bool)]) -> maud::Markup
             summary.link.underline {
                 span {
                     @for pair in themes {
-                        span data-theme=(pair.0) {(pair.0)}
+                        span data-theme=(pair.0) {(loader.get(pair.0))}
                     }
                 }
             }
             ul {
                 @for pair in themes {
-                    li{label.link."underline-child" for=(pair.0) selected=(pair.1) { span{(pair.0)} }}
+                    li{label.link."underline-child" for=(pair.0) selected=(pair.1) { span{(loader.get(pair.0))} }}
                 }
             }
         }
 
-        script src=(current_page.path_to_root() + *THEME_JS) {}}
+        script src=(current_page.path_to_root(lang) + *THEME_JS) {}}
     }
 }

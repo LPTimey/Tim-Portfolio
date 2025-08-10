@@ -4,9 +4,15 @@ mod pages;
 use std::{
     fmt::Display,
     ops::Deref,
-    path::{Path, PathBuf},
+    path::{Path, PathBuf}, sync::OnceLock,
 };
-
+use i18n_embed::{
+    fluent::{fluent_language_loader, FluentLanguageLoader},
+    LanguageLoader,
+};
+use unic_langid::langid;
+// use i18n_embed_fl::fl;
+use rust_embed::RustEmbed;
 use image::ImageReader;
 pub use pages::*;
 
@@ -40,6 +46,24 @@ macro_rules! link_public {
     };
 }
 
+#[derive(RustEmbed)]
+#[folder = "i18n/"]
+pub struct Localizations;
+pub const SUPPORTED_LANGS: [unic_langid::LanguageIdentifier;2] =
+    [unic_langid::langid!("de-DE"), unic_langid::langid!("en-GB")];
+pub static CORE_LANGUAGE_LOADER: OnceLock<FluentLanguageLoader> = OnceLock::new();
+
+pub fn get_core_language_loader() -> &'static FluentLanguageLoader {
+    setup_language_loader(&CORE_LANGUAGE_LOADER, "core")
+}
+pub fn setup_language_loader(loader:&'static OnceLock<FluentLanguageLoader>, domain: &str) -> &'static FluentLanguageLoader {
+    loader.get_or_init(|| {
+        let loader = FluentLanguageLoader::new(domain, langid!("de-DE"));
+        let _ = loader.load_languages(&Localizations, &SUPPORTED_LANGS);
+        loader
+    })
+}
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub struct Link(&'static str);
 impl Link {
@@ -67,7 +91,7 @@ impl Link {
     pub fn get_img_dimensions_panic(&self) -> (usize, usize) {
         self.get_img_dimensions().expect("a valid img")
     }
-    /// Entfernt führende ../ oder ./ und prependet "public/"
+    /// Entfernt führende ../ oder ./ und prepend "public/"
     pub fn into_public_path(&self) -> PathBuf {
         let mut cleaned = self.0;
 

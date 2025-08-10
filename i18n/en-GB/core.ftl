@@ -1,0 +1,13 @@
+projects = Projects
+all-projects = All Projects
+Home = Home
+Watchout = Watchout
+Printer = Printer UI
+Styles = Styles
+Tetris = Tetris
+Ergomote = Ergomote
+WebDev = WebDev
+System = System
+Light = Light
+Dark = Dark
+Custom = Custom

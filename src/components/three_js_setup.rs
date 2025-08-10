@@ -1,9 +1,10 @@
-use maud::{html, Markup, PreEscaped};
+use maud::{Markup, PreEscaped, html};
+use unic_langid::LanguageIdentifier;
 
 use crate::Page;
 
-pub fn import_map(page:Page)->Markup{
-    html!{
+pub fn import_map(page: Page, lang: &LanguageIdentifier) -> Markup {
+    html! {
         script type="importmap"{(PreEscaped(format!(r#"
         {{
             "imports": {{
@@ -11,6 +12,6 @@ pub fn import_map(page:Page)->Markup{
                 "three/addons/": "{path}vendor/three.js/three.js-r178/examples/jsm/"
             }}
         }}
-        "#,path=page.path_to_root())))}
+        "#,path=page.path_to_root(lang))))}
     }
 }

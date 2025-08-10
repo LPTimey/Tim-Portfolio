@@ -2,9 +2,14 @@ use maud::PreEscaped;
 
 use crate::{
     components::{
-        footer::footer, head::default_head, header::header, img, page, project_table::{self, with_sub_heading}, Component
+        Component,
+        footer::footer,
+        head::default_head,
+        header::header,
+        img, page,
+        project_table::{self, with_sub_heading},
     },
-    projekte::ProjectMetadata,
+    projects::ProjectMetadata,
 };
 
 use super::super::*;
@@ -27,16 +32,17 @@ pub fn meta_data() -> ProjectMetadata {
             (path_to_root(mod_path_to_href(MOD_PATH).expect("A valid path").as_path())
                 + "assets/Screendesign/Styles/title-img.webp")
                 .leak()
-        ).into(),
+        )
+        .into(),
         name: "Themen & Stile",
         description: DESCRIPTION,
-        category: projekte::Category::Screendesign,
+        category: projects::Category::Screendesign,
         favorite: true,
         path: mod_path_to_href(MOD_PATH).expect("A valid path"),
     }
 }
 
-pub fn page(page: Page) -> maud::Markup {
+pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
     let Component {
         html: table_html,
         style: table_style,
@@ -44,15 +50,15 @@ pub fn page(page: Page) -> maud::Markup {
     } = project_table::component();
 
     page::page(
-        page.path_to_root(),
+        page.path_to_root(lang),
         html! {
             head{
-                (default_head("Style","TODO: Add description",page.path_to_root()))
-                link rel="stylesheet" href=(page.path_to_root()+*table_style);
+                (default_head("Style","TODO: Add description",page.path_to_root(lang),lang))
+                link rel="stylesheet" href=(page.path_to_root(lang)+*table_style);
             }
 
             body{
-                (header(page))
+                (header(page, lang))
                 main{
                     section #Hero{
                         picture #HeroImg{(img::img ("",meta_data().title_img.light(),"",None,&[],None))}
@@ -63,7 +69,7 @@ pub fn page(page: Page) -> maud::Markup {
                         graphic: html!{
                             picture{
                                 img loading="lazy" draggable="false" id="OriginalImage"
-                                    src=(page.path_to_root()+*link_public!("/assets/Screendesign/Styles/Tim_Ruland_Styles_Screendesign_Original_with_new.webp"))
+                                    src=(page.path_to_root(lang)+*link_public!("/assets/Screendesign/Styles/Tim_Ruland_Styles_Screendesign_Original_with_new.webp"))
                                     data-source="https://medium.muz.li/weekly-design-inspiration-368-273380298382" alt="";
                             }
                         }.into(),

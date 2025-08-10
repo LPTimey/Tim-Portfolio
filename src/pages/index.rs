@@ -1,23 +1,34 @@
-use std::time::Duration;
-
+use i18n_embed::{LanguageLoader, fluent::FluentLanguageLoader};
 use maud::PreEscaped;
+use std::{sync::OnceLock, time::Duration};
+use unic_langid::langid;
 
 use crate::{
     components::{
         self, Component, footer::footer, head::default_head, header::header, project_card,
         scrolling_img,
     },
-    include_logo, include_public,
+    include_logo, include_public, setup_language_loader,
 };
 
 use super::*;
+
+pub static LANGUAGE_LOADER: OnceLock<FluentLanguageLoader> = OnceLock::new();
+
+pub fn get_language_loader() -> &'static FluentLanguageLoader {
+    setup_language_loader(&LANGUAGE_LOADER, "home")
+}
+
 pub const MOD_PATH: &str = module_path!();
 
 pub const STYLE: &str = include_asset!("index.css");
 pub const SCRIPT: &str = include_asset!("index.js");
 pub const ICH: Link = link_public!("assets/Lebenslauf/schönes bild klein bg@0,33x.jpg");
 
-pub fn page(page: Page) -> maud::Markup {
+pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
+    let core_loader = get_core_language_loader().select_languages(&[lang]);
+    let loader = get_language_loader().select_languages(&[lang]);
+
     let Component {
         html: project_card_html,
         style: card_style,
@@ -54,7 +65,7 @@ pub fn page(page: Page) -> maud::Markup {
             ],
         ),
         (
-            "Sprachen",
+            &loader.get("languages"),
             vec![
                 include_logo!("html-5-no-wordmark-svgrepo-com.svg"),
                 include_logo!("CSS Logo.svg"),
@@ -68,22 +79,22 @@ pub fn page(page: Page) -> maud::Markup {
     ];
 
     components::page::page(
-        page.path_to_root(),
+        page.path_to_root(lang),
         html! {
             head{
-                (default_head("Home","TODO: Add description", page.path_to_root()))
-                link rel="stylesheet" href=(page.path_to_root() + *card_style );
-                // script type="module" src=(page.path_to_root() + *card_script ){}
-                link rel="stylesheet" href=(page.path_to_root() + *scroll_img_style );
+                (default_head(&core_loader.get("Home"),&loader.get("description"), page.path_to_root(lang), lang))
+                link rel="stylesheet" href=(page.path_to_root(lang) + *card_style );
+                // script type="module" src=(page.path_to_root(lang) + *card_script ){}
+                link rel="stylesheet" href=(page.path_to_root(lang) + *scroll_img_style );
                 style { (PreEscaped(STYLE)) }
             }
 
             body{
-                (header(page))
+                (header(page, lang))
                 main{
                     section #Hero{
                         // picture #HeroImg{img draggable="false" src=(*placeholder_img!(600,400)) alt="";}
-                        div #HeroImg{(scroll_img_html(scrolling_img::MarkupProps { img: Link((page.path_to_root()+*link_public!("assets/Title-img.webp")).leak()), rows: 3, columns: 3, duration: Duration::from_secs(50) }))}
+                        div #HeroImg{(scroll_img_html(scrolling_img::MarkupProps { img: Link((page.path_to_root(lang)+*link_public!("assets/Title-img.webp")).leak()), rows: 3, columns: 3, duration: Duration::from_secs(50) }))}
                         div ."hero-content"{
                             h1."mb-large"{
                                 span."fs-large"."lh-tight"{ "Willkommen, hier" } br;
@@ -96,8 +107,8 @@ pub fn page(page: Page) -> maud::Markup {
 
                     section #AboutMe .sect."sect-large-start"."sect-small-end" {
                         div.content {
-                            h2.heading{ span."accent-text"{ "Hi! " } "Ich bin Tim." }
-                            picture{img draggable="false" src=(page.path_to_root() + *ICH) alt="";}
+                            h2.heading{ span."accent-text"{ (loader.get("hi")) } " " (loader.get("greeting-title")) }
+                            picture{img draggable="false" src=(page.path_to_root(lang) + *ICH) alt="";}
                             p{
                                 (PreEscaped(r#"
 Mich faszinieren sowohl IT & Programmierung als auch Gestaltung & Design.
@@ -184,7 +195,7 @@ Ich freue mich, wenn du dir einen Eindruck von meiner Arbeit verschaffst. Bei Fr
                                     (project_card_html(
                                         project_card::MarkupProps {
                                             data: project,
-                                            path_to_root: page.path_to_root(),
+                                            path_to_root: page.path_to_root(lang),
                                             is_in_grid: true,
                                             reactive_color: false,
                                         }
@@ -194,7 +205,7 @@ Ich freue mich, wenn du dir einen Eindruck von meiner Arbeit verschaffst. Bei Fr
                         }
                         div .content #AllProjects {
                             div.line{}
-                            a draggable="false" href=(page.path_to_root()+Page::Projekte.to_href().to_str().expect("A valid path")) class="btn secondary-btn fw-medium shadow" { span{"Alle Projekte"} }
+                            a draggable="false" href=(page.path_to_root(lang)+Page::Projects.to_href(lang).to_str().expect("A valid path")) class="btn secondary-btn fw-medium shadow" { span{"Alle Projekte"} }
                             div.line{}
                         }
                         div .cut."bot-cut" {(PreEscaped(include_public!("assets/noise/waves-opacity.svg")))}

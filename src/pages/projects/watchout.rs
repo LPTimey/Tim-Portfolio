@@ -14,7 +14,7 @@ use crate::{
         three_js_setup::import_map,
     },
     include_public,
-    projekte::ProjectMetadata,
+    projects::ProjectMetadata,
 };
 
 use super::super::*;
@@ -56,13 +56,13 @@ pub fn meta_data() -> ProjectMetadata {
         .into(),
         name: "WatchOut",
         description: DESCRIPTION,
-        category: projekte::Category::DMMS,
+        category: projects::Category::DMMS,
         favorite: true,
         path: mod_path_to_href(MOD_PATH).expect("A valid path"),
     }
 }
 
-pub fn page(page: Page) -> maud::Markup {
+pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
     let Component {
         html: table_html,
         style: table_style,
@@ -97,27 +97,27 @@ pub fn page(page: Page) -> maud::Markup {
         ("Hochschule", "Technische Hochschule Ingolstadt").into(),
     ];
 
-    let video_href = page.path_to_root()
+    let video_href = page.path_to_root(lang)
         + *link_public!("assets/Design der Mensch Maschine Schnittstelle/WatchOut/Video720_1.mp4");
 
     components::page::page(
-        page.path_to_root(),
+        page.path_to_root(lang),
         html! {
             head{
-                (import_map(page))
-                script type="module" src=(page.path_to_root()+*link_public!("watchout.js")){}
-                script type="module" src=(page.path_to_root()+*hyper_img_script){}
-                (default_head("WatchOut - Tim Ruland","Die ProduktKonzeptSeite von dem WatchOut-Gruppenprojekt",page.path_to_root()))
-                link rel="stylesheet" href=(page.path_to_root()+*table_style);
-                link rel="stylesheet" href=(page.path_to_root()+*hyper_img_style);
-                link rel="stylesheet" href=(page.path_to_root()+*phone_border_style);
+                (import_map(page, lang))
+                script type="module" src=(page.path_to_root(lang)+*link_public!("watchout.js")){}
+                script type="module" src=(page.path_to_root(lang)+*hyper_img_script){}
+                (default_head("WatchOut - Tim Ruland","Die ProduktKonzeptSeite von dem WatchOut-Gruppenprojekt",page.path_to_root(lang), lang))
+                link rel="stylesheet" href=(page.path_to_root(lang)+*table_style);
+                link rel="stylesheet" href=(page.path_to_root(lang)+*hyper_img_style);
+                link rel="stylesheet" href=(page.path_to_root(lang)+*phone_border_style);
                 style{
                     (PreEscaped(include_asset!("watchout.css")))
                 }
             }
 
             body{
-                (header(page))
+                (header(page, lang))
                 main{
                     section #Hero{
                         picture #HeroImg{(img::img ("",meta_data().title_img.light(),"",None,&[],None))}
@@ -197,7 +197,7 @@ pub fn page(page: Page) -> maud::Markup {
                                     }
                                 }
                                 div #AppInfo{
-                                    (phone_border_html(phone_border::MarkupProps{content: hyper_img_html(hyper_img::MarkupProps { map: watchout_hi_map(), path_to_root: page.path_to_root() }), path_to_root: page.path_to_root()}))
+                                    (phone_border_html(phone_border::MarkupProps{content: hyper_img_html(hyper_img::MarkupProps { map: watchout_hi_map(), path_to_root: page.path_to_root(lang) }), path_to_root: page.path_to_root(lang)}))
                                 }
                             }
                         }
