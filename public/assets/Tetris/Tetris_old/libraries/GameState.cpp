@@ -20,11 +20,11 @@ GameState<H, W>::GameState(bool debug)
   blocks.fill(0);
 }
 
-template <size_t H, size_t W> inline void GameState<H, W>::_new_tetrino() {
+template <size_t H, size_t W> inline void GameState<H, W>::_new_tetromino() {
   current_tet = TetPos(get_next(), W);
 }
 template <size_t H, size_t W>
-inline void GameState<H, W>::_turn_tetrino(uint8_t buttons) {
+inline void GameState<H, W>::_turn_tetromino(uint8_t buttons) {
   if (buttons == Button::TurnLeft) {
     current_tet.turn();
   } else if (buttons == Button::TurnRight) {
@@ -89,7 +89,7 @@ inline void GameState<H, W>::_move(uint8_t buttons) {
 }
 
 template <size_t H, size_t W> bool GameState<H, W>::_can_move_down() {
-  auto pos = current_tet.get_tetrino_positions();
+  auto pos = current_tet.get_tetromino_positions();
   for (auto &vec : pos) {
     vec.y += 1;
   }
@@ -97,7 +97,7 @@ template <size_t H, size_t W> bool GameState<H, W>::_can_move_down() {
 }
 
 template <size_t H, size_t W> bool GameState<H, W>::_can_move_left() {
-  auto pos = current_tet.get_tetrino_positions();
+  auto pos = current_tet.get_tetromino_positions();
   for (auto &vec : pos) {
     vec.x -= 1;
     if (vec.x < 0 || vec.x >= signed(W)) {
@@ -107,7 +107,7 @@ template <size_t H, size_t W> bool GameState<H, W>::_can_move_left() {
   return !_collides(pos);
 }
 template <size_t H, size_t W> bool GameState<H, W>::_can_move_right() {
-  auto pos = current_tet.get_tetrino_positions();
+  auto pos = current_tet.get_tetromino_positions();
   for (auto &vec : pos) {
     vec.x += 1;
     if (vec.x < 0 || vec.x >= signed(W)) {
@@ -126,7 +126,7 @@ template <size_t H, size_t W> inline void GameState<H, W>::_move_right_once() {
   current_tet.pos.x += 1;
 }
 template <size_t H, size_t W> inline void GameState<H, W>::_place() {
-  auto pos = current_tet.get_tetrino_positions();
+  auto pos = current_tet.get_tetromino_positions();
   for (auto vec : pos) {
     if (vec.x > signed(W) || vec.x < 0 || vec.y > signed(H) || vec.y < 0) {
       continue;
@@ -190,14 +190,14 @@ template <size_t H, size_t W> bool GameState<H, W>::tick(uint8_t buttons) {
   }
 
   if (placed) {
-    _new_tetrino();
+    _new_tetromino();
     placed = false;
   }
 
-  _turn_tetrino(buttons);
+  _turn_tetromino(buttons);
 
   // check collision after turning
-  auto pos = current_tet.get_tetrino_positions();
+  auto pos = current_tet.get_tetromino_positions();
   bool collision = _collides(pos);
 
   // move to nearest empty? (slide)
@@ -205,7 +205,7 @@ template <size_t H, size_t W> bool GameState<H, W>::tick(uint8_t buttons) {
     // TODO: move away from turn-collision
   }
 
-  // move Tetrino?
+  // move Tetromino?
   _move(buttons);
 
   // remove row?
@@ -224,11 +224,11 @@ template <size_t H, size_t W> bool GameState<H, W>::isGameOver() {
   return false;
 }
 template <size_t H, size_t W> void GameState<H, W>::init_nexts() {
-  for (Tetrino &t : nexts) {
+  for (Tetromino &t : nexts) {
     t = new_next();
   }
 }
-template <size_t H, size_t W> Tetrino GameState<H, W>::get_next() {
+template <size_t H, size_t W> Tetromino GameState<H, W>::get_next() {
   auto first = nexts[0];
   nexts[0] = nexts[1];
   nexts[1] = nexts[2];
@@ -236,16 +236,16 @@ template <size_t H, size_t W> Tetrino GameState<H, W>::get_next() {
   return first;
 }
 
-template <size_t H, size_t W> Tetrino GameState<H, W>::new_next() {
+template <size_t H, size_t W> Tetromino GameState<H, W>::new_next() {
 
-  return static_cast<Tetrino>(random_int(7));
+  return static_cast<Tetromino>(random_int(7));
 }
 
 template <size_t H, size_t W>
 std::array<uint8_t, W * H> GameState<H, W>::get_curr_field() {
   auto field = this->blocks;
   if (!placed) {
-    for (auto vec : this->current_tet.get_tetrino_positions()) {
+    for (auto vec : this->current_tet.get_tetromino_positions()) {
       if (vec.x < 0 || vec.y < 0) {
         continue;
       }
@@ -255,13 +255,13 @@ std::array<uint8_t, W * H> GameState<H, W>::get_curr_field() {
   return field;
 }
 
-std::array<Vec2, 4> get_tetrino_layout(Tetrino t) {
-  return Tetrinos[static_cast<uint8_t>(t)];
+std::array<Vec2, 4> get_tetromino_layout(Tetromino t) {
+  return Tetrominos[static_cast<uint8_t>(t)];
 }
 
 TetPos::TetPos() : tet{}, r{Rotation::None}, pos{} {}
 
-TetPos::TetPos(Tetrino t, uint8_t width) {
+TetPos::TetPos(Tetromino t, uint8_t width) {
   this->tet = t;
   this->r = Rotation::None;
   this->pos = {static_cast<int8_t>((width / 2)), 0};
@@ -277,8 +277,8 @@ void TetPos::turn(int n) {
 void TetPos::turn() { turn(1); }
 void TetPos::anti_turn() { turn(-1); }
 
-std::array<Vec2, 4> TetPos::get_tetrino_layout() {
-  auto vecs = ::get_tetrino_layout(this->tet);
+std::array<Vec2, 4> TetPos::get_tetromino_layout() {
+  auto vecs = ::get_tetromino_layout(this->tet);
   for (auto &vec : vecs) {
     for (size_t i = 0; i < static_cast<uint8_t>(r); i++) {
       vec.turn_counter_clock();
@@ -286,8 +286,8 @@ std::array<Vec2, 4> TetPos::get_tetrino_layout() {
   }
   return vecs;
 }
-std::array<Vec2, 4> TetPos::get_tetrino_positions() {
-  auto arr = get_tetrino_layout();
+std::array<Vec2, 4> TetPos::get_tetromino_positions() {
+  auto arr = get_tetromino_layout();
   for (Vec2 &vec : arr) {
     vec.x += pos.x;
     vec.y += pos.y;

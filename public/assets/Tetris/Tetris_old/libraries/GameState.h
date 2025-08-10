@@ -12,7 +12,7 @@ struct Vec2 {
   void turn_counter_clock();
 };
 
-enum class Tetrino : uint8_t {
+enum class Tetromino : uint8_t {
   L = 0,
   R_L = 1,
   I = 2,
@@ -21,7 +21,7 @@ enum class Tetrino : uint8_t {
   B = 5,
   T = 6,
 };
-std::array<Vec2, 4> get_tetrino_layout(Tetrino t);
+std::array<Vec2, 4> get_tetromino_layout(Tetromino t);
 
 static constexpr const std::array<Vec2, 4> L = {
     Vec2{0, 0}, {0, -1}, {0, 1}, {1, 1}};
@@ -41,10 +41,10 @@ static constexpr const std::array<Vec2, 4> R_Z = {
 static constexpr const std::array<Vec2, 4> B = {
     Vec2{0, 0}, {-1, -1}, {-1, 0}, {0, -1}};
 
-static constexpr const std::array<Vec2, 4> T =
-    { Vec2{0, 0}, {0, -1}, {-1, 0}, {1, 0} };
-static constexpr const std::array<Vec2, 4> Tetrinos[] =
-    { L, R_L, I, Z, R_Z, B, T };
+static constexpr const std::array<Vec2, 4> T = {
+    Vec2{0, 0}, {0, -1}, {-1, 0}, {1, 0}};
+static constexpr const std::array<Vec2, 4> Tetrominos[] = {L,   R_L, I, Z,
+                                                           R_Z, B,   T};
 
 enum class Rotation : uint8_t {
   None = 0,
@@ -54,22 +54,22 @@ enum class Rotation : uint8_t {
 };
 
 struct TetPos {
-  Tetrino tet;
+  Tetromino tet;
   Rotation r;
   Vec2 pos;
 
   TetPos();
-  TetPos(Tetrino tet, uint8_t width);
+  TetPos(Tetromino tet, uint8_t width);
   void turn();
   void turn(int n);
   void anti_turn();
-  std::array<Vec2, 4> get_tetrino_layout();
-  std::array<Vec2, 4> get_tetrino_positions();
+  std::array<Vec2, 4> get_tetromino_layout();
+  std::array<Vec2, 4> get_tetromino_positions();
 };
 
 template <size_t H, size_t W> struct GameState {
   std::array<uint8_t, H * W> blocks;
-  std::array<Tetrino, 3> nexts;
+  std::array<Tetromino, 3> nexts;
   TetPos current_tet;
   bool placed;
   const bool debug;
@@ -80,14 +80,14 @@ template <size_t H, size_t W> struct GameState {
   GameState(bool debug);
   bool tick(uint8_t buttons);
   bool isGameOver();
-  Tetrino get_next();
+  Tetromino get_next();
   void init_nexts();
-  static Tetrino new_next();
+  static Tetromino new_next();
   std::array<uint8_t, W * H> get_curr_field();
 
 private:
-  inline void _new_tetrino();
-  inline void _turn_tetrino(uint8_t buttons);
+  inline void _new_tetromino();
+  inline void _turn_tetromino(uint8_t buttons);
   inline void _move(uint8_t buttons);
   void inline _move_down_once();
   void inline _move_left_once();

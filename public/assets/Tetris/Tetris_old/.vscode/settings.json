@@ -1,9 +1,9 @@
 {
     "cSpell.words": [
         "GAMESTATE",
-        "tetrino",
-        "Tetrino",
-        "Tetrinos"
+        "tetromino",
+        "Tetromino",
+        "Tetrominos"
     ],
     "C_Cpp.default.cppStandard": "gnu++23",
     "C_Cpp.default.cStandard": "gnu23",

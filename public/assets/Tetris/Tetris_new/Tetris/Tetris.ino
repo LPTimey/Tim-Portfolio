@@ -85,7 +85,7 @@ void setup() {
     seed ^= millis() << 3;
     randomSeed(seed);
     Serial.println(seed);
-    tetris::bag = tetris::TetrinoBag(seed);
+    tetris::bag = tetris::TetrominoBag(seed);
 
     game();
 

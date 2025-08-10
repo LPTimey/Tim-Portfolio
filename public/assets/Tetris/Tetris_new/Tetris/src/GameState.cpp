@@ -51,47 +51,49 @@ constexpr const Vec2 B[4] = {Vec2{0, 0}, {-1, -1}, {-1, 0}, {0, -1}};
 
 constexpr const Vec2 T[4] = {Vec2{0, 0}, {0, -1}, {-1, 0}, {1, 0}};
 
-constexpr const Vec2* const Tetrinos[static_cast<size_t>(
-    Tetrino::NrOfTetrinos)] = {L, R_L, I, Z, R_Z, B, T};
+constexpr const Vec2* const Tetrominos[static_cast<size_t>(
+    Tetromino::NrOfTetrominos)] = {L, R_L, I, Z, R_Z, B, T};
 
-constexpr const Vec2* const get_tetrino_layout(Tetrino tet) {
-    return Tetrinos[static_cast<uint8_t>(tet)];
+constexpr const Vec2* const get_tetromino_layout(Tetromino tet) {
+    return Tetrominos[static_cast<uint8_t>(tet)];
 }
-TetrinoBag::TetrinoBag() : bag{} { set_next_batch(); }
-TetrinoBag::TetrinoBag(uint32_t seed) : bag{}, seed(seed) { set_next_batch(); }
-void TetrinoBag::set_next_batch() {
-    for (int i = 0; i < (int)Tetrino::NrOfTetrinos; i++) {
-        bag[i] = (Tetrino)i;
+TetrominoBag::TetrominoBag() : bag{} { set_next_batch(); }
+TetrominoBag::TetrominoBag(uint32_t seed) : bag{}, seed(seed) {
+    set_next_batch();
+}
+void TetrominoBag::set_next_batch() {
+    for (int i = 0; i < (int)Tetromino::NrOfTetrominos; i++) {
+        bag[i] = (Tetromino)i;
     }
-    shuffle(bag, (int)Tetrino::NrOfTetrinos, seed);
+    shuffle(bag, (int)Tetromino::NrOfTetrominos, seed);
     index = 0;
 }
-Tetrino TetrinoBag::next() {
-    if (index >= static_cast<uint8_t>(Tetrino::NrOfTetrinos)) {
+Tetromino TetrominoBag::next() {
+    if (index >= static_cast<uint8_t>(Tetromino::NrOfTetrominos)) {
         set_next_batch();
     }
     return bag[index++];
 }
-void TetrinoBag::set_seed(uint32_t seed) { this->seed = seed; }
+void TetrominoBag::set_seed(uint32_t seed) { this->seed = seed; }
 
-TetrinoBag bag = TetrinoBag();
+TetrominoBag bag = TetrominoBag();
 
 GameState::GameState(GameState::M&& members) : m(my_move(members)) {}
 
 GameState GameState::create() {
-    Tetrino nexts[3];
+    Tetromino nexts[3];
     set_nexts(nexts);
     return GameState(M{nullopt, nexts});
 }
 
-void GameState::set_nexts(Tetrino (&nexts)[3]) {
+void GameState::set_nexts(Tetromino (&nexts)[3]) {
     Ard(Serial.println("set_nexts"));
     for (int i = 0; i < 3; i++) {
         nexts[i] = bag.next();
     }
 }
 
-Tetrino GameState::get_next() {
+Tetromino GameState::get_next() {
     auto tet = m.nexts[0];
     for (int i = 0; i < 2; i++) {
         m.nexts[i] = m.nexts[i + 1];
@@ -350,7 +352,7 @@ inline bool operator!=(const Buttons& lhs, const Button& rhs) {
 }
 
 auto TetPos::get_indexes() const -> ptrdiff_t (&)[4] {
-    auto pos = Tetrinos[static_cast<size_t>(this->cur)];
+    auto pos = Tetrominos[static_cast<size_t>(this->cur)];
     static ptrdiff_t indexes[4]{0};
     static Vec2 new_pos[4]{};
 

@@ -3,8 +3,8 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#include "optional.hpp"
 #include "../Config.h"
+#include "optional.hpp"
 
 namespace tetris {
 enum class Rotation : uint8_t {
@@ -20,7 +20,7 @@ struct Vec2 {
     Vec2 rotate(Rotation r);
 };
 
-enum class Tetrino : uint8_t {
+enum class Tetromino : uint8_t {
     L = 0,
     R_L = 1,
     I = 2,
@@ -28,24 +28,24 @@ enum class Tetrino : uint8_t {
     R_Z = 4,
     B = 5,
     T = 6,
-    NrOfTetrinos,
+    NrOfTetrominos,
 };
-constexpr const Vec2* const get_tetrino_layout(Tetrino tet);
+constexpr const Vec2* const get_tetromino_layout(Tetromino tet);
 
-class TetrinoBag {
-    Tetrino bag[static_cast<uint8_t>(Tetrino::NrOfTetrinos)];
+class TetrominoBag {
+    Tetromino bag[static_cast<uint8_t>(Tetromino::NrOfTetrominos)];
     uint8_t index = 0;
     uint32_t seed = 12345;
 
     void set_next_batch();
 
   public:
-    TetrinoBag();
-    TetrinoBag(uint32_t seed);
+    TetrominoBag();
+    TetrominoBag(uint32_t seed);
     void set_seed(uint32_t seed);
-    Tetrino next();
+    Tetromino next();
 };
-extern TetrinoBag bag;
+extern TetrominoBag bag;
 
 extern const Vec2 L[4];
 extern const Vec2 R_L[4];
@@ -55,7 +55,8 @@ extern const Vec2 R_Z[4];
 extern const Vec2 B[4];
 extern const Vec2 T[4];
 
-extern const Vec2* const Tetrinos[static_cast<size_t>(Tetrino::NrOfTetrinos)];
+extern const Vec2* const
+    Tetrominos[static_cast<size_t>(Tetromino::NrOfTetrominos)];
 
 constexpr uint8_t positive_mod(int value, int mod) {
     return (value % mod + mod) % mod;
@@ -90,7 +91,7 @@ constexpr int getShiftAmount(Button button) {
 }
 
 struct TetPos {
-    Tetrino cur;
+    Tetromino cur;
     Vec2 cur_pos;
     Rotation rot;
 
@@ -101,10 +102,10 @@ class GameState {
     struct M {
         uint8_t field[Width * Height];
         Option<TetPos> current;
-        Tetrino nexts[3];
+        Tetromino nexts[3];
         size_t score = 0;
 
-        M(Option<TetPos> current_init, Tetrino nexts_init[3],
+        M(Option<TetPos> current_init, Tetromino nexts_init[3],
           size_t score_init = 0)
             : field{0}, current(current_init),
               nexts{nexts_init[0], nexts_init[1], nexts_init[2]},
@@ -114,8 +115,8 @@ class GameState {
     GameState() = delete;
     GameState(M&& members);
 
-    static void set_nexts(Tetrino (&nexts)[3]);
-    Tetrino get_next();
+    static void set_nexts(Tetromino (&nexts)[3]);
+    Tetromino get_next();
     bool can_move_down();
     bool can_move_left();
     bool can_move_right();
@@ -123,7 +124,7 @@ class GameState {
     void place(const TetPos& tet);
     void turn(TetPos& tet, int8_t amount);
 
-    public:
+  public:
     auto field_with_floating() -> uint8_t (&)[Width * Height];
     ~GameState() = default;
     static GameState create();

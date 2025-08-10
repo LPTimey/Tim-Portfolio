@@ -15,6 +15,7 @@ pub mod project_table;
 pub mod scrolling_img;
 pub mod theme_select;
 pub mod three_js_setup;
+pub mod tooltip;
 
 // Definiere ein Trait
 pub trait ScriptType {}
