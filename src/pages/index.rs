@@ -198,6 +198,7 @@ Ich freue mich, wenn du dir einen Eindruck von meiner Arbeit verschaffst. Bei Fr
                                             path_to_root: page.path_to_root(lang),
                                             is_in_grid: true,
                                             reactive_color: false,
+                                            lang
                                         }
                                     ))
                                 }

@@ -33,6 +33,7 @@ const CONTENT: PreEscaped<&'static str> = PreEscaped(
 pub const MOD_PATH: &str = module_path!();
 pub fn meta_data() -> ProjectMetadata {
     ProjectMetadata {
+        page: Page::Printer,
         title_img: link_public!(
             (path_to_root(mod_path_to_href(MOD_PATH).expect("A valid path").as_path())
                 + "assets/Screendesign/Drucker/title-img-zoomed.webp")

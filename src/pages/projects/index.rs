@@ -31,7 +31,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
 
             body{
                 (header(page,lang))
-                div."dodge-header"{}
+                // div."dodge-header"{}
                 main{
 
                     section #Projects .content{
@@ -42,6 +42,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                                 path_to_root: page.path_to_root(lang),
                                 is_in_grid: true,
                                 reactive_color: true,
+                                lang
                             }
                         ))
                         }

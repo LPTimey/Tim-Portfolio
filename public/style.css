@@ -939,7 +939,7 @@
     padding-block: 1ch;
     padding-inline: var(--padding-inline);
 
-    position: fixed;
+    position: sticky;
     top: 0;
     z-index: 100;
 
@@ -965,6 +965,14 @@
         justify-content: end;
         align-items: center;
         gap: 2ch;
+    }
+    #Languages{
+        display: inline-flex;
+        gap: 1ch;
+
+        .separator::before{
+            content: "|";
+        }
     }
 
     #Groups {

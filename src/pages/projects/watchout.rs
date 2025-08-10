@@ -48,11 +48,10 @@ const CONTENT: PreEscaped<&'static str> = PreEscaped(
 pub const MOD_PATH: &str = module_path!();
 pub fn meta_data() -> ProjectMetadata {
     ProjectMetadata {
+        page: Page::Watchout,
         title_img: link_public!(
-                (path_to_root(mod_path_to_href(MOD_PATH).expect("A valid path").as_path()) + 
-                "assets/Design der Mensch Maschine Schnittstelle/WatchOut/title-img-flipp-bg.webp")
-                .leak()
-            )
+            "assets/Design der Mensch Maschine Schnittstelle/WatchOut/title-img-flipp-bg.webp"
+        )
         .into(),
         name: "WatchOut",
         description: DESCRIPTION,
@@ -120,7 +119,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                 (header(page, lang))
                 main{
                     section #Hero{
-                        picture #HeroImg{(img::img ("",meta_data().title_img.light(),"",None,&[],None))}
+                        picture #HeroImg{(img::img (page.path_to_root(lang),meta_data().title_img.light(),"",None,&[],None))}
                         div ."hero-content"{
                             h1."mb-large"{
                                 span."fs-large"."lh-tight"{ "Willkommen, hier" } br;

@@ -6,7 +6,7 @@ use strum::IntoEnumIterator;
 use unic_langid::LanguageIdentifier;
 
 use crate::{
-    capitalize, components::theme_select::theme_select, get_core_language_loader, include_asset, Page, GIT_HUB_ICON
+    capitalize, components::theme_select::theme_select, get_core_language_loader, include_asset, Page, GIT_HUB_ICON, SUPPORTED_LANGS
 };
 
 fn group_pages(lang: &LanguageIdentifier, loader: &FluentLanguageLoader) -> BTreeMap<Option<String>, Vec<Page>> {
@@ -34,6 +34,22 @@ fn group_pages(lang: &LanguageIdentifier, loader: &FluentLanguageLoader) -> BTre
         grouped.entry(parent).or_default().push(page);
     }
     grouped
+}
+
+pub fn lang_switcher(current_page: Page, lang: &LanguageIdentifier)->maud::Markup{
+    html!{
+        ul #Languages{
+        @for (i,next_lang) in SUPPORTED_LANGS.iter().enumerate(){
+            @if let Some(path) = if !lang.eq(next_lang) {Some(current_page.path_to_root(lang)+&current_page.to_href(next_lang).to_string_lossy())}else{None}{
+                li{ a.underline.link href=(path){ (next_lang.language.to_string().to_uppercase()) } }
+            }@else{
+                li{ a.underline."underline-active" { (next_lang.language.to_string().to_uppercase()) } }
+            }
+            @if i+1 < SUPPORTED_LANGS.len(){
+                li.separator{}
+            }
+        }}
+    }
 }
 
 pub fn header(current_page: Page, lang: &LanguageIdentifier) -> maud::Markup {
@@ -107,6 +123,7 @@ pub fn header(current_page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                         ("Dark", false),
                         ("Custom", false)
                     ], lang)) }
+                li { (lang_switcher(current_page, lang)) }
                 li { a draggable="false" target="_blank" href="https://github.com/LPTimey/Tim-Portfolio" aria-label="Mein Github"{ (PreEscaped(GIT_HUB_ICON)) /*"GitHub"*/ } }
             }
             div #Groups{

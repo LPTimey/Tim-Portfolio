@@ -28,12 +28,8 @@ einer Zielgruppenanalyse sowie der fundierten Begründung des Designprozesses.
 pub const MOD_PATH: &str = module_path!();
 pub fn meta_data() -> ProjectMetadata {
     ProjectMetadata {
-        title_img: link_public!(
-            (path_to_root(mod_path_to_href(MOD_PATH).expect("A valid path").as_path())
-                + "assets/Screendesign/Styles/title-img.webp")
-                .leak()
-        )
-        .into(),
+        page: Page::Styles,
+        title_img: link_public!("assets/Screendesign/Styles/title-img.webp").into(),
         name: "Themen & Stile",
         description: DESCRIPTION,
         category: projects::Category::Screendesign,
@@ -61,7 +57,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                 (header(page, lang))
                 main{
                     section #Hero{
-                        picture #HeroImg{(img::img ("",meta_data().title_img.light(),"",None,&[],None))}
+                        picture #HeroImg{(img::img (page.path_to_root(lang),meta_data().title_img.light(),"",None,&[],None))}
                     }
                     (table_html(project_table::MarkupProps {
                         // title: "UI-Stile im Screendesign".into(),

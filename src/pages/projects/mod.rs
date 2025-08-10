@@ -75,6 +75,7 @@ trait SortProjects {
 
 #[derive(Debug)]
 pub struct ProjectMetadata {
+    pub page: Page,
     pub path: PathBuf,
     pub title_img: ThemeLink,
     pub name: &'static str,
