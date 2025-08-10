@@ -30,6 +30,12 @@
         filter: blur(0.25rem);
     }
 
+    img {
+        /* border-radius: var(--border-r); */
+        border-radius: calc(var(--border-r) / 1.75);
+        /* border-radius: 0; */
+    }
+
     @media (hover: hover) and (prefers-reduced-motion: no-preference) {
 
         &,
