@@ -9,8 +9,7 @@ use strum::{EnumIter, VariantArray};
 use unic_langid::{langid, LanguageIdentifier};
 
 use crate::{
-    Link, get_core_language_loader, include_asset, link_public, path_to_root,
-    projects::ProjectMetadata,
+    get_core_language_loader, include_asset, include_logo, link_public, path_to_root, projects::ProjectMetadata, Link
 };
 
 pub fn mod_path_to_href(mod_path: &str) -> Option<PathBuf> {
@@ -30,7 +29,7 @@ pub fn mod_path_to_href(mod_path: &str) -> Option<PathBuf> {
 pub const STYLE_CSS: Link = link_public!("style.css");
 pub const SCRIPT_MJS: Link = link_public!("script.js");
 pub const THEME_JS: Link = link_public!("theme.js");
-pub const GIT_HUB_ICON: &str = include_asset!("logos/github.svg");
+pub const GIT_HUB_ICON: &str = include_logo!("github.svg");
 #[macro_export]
 macro_rules! placeholder_img {
     ($width:expr, $height:expr) => {

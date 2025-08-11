@@ -3,7 +3,7 @@ use std::fmt::Display;
 use Props::with_props;
 use maud::{Markup, html};
 
-use crate::{components::Component, link_public, Link};
+use crate::{Link, components::Component, link_public};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub struct Percentage(u8);
@@ -41,9 +41,9 @@ impl TryFrom<u8> for Percentage {
         }
     }
 }
-impl Display for Percentage{
+impl Display for Percentage {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{}%",self.0)
+        write!(f, "{}%", self.0)
     }
 }
 
@@ -54,7 +54,7 @@ pub enum Align {
     // Other(Percentage)
 }
 impl Align {
-    pub const fn as_percent(&self) -> Percentage{
+    pub const fn as_percent(&self) -> Percentage {
         match self {
             Align::Begin => unsafe { Percentage::new_unchecked(0) },
             Align::Center => unsafe { Percentage::new_unchecked(50) },
@@ -64,6 +64,8 @@ impl Align {
     }
 }
 
+/// FIXME: Currently Alignment is only guaranteed to work when Centered
+/// as it moves based on content- not children-size
 #[with_props]
 pub fn markup(
     children: Markup,

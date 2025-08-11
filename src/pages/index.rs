@@ -105,6 +105,14 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                     html! {a.link.underline{"NeoVim"}}.into(),
                     include_logo!("neovim-mark@2x.svg"),
                 ),
+                (
+                    html! {a.link.underline{"Git"}}.into(),
+                    include_logo!("neovim-mark@2x.svg"),
+                ),
+                (
+                    html! {a.link.underline{"GitHub"}}.into(),
+                    include_logo!("neovim-mark@2x.svg"),
+                ),
             ],
         ),
         (
@@ -230,10 +238,10 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                                                                 .replace("id=\"", &format!("id=\"{i}{j}"))))
                                                             },
                                                             content: html!((svg.0)),
-                                                            popup_align:tooltip::Align::Begin,
-                                                            popup_justify: tooltip::Align::Center,
-                                                            popup_begin_justify:tooltip::Align::Center,
-                                                            popup_begin_align:tooltip::Align::Center}))
+                                                            popup_align: tooltip::Align::Center,
+                                                            popup_justify: tooltip::Align::End,
+                                                            popup_begin_justify: tooltip::Align::Center,
+                                                            popup_begin_align: tooltip::Align::Center}))
                                                     }
                                                 }
                                             }

@@ -31,7 +31,7 @@ macro_rules! include_public {
 #[macro_export]
 macro_rules! include_logo {
     ($path:expr) => {
-        include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/assets/logos/", $path))
+        include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/public/assets/logos/", $path))
     };
 }
 
@@ -44,6 +44,13 @@ macro_rules! link_public {
     ($path:expr) => {
         $crate::Link($path)
     };
+}
+#[macro_export]
+macro_rules! link_logo {
+    ($path:literal) => {{
+        const _: &[u8] = include_bytes!(concat!(env!("CARGO_MANIFEST_DIR"), "/public/assets/logos/", $path));
+        $crate::Link(concat!("assets/logos/",$path))
+    }};
 }
 
 #[derive(RustEmbed)]

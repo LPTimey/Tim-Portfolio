@@ -7,6 +7,7 @@ pub mod head;
 pub mod header;
 pub mod hero;
 pub mod hyper_img;
+pub mod icon;
 pub mod img;
 pub mod page;
 pub mod phone_border;
