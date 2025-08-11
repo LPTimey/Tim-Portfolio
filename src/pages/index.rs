@@ -1,10 +1,11 @@
-use i18n_embed::{fluent::FluentLanguageLoader};
+use i18n_embed::fluent::FluentLanguageLoader;
 use maud::PreEscaped;
 use std::{sync::OnceLock, time::Duration};
 
 use crate::{
     components::{
-        self, footer::footer, head::default_head, header::header, project_card, project_table::Content, scrolling_img, Component
+        self, Component, footer::footer, head::default_head, header::header, project_card,
+        project_table::Content, scrolling_img, tooltip,
     },
     include_logo, include_public, setup_language_loader,
 };
@@ -37,41 +38,106 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
         style: scroll_img_style,
         ..
     } = scrolling_img::component();
+    let Component {
+        html: tooltip_html,
+        style: tooltip_style,
+        ..
+    } = tooltip::component();
 
     let skills: [(&str, Vec<(Content, &'static str)>); 3] = [
         (
             &loader.get("Design"),
             vec![
-                (html!{a.link.underline{"Adobe Illustrator"}}.into(),include_logo!("adobe-illustrator-svgrepo-com.svg")),
-                (html!{a.link.underline{"Adobe Photoshop"}}.into(),include_logo!("adobe-photoshop-svgrepo-com.svg")),
-                (html!{a.link.underline{"Adobe Premiere Pro"}}.into(),include_logo!("adobe-premiere-svgrepo-com.svg")),
-                (html!{a.link.underline{"Adobe XD"}}.into(),include_logo!("adobe-xd-svgrepo-com.svg")),
-                (html!{a.link.underline{"Figma"}}.into(),include_logo!("figma-svgrepo-com.svg")),
-                (html!{a.link.underline{"Penpot"}}.into(),include_logo!("penpot-svgrepo-com.svg")),
-                (html!{a.link.underline{"Blender"}}.into(),include_logo!("blender-svgrepo-com.svg")),
+                (
+                    html! {a.link.underline{"Adobe Illustrator"}}.into(),
+                    include_logo!("adobe-illustrator-svgrepo-com.svg"),
+                ),
+                (
+                    html! {a.link.underline{"Adobe Photoshop"}}.into(),
+                    include_logo!("adobe-photoshop-svgrepo-com.svg"),
+                ),
+                (
+                    html! {a.link.underline{"Adobe Premiere Pro"}}.into(),
+                    include_logo!("adobe-premiere-svgrepo-com.svg"),
+                ),
+                (
+                    html! {a.link.underline{"Adobe XD"}}.into(),
+                    include_logo!("adobe-xd-svgrepo-com.svg"),
+                ),
+                (
+                    html! {a.link.underline{"Figma"}}.into(),
+                    include_logo!("figma-svgrepo-com.svg"),
+                ),
+                (
+                    html! {a.link.underline{"Penpot"}}.into(),
+                    include_logo!("penpot-svgrepo-com.svg"),
+                ),
+                (
+                    html! {a.link.underline{"Blender"}}.into(),
+                    include_logo!("blender-svgrepo-com.svg"),
+                ),
             ],
         ),
         (
             &loader.get("ICT"),
             vec![
-                (html!{a.link.underline{"Microsoft Office"}}.into(),include_logo!("office-1-logo-svgrepo-com.svg")),
-                (html!{a.link.underline{"Microsoft Windwos"}}.into(),include_logo!("microsoft-windows-svgrepo-com.svg")),
-                (html!{a.link.underline{"Apple MacOS"}}.into(),include_logo!("apple-nogb-svgrepo-com.svg")),
-                (html!{a.link.underline{"Linux"}}.into(),include_logo!("linux-svgrepo-com.svg")),
-                (html!{a.link.underline{"Microsoft VSCode"}}.into(),include_logo!("vs-code-svgrepo-com.svg")),
-                (html!{a.link.underline{"NeoVim"}}.into(),include_logo!("neovim-mark@2x.svg")),
+                (
+                    html! {a.link.underline{"Microsoft Office"}}.into(),
+                    include_logo!("office-1-logo-svgrepo-com.svg"),
+                ),
+                (
+                    html! {a.link.underline{"Microsoft Windwos"}}.into(),
+                    include_logo!("microsoft-windows-svgrepo-com.svg"),
+                ),
+                (
+                    html! {a.link.underline{"Apple MacOS"}}.into(),
+                    include_logo!("apple-nogb-svgrepo-com.svg"),
+                ),
+                (
+                    html! {a.link.underline{"Linux"}}.into(),
+                    include_logo!("linux-svgrepo-com.svg"),
+                ),
+                (
+                    html! {a.link.underline{"Microsoft VSCode"}}.into(),
+                    include_logo!("vs-code-svgrepo-com.svg"),
+                ),
+                (
+                    html! {a.link.underline{"NeoVim"}}.into(),
+                    include_logo!("neovim-mark@2x.svg"),
+                ),
             ],
         ),
         (
             &loader.get("languages"),
             vec![
-                (html!{a.link.underline{"HTML"}}.into(),include_logo!("html-5-no-wordmark-svgrepo-com.svg")),
-                (html!{a.link.underline{"CSS"}}.into(),include_logo!("CSS Logo.svg")),
-                (html!{a.link.underline{"JavaScript"}}.into(),include_logo!("js-svgrepo-com.svg")),
-                (html!{a.link.underline{"Rust"}}.into(),include_logo!("rust-svgrepo-com.svg")),
-                (html!{a.link.underline{"Java"}}.into(),include_logo!("java-svgrepo-com.svg")),
-                (html!{a.link.underline{"C/C++"}}.into(),include_logo!("cpp-svgrepo-com.svg")),
-                (html!{a.link.underline{"Python"}}.into(),include_logo!("python-svgrepo-com.svg")),
+                (
+                    html! {a.link.underline{"HTML"}}.into(),
+                    include_logo!("html-5-no-wordmark-svgrepo-com.svg"),
+                ),
+                (
+                    html! {a.link.underline{"CSS"}}.into(),
+                    include_logo!("CSS Logo.svg"),
+                ),
+                (
+                    html! {a.link.underline{"JavaScript"}}.into(),
+                    include_logo!("js-svgrepo-com.svg"),
+                ),
+                (
+                    html! {a.link.underline{"Rust"}}.into(),
+                    include_logo!("rust-svgrepo-com.svg"),
+                ),
+                (
+                    html! {a.link.underline{"Java"}}.into(),
+                    include_logo!("java-svgrepo-com.svg"),
+                ),
+                (
+                    html! {a.link.underline{"C/C++"}}.into(),
+                    include_logo!("cpp-svgrepo-com.svg"),
+                ),
+                (
+                    html! {a.link.underline{"Python"}}.into(),
+                    include_logo!("python-svgrepo-com.svg"),
+                ),
             ],
         ),
     ];
@@ -84,6 +150,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                 link rel="stylesheet" href=(page.path_to_root(lang) + *card_style );
                 // script type="module" src=(page.path_to_root(lang) + *card_script ){}
                 link rel="stylesheet" href=(page.path_to_root(lang) + *scroll_img_style );
+                link rel="stylesheet" href=(page.path_to_root(lang) + *tooltip_style );
                 style { (PreEscaped(STYLE)) }
             }
 
@@ -155,13 +222,18 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                                             ul."skills-list"{
                                                 @for (j,svg) in category.1.iter().enumerate() {
                                                     li ."skill-icon"{
-                                                        // (tooltip svg.0)
-                                                        (PreEscaped(
-                                                            svg.1
-                                                            // stop svg's from changing each others styles, by having duplicate ids
-                                                            .replace("url(#", &format!("url(#{i}{j}"))
-                                                            .replace("id=\"", &format!("id=\"{i}{j}"))
-                                                        ))
+                                                        (tooltip_html(tooltip::MarkupProps{
+                                                            children: html!{
+                                                                (PreEscaped(svg.1
+                                                                // stop svg's from changing each others styles, by having duplicate ids
+                                                                .replace("url(#", &format!("url(#{i}{j}"))
+                                                                .replace("id=\"", &format!("id=\"{i}{j}"))))
+                                                            },
+                                                            content: html!((svg.0)),
+                                                            popup_align:tooltip::Align::Begin,
+                                                            popup_justify: tooltip::Align::Center,
+                                                            popup_begin_justify:tooltip::Align::Center,
+                                                            popup_begin_align:tooltip::Align::Center}))
                                                     }
                                                 }
                                             }

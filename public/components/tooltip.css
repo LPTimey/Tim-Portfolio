@@ -1,0 +1,16 @@
+.tt-content{
+    position: absolute;
+    display: block;
+    width: 0px;
+    height: 0px;
+    overflow: hidden;
+    will-change: width;
+}
+.tool-tip{
+    position: relative;
+    isolation: isolate;
+    &:has(.tt-children:hover) .tt-content{
+        width: 100%;
+        height: 100%;
+    }
+}
