@@ -48,7 +48,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                         }
                     }
                 }
-                (footer())
+                (footer(lang))
             }
         },
     )

@@ -7,7 +7,7 @@
     <title>Redirecting...</title>
     <script>
         const lang = navigator.language || navigator.userLanguage;
-        const target = lang.startsWith('de') ? './de-DE/' : './en-GB/';
+        const target = lang.startsWith('de') ? './de-DE/index.html' : './en-GB/index.html';
 
         // Sofort weiterleiten
         window.location.href = target;
@@ -27,7 +27,7 @@
 <body>
     <p>If you are not redirected automatically, <a id="redirect-link" href="#" hidden>click here</a>.</p>
     <noscript>
-        <p>JavaScript is disabled. <a href="./de-DE/">Click here</a>.</p>
+        <p>JavaScript is disabled. <a href="./de-DE/index.html">Click here</a>.</p>
     </noscript>
 </body>
 

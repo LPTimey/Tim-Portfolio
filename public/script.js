@@ -272,3 +272,32 @@ hoverBorderMultiTargets
             })
         });
 //#endregion HoverBorder
+
+//#region linkToScroll
+/** 
+ * @type {NodeListOf<HTMLAnchorElement>} 
+ */
+const links = document.querySelectorAll('#Languages a.link');
+
+links.forEach(link => {
+    link.addEventListener('click', function (e) {
+        const scrollY = window.scrollY || document.documentElement.scrollTop;
+        // Verhindern, dass der Link sofort lädt
+        e.preventDefault();
+
+        // Aktuelle URL mit Scroll-Position erweitern (als Query)
+        const url = new URL(this.href, window.location.origin);
+        url.searchParams.set('scroll', scrollY.toString());
+
+        // Jetzt navigieren
+        window.location.href = url.toString();
+    });
+});
+window.addEventListener('DOMContentLoaded', () => {
+    const params = new URLSearchParams(window.location.search);
+    const scroll = params.get('scroll');
+    if (scroll) {
+        window.scrollTo({ top: parseInt(scroll, 10), behavior: 'instant' });
+    }
+});
+//#endregion linkToScroll

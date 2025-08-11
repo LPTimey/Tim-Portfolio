@@ -1,12 +1,10 @@
-use i18n_embed::{LanguageLoader, fluent::FluentLanguageLoader};
+use i18n_embed::{fluent::FluentLanguageLoader};
 use maud::PreEscaped;
 use std::{sync::OnceLock, time::Duration};
-use unic_langid::langid;
 
 use crate::{
     components::{
-        self, Component, footer::footer, head::default_head, header::header, project_card,
-        scrolling_img,
+        self, footer::footer, head::default_head, header::header, project_card, project_table::Content, scrolling_img, Component
     },
     include_logo, include_public, setup_language_loader,
 };
@@ -40,40 +38,40 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
         ..
     } = scrolling_img::component();
 
-    let skills = [
+    let skills: [(&str, Vec<(Content, &'static str)>); 3] = [
         (
-            "Design",
+            &loader.get("Design"),
             vec![
-                include_logo!("adobe-illustrator-svgrepo-com.svg"),
-                include_logo!("adobe-photoshop-svgrepo-com.svg"),
-                include_logo!("adobe-premiere-svgrepo-com.svg"),
-                include_logo!("adobe-xd-svgrepo-com.svg"),
-                include_logo!("figma-svgrepo-com.svg"),
-                include_logo!("penpot-svgrepo-com.svg"),
-                include_logo!("blender-svgrepo-com.svg"),
+                (html!{a.link.underline{"Adobe Illustrator"}}.into(),include_logo!("adobe-illustrator-svgrepo-com.svg")),
+                (html!{a.link.underline{"Adobe Photoshop"}}.into(),include_logo!("adobe-photoshop-svgrepo-com.svg")),
+                (html!{a.link.underline{"Adobe Premiere Pro"}}.into(),include_logo!("adobe-premiere-svgrepo-com.svg")),
+                (html!{a.link.underline{"Adobe XD"}}.into(),include_logo!("adobe-xd-svgrepo-com.svg")),
+                (html!{a.link.underline{"Figma"}}.into(),include_logo!("figma-svgrepo-com.svg")),
+                (html!{a.link.underline{"Penpot"}}.into(),include_logo!("penpot-svgrepo-com.svg")),
+                (html!{a.link.underline{"Blender"}}.into(),include_logo!("blender-svgrepo-com.svg")),
             ],
         ),
         (
-            "EDV",
+            &loader.get("ICT"),
             vec![
-                include_logo!("office-1-logo-svgrepo-com.svg"),
-                include_logo!("microsoft-windows-svgrepo-com.svg"),
-                include_logo!("apple-nogb-svgrepo-com.svg"),
-                include_logo!("linux-svgrepo-com.svg"),
-                include_logo!("vs-code-svgrepo-com.svg"),
-                include_logo!("neovim-mark@2x.svg"),
+                (html!{a.link.underline{"Microsoft Office"}}.into(),include_logo!("office-1-logo-svgrepo-com.svg")),
+                (html!{a.link.underline{"Microsoft Windwos"}}.into(),include_logo!("microsoft-windows-svgrepo-com.svg")),
+                (html!{a.link.underline{"Apple MacOS"}}.into(),include_logo!("apple-nogb-svgrepo-com.svg")),
+                (html!{a.link.underline{"Linux"}}.into(),include_logo!("linux-svgrepo-com.svg")),
+                (html!{a.link.underline{"Microsoft VSCode"}}.into(),include_logo!("vs-code-svgrepo-com.svg")),
+                (html!{a.link.underline{"NeoVim"}}.into(),include_logo!("neovim-mark@2x.svg")),
             ],
         ),
         (
             &loader.get("languages"),
             vec![
-                include_logo!("html-5-no-wordmark-svgrepo-com.svg"),
-                include_logo!("CSS Logo.svg"),
-                include_logo!("js-svgrepo-com.svg"),
-                include_logo!("rust-svgrepo-com.svg"),
-                include_logo!("java-svgrepo-com.svg"),
-                include_logo!("cpp-svgrepo-com.svg"),
-                include_logo!("python-svgrepo-com.svg"),
+                (html!{a.link.underline{"HTML"}}.into(),include_logo!("html-5-no-wordmark-svgrepo-com.svg")),
+                (html!{a.link.underline{"CSS"}}.into(),include_logo!("CSS Logo.svg")),
+                (html!{a.link.underline{"JavaScript"}}.into(),include_logo!("js-svgrepo-com.svg")),
+                (html!{a.link.underline{"Rust"}}.into(),include_logo!("rust-svgrepo-com.svg")),
+                (html!{a.link.underline{"Java"}}.into(),include_logo!("java-svgrepo-com.svg")),
+                (html!{a.link.underline{"C/C++"}}.into(),include_logo!("cpp-svgrepo-com.svg")),
+                (html!{a.link.underline{"Python"}}.into(),include_logo!("python-svgrepo-com.svg")),
             ],
         ),
     ];
@@ -97,10 +95,10 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                         div #HeroImg{(scroll_img_html(scrolling_img::MarkupProps { img: Link((page.path_to_root(lang)+*link_public!("assets/Title-img.webp")).leak()), rows: 3, columns: 3, duration: Duration::from_secs(50) }))}
                         div ."hero-content"{
                             h1."mb-large"{
-                                span."fs-large"."lh-tight"{ "Willkommen, hier" } br;
-                                span.hero."lh-normal"."fw-gigantic"{ "wo die Details scheinen" }
+                                span."fs-large"."lh-tight"{ (loader.get("welcome")) } br;
+                                span.hero."lh-normal"."fw-gigantic"{ (loader.get("details")) }
                             }
-                            a draggable="false" .btn."accent-btn".shadow href="#AboutMe" { span{"Entdecke mehr"} }
+                            a draggable="false" .btn."accent-btn".shadow href="#AboutMe" { span{(loader.get("discover-more"))} }
                         }
                     }
 
@@ -110,32 +108,23 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                             h2.heading{ span."accent-text"{ (loader.get("hi")) } " " (loader.get("greeting-title")) }
                             picture{img draggable="false" src=(page.path_to_root(lang) + *ICH) alt="";}
                             p{
-                                (PreEscaped(r#"
-Mich faszinieren sowohl IT & Programmierung als auch Gestaltung & Design.
-Aus diesem Zusammenspiel zwischen technischer Präzision und gestalterischem Denken ziehe ich die Motivation für meine Projekte.
-Es ermöglicht mir, ansprechende und zugleich effiziente Lösungen zu entwickeln - immer mit einem strukturierten Vorgehen, großer Sorgfalt und einem ausgeprägten Blick für Details.
-Derzeit studiere ich User Experience Design an der <a target="_blank" href="https://thi.de" class="link link-active underline">Technischen Hochschule Ingolstadt</a>.
-In meinem Studium wie auch in meinem eigenen Schaffen lege ich großen Wert auf Verlässlichkeit, Teamarbeit und einen verantwortungsvollen Umgang mit sensiblen Daten.
-Neben dem Studium musiziere ich, fahre gerne Rad und game, natürlich alles auch mit Freunden.<br>
-<br>
-Ich freue mich, wenn du dir einen Eindruck von meiner Arbeit verschaffst. Bei Fragen oder Interesse an einer Zusammenarbeit, melde dich gerne!
-                            "#))
+                                (PreEscaped(loader.get("about-me")))
                             }
                         }
                     }
 
                     section #Erfahrung .sect."sect-small-start" {
                         div.content{
-                            h2.heading { "Meine Erfahrung" }
+                            h2.heading { (loader.get("Experience")) }
                             div #Werdegang {
                                 div .timeline {
                                     div ."timeline-item" {
                                         span ."timeline-date" {
-                                            "2023 - Heute"
+                                            "2023 - " (loader.get("today"))
                                         }
                                         div ."timeline-content" {
                                             h3 { "Technische Hochschule Ingolstadt" }
-                                            p { "UX Design Studium (B.Sc.)" }
+                                            p { (loader.get("UXD")) }
                                         }
                                     }
                                     div ."timeline-item" {
@@ -144,7 +133,7 @@ Ich freue mich, wenn du dir einen Eindruck von meiner Arbeit verschaffst. Bei Fr
                                         }
                                         div ."timeline-content" {
                                             h3{ "FOS/BOS Scheyern" }
-                                            p{"Technik-Zweig"}
+                                            p{(loader.get("FOS-tech"))}
                                         }
                                     }
                                     div ."timeline-item" {
@@ -152,8 +141,8 @@ Ich freue mich, wenn du dir einen Eindruck von meiner Arbeit verschaffst. Bei Fr
                                             "2014 - 2020"
                                         }
                                         div ."timeline-content" {
-                                            h3 { "Georg-Hipp Realschule" }
-                                            p { "Mathematik-Zweig" }
+                                            h3 { (loader.get("Georg-Hipp")) }
+                                            p { (loader.get("math-track")) }
                                         }
                                     }
                                 }
@@ -166,8 +155,9 @@ Ich freue mich, wenn du dir einen Eindruck von meiner Arbeit verschaffst. Bei Fr
                                             ul."skills-list"{
                                                 @for (j,svg) in category.1.iter().enumerate() {
                                                     li ."skill-icon"{
+                                                        // (tooltip svg.0)
                                                         (PreEscaped(
-                                                            svg
+                                                            svg.1
                                                             // stop svg's from changing each others styles, by having duplicate ids
                                                             .replace("url(#", &format!("url(#{i}{j}"))
                                                             .replace("id=\"", &format!("id=\"{i}{j}"))
@@ -186,7 +176,7 @@ Ich freue mich, wenn du dir einen Eindruck von meiner Arbeit verschaffst. Bei Fr
                         div .cut."top-cut" {(PreEscaped(include_public!("assets/noise/wave.svg")))}
                         div.content."mb-gigantic"{
                             h2.heading{
-                                "Meine Top Projekte"
+                                (loader.get("top-projects"))
                             }
                         }
                         div .content #ProjectList{
@@ -206,7 +196,7 @@ Ich freue mich, wenn du dir einen Eindruck von meiner Arbeit verschaffst. Bei Fr
                         }
                         div .content #AllProjects {
                             div.line{}
-                            a draggable="false" href=(page.path_to_root(lang)+Page::Projects.to_href(lang).to_str().expect("A valid path")) class="btn secondary-btn fw-medium shadow" { span{"Alle Projekte"} }
+                            a draggable="false" href=(page.path_to_root(lang)+Page::Projects.to_href(lang).to_str().expect("A valid path")) class="btn secondary-btn fw-medium shadow" { span{(loader.get("all-projects"))} }
                             div.line{}
                         }
                         div .cut."bot-cut" {(PreEscaped(include_public!("assets/noise/waves-opacity.svg")))}
@@ -216,7 +206,7 @@ Ich freue mich, wenn du dir einen Eindruck von meiner Arbeit verschaffst. Bei Fr
                         ""
                     }
                 }
-                (footer())
+                (footer(lang))
                 script{(PreEscaped(SCRIPT))}
             }
         },
