@@ -64,7 +64,7 @@ pub fn header(current_page: Page, lang: &LanguageIdentifier) -> maud::Markup {
 
     let nav_link = |page: Page| {
         html! {
-            a draggable="false" href=(current_page.path_to_root(lang) + &page.to_href(lang).display().to_string() + "#")
+            a draggable="false" href=(if page == current_page{"".to_owned()} else {current_page.path_to_root(lang) + &page.to_href(lang).display().to_string()} + "#")
               class=(format!("link underline {}", underline(page))) {
                 (page.to_localized_string(lang))
             }

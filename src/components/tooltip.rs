@@ -1,3 +1,5 @@
+use std::fmt::Display;
+
 use Props::with_props;
 use maud::{Markup, html};
 
@@ -8,7 +10,8 @@ pub struct Percentage(u8);
 
 impl Percentage {
     /// Erstellt ein neues `Percentage`, wenn der Wert im gültigen Bereich liegt.
-    pub fn new(value: u8) -> Option<Self> {
+    /// Der Wert muss (inklusive) zwischen 0 und 100 liegen.
+    pub const fn new(value: u8) -> Option<Self> {
         if value <= 100 {
             Some(Self(value))
         } else {
@@ -16,7 +19,13 @@ impl Percentage {
         }
     }
 
-    pub fn get(self) -> u8 {
+    /// # Safety
+    /// Der Wert muss zwischen 0 und 100 liegen.
+    pub const unsafe fn new_unchecked(value: u8) -> Self {
+        Self(value)
+    }
+
+    pub const fn get(self) -> u8 {
         self.0
     }
 }
@@ -32,11 +41,27 @@ impl TryFrom<u8> for Percentage {
         }
     }
 }
+impl Display for Percentage{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}%",self.0)
+    }
+}
 
 pub enum Align {
     Begin,
     Center,
     End,
+    // Other(Percentage)
+}
+impl Align {
+    pub const fn as_percent(&self) -> Percentage{
+        match self {
+            Align::Begin => unsafe { Percentage::new_unchecked(0) },
+            Align::Center => unsafe { Percentage::new_unchecked(50) },
+            Align::End => unsafe { Percentage::new_unchecked(100) },
+            // Align::Other(percentage) => *percentage,
+        }
+    }
 }
 
 #[with_props]
@@ -51,7 +76,15 @@ pub fn markup(
     html! {
         div."tool-tip"{
             div."tt-children"{(children)}
-            div."tt-content"{(content)}
+            div."tt-content"  style=(
+                format!(
+                    "--popup-align: {}; --popup-justify: {}; --popup-begin-align: {}; --popup-begin-justify: {};",
+                    popup_align.as_percent(),
+                    popup_justify.as_percent(),
+                    popup_begin_align.as_percent(),
+                    popup_begin_justify.as_percent(),
+                )
+            ){(content)}
         }
     }
 }
