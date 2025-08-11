@@ -519,6 +519,9 @@
         list-style: decimal;
         margin-inline-start: 2ch;
     }
+    :where(.no-border-r){
+        border-radius: 0;
+    }
 
     :where(.shadow) {
         &::after {
