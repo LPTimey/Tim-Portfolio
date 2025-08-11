@@ -18,7 +18,7 @@ fn markup<'a>(
     lang: &'a LanguageIdentifier,
 ) -> maud::Markup {
     html! {
-        a ."project-card" draggable="false" "in-grid"=(is_in_grid) href=(path_to_root + &data.path.display().to_string()) {
+        a ."project-card" draggable="false" "in-grid"=(is_in_grid) href=(path_to_root + &lang.to_string() + "/" + &data.path.display().to_string()) {
             div ."pjc-grid" "reactive-color"=(reactive_color) {
                 picture{
                     (img::img(data.page.path_to_root(lang),data.title_img.light(), "", None, &["light-only"], None))
