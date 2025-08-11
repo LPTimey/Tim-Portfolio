@@ -87,11 +87,8 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
             cat,
             icons.map(|icon| {
                 (Into::<Content>::into(html! {
-                    @if let Some(link) = icon.site_link() {
-                        a.link.underline target="_blank" href=(link) {(icon.name())}
-                    } @else{
-                        p {(icon.name())}
-                    }}), icon.img_link())
+                        a.link.underline target="_blank" href=(icon.site_link()) {(icon.name())}
+                    }), icon.img_link())
             }),
         )
     });
