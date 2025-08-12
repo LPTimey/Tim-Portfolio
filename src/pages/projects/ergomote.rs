@@ -1,3 +1,6 @@
+use std::sync::OnceLock;
+
+use i18n_embed::fluent::FluentLanguageLoader;
 use maud::PreEscaped;
 
 use crate::{
@@ -10,27 +13,36 @@ use crate::{
         project_table::{self, with_sub_heading},
     },
     projects::ProjectMetadata,
+    setup_language_loader,
 };
 
 use super::super::*;
 
-const DESCRIPTION: &str = r#"Eine Fernbedienung, die durch komfortable Form, pragmatische Bedienung und bewusst hochwertiger Materialität, die Nutzer zum Halten einlädt und mit ihrer Stabilität überzeugt."#;
-const CONTENT: &str = r#""#;
+pub static LANGUAGE_LOADER: OnceLock<FluentLanguageLoader> = OnceLock::new();
+
+pub fn get_language_loader() -> &'static FluentLanguageLoader {
+    setup_language_loader(&LANGUAGE_LOADER, "ergomote")
+}
+
+// const DESCRIPTION: &str = r#"Eine Fernbedienung, die durch komfortable Form, pragmatische Bedienung und bewusst hochwertiger Materialität, die Nutzer zum Halten einlädt und mit ihrer Stabilität überzeugt."#;
+// const CONTENT: &str = r#""#;
 
 pub const MOD_PATH: &str = module_path!();
-pub fn meta_data() -> ProjectMetadata {
+pub fn meta_data(lang: &LanguageIdentifier) -> ProjectMetadata {
+    let loader = get_language_loader().select_languages(&[lang]);
     ProjectMetadata {
         page: Page::Ergomote,
         title_img: link_public!("assets/Ergomote/render3.png").into(),
         name: "Ergomote",
-        description: DESCRIPTION,
+        description: loader.get("description").leak(),
         category: projects::Category::Design3D,
         favorite: false,
-        path: mod_path_to_href(MOD_PATH).expect("A valid path"),
     }
 }
 
 pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
+    let loader = get_language_loader().select_languages(&[lang]);
+
     let Component {
         html: table_html,
         style: table_style,
@@ -41,7 +53,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
         page.path_to_root(lang),
         html! {
             head{
-                (default_head("Ergomote","TODO: Add description",page.path_to_root(lang),lang))
+                (default_head("Ergomote",&loader.get("description"),page.path_to_root(lang),lang))
 
                 link rel="stylesheet" href=(page.path_to_root(lang)+*table_style);
                 style{
@@ -53,7 +65,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                 (header(page,lang))
                 main{
                     section #Hero{
-                        picture #HeroImg{(img::img (page.path_to_root(lang),meta_data().title_img.light(),"",None,&[],None))}
+                        picture #HeroImg{(img::img (page.path_to_root(lang),meta_data(lang).title_img.light(),"",None,&[],None))}
                     }
                     (table_html(project_table::MarkupProps {
                         // title: "Ergomote".into(),
@@ -82,7 +94,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                             ("Tools", "Figma, Blender, Photoshop, git, GitHub").into(),
                             ("Hochschule", "Technische Hochschule Ingolstadt").into(),
                         ],
-                        text: CONTENT.into()
+                        text: (&*loader.get("content").leak()).into()
                     }))
                 }
                 (footer(lang))

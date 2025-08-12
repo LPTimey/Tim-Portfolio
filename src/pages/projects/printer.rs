@@ -31,7 +31,7 @@ const CONTENT: PreEscaped<&'static str> = PreEscaped(
 );
 
 pub const MOD_PATH: &str = module_path!();
-pub fn meta_data() -> ProjectMetadata {
+pub fn meta_data(lang: &LanguageIdentifier) -> ProjectMetadata {
     ProjectMetadata {
         page: Page::Printer,
         title_img: link_public!(
@@ -44,7 +44,6 @@ pub fn meta_data() -> ProjectMetadata {
         description: DESCRIPTION,
         category: projects::Category::Screendesign,
         favorite: true,
-        path: mod_path_to_href(MOD_PATH).expect("A valid path"),
     }
 }
 
@@ -81,7 +80,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                     (table_html(project_table::MarkupProps {
                         // title: "Drucker: Motivation & Generelles".into(),
                         title: with_sub_heading("Drucker Re-Design","Screendesign"),
-                        // graphic: (page.path_to_root(lang),meta_data().title_img.light()).into(),
+                        // graphic: (page.path_to_root(lang),meta_data(lang).title_img.light()).into(),
                         graphic: html!{(hy_img_html(hyper_img::MarkupProps { map: hyper_map(), path_to_root: page.path_to_root(lang) }))}.into(),
                         rows:&[
                             ("Studienmodul", "Projekt Gestaltung II").into(),

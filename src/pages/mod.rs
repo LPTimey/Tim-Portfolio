@@ -78,10 +78,10 @@ impl Page {
             Page::WebDev => projects::webdev::page(self, lang),
         }
     }
-    pub fn projects() -> Vec<ProjectMetadata> {
+    pub fn projects(lang: &LanguageIdentifier) -> Vec<ProjectMetadata> {
         Self::VARIANTS
             .iter()
-            .flat_map(|page| ProjectMetadata::try_from(*page))
+            .flat_map(|page| ProjectMetadata::try_from(*page, lang))
             .collect()
     }
     pub fn path_to_root(self, lang: &LanguageIdentifier) -> String {

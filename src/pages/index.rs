@@ -305,7 +305,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                             }
                         }
                         div .content #ProjectList{
-                            @for project in Page::projects(){
+                            @for project in Page::projects(lang){
                                 @if project.favorite {
                                     (project_card_html(
                                         project_card::MarkupProps {

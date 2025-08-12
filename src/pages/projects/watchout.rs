@@ -1,52 +1,27 @@
-use std::collections::HashMap;
+use std::{collections::HashMap, sync::OnceLock};
 
+use i18n_embed::fluent::FluentLanguageLoader;
 use maud::PreEscaped;
 
 use crate::{
     components::{
-        self, Component,
-        footer::footer,
-        head::default_head,
-        header::header,
-        hyper_img::{self, Href, HyperMap, InsetPercent, MapNode},
-        img, phone_border,
-        project_table::{self, with_sub_heading},
-        three_js_setup::import_map,
+        self, footer::footer, head::default_head, header::header, hyper_img::{self, Href, HyperMap, InsetPercent, MapNode}, img, phone_border, project_table::{self, with_sub_heading}, three_js_setup::import_map, Component
     },
     include_public,
-    projects::ProjectMetadata,
+    projects::ProjectMetadata, setup_language_loader,
 };
 
 use super::super::*;
 
-const DESCRIPTION: &str = r#"Eine Uhr und eine App um Menschen mit Demenz und deren Familie zu helfen ihr Leben sorgloser zu leben."#;
-const CONTENT: PreEscaped<&'static str> = PreEscaped(
-    r#"
-<p> Demenz hat tiefgreifende Auswirkungen auf das Leben der Betroffenen und ihrer
-    Familienangehörigen.
-    WatchOut unterstützt die Angehörigen dabei, einen klaren Überblick über die Situation zu
-    behalten und schnell eingreifen zu können.
-</p>
-<p>
-    WatchOut besteht aus zwei Teilen: Uhr & Begleitapp.
-</p>
-<p>
-    Da Demenz oft die vertrauten Gewohnheiten und Erinnerungen der Betroffenen am längsten
-    bewahrt, wurde die Uhr im klassischen, analogen Design gestaltet. Sie sendet GPS-Daten,
-    verfügt
-    über eine aktive Fallerkennung und eine
-    Notruffunktion mit den 2 Knöpfen. Zusätzlich behält sie ihre Funktion als gewöhnliche
-    Analoguhr
-    mit Krone bei.
-</p>
-<p>
-    Die App ist simpel und minimal für leichte und schnelle Nutzung.
-    Sie bietet einen Überblick, Benachrichtigen & Notruffunktionen.
-</p>
-"#,
-);
+pub static LANGUAGE_LOADER: OnceLock<FluentLanguageLoader> = OnceLock::new();
+
+pub fn get_language_loader() -> &'static FluentLanguageLoader {
+    setup_language_loader(&LANGUAGE_LOADER, "watchout")
+}
+
 pub const MOD_PATH: &str = module_path!();
-pub fn meta_data() -> ProjectMetadata {
+pub fn meta_data(lang: &LanguageIdentifier) -> ProjectMetadata {
+    let loader = get_language_loader().select_languages(&[lang]);
     ProjectMetadata {
         page: Page::Watchout,
         title_img: link_public!(
@@ -54,14 +29,15 @@ pub fn meta_data() -> ProjectMetadata {
         )
         .into(),
         name: "WatchOut",
-        description: DESCRIPTION,
+        description: loader.get("description").leak(),
         category: projects::Category::DMMS,
         favorite: true,
-        path: mod_path_to_href(MOD_PATH).expect("A valid path"),
     }
 }
 
 pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
+    let loader = get_language_loader().select_languages(&[lang]);
+
     let Component {
         html: table_html,
         style: table_style,
@@ -119,7 +95,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                 (header(page, lang))
                 main{
                     section #Hero{
-                        picture #HeroImg{(img::img (page.path_to_root(lang),meta_data().title_img.light(),"",None,&[],None))}
+                        picture #HeroImg{(img::img (page.path_to_root(lang),meta_data(lang).title_img.light(),"",None,&[],None))}
                         div ."hero-content"{
                             h1."mb-large"{
                                 span."fs-large"."lh-tight"{ "Willkommen, hier" } br;
@@ -143,7 +119,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                             }
                         }.into(),
                         rows,
-                        text: CONTENT.into()
+                        text: (&*loader.get("content").leak()).into()
                     }))
                     section.sect."accent-background" #FinishSect{
                         div .cut."top-cut" {(PreEscaped(include_public!("assets/noise/wave.svg")))}

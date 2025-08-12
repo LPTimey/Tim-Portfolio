@@ -31,11 +31,11 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
 
             body{
                 (header(page,lang))
-                // div."dodge-header"{}
+                div."dodge-header"{}
                 main{
 
                     section #Projects .content{
-                        @for project in Page::projects().sort_by_name(){
+                        @for project in Page::projects(lang).sort_by_name(){
                         (project_card_html(
                             project_card::MarkupProps {
                                 data: project,

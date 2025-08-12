@@ -942,7 +942,7 @@
     padding-block: 1ch;
     padding-inline: var(--padding-inline);
 
-    position: sticky;
+    position: fixed;
     top: 0;
     z-index: 100;
 

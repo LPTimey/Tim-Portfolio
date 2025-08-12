@@ -1,6 +1,7 @@
 use std::{fmt::Debug, path::PathBuf};
 
 use strum::Display;
+use unic_langid::LanguageIdentifier;
 
 use crate::{LightDark, Link, Page};
 
@@ -76,7 +77,6 @@ trait SortProjects {
 #[derive(Debug)]
 pub struct ProjectMetadata {
     pub page: Page,
-    pub path: PathBuf,
     pub title_img: ThemeLink,
     pub name: &'static str,
     pub description: &'static str,
@@ -84,16 +84,16 @@ pub struct ProjectMetadata {
     pub favorite: bool,
 }
 impl ProjectMetadata {
-    pub fn try_from(page: Page) -> Option<Self> {
+    pub fn try_from(page: Page, lang: &LanguageIdentifier) -> Option<Self> {
         match page {
             Page::Home => None,
             Page::Projects => None,
-            Page::Watchout => Some(watchout::meta_data()),
-            Page::Printer => Some(printer::meta_data()),
-            Page::Styles => Some(styles_themes::meta_data()),
-            Page::Tetris => Some(tetris::meta_data()),
-            Page::Ergomote => Some(ergomote::meta_data()),
-            Page::WebDev => Some(webdev::meta_data()),
+            Page::Watchout => Some(watchout::meta_data(lang)),
+            Page::Printer => Some(printer::meta_data(lang)),
+            Page::Styles => Some(styles_themes::meta_data(lang)),
+            Page::Tetris => Some(tetris::meta_data(lang)),
+            Page::Ergomote => Some(ergomote::meta_data(lang)),
+            Page::WebDev => Some(webdev::meta_data(lang)),
         }
     }
 }
