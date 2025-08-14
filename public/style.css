@@ -865,7 +865,7 @@
     /* font-family: "JetBrains Mono", var(--backup-fonts); */
     font-family: "Roboto", var(--backup-fonts);
     /* set size of 1rem */
-    font-size: 17px;
+    font-size: 16px;
     font-weight: var(--fw-normal);
     line-height: var(--lh-normal);
     color: var(--fg);

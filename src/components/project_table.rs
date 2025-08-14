@@ -115,7 +115,10 @@ fn markup<'a>(title: Content, graphic: Graphic, rows: &'a [Row], text: Content) 
                     }
                 }
                 div #IntroContent{
-                    (text)
+                    ((match text{
+                        Content::Str(str) => PreEscaped(str.to_owned()),
+                        Content::Markup(pre_escaped) => pre_escaped,
+                    }))
                 }
             }
         }

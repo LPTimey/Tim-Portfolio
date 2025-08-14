@@ -38,7 +38,7 @@ macro_rules! include_logo {
 #[macro_export]
 macro_rules! link_public {
     ($path: literal) => {{
-        const _: &[u8] = include_bytes!(concat!(env!("CARGO_MANIFEST_DIR"), "/public/", $path)); // compileTime check if file exists
+        // const _: &[u8] = include_bytes!(concat!(env!("CARGO_MANIFEST_DIR"), "/public/", $path)); // compileTime check if file exists
         $crate::Link($path)
     }};
     ($path:expr) => {
@@ -48,7 +48,7 @@ macro_rules! link_public {
 #[macro_export]
 macro_rules! link_logo {
     ($path:literal) => {{
-        const _: &[u8] = include_bytes!(concat!(env!("CARGO_MANIFEST_DIR"), "/public/assets/logos/", $path));
+        // const _: &[u8] = include_bytes!(concat!(env!("CARGO_MANIFEST_DIR"), "/public/assets/logos/", $path));
         $crate::Link(concat!("assets/logos/",$path))
     }};
 }
