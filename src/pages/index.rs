@@ -218,8 +218,8 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                         div #HeroImg{(scroll_img_html(scrolling_img::MarkupProps { img: Link((page.path_to_root(lang)+*link_public!("assets/Title-img.webp")).leak()), rows: 3, columns: 3, duration: Duration::from_secs(50) }))}
                         div ."hero-content"{
                             h1."mb-large"{
-                                span."fs-large"."lh-tight"{ (loader.get("welcome")) } br;
-                                span.hero."lh-normal"."fw-gigantic"{ (loader.get("details")) }
+                                span."fs-large"."lh-tight"."text-shadow"{ (loader.get("welcome")) } br;
+                                span.hero."text-shadow"{ (loader.get("details")) }
                             }
                             a draggable="false" .btn."accent-btn".shadow href="#AboutMe" { span{(loader.get("discover-more"))} }
                         }

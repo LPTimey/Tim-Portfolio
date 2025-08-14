@@ -623,13 +623,13 @@
 
 @font-face {
     font-family: "JetBrains Mono";
-    src: local("JetBrains Mono"), url("./assets/JetBrains_Mono/JetBrainsMono-VariableFont_wght.ttf");
+    src: url("./assets/JetBrains_Mono/JetBrainsMono-VariableFont_wght.ttf");
     font-display: swap;
 }
 
 @font-face {
     font-family: "Roboto";
-    src: local("Roboto"), url("./assets/Roboto/Roboto-VariableFont_wdth\,wght.ttf");
+    src: url("./assets/Roboto/Roboto-VariableFont_wdth\,wght.ttf");
     font-display: swap;
 }
 
@@ -720,7 +720,7 @@
 .label-small,
 .caption,
 .ui-small {
-    line-height: var(--lh-tight);
+    line-height: var(--lh-medium);
 }
 
 .lh-normal.lh-normal,
@@ -732,16 +732,16 @@
 .lh-medium.lh-medium,
 .subhead,
 .heading {
-    line-height: var(--lh-medium);
+    line-height: var(--lh-normal);
 }
 
 .lh-loose.lh-loose,
 .hero {
-    line-height: var(--lh-loose);
+    line-height: var(--lh-tight);
 }
 
 .lh-mega.lh-mega {
-    line-height: var(--lh-mega);
+    line-height: var(--lh-small);
 }
 
 /* #endregion */
@@ -824,24 +824,14 @@
         sans-serif;
 
     /* Font Sizes – mit feiner Auflösung nach unten und oben */
-    /* 10px – z. B. Tooltips, sehr kleine Labels */
     --fs-tiny: 0.625rem;
-    /* 12px – z. B. Captions, Meta-Text */
     --fs-smallest: 0.75rem;
-    /* 14px – z. B. UI-Text, Buttons */
     --fs-small: 0.875rem;
-    /* 16px – Basisgröße */
     --fs-normal: 1rem;
-    /* 18px – leicht betonter Text */
-    --fs-medium: 1.125rem;
-    /* 22px – Subheadings */
-    --fs-large: 1.375rem;
-    /* 28px – große Überschriften */
-    --fs-gigantic: 1.75rem;
-    /* 36px – Hero-Titel oder Seitenkopf */
-    /* --fs-mega: 2.25rem; */
-    /* 40px – Hero-Titel oder Seitenkopf */
-    --fs-mega: 2.5rem;
+    --fs-medium: 1.25rem;
+    --fs-large: 1.5rem;
+    --fs-gigantic: 2rem;
+    --fs-mega: 2.75rem;
 
     /* Font Weights */
     --fw-thin: 300;
@@ -853,7 +843,7 @@
     --fw-ginormous: 900;
 
     /* Line Heights – angepasst an kleinere Schriftgrößen */
-    /* für UI und kleine Texte */
+    --lh-small: 1.0;
     --lh-tight: 1.2;
     /* optimal für Fließtext */
     --lh-normal: 1.5;
@@ -874,7 +864,8 @@
 
     /* font-family: "JetBrains Mono", var(--backup-fonts); */
     font-family: "Roboto", var(--backup-fonts);
-    font-size: var(--fs-normal);
+    /* set size of 1rem */
+    font-size: 17px;
     font-weight: var(--fw-normal);
     line-height: var(--lh-normal);
     color: var(--fg);

@@ -43,7 +43,7 @@ pub fn lang_switcher(current_page: Page, lang: &LanguageIdentifier)->maud::Marku
             @if let Some(path) = if !lang.eq(next_lang) {Some(current_page.path_to_root(lang)+&current_page.to_href(next_lang).to_string_lossy())}else{None}{
                 li{ a.underline.link href=(path){ (next_lang.language.to_string().to_uppercase()) } }
             }@else{
-                li{ a.underline."underline-active" { (next_lang.language.to_string().to_uppercase()) } }
+                li{ p.underline."underline-active" { (next_lang.language.to_string().to_uppercase()) } }
             }
             @if i+1 < SUPPORTED_LANGS.len(){
                 li.separator{}
