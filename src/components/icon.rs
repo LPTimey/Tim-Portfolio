@@ -1,4 +1,5 @@
-use crate::{Link, link_logo};
+use crate::{Link, components::tooltip, link_logo};
+use maud::{Markup, html};
 use strum::Display;
 
 #[allow(unused)]
@@ -200,5 +201,49 @@ impl Icon {
             Icon::TypeScript => "https://www.typescriptlang.org/",
             Icon::WebAssembly => "https://webassembly.org/",
         }
+    }
+}
+pub trait IconToMarkup {
+    fn to_markup(&self, path_to_root: &str) -> Markup;
+}
+impl IconToMarkup for [Icon] {
+    fn to_markup(&self, path_to_root: &str) -> Markup {
+        let icon_data = self.iter().map(|icon| {
+            (
+                html! {
+                    a.link.underline target="_blank" href=(icon.site_link()) {(icon.name())}
+                },
+                icon.img_link(),
+            )
+        });
+        html! {
+            @for icon in icon_data {
+                li ."skill-icon"{
+                    (tooltip::markup(tooltip::MarkupProps{
+                        children: html!{
+                            img."no-border-r" width="40" height="40" src=(path_to_root.to_owned()+*icon.1) alt="icon";
+                        },
+                        content: html!((icon.0)),
+                        popup_align: tooltip::Align::Center,
+                        popup_justify: tooltip::Align::End,
+                        popup_begin_justify: tooltip::Align::Center,
+                        popup_begin_align: tooltip::Align::Center}))
+                }
+            }
+        }
+    }
+}
+impl IconToMarkup for Icon {
+    fn to_markup(&self, path_to_root: &str) -> Markup {
+        let (img_link,name,site_link) = (self.img_link(), self.name(), self.site_link());
+        html!((tooltip::markup(tooltip::MarkupProps{
+                children: html!{
+                    img."no-border-r" width="40" height="40" src=(path_to_root.to_owned()+*img_link) alt="icon";
+                },
+                content: html!(a.link.underline target="_blank" href=(site_link) {(name)}),
+                popup_align: tooltip::Align::Center,
+                popup_justify: tooltip::Align::End,
+                popup_begin_justify: tooltip::Align::Center,
+                popup_begin_align: tooltip::Align::Center})))
     }
 }

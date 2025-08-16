@@ -5,10 +5,20 @@ use maud::PreEscaped;
 
 use crate::{
     components::{
-        self, footer::footer, head::default_head, header::header, hyper_img::{self, Href, HyperMap, InsetPercent, MapNode}, img, phone_border, project_table::{self, with_sub_heading}, three_js_setup::import_map, Component
+        self, Component,
+        footer::footer,
+        head::default_head,
+        header::header,
+        hyper_img::{self, Href, HyperMap, InsetPercent, MapNode},
+        icon::{Icon, IconToMarkup},
+        img, phone_border,
+        project_table::{self, with_sub_heading},
+        three_js_setup::import_map,
+        tooltip,
     },
     include_public,
-    projects::ProjectMetadata, setup_language_loader,
+    projects::ProjectMetadata,
+    setup_language_loader,
 };
 
 use super::super::*;
@@ -37,6 +47,7 @@ pub fn meta_data(lang: &LanguageIdentifier) -> ProjectMetadata {
 
 pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
     let loader = get_language_loader().select_languages(&[lang]);
+    let core_loader = get_core_language_loader().select_languages(&[lang]);
 
     let Component {
         html: table_html,
@@ -57,9 +68,16 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
     } = hyper_img::component();
 
     let rows = &[
-        ("Studienmodul", "DMMS").into(),
-        ("Zeitraum", "Oktober 2024 - Februar 2025").into(),
-        ("Team", PreEscaped(r#"<a class="link link-active underline"
+        (&*core_loader.get("module").leak(), html!(span.fit{(tooltip::markup(tooltip::MarkupProps {
+            children: html!("DMMS"),
+            content: html!("Design der Mensch Maschine Schnittstelle"),
+                popup_align: tooltip::Align::Center,
+                popup_justify: tooltip::Align::End,
+                popup_begin_justify: tooltip::Align::Center,
+                popup_begin_align: tooltip::Align::Center,
+            }))})).into(),
+        (&*core_loader.get("period").leak(), format!("{} 2024 - {} 2025",core_loader.get("October"),core_loader.get("February")).leak()).into(),
+        (&*core_loader.get("team").leak(), PreEscaped(r#"<a class="link link-active underline"
                                         href="https://strangelifekid.github.io/Portfolio_Linda/" target="_blank"
                                         rel="noopener noreferrer">
                                         Linda Jakob</a>,
@@ -68,8 +86,17 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                                         href="https://niiiicolaas.github.io/Nicolas-Weber-Portfolio/" target="_blank"
                                         rel="noopener noreferrer">
                                         Nicolas Weber</a>"#)).into(),
-        ("Tools", "Illustrator, Photoshop, Premiere Pro, XD, Audacity, Blender, git, GitHub").into(),
-        ("Hochschule", "Technische Hochschule Ingolstadt").into(),
+        (&*core_loader.get("tools").leak(), html!{ul."icon-row"{([
+            Icon::Illustrator,
+            Icon::Photoshop,
+            Icon::Premiere,
+            Icon::XD,
+            Icon::Audacity,
+            Icon::Blender,
+            Icon::Git,
+            Icon::GitHub
+            ].to_markup(&page.path_to_root(lang)))}}).into(),
+        (&*core_loader.get("university").leak(), "Technische Hochschule Ingolstadt").into(),
     ];
 
     let video_href = page.path_to_root(lang)
@@ -86,6 +113,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                 link rel="stylesheet" href=(page.path_to_root(lang)+*table_style);
                 link rel="stylesheet" href=(page.path_to_root(lang)+*hyper_img_style);
                 link rel="stylesheet" href=(page.path_to_root(lang)+*phone_border_style);
+                link rel="stylesheet" href=(page.path_to_root(lang) + *tooltip::style() );
                 style{
                     (PreEscaped(include_asset!("watchout.css")))
                 }
@@ -96,21 +124,8 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                 main{
                     section #Hero{
                         picture #HeroImg{(img::img (page.path_to_root(lang),meta_data(lang).title_img.light(),"",None,&[],None))}
-                        div ."hero-content"{
-                            h1."mb-large"{
-                                span."fs-large"."lh-tight"{ "Willkommen, hier" } br;
-                                span.hero."lh-normal"."fw-gigantic"{ "wo die Details scheinen" }
-                            }
-                            a draggable="false" .btn."accent-btn".shadow href="#AboutMe" { "Entdecke mehr" }
-                        }
                     }
                     (table_html(project_table::MarkupProps {
-                        // title: html!{
-                        //     span."fw-normal"."ui-small"."lh-tight".block{
-                        //         "Design der Mensch-Maschine-Schnittstelle"
-                        //     }
-                        //     "WatchOut: Motivation & Generelles"
-                        // }.into(),
                         title: with_sub_heading("WatchOut App & Uhr","Design der Mensch-Maschine-Schnittstelle"),
                         graphic: html!{
                             video controls{
@@ -126,23 +141,13 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                         section.content #WatchSect{
 
                             div #WatchGrid{
-                                h2.heading{ "Uhr" }
+                                h2.heading{ (loader.get("watch")) }
                                 div #WatchText{
                                     p {
-                                        "Da Demenz oft die vertrauten Gewohnheiten und Erinnerungen der Betroffenen am längsten
-                                        bewahrt, wurde die Uhr im klassischen, analogen Design gestaltet. "
+                                       (loader.get("watch-idea"))
                                     }
                                     p{
-                                        "Die Gestaltung zielt darauf ab, der Uhr eine vertraute Bedeutung zu verleihen.
-                                    Um den Bedürfnissen der oft älteren Zielgruppe gerecht zu werden,
-                                    sind sowohl die Ziffern als auch die Zeiger gut lesbar und groß.
-                                    Zudem ist die Uhr ergonomisch abgerundet und aus einem weichen Material
-                                    gefertigt, um Verletzungen vorzubeugen. "
-                                    }
-                                    p {
-                                        "Die Uhr sendet GPS-Daten, verfügt über eine aktive Fallerkennung und eine
-                                    Notruffunktion mit den 2 Knöpfen. Zusätzlich behält sie ihre Funktion als gewöhnliche Analoguhr
-                                    mit Krone bei. "
+                                        (loader.get("watch-features"))
                                     }
                                 }
                                 canvas #WatchInfoCanvas{}
@@ -150,25 +155,16 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                         }
                         section.content #AppSect{
                             div #AppGrid{
-                                h2.heading{ "Begleitapp" }
+                                h2.heading{ (loader.get("app")) }
                                 div #AppText{
                                     p {
-                                        "Die mit der Uhr verbundene App wurde nach dem Prinzip der Schlichtheit gestaltet. "
+                                        (loader.get("app-general"))
                                     }
                                     p {
-                                        "Die Startseite bietet einen Überblick über die letzten Ereignisse.
-                                    Um die Übersichtlichkeit zu gewährleisten, sind diese Ereignisse zusammengefasst,
-                                    nach Zeit sortiert und farblich nach Schweregrad kategorisiert.
-                                    Außerdem ermöglicht die Übersicht, die uhrtragende Person, gespeicherte Kontakte
-                                    oder die Notfallstelle direkt anzurufen. "
+                                        (loader.get("app-call-history"))
                                     }
                                     p {
-                                        "In der Historie werden neben den aktuellen Ereignissen auch vergangene Ereignisse
-                                        angezeigt, die detaillierte Einblicke in frühere Aktivitäten und Notfälle bieten. "
-                                    }
-                                    p {
-                                        "Zusätzlich enthält die App eine Karte, mit der die Position der erkrankten Person
-                                        sowie die anderer Angehöriger überprüft werden kann. "
+                                        (loader.get("app-map"))
                                     }
                                 }
                                 div #AppInfo{
@@ -179,7 +175,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
 
                         div .cut."bot-cut" {(PreEscaped(include_public!("assets/noise/waves-opacity.svg")))}
                     }
-                    section.sect{
+                    div.sect{
                         ""
                     }
                 }

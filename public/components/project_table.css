@@ -48,6 +48,16 @@
         padding: .5rem .5rem;
         text-align: start;
     }
+
+    .icon-row {
+        display: flex;
+        gap: 1ch;
+
+        >* {
+            height: 2.5rem;
+            width: 2.5rem;
+        }
+    }
 }
 
 #Graphic {

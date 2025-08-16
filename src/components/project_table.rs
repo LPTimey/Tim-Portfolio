@@ -25,6 +25,11 @@ impl From<&'static str> for Content {
         Content::Str(s)
     }
 }
+impl From<&'static mut str> for Content {
+    fn from(s: &'static mut str) -> Self {
+        Content::Str(s)
+    }
+}
 
 impl From<PreEscaped<String>> for Content {
     fn from(p: PreEscaped<String>) -> Self {

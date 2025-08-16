@@ -276,7 +276,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                                         div .category{
                                             h3 ."category-title"."body-strong" { (category.0) }
                                             ul."skills-list"{
-                                                @for (icon) in category.1.iter() {
+                                                @for icon in category.1.iter() {
                                                     li ."skill-icon"{
                                                         (tooltip_html(tooltip::MarkupProps{
                                                             children: html!{

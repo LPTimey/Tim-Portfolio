@@ -257,7 +257,7 @@
 
         color: var(--accent-bg-c, var(--white));
         z-index: 2;
-        overflow: hidden;
+        overflow: clip;
 
         --x-move-max: 2%;
         --y-move-max: 10%;
@@ -475,6 +475,12 @@
 
     :where(.content) {
         padding-inline: var(--padding-inline);
+    }
+
+    :where(.fit) {
+        display: inline-block;
+        height: fit-content;
+        width: fit-content;
     }
 
     :where(.grow) {
