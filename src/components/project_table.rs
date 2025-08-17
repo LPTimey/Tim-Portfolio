@@ -1,9 +1,7 @@
 use maud::{PreEscaped, Render, html};
 
 use crate::{
-    Link,
-    components::{Component, img},
-    link_public,
+    components::{img::{self, ImgProps}, Component}, link_public, Link
 };
 use Props::with_props;
 
@@ -72,7 +70,7 @@ impl Render for Graphic {
     fn render_to(&self, buffer: &mut String) {
         match self {
             Graphic::Link { path_to_root, link } => {
-                html! {picture{(img::img(path_to_root.to_owned(),*link,"",None,&[],None));}}
+                html! {picture{(img::img(ImgProps{pre_src:path_to_root.to_owned(),src:*link,..Default::default()}));}}
                     .render_to(buffer);
             }
             Graphic::Markup(pre_escaped) => pre_escaped.render_to(buffer),

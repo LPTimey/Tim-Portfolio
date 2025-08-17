@@ -52,7 +52,10 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                 (header(page, lang))
                 main{
                     section #Hero{
-                        picture #HeroImg{(img::img (page.path_to_root(lang),meta_data(lang).title_img.light(),"",None,&[],None))}
+                        picture #HeroImg{(
+                            // img::img (page.path_to_root(lang),meta_data(lang).title_img.light(),"",None,&[],None)
+                            img::img (img::ImgProps{pre_src:page.path_to_root(lang),src:meta_data(lang).title_img.light(),..Default::default()})
+                        )}
                     }
                     (table_html(project_table::MarkupProps {
                         // title: "Webentwicklung: Design und Programmieren".into(),

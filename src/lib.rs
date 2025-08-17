@@ -71,7 +71,7 @@ pub fn setup_language_loader(loader:&'static OnceLock<FluentLanguageLoader>, dom
     })
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Default)]
 pub struct Link(&'static str);
 impl Link {
     pub fn exists(&self) -> bool {

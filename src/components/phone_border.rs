@@ -3,7 +3,10 @@ use maud::{Markup, html};
 
 use crate::{
     Link,
-    components::{Component, img::img},
+    components::{
+        Component,
+        img::{ImgProps, img},
+    },
     link_public,
 };
 
@@ -12,7 +15,7 @@ pub fn markup(content: Markup, path_to_root: String) -> Markup {
     html! {
         div."phone-border"{
             picture."phone-pic"{
-                (img(path_to_root,link_public!("assets/iPhone Template [Konvertiert] noBG.png"), "", None, &["phone"], None))
+                (img(ImgProps{pre_src:path_to_root,src:link_public!("assets/iPhone Template [Konvertiert] noBG.png"),class:&["phone"], ..Default::default()}))
                 div."pic-content"{(content)}
             }
         }

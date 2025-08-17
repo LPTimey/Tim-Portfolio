@@ -3,10 +3,12 @@
 use convert_case::{Case, Casing};
 use proc_macro::TokenStream;
 use quote::{format_ident, quote};
-use syn::{FnArg, GenericParam, ItemFn, Pat, PatIdent, parse_macro_input, spanned::Spanned};
+use syn::{parse_macro_input, spanned::Spanned, FnArg, GenericParam, ItemFn, Pat, PatIdent};
 
 #[proc_macro_attribute]
-pub fn with_props(_attr: TokenStream, item: TokenStream) -> TokenStream {
+pub fn with_props(attr: TokenStream, item: TokenStream) -> TokenStream {
+    println!("attr: \"{attr}\"");
+    let derives: proc_macro2::TokenStream = attr.into();
     // Funktion parsen
     let mut input_fn = parse_macro_input!(item as ItemFn);
     let fn_name = &input_fn.sig.ident;
@@ -69,6 +71,7 @@ pub fn with_props(_attr: TokenStream, item: TokenStream) -> TokenStream {
     let expanded = quote! {
         #input_fn
 
+        #[derive(#derives)]
         #vis struct #props_name #fn_generics  {
             #(#fields),*
         }

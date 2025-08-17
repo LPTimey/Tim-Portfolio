@@ -2,10 +2,7 @@ use maud::html;
 use unic_langid::LanguageIdentifier;
 
 use crate::{
-    Link,
-    components::{Component, img},
-    link_public,
-    projects::ProjectMetadata,
+    components::{img::{self, ImgProps}, Component}, link_public, projects::ProjectMetadata, Link
 };
 use Props::with_props;
 
@@ -21,8 +18,8 @@ fn markup<'a>(
         a ."project-card" draggable="false" "in-grid"=(is_in_grid) href=(path_to_root + &data.page.to_href(lang).display().to_string()) {
             div ."pjc-grid" "reactive-color"=(reactive_color) {
                 picture{
-                    (img::img(data.page.path_to_root(lang),data.title_img.light(), "", None, &["light-only"], None))
-                    (img::img(data.page.path_to_root(lang),data.title_img.dark(), "", None, &["dark-only"], None))
+                    (img::img(ImgProps{pre_src:data.page.path_to_root(lang),src:data.title_img.light(), class:&["light-only"], ..Default::default()}))
+                    (img::img(ImgProps{pre_src:data.page.path_to_root(lang),src:data.title_img.dark(), class:&["dark-only"], ..Default::default()}))
                 }
                 h3 .subhead { (data.name) }
                 h4 { (data.category) }

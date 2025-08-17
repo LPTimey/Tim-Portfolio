@@ -1,14 +1,16 @@
 use maud::{self, Markup, html};
+use Props::with_props;
 
 use crate::Link;
 
-pub fn img(
-    pre_src: impl Into<String>,
+#[with_props(Default)]
+pub fn img<'a,T: Into<String> + Default>(
+    pre_src: T,
     src: Link,
-    alt: &str,
-    id: Option<&str>,
-    class: &[&str],
-    style: Option<&str>
+    alt: &'a str,
+    id: Option<&'a str>,
+    class: &'a[&'a str],
+    style: Option<&'a str>
 ) -> Markup {
     let img_d = match src.get_img_dimensions(){
         Some(d) => d,

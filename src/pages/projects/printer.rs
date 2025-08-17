@@ -75,7 +75,11 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                 (header(page,lang))
                 main{
                     section #Hero{
-                        picture #HeroImg{(img::img (page.path_to_root(lang),link_public!("assets/Screendesign/Drucker/title-img.webp"),"",None,&[],None))}
+                        picture #HeroImg{(img::img (img::ImgProps {
+                                pre_src: page.path_to_root(lang),
+                                src: link_public!("assets/Screendesign/Drucker/title-img.webp"),
+                                ..Default::default()
+                            }))}
                     }
                     (table_html(project_table::MarkupProps {
                         // title: "Drucker: Motivation & Generelles".into(),
@@ -91,14 +95,11 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                         text: CONTENT.into()
                     }))
                     section.sect.content #Login{
-                        picture{(img::img(
-                            page.path_to_root(lang),
-                            link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_05.png"),
-                            "",
-                            None,
-                            &[],
-                            None)
-                        )}
+                        picture{(img::img(img::ImgProps{
+                                pre_src: page.path_to_root(lang),
+                                src: link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_05.png"),
+                                ..Default::default()
+                        }))}
                         div {
                             h2.heading{ "Login" }
                             p{
@@ -142,37 +143,25 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                                 }
                             }
                         }
-                        picture{(img::img(
-                            page.path_to_root(lang),
-                            link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_07.png"),
-                            "",
-                            None,
-                            &[],
-                            None)
+                        picture{(img::img(img::ImgProps{
+                            pre_src:page.path_to_root(lang),
+                            src:link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_07.png"),
+                            ..Default::default()})
                         )}
-                        picture{(img::img(
-                            page.path_to_root(lang),
-                            link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_08.png"),
-                            "",
-                            None,
-                            &[],
-                            None)
+                        picture{(img::img(img::ImgProps{
+                            pre_src:page.path_to_root(lang),
+                            src:link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_08.png"),
+                            ..Default::default()})
                         )}
-                        picture{(img::img(
-                            page.path_to_root(lang),
-                            link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_09.png"),
-                            "",
-                            None,
-                            &[],
-                            None)
+                        picture{(img::img(img::ImgProps{
+                            pre_src:page.path_to_root(lang),
+                            src:link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_09.png"),
+                            ..Default::default()})
                         )}
-                        picture{(img::img(
-                            page.path_to_root(lang),
-                            link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_13.png"),
-                            "",
-                            None,
-                            &[],
-                            None)
+                        picture{(img::img(img::ImgProps{
+                            pre_src:page.path_to_root(lang),
+                            src:link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_13.png"),
+                            ..Default::default()})
                         )}
                     }
                 }

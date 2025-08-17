@@ -1,0 +1,1 @@
+. "..\..\..\convert_to_webp.ps1"
