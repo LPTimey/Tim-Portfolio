@@ -1,0 +1,23 @@
+.carousel{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    padding-block: 1em;
+}
+.carousel-content{
+    display: flex;
+    gap: 1ch;
+    overflow-x: scroll;
+}
+.carousel-buttons{
+    display: inline-flex;
+    gap: 3ch;
+}
+.carousel-button{
+    aspect-ratio: 1;
+    border-radius: 50%;
+    padding: 0.5em;
+}
+.carousel-buttons :first-child .carousel-button svg{
+    transform: rotate(180deg);
+}

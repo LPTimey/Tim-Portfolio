@@ -22,7 +22,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
         page.path_to_root(lang),
         html! {
             head{
-                (default_head("Projekte","TODO: Add description",page.path_to_root(lang),lang))
+                (default_head("Projekte","TODO: Add description",page,lang))
                 style{
                     (PreEscaped(include_asset!("projekte.css")))
                 }

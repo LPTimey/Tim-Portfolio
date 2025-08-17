@@ -15,3 +15,34 @@ result-coarse =
     LED-Matrix mit dem neuen R4 kompatibel und ich musste deswegen bei der eingebauten Matrix bleiben.
     Auch ein mit Matrix kompatibler Arduino R3 wurde gestellt, doch dieser war leider mit meinem,
     auf dem R4 getestetem, Source-Code nicht kompatibel (z.B wegen std::array).
+
+breadboard = Steckbrett
+resistors = Widerstände
+matrix = LED Matrix
+connectors = Stecker, Kabel und mehr
+
+lessons-learned = Lessons Learned
+lessons-learned-text =
+    Ohne Betriebssystem steht deutlich weniger Unterstützung zur Verfügung.
+    Die Kompatibilität mit der STL variiert stark.
+    Die Arbeit mit Hardware erfordert oft Fingerspitzengefühl; Kurzschlüsse oder Verwirrung sind schnell möglich.
+
+lessons-learned = Lessons Learned
+lessons-learned-text =
+    Ohne Betriebssystem steht deutlich weniger Unterstützung zur Verfügung.
+    Die Kompatibilität mit der STL variiert stark.
+    Die Arbeit mit Hardware erfordert oft Fingerspitzengefühl; Kurzschlüsse oder Verwirrung sind schnell möglich.
+
+follow-up = Follow-up work
+follow-up-text =
+    Nach dem Hackathon habe ich die Tetris-Bibliothek vollständig überarbeitet, sodass sie nun
+    auch auf Rev3-Arduinos funktioniert. Dabei ersetzte ich die bisher verwendete C++-STL durch
+    klassischen C/C++-Code. Beispielsweise wurde std::array<T,N> durch einfache Array-Deklarationen
+    wie type_T name[N] ersetzt.
+
+    Zudem habe ich den bisherigen GameLoop, der über die Funktion tick() lief, in zwei getrennte
+    Funktionen aufgeteilt:
+    bool game_tick(); und bool player_tick(Buttons buttons);. Dadurch konnte ich die
+    Eingabeverarbeitung vom automatischen Fallverhalten entkoppeln, was das Spiel deutlich
+    reaktionsschneller macht.
+    Eingaben können nun jederzeit erkannt werden, nicht nur während eines Ticks.

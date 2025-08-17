@@ -48,7 +48,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
         page.path_to_root(lang),
         html! {
             head{
-                (default_head("Style","TODO: Add description",page.path_to_root(lang),lang))
+                (default_head("Style","TODO: Add description",page,lang))
                 link rel="stylesheet" href=(page.path_to_root(lang)+*table_style);
             }
 

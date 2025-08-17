@@ -53,7 +53,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
         page.path_to_root(lang),
         html! {
             head{
-                (default_head("Ergomote",&loader.get("description"),page.path_to_root(lang),lang))
+                (default_head("Ergomote",&loader.get("description"),page,lang))
 
                 link rel="stylesheet" href=(page.path_to_root(lang)+*table_style);
                 style{

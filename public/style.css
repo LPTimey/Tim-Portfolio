@@ -255,9 +255,14 @@
     :where(.accent-background) {
         position: relative;
 
-        color: var(--accent-bg-c, var(--white));
+        color: var(--_accent-bg-c, var(--white));
         z-index: 2;
         overflow: clip;
+
+        --_accent-bg-c: var(--accent-bg-c, var(--white));
+        --_bg-light: var(--bg-light ,var(--accent-dark));
+        --_bg-normal: var(--bg-normal ,var(--accent));
+        --_bg-dark: var(--bg-dark ,var(--accent-light));
 
         --x-move-max: 2%;
         --y-move-max: 10%;
@@ -280,7 +285,7 @@
             /* -webkit-backdrop-filter: blur(var(--blur-r));
             backdrop-filter: blur(var(--blur-r)); */
             filter: blur(var(--blur));
-            animation: float-gently 30s infinite ease-in-out;
+            /* animation: float-gently 30s infinite ease-in-out; */
             animation: move-randomly 30s infinite ease-in-out;
             display: inline-block;
             background-size: var(--base-scale);
@@ -290,10 +295,10 @@
             position: absolute;
             z-index: -2;
             content: "";
-            background: var(--accent-bg,
+            background: var(--_accent-bg,
                     /* Layer 1: Radial highlight */
                     radial-gradient(circle at top left,
-                        hsla(from var(--accent) h s calc(l + 20) / 0.3) 0%,
+                        hsla(from var(--_bg-normal) h s calc(l + 20) / 0.3) 0%,
                         transparent 60%),
 
                     /* Layer 2: Subtle noise texture overlay Diagonales raster */
@@ -302,9 +307,9 @@
 
                     /* Layer 3: Diagonal linear gradient with depth */
                     linear-gradient(135deg,
-                        var(--accent-dark) 0%,
-                        var(--accent) 50%,
-                        var(--accent-light) 100%));
+                        var(--_bg-light) 0%,
+                        var(--_bg-normal) 50%,
+                        var(--_bg-dark) 100%));
 
             background-blend-mode: overlay, overlay, normal;
             inset: 0;
@@ -364,38 +369,6 @@
         80% {
             transform: translate(calc(var(--x-move-max) * -0.57), calc(var(--y-move-max) * -0.5)) scale(calc(1 * 0.9)) rotate(-0.5deg);
             opacity: calc((var(--op-min) + var(--op-max)) / 2);
-        }
-    }
-
-    @keyframes float-gently {
-        0% {
-            transform: translate(0%, 0%) scale(1) rotate(0deg);
-            opacity: var(--op-max);
-        }
-
-        20% {
-            transform: translate(1.5%, -1.5%) scale(calc(1 * 1.015)) rotate(1deg);
-            opacity: calc((var(--op-min) + var(--op-max)) / 1.7);
-        }
-
-        40% {
-            transform: translate(-2%, 1%) scale(calc(1 * 0.99)) rotate(-1deg);
-            opacity: var(--op-min);
-        }
-
-        60% {
-            transform: translate(1.2%, 2%) scale(calc(1 * 1.02)) rotate(1.5deg);
-            opacity: calc((var(--op-min) + var(--op-max)) / 1.6);
-        }
-
-        80% {
-            transform: translate(-1%, -1%) scale(1) rotate(-0.5deg);
-            opacity: calc((var(--op-min) + var(--op-max)) / 1.5);
-        }
-
-        100% {
-            transform: translate(0%, 0%) scale(1) rotate(0deg);
-            opacity: var(--op-max);
         }
     }
 

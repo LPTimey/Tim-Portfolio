@@ -5,10 +5,16 @@ use maud::PreEscaped;
 
 use crate::{
     components::{
-        footer::footer, head::default_head, header::header, img, page, project_table::{self, with_sub_heading}, Component
+        Component, carousel,
+        footer::footer,
+        head::default_head,
+        header::header,
+        img, page,
+        project_table::{self, with_sub_heading},
     },
-    placeholder_img,
-    projects::ProjectMetadata, setup_language_loader,
+    include_public, placeholder_img,
+    projects::ProjectMetadata,
+    setup_language_loader,
 };
 
 use super::super::*;
@@ -41,13 +47,19 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
         style: table_style,
         ..
     } = project_table::component();
+    let Component {
+        html: carousel_html,
+        style: carousel_style,
+        ..
+    } = carousel::component();
 
     page::page(
         page.path_to_root(lang),
         html! {
             head{
-                (default_head("Tetris","//TODO: Add description",page.path_to_root(lang), lang))
+                (default_head("Tetris","//TODO: Add description",page, lang))
                 link rel="stylesheet" href=(page.path_to_root(lang)+*table_style);
+                link rel="stylesheet" href=(page.path_to_root(lang)+*carousel_style);
             }
 
             body{
@@ -80,22 +92,72 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                         ],
                         text: loader.get("content").leak().into()
                     }))
-                    section.sect{
-                        h2{(loader.get("hardware"))" & "(loader.get("preparation"))}
+                    section.sect.content{
+                        h2.subhead{(loader.get("hardware"))" & "(loader.get("preparation"))}
                         p {(loader.get("hardware-prep"))}
                         ul{
-                            li{(loader.get(""))}
-                            li{(loader.get(""))}
-                            li{(loader.get(""))}
-                            li{(loader.get(""))}
-                            li{(loader.get(""))}
-                            li{(loader.get(""))}
+                            li{"Arduino R3"}
+                            li{"Arduino R4"}
+                            li{(loader.get("breadboard"))}
+                            li{(loader.get("resistors"))}
+                            li{(loader.get("matrix"))}
+                            li{(loader.get("connectors"))}
                         }
                         (img::img(img::ImgProps{pre_src:page.path_to_root(lang),src:link_public!("assets/Tetris/webp/Einzelteile.webp"),..Default::default()}))
                     }
-                    section.sect{
-                        h2{(loader.get("result"))}
+                    section.sect."accent-background".content style="
+                        --accent-bg-c: var(--black);
+                        --bg-light: #e2d279ff;
+                        --bg-normal: #F0D439;
+                        --bg-dark: #F0BE3A;"{
+                        div .cut."top-cut" {(PreEscaped(include_public!("assets/noise/wave.svg")))}
+
+                        h2.subhead{(loader.get("result"))}
                         p {(loader.get("result-coarse"))}
+                        (carousel_html(carousel::MarkupProps { id: "ResultPhotos", pre_src: &page.path_to_root(lang), images:&[
+                            link_public!("assets/Tetris/webp/Tetris_Steckplatine_small.webp"),
+                            link_public!("assets/Tetris/webp/Buttons mit widerstand_small.webp"),
+                            link_public!("assets/Tetris/webp/buttons mit + und gnd topview_small.webp"),
+                            link_public!("assets/Tetris/webp/Button verbunden topview_small.webp"),
+                        ] }))
+                        h3."body-strong"{(loader.get("lessons-learned"))}
+                        p{(loader.get("lessons-learned-text"))}
+                        h3."body-strong"{(loader.get("follow-up"))}
+                        p{(loader.get("follow-up-text"))}
+
+                        div .cut."bot-cut" {(PreEscaped(include_public!("assets/noise/waves-opacity.svg")))}
+                    }
+                    section.sect.content{
+                        h2.subhead{"Umsetzung"}
+                        h3."body-strong"{"Code"}
+                        p{
+                            r#" Für den Hackathon, habe ich eine Tetris Bibliothek in C++ entwickelt und als Nachbereitung auf R3 erweitert. Diese basiert auf GameState welches alle wichtigen Daten einer runde speichert und Tick-Methoden bereitstellt um das spiel zu treiben. Es stellt auch eine Methode bereit, um das aktuelle Feld entweder als String oder Liste zu bekommen und es anzeigen zu können.
+
+Die einzelnen Tetrinos sind in einem Enum als Indexe zu einem Array, welcher Postions-Matrizen der Tetrinos speichert. Um auch Position & Rotation zu speicher wird TetPos benutzt. 
+
+
+Um die Nutzereingabe zu lesen werden 2 Typen exportiert: Buttons und Button. Button ist ein Enum welches alle Knöpfe auflistet und je einem Bit in einem Byte zuordnet, sodass alle möglichen Eingaben gleichzeitig und speichersparend verarbeitet werden können, da sie nun in einen Byte (Buttons) passen. Das ermöglicht schnelle Abfragen und kompakte Logik. Man kann sich dieses Flaggen-System vorstellen wie 8 boolesche Werte in einer Variable. Man kann diese Werte mit Bit shifts ( << ) und Bit-Oder ( | ) setzen und mit Bit shifts und Bit-Und ( & ) lesen. (Mehr Dazu)
+"#
+                        }
+                        ("6x Code")
+                        p{r#"
+                        Die Erscheinungsraten der Tetrinos werden mit Hilfe eines Taschensystems generiert. Diese Tasche generiert alle Tetrinos und randomisiert ihre Order um zu garantieren, sodass es keine Folge "Ziehungen" gibt ein welcher eine art Tetrino öfter als 2 mal oder gar nicht vorkommt. 
+                        "#}
+                        ("Code")
+                        ("Graph")
+                        h3."body-strong"{"Hardware"}
+                        p{}
+                    }
+                    section.sect."accent-background".content style="
+                        --accent-bg-c: var(--black);
+                        --bg-light: #e2d279ff;
+                        --bg-normal: #F0D439;
+                        --bg-dark: #F0BE3A;"{
+                        div .cut."top-cut" {(PreEscaped(include_public!("assets/noise/wave.svg")))}
+
+                        h2{"How to run"}
+
+                        // div .cut."bot-cut" {(PreEscaped(include_public!("assets/noise/waves-opacity.svg")))}
                     }
                 }
                 (footer(lang))

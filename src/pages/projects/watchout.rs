@@ -109,7 +109,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                 (import_map(page, lang))
                 script type="module" src=(page.path_to_root(lang)+*link_public!("watchout.js")){}
                 script type="module" src=(page.path_to_root(lang)+*hyper_img_script){}
-                (default_head("WatchOut - Tim Ruland","Die ProduktKonzeptSeite von dem WatchOut-Gruppenprojekt",page.path_to_root(lang), lang))
+                (default_head("WatchOut - Tim Ruland","Die ProduktKonzeptSeite von dem WatchOut-Gruppenprojekt",page, lang))
                 link rel="stylesheet" href=(page.path_to_root(lang)+*table_style);
                 link rel="stylesheet" href=(page.path_to_root(lang)+*hyper_img_style);
                 link rel="stylesheet" href=(page.path_to_root(lang)+*phone_border_style);

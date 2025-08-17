@@ -202,7 +202,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
         page.path_to_root(lang),
         html! {
             head{
-                (default_head(&core_loader.get("Home"),&loader.get("description"), page.path_to_root(lang), lang))
+                (default_head(&core_loader.get("Home"),&loader.get("description"), page, lang))
                 link rel="stylesheet" href=(page.path_to_root(lang) + *card_style );
                 // script type="module" src=(page.path_to_root(lang) + *card_script ){}
                 link rel="stylesheet" href=(page.path_to_root(lang) + *scroll_img_style );

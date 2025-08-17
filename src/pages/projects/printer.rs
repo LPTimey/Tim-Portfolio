@@ -65,7 +65,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
         html! {
             head{
                 script type="module" src=(page.path_to_root(lang)+*hy_img_script) {}
-                (default_head("Drucker",DESCRIPTION,page.path_to_root(lang),lang))
+                (default_head("Drucker",DESCRIPTION,page,lang))
                 link rel="stylesheet" href=(page.path_to_root(lang)+*hy_img_style);
                 link rel="stylesheet" href=(page.path_to_root(lang)+*table_style);
                 style{(PreEscaped(include_asset!("printer.css")))}
