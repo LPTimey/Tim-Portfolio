@@ -5,15 +5,8 @@ use maud::PreEscaped;
 
 use crate::{
     components::{
-        self, Component,
-        footer::footer,
-        head::default_head,
-        header::header,
-        img,
-        project_table::{self, with_sub_heading},
-    },
-    projects::ProjectMetadata,
-    setup_language_loader,
+        self, footer::footer, head::default_head, header::header, img, project_table::{self, with_sub_heading}, three_js_setup::import_map, Component
+    }, include_public, projects::ProjectMetadata, setup_language_loader
 };
 
 use super::super::*;
@@ -53,6 +46,8 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
         page.path_to_root(lang),
         html! {
             head{
+                (import_map(page, lang))
+                script type="module" src=(page.path_to_root(lang)+*link_public!("ergomote.js")){}
                 (default_head("Ergomote",&loader.get("description"),page,lang))
 
                 link rel="stylesheet" href=(page.path_to_root(lang)+*table_style);
@@ -104,6 +99,21 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                         ],
                         text: (&*loader.get("content").leak()).into()
                     }))
+                    section.sect."accent-background".content style="
+                        --accent-bg-c: var(--black);
+                        --bg-light: #FBB56A;
+                        --bg-normal: #de9446ff;
+                        --bg-dark: #c97c2aff;
+                        --blob-scale: 70%;
+                        --blur: 0.75rem;
+                        --op-max:0.2;"{
+                        div .cut."top-cut" {(PreEscaped(include_public!("assets/noise/wave.svg")))}
+
+                        canvas #ErgomoteInfoCanvas width="1200" height="500" style="/*outline:2px solid black;*/ width:100%;"{}
+
+                        div .cut."bot-cut" {(PreEscaped(include_public!("assets/noise/waves-opacity.svg")))}
+                    }
+                    section.sect{}
                 }
                 (footer(lang))
             }

@@ -5,12 +5,7 @@ use maud::PreEscaped;
 
 use crate::{
     components::{
-        Component, carousel,
-        footer::footer,
-        head::default_head,
-        header::header,
-        img, page,
-        project_table::{self, with_sub_heading},
+        carousel, footer::footer, head::default_head, header::header, icon::{Icon, IconToMarkup}, img, page, project_table::{self, with_sub_heading}, tooltip, Component
     },
     include_public, placeholder_img,
     projects::ProjectMetadata,
@@ -60,6 +55,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                 (default_head("Tetris","//TODO: Add description",page, lang))
                 link rel="stylesheet" href=(page.path_to_root(lang)+*table_style);
                 link rel="stylesheet" href=(page.path_to_root(lang)+*carousel_style);
+                link rel="stylesheet" href=(page.path_to_root(lang) + *tooltip::style() );
             }
 
             body{
@@ -87,7 +83,14 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                         rows:&[
                             (&*core_loader.get("module").leak(), "TMMIP").into(),
                             (&*core_loader.get("period").leak(), format!("{} 2024 - {} 2025",core_loader.get("October"),core_loader.get("February")).leak()).into(),
-                            (&*core_loader.get("tools").leak(), "Fritzing, VSCode, ArduinoIDE, C++, git, GitHub").into(),
+                            (&*core_loader.get("tools").leak(), html!{ul."icon-row"{([
+                                Icon::Fritzing,
+                                Icon::VSCode,
+                                Icon::Arduino,
+                                Icon::Cpp,
+                                Icon::Git,
+                                Icon::GitHub
+                                ].to_markup(&page.path_to_root(lang)))}}).into(),
                             (&*core_loader.get("university").leak(), "Technische Hochschule Ingolstadt").into(),
                         ],
                         text: loader.get("content").leak().into()
@@ -155,7 +158,36 @@ Um die Nutzereingabe zu lesen werden 2 Typen exportiert: Buttons und Button. But
                         --bg-dark: #F0BE3A;"{
                         div .cut."top-cut" {(PreEscaped(include_public!("assets/noise/wave.svg")))}
 
-                        h2{"How to run"}
+                        h2.subhead{"How to run"}
+                        div{
+                            h3.subhead{"Arduino"}
+                            h4{(loader.get("req"))}
+                            ul{
+                                li{"Quellcode (Download)"}
+                                li{"Arduino IDE"}
+                                li{"Aufgelistete Hardware oder gleichwertige Komponenten"}
+                            }
+                            h4{(loader.get("step-by-step"))}
+                            ul{
+                                li{}
+                                li{}
+                                li{}
+                                li{}
+                                li{}
+                            }
+                        }
+                        div{
+                            h3.subhead{(loader.get("pc"))}
+                            h4{(loader.get("req"))}
+                            ul{
+                                li{"Quellcode (Download)"}
+                                li{"C/C++-Compiler (z.B: clang++)"}
+                            }
+                            h4{(loader.get("step-by-step"))}
+                            ul{
+                                li{}
+                            }
+                        }
 
                         // div .cut."bot-cut" {(PreEscaped(include_public!("assets/noise/waves-opacity.svg")))}
                     }

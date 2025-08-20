@@ -5,6 +5,8 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 import * as THREE from "three";
 
+import { addLight, rendererNeedsResize, resize } from "./threejs_utils.js"
+
 const loader = new GLTFLoader();
 /** @type {HTMLCanvasElement} */
 const infoCanvas = /** */(document.getElementById("WatchInfoCanvas"));
@@ -74,71 +76,4 @@ export async function initInfoSpin() {
     }
     renderer.render(scene, camera);
     animate()
-}
-
-/**
- * 
- * @param {THREE.Scene} scene 
- * @param {{x:number,y:number,z:number}} position 
- */
-export function addLight(scene, position) {
-
-    const color = 0xFFFFFF;
-    const intensity = 2;
-    const light = new THREE.DirectionalLight(color, intensity);
-    // @ts-ignore
-    light.position.set(position.x, position.y, position.z);
-    scene.add(light);
-}
-
-/**
- * 
- * @param {THREE.WebGLRenderer} renderer 
- * @returns true if renderer needs resizing
- */
-export function rendererNeedsResize(renderer) {
-    const canvas = renderer.domElement;
-    const pixelRatio = window.devicePixelRatio;
-    const width = Math.floor(canvas.clientWidth * pixelRatio);
-    const height = Math.floor(canvas.clientHeight * pixelRatio);
-    const needResize = canvas.width !== width || canvas.height !== height;
-    return needResize;
-}
-
-
-/**
- * 
- * @param {THREE.WebGLRenderer} renderer 
- * @param {THREE.PerspectiveCamera | THREE.OrthographicCamera} camera 
- * @returns if resize was necessary
- */
-export function resize(renderer, camera) {
-
-    const canvas = renderer.domElement;
-    const pixelRatio = window.devicePixelRatio;
-    const width = canvas.clientWidth;
-    const height = canvas.clientHeight;
-
-    renderer.setPixelRatio(pixelRatio);
-    renderer.setSize(width, height, false);
-
-    // @ts-ignore
-    if (camera instanceof THREE.PerspectiveCamera) {
-        camera.aspect = width / height;
-        // @ts-ignore
-    } else if (camera instanceof THREE.OrthographicCamera) {
-        const frustumHeight = camera.top - camera.bottom;
-        const aspect = width / height;
-        const frustumWidth = frustumHeight * aspect;
-
-        const dx = (camera.left + camera.right) / 2;
-        const dy = (camera.top + camera.bottom) / 2;
-
-        camera.left = dx - frustumWidth / 2;
-        camera.right = dx + frustumWidth / 2;
-        camera.top = dy + frustumHeight / 2;
-        camera.bottom = dy - frustumHeight / 2;
-    }
-
-    camera.updateProjectionMatrix();
 }

@@ -89,7 +89,11 @@
         max-width: 100%;
         height: auto;
         -webkit-user-drag: none;
-        &:not(svg){border-radius: var(--border-r);}
+
+        &:not(svg) {
+            border-radius: var(--border-r);
+        }
+
         /* user-drag: none; */
     }
 
@@ -260,16 +264,16 @@
         overflow: clip;
 
         --_accent-bg-c: var(--accent-bg-c, var(--white));
-        --_bg-light: var(--bg-light ,var(--accent-dark));
-        --_bg-normal: var(--bg-normal ,var(--accent));
-        --_bg-dark: var(--bg-dark ,var(--accent-light));
+        --_bg-light: var(--bg-light, var(--accent-dark));
+        --_bg-normal: var(--bg-normal, var(--accent));
+        --_bg-dark: var(--bg-dark, var(--accent-light));
+        --_blob-scale: var(--blob-scale, 100%);
 
-        --x-move-max: 2%;
-        --y-move-max: 10%;
-        --op-min: 0.125;
-        --op-max: 0.25;
-        --base-scale: 75%;
-        --blur: 0.2rem;
+        --_x-move-max: var(--x-move-max, 2%);
+        --_y-move-max: var(--y-move-max, 10%);
+        --_op-min: var(--op-min, 0.125);
+        --_op-max: var(--op-max, 0.25);
+        --_blur: var(--blur, 0.25rem);
 
         &::before {
             position: absolute;
@@ -277,25 +281,25 @@
             content: "";
             background: url("./assets/noise/blobs.svg");
             background-size: cover;
+            background-size: var(--_blob-scale);
             mix-blend-mode: soft-light;
             inset: -50%;
             width: auto;
             height: auto;
-            opacity: var(--op-max);
-            /* -webkit-backdrop-filter: blur(var(--blur-r));
-            backdrop-filter: blur(var(--blur-r)); */
-            filter: blur(var(--blur));
+            opacity: var(--_op-max);
+            /* -webkit-backdrop-filter: blur(var(--_blur-r));
+            backdrop-filter: blur(var(--_blur-r)); */
+            filter: blur(var(--_blur));
             /* animation: float-gently 30s infinite ease-in-out; */
             animation: move-randomly 30s infinite ease-in-out;
             display: inline-block;
-            background-size: var(--base-scale);
         }
 
         &::after {
             position: absolute;
             z-index: -2;
             content: "";
-            background: var(--_accent-bg,
+            background: var(--accent-bg,
                     /* Layer 1: Radial highlight */
                     radial-gradient(circle at top left,
                         hsla(from var(--_bg-normal) h s calc(l + 20) / 0.3) 0%,
@@ -346,29 +350,31 @@
     }
 
     @keyframes move-randomly {
-        0%, 100% {
+
+        0%,
+        100% {
             transform: translate(0%, 0%) scale(1) rotate(0deg);
-            opacity: var(--op-max);
+            opacity: var(--_op-max);
         }
 
         20% {
-            transform: translate(calc(var(--x-move-max) * 0.72), calc(var(--y-move-max) * -0.83)) scale(calc(1 * 1.05)) rotate(1deg);
-            opacity: calc((var(--op-min) + var(--op-max)) / 2);
+            transform: translate(calc(var(--_x-move-max) * 0.72), calc(var(--_y-move-max) * -0.83)) scale(calc(1 * 1.05)) rotate(1deg);
+            opacity: calc((var(--_op-min) + var(--_op-max)) / 2);
         }
 
         40% {
-            transform: translate(calc(var(--x-move-max) * -1), calc(var(--y-move-max) * 0.67)) scale(calc(1 * 0.95)) rotate(-1deg);
-            opacity: var(--op-min);
+            transform: translate(calc(var(--_x-move-max) * -1), calc(var(--_y-move-max) * 0.67)) scale(calc(1 * 0.95)) rotate(-1deg);
+            opacity: var(--_op-min);
         }
 
         60% {
-            transform: translate(calc(var(--x-move-max) * 0.85), var(--y-move-max)) scale(calc(1 * 1.1)) rotate(1.5deg);
-            opacity: var(--op-max);
+            transform: translate(calc(var(--_x-move-max) * 0.85), var(--_y-move-max)) scale(calc(1 * 1.1)) rotate(1.5deg);
+            opacity: var(--_op-max);
         }
 
         80% {
-            transform: translate(calc(var(--x-move-max) * -0.57), calc(var(--y-move-max) * -0.5)) scale(calc(1 * 0.9)) rotate(-0.5deg);
-            opacity: calc((var(--op-min) + var(--op-max)) / 2);
+            transform: translate(calc(var(--_x-move-max) * -0.57), calc(var(--_y-move-max) * -0.5)) scale(calc(1 * 0.9)) rotate(-0.5deg);
+            opacity: calc((var(--_op-min) + var(--_op-max)) / 2);
         }
     }
 
@@ -498,7 +504,8 @@
         list-style: decimal;
         margin-inline-start: 2ch;
     }
-    :where(.no-border-r){
+
+    :where(.no-border-r) {
         border-radius: 0;
     }
 
@@ -789,7 +796,7 @@
     --padding-inline: max(3ch, 12dvw);
     /* --padding-inline: clamp(3ch, 10dvw, 20ch); */
     --border-r: 1rem;
-    --blur-r: 5px;
+    --_blur-r: 5px;
     --transparency: 0.75;
     --shadow-default: 0.25rem 0.5rem 5px hsl(from var(--black) h s l / 0.15);
     --shadow-hover: calc(0.25rem + var(--x-shift, 0.25rem)) calc(0.5rem + var(--y-shift, 0.75rem)) 5px hsl(from var(--black) h s l / 0.15);
@@ -917,8 +924,8 @@
     z-index: 100;
 
     background-color: rgb(from var(--bg) r g b / var(--transparency));
-    -webkit-backdrop-filter: blur(var(--blur-r));
-    backdrop-filter: blur(var(--blur-r));
+    -webkit-backdrop-filter: blur(var(--_blur-r));
+    backdrop-filter: blur(var(--_blur-r));
     /* border-radius: 0 0 var(--border-r) var(--border-r); */
 
     nav {
@@ -939,11 +946,12 @@
         align-items: center;
         gap: 2ch;
     }
-    #Languages{
+
+    #Languages {
         display: inline-flex;
         gap: 1ch;
 
-        .separator::before{
+        .separator::before {
             content: "|";
         }
     }
@@ -1080,14 +1088,14 @@
 
     &[open] {
         background-color: rgb(from var(--bg) r g b / var(--transparency));
-        -webkit-backdrop-filter: blur(var(--blur-r));
-        backdrop-filter: blur(var(--blur-r));
+        -webkit-backdrop-filter: blur(var(--_blur-r));
+        backdrop-filter: blur(var(--_blur-r));
         border-radius: var(--border-r) var(--border-r) 0 0;
 
         ul {
             background-color: rgb(from var(--bg) r g b / var(--transparency));
-            -webkit-backdrop-filter: blur(var(--blur-r));
-            backdrop-filter: blur(var(--blur-r));
+            -webkit-backdrop-filter: blur(var(--_blur-r));
+            backdrop-filter: blur(var(--_blur-r));
             align-items: center;
             width: 100%;
             left: 0;
@@ -1110,8 +1118,8 @@
 
                 &:hover {
                     background-color: rgb(from var(--bg) r g b / var(--transparency));
-                    -webkit-backdrop-filter: blur(var(--blur-r));
-                    backdrop-filter: blur(var(--blur-r));
+                    -webkit-backdrop-filter: blur(var(--_blur-r));
+                    backdrop-filter: blur(var(--_blur-r));
                     border: 1px solid rgb(from var(--fg) r g b / calc(1 - var(--transparency)));
                 }
             }
