@@ -45,13 +45,14 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
     let Component {
         html: carousel_html,
         style: carousel_style,
-        ..
+        script: carousel_script
     } = carousel::component();
 
     page::page(
         page.path_to_root(lang),
         html! {
             head{
+                script type="module" src=(page.path_to_root(lang)+*carousel_script){}
                 (default_head("Tetris","//TODO: Add description",page, lang))
                 link rel="stylesheet" href=(page.path_to_root(lang)+*table_style);
                 link rel="stylesheet" href=(page.path_to_root(lang)+*carousel_style);

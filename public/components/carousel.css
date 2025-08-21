@@ -1,23 +1,101 @@
-.carousel{
-    display: flex;
-    flex-direction: column;
+.carousel {
+    display: grid;
+    grid-template-areas:
+        "Content"
+        "Dots"
+        "Buttons";
+    grid-template-rows: 70dvh auto auto;
     gap: 0.5em;
     padding-block: 1em;
+    width: 100%;
 }
-.carousel-content{
+
+.carousel-content {
+    grid-area: Content;
     display: flex;
     gap: 1ch;
-    overflow-x: scroll;
+    overflow-x: auto;
+    scroll-snap-type: mandatory;
+    scroll-behavior: smooth;
+    overflow-y: clip;
+    /* Firefox */
+    scrollbar-width: none;
+    /* IE 10+ */
+    -ms-overflow-style: none;
+
+    * {
+        scroll-snap-align: start;
+        flex-shrink: 0;
+        flex-grow: 0;
+        height: 100%;
+        width: auto;
+    }
 }
-.carousel-buttons{
-    display: inline-flex;
+
+.carousel-content::-webkit-scrollbar {
+    /* Chrome, Safari */
+    display: none;
+}
+
+.carousel-spacer {
+    flex-shrink: 0;
+    width: 100%;
+    height: 1px;
+}
+
+.carousel-dots {
+    grid-area: Dots;
+    display: flex;
+    justify-content: center;
+    gap: 0.5em;
+    padding: 0.5em 0;
+}
+
+.carousel-dot {
+    width: 0.75em;
+    height: 0.75em;
+    border-radius: 50%;
+    background-color: #ccc;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+@media (hover: hover) {
+    .carousel-dot:hover {
+        background-color: #888;
+    }
+}
+
+.carousel-dot.active {
+    background-color: var(--accent);
+}
+
+.carousel-buttons {
+    grid-area: Buttons;
+    display: flex;
+    justify-content: center;
     gap: 3ch;
 }
-.carousel-button{
+
+.carousel-button {
+    display: grid;
+    place-items: center;
     aspect-ratio: 1;
     border-radius: 50%;
     padding: 0.5em;
+    background-color: #f0f0f0;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
 }
-.carousel-buttons :first-child .carousel-button svg{
+
+@media (hover: hover) {
+    .carousel-button:hover {
+        background-color: #ddd;
+        transform: scale(1.05);
+    }
+}
+
+.carousel-buttons :first-child .carousel-button svg {
     transform: rotate(180deg);
 }

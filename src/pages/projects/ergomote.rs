@@ -5,7 +5,7 @@ use maud::PreEscaped;
 
 use crate::{
     components::{
-        self, footer::footer, head::default_head, header::header, img, project_table::{self, with_sub_heading}, three_js_setup::import_map, Component
+        self, footer::footer, head::default_head, header::header, icon::{Icon, IconToMarkup}, img, project_table::{self, with_sub_heading}, three_js_setup::import_map, tooltip, Component
     }, include_public, projects::ProjectMetadata, setup_language_loader
 };
 
@@ -35,6 +35,7 @@ pub fn meta_data(lang: &LanguageIdentifier) -> ProjectMetadata {
 
 pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
     let loader = get_language_loader().select_languages(&[lang]);
+    let core_loader = get_core_language_loader().select_languages(&[lang]);
 
     let Component {
         html: table_html,
@@ -51,9 +52,10 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                 (default_head("Ergomote",&loader.get("description"),page,lang))
 
                 link rel="stylesheet" href=(page.path_to_root(lang)+*table_style);
+                link rel="stylesheet" href=(page.path_to_root(lang) + *tooltip::style() );
                 style{
-                        (PreEscaped(include_asset!("ergomote.css")))
-                    }
+                    (PreEscaped(include_asset!("ergomote.css")))
+                }
             }
 
             body{
@@ -94,7 +96,13 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                                         rel="noopener noreferrer">
                                         Niklas Röthlingshöfer</a>"#)).into(),
                             ("Zeitraum", "Mai 2025 - Juni 2025").into(),
-                            ("Tools", "Figma, Blender, Photoshop, git, GitHub").into(),
+                            (&*core_loader.get("tools").leak(), html!{ul."icon-row"{([
+                                Icon::Figma,
+                                Icon::Blender,
+                                Icon::Photoshop,
+                                Icon::Git,
+                                Icon::GitHub
+                                ].to_markup(&page.path_to_root(lang)))}}).into(),
                             ("Hochschule", "Technische Hochschule Ingolstadt").into(),
                         ],
                         text: (&*loader.get("content").leak()).into()
