@@ -6,8 +6,7 @@ use crate::{
     components::{
         self, Component, footer::footer, head::default_head, header::header, icon::Icon,
         project_card, project_table::Content, scrolling_img, tooltip,
-    },
-    include_logo, include_public, setup_language_loader,
+    }, include_public, setup_language_loader,
 };
 
 use super::*;

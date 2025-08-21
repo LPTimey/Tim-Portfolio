@@ -7,7 +7,7 @@ use crate::{
     components::{
         carousel, footer::footer, head::default_head, header::header, icon::{Icon, IconToMarkup}, img, page, project_table::{self, with_sub_heading}, tooltip, Component
     },
-    include_public, placeholder_img,
+    include_public,
     projects::ProjectMetadata,
     setup_language_loader,
 };

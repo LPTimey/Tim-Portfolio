@@ -1,4 +1,4 @@
-use std::{fmt::Debug, path::PathBuf};
+use std::fmt::Debug;
 
 use strum::Display;
 use unic_langid::LanguageIdentifier;

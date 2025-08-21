@@ -1,12 +1,11 @@
 pub mod index;
 pub mod projects;
 
-use std::{fmt::Display, ops::Deref, path::PathBuf};
+use std::{ops::Deref, path::PathBuf};
 
-use i18n_embed::LanguageLoader;
 use maud::{Markup, html};
 use strum::{EnumIter, VariantArray};
-use unic_langid::{langid, LanguageIdentifier};
+use unic_langid::LanguageIdentifier;
 
 use crate::{
     get_core_language_loader, include_asset, include_logo, link_public, path_to_root, projects::ProjectMetadata, Link

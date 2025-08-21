@@ -7,7 +7,7 @@ use std::{
     path::{Path, PathBuf}, sync::OnceLock,
 };
 use i18n_embed::{
-    fluent::{fluent_language_loader, FluentLanguageLoader},
+    fluent::FluentLanguageLoader,
     LanguageLoader,
 };
 use unic_langid::langid;

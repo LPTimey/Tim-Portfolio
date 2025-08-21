@@ -194,16 +194,16 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
 pub fn watchout_hi_map() -> HyperMap {
     let mut h_map = HashMap::new();
 
-    const HOME_STR: &'static str = "News";
-    const HISTORY_STR: &'static str = "History";
-    const MAP_STR: &'static str = "Map";
-    const MAP_OVERLAY_HELEN_STR: &'static str = "Map_overlay_Helen";
-    const MAP_OVERLAY_JOE_STR: &'static str = "Map_overlay_Joe";
-    const MAP_OVERLAY_GUNTHER_STR: &'static str = "Map_overlay_Gunther";
-    const SETTINGS_STR: &'static str = "Settings";
-    const EVENT_OVERLAY_STR: &'static str = "Event_overlay";
-    const EVENT_OVERLAY_PASSIVE_STR: &'static str = "Event_overlay_passive";
-    const CALL_LIST_STR: &'static str = "CallList";
+    const HOME_STR: &str = "News";
+    const HISTORY_STR: &str = "History";
+    const MAP_STR: &str = "Map";
+    const MAP_OVERLAY_HELEN_STR: &str = "Map_overlay_Helen";
+    const MAP_OVERLAY_JOE_STR: &str = "Map_overlay_Joe";
+    const MAP_OVERLAY_GUNTHER_STR: &str = "Map_overlay_Gunther";
+    const SETTINGS_STR: &str = "Settings";
+    const EVENT_OVERLAY_STR: &str = "Event_overlay";
+    const EVENT_OVERLAY_PASSIVE_STR: &str = "Event_overlay_passive";
+    const CALL_LIST_STR: &str = "CallList";
 
     let navbar = [
         (

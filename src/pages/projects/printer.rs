@@ -175,18 +175,18 @@ pub fn hyper_map() -> HyperMap {
     let mut hyper_map = HyperMap::default();
     let map = &mut hyper_map.0;
 
-    const LOGIN_STR: &'static str = "LoginPage";
-    const LOGIN_CARD_STR: &'static str = "Login_CardPage";
-    const HOME_STR: &'static str = "HomePage";
-    const SETTINGS_STR: &'static str = "SettingsPage";
-    const LANG_STR: &'static str = "LanguagePage";
-    const COLOR_STR: &'static str = "ColorPage";
-    const USER_STR: &'static str = "UserPage";
-    const AUSWAHL_STR: &'static str = "AuswahlPage";
-    const AUSWAHL_ALLES_STR: &'static str = "AuswahlAllesPage";
-    const EINSTELLEN_STR: &'static str = "EinstellenPage";
-    const DRUCKEN_STR: &'static str = "DruckenPage";
-    const AFTER_STR: &'static str = "AfterPage";
+    const LOGIN_STR: &str = "LoginPage";
+    const LOGIN_CARD_STR: &str = "Login_CardPage";
+    const HOME_STR: &str = "HomePage";
+    const SETTINGS_STR: &str = "SettingsPage";
+    const LANG_STR: &str = "LanguagePage";
+    const COLOR_STR: &str = "ColorPage";
+    const USER_STR: &str = "UserPage";
+    const AUSWAHL_STR: &str = "AuswahlPage";
+    const AUSWAHL_ALLES_STR: &str = "AuswahlAllesPage";
+    const EINSTELLEN_STR: &str = "EinstellenPage";
+    const DRUCKEN_STR: &str = "DruckenPage";
+    const AFTER_STR: &str = "AfterPage";
 
     let _nav = [
         (

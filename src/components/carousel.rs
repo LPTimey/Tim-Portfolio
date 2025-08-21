@@ -13,7 +13,7 @@ pub fn markup<'a>(id: &'static str, pre_src: &'a str, images: &'a [Link]) -> Mar
         div.carousel #(id){
             ul."carousel-content"{@for (i,img) in images.iter().enumerate(){
                 li{picture #(format!("{id}-{i}")){
-                    (img::img(ImgProps{pre_src,src:img.clone(),..Default::default()}))
+                    (img::img(ImgProps{pre_src,src:*img,..Default::default()}))
                 }}
             }}
             ul."carousel-dots"{@for _ in images{

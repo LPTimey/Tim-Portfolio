@@ -7,7 +7,7 @@ use syn::{parse_macro_input, spanned::Spanned, FnArg, GenericParam, ItemFn, Pat,
 
 #[proc_macro_attribute]
 pub fn with_props(attr: TokenStream, item: TokenStream) -> TokenStream {
-    println!("attr: \"{attr}\"");
+    // println!("attr: \"{attr}\"");
     let derives: proc_macro2::TokenStream = attr.into();
     // Funktion parsen
     let mut input_fn = parse_macro_input!(item as ItemFn);
