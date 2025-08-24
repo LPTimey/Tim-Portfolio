@@ -5,7 +5,7 @@ use maud::PreEscaped;
 
 use crate::{
     components::{
-        carousel, footer::footer, head::default_head, header::header, icon::{Icon, IconToMarkup}, img, page, project_table::{self, with_sub_heading}, tooltip, Component
+        carousel, codeblock, footer::footer, head::default_head, header::header, icon::{Icon, IconToMarkup}, img, page, project_table::{self, with_sub_heading}, tooltip, Component
     },
     include_public,
     projects::ProjectMetadata,
@@ -47,15 +47,22 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
         style: carousel_style,
         script: carousel_script
     } = carousel::component();
+    let Component {
+        html: codeblock_html,
+        style: codeblock_style,
+        script: codeblock_script
+    } = codeblock::component();
 
     page::page(
         page.path_to_root(lang),
         html! {
             head{
                 script type="module" src=(page.path_to_root(lang)+*carousel_script){}
+                script type="module" src=(page.path_to_root(lang)+*codeblock_script){}
                 (default_head("Tetris","//TODO: Add description",page, lang))
                 link rel="stylesheet" href=(page.path_to_root(lang)+*table_style);
                 link rel="stylesheet" href=(page.path_to_root(lang)+*carousel_style);
+                link rel="stylesheet" href=(page.path_to_root(lang)+*codeblock_style);
                 link rel="stylesheet" href=(page.path_to_root(lang) + *tooltip::style() );
             }
 
@@ -143,11 +150,20 @@ Die einzelnen Tetrinos sind in einem Enum als Indexe zu einem Array, welcher Pos
 Um die Nutzereingabe zu lesen werden 2 Typen exportiert: Buttons und Button. Button ist ein Enum welches alle Knöpfe auflistet und je einem Bit in einem Byte zuordnet, sodass alle möglichen Eingaben gleichzeitig und speichersparend verarbeitet werden können, da sie nun in einen Byte (Buttons) passen. Das ermöglicht schnelle Abfragen und kompakte Logik. Man kann sich dieses Flaggen-System vorstellen wie 8 boolesche Werte in einer Variable. Man kann diese Werte mit Bit shifts ( << ) und Bit-Oder ( | ) setzen und mit Bit shifts und Bit-Und ( & ) lesen. (Mehr Dazu)
 "#
                         }
-                        ("6x Code")
+                        pre{(codeblock_html(codeblock::MarkupProps { id: "", data: 
+r#"int main(void){
+    printf("Hello World!\n");
+    return 0;
+}"#, prog_lang: "c" }))}
+                        (codeblock_html(codeblock::MarkupProps { id: "", data: "()", prog_lang: "cpp" }))
+                        (codeblock_html(codeblock::MarkupProps { id: "", data: "()", prog_lang: "cpp" }))
+                        (codeblock_html(codeblock::MarkupProps { id: "", data: "()", prog_lang: "cpp" }))
+                        (codeblock_html(codeblock::MarkupProps { id: "", data: "()", prog_lang: "cpp" }))
+                        (codeblock_html(codeblock::MarkupProps { id: "", data: "()", prog_lang: "cpp" }))
                         p{r#"
                         Die Erscheinungsraten der Tetrinos werden mit Hilfe eines Taschensystems generiert. Diese Tasche generiert alle Tetrinos und randomisiert ihre Order um zu garantieren, sodass es keine Folge "Ziehungen" gibt ein welcher eine art Tetrino öfter als 2 mal oder gar nicht vorkommt. 
                         "#}
-                        ("Code")
+                        (codeblock_html(codeblock::MarkupProps { id: "", data: "()", prog_lang: "cpp" }))
                         ("Graph")
                         h3."body-strong"{"Hardware"}
                         p{}

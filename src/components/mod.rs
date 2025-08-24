@@ -18,6 +18,7 @@ pub mod theme_select;
 pub mod three_js_setup;
 pub mod tooltip;
 pub mod carousel;
+pub mod codeblock;
 
 // Definiere ein Trait
 pub trait ScriptType {}

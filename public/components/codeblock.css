@@ -1,0 +1,8 @@
+
+.codeblock{
+    border-radius: calc(var(--border-r) / 2);
+}
+
+pre:has(.codeblock){
+    margin-block: 1em;
+}
