@@ -1171,13 +1171,25 @@
 }
 
 #HeroImg {
+    --img-height: 100%;
     grid-column: 1 / -1;
     grid-row: 1;
 
-    >img {
-        height: 100%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0px;
+
+    &::after,&::before{
+        content: "";
+        flex-grow: 1;
+    }
+
+    img {
+        display: block;
+        place-self: center;
+        height: var(--img-height);
         width: 100%;
-        border-radius: 0;
+        border-radius: 0px;
     }
 }
 

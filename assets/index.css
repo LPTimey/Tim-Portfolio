@@ -1,12 +1,13 @@
 #Hero {
     &::after {
+        --flow-color: light-dark(var(--bg), #00000000);
         content: "";
         position: absolute;
         inset: 0;
         width: auto;
         height: auto;
         z-index: -1;
-        background: linear-gradient(rgba(0 0 0 / 0) 75%, var(--bg));
+        background: linear-gradient(rgba(0 0 0 / 0) 75%, var(--flow-color));
         pointer-events: none;
     }
 }

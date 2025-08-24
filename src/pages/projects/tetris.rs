@@ -188,9 +188,7 @@ Um die Nutzereingabe zu lesen werden 2 Typen exportiert: Buttons und Button. But
                         pre{(codeblock_html(codeblock::MarkupProps { id: "", data: get_str_lines_range(TETRIS_H, 92, 98), prog_lang: "cpp" }))}
                         pre{(codeblock_html(codeblock::MarkupProps { id: "", data: get_str_lines_range(TETRIS_H, 100, 135), prog_lang: "cpp" }))}
                         pre{(codeblock_html(codeblock::MarkupProps { id: "", data: get_str_lines_range(TETRIS_C, 41, 54), prog_lang: "cpp" }))}
-                        (codeblock_html(codeblock::MarkupProps { id: "", data: "()", prog_lang: "cpp" }))
-                        (codeblock_html(codeblock::MarkupProps { id: "", data: "()", prog_lang: "cpp" }))
-                        (codeblock_html(codeblock::MarkupProps { id: "", data: "()", prog_lang: "cpp" }))
+                        pre{(codeblock_html(codeblock::MarkupProps { id: "", data: get_str_lines_range(TETRIS_H, 9, 20), prog_lang: "cpp" }))}
                         p{r#"
                         Die Erscheinungsraten der Tetrominos werden mit Hilfe eines Taschensystems generiert. Diese Tasche generiert alle Tetrominos und randomisiert ihre Order um zu garantieren, sodass es keine Folge "Ziehungen" gibt ein welcher eine art Tetromino öfter als 2 mal oder gar nicht vorkommt. 
                         "#}

@@ -86,15 +86,8 @@
     background-color: #f0f0f0;
     border: none;
     cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
-@media (hover: hover) {
-    .carousel-button:hover {
-        background-color: #ddd;
-        transform: scale(1.05);
-    }
-}
 
 .carousel-buttons :first-child .carousel-button svg {
     transform: rotate(180deg);
