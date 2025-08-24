@@ -14,6 +14,39 @@ use crate::{
 
 use super::super::*;
 
+pub const TETRIS_C: &str = include_public!("assets/Tetris/Tetris_new/Tetris/src/GameState.cpp");
+pub const TETRIS_H: &str = include_public!("assets/Tetris/Tetris_new/Tetris/src/GameState.hpp");
+
+fn get_str_lines_range(input: &str, start: usize, end: usize) -> &str {
+    let mut line_start = 0;
+    let mut slice_start = 0;
+    let mut slice_end = 0;
+
+    for (idx, line) in input.lines().enumerate() {
+        if idx == start {
+            slice_start = line_start;
+        }
+        if idx == end {
+            slice_end = line_start + line.len();
+        }
+        // advance line_start past this line + newline chars
+        line_start += line.len();
+        if let Some(ch) = input[line_start..].chars().next() {
+            if ch == '\n' {
+                line_start += 1;
+            } else if ch == '\r' && input[line_start + 1..].starts_with('\n') {
+                line_start += 2;
+            }
+        }
+    }
+
+    if end >= start {
+        &input[slice_start..=slice_end]
+    } else {
+        ""
+    }
+}
+
 pub static LANGUAGE_LOADER: OnceLock<FluentLanguageLoader> = OnceLock::new();
 
 pub fn get_language_loader() -> &'static FluentLanguageLoader {
@@ -144,26 +177,24 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                         p{
                             r#" Für den Hackathon, habe ich eine Tetris Bibliothek in C++ entwickelt und als Nachbereitung auf R3 erweitert. Diese basiert auf GameState welches alle wichtigen Daten einer runde speichert und Tick-Methoden bereitstellt um das spiel zu treiben. Es stellt auch eine Methode bereit, um das aktuelle Feld entweder als String oder Liste zu bekommen und es anzeigen zu können.
 
-Die einzelnen Tetrinos sind in einem Enum als Indexe zu einem Array, welcher Postions-Matrizen der Tetrinos speichert. Um auch Position & Rotation zu speicher wird TetPos benutzt. 
+Die einzelnen Tetrominos sind in einem Enum als Indexe zu einem Array, welcher Postions-Matrizen der Tetrominos speichert. Um auch Position & Rotation zu speicher wird TetPos benutzt. 
 
 
 Um die Nutzereingabe zu lesen werden 2 Typen exportiert: Buttons und Button. Button ist ein Enum welches alle Knöpfe auflistet und je einem Bit in einem Byte zuordnet, sodass alle möglichen Eingaben gleichzeitig und speichersparend verarbeitet werden können, da sie nun in einen Byte (Buttons) passen. Das ermöglicht schnelle Abfragen und kompakte Logik. Man kann sich dieses Flaggen-System vorstellen wie 8 boolesche Werte in einer Variable. Man kann diese Werte mit Bit shifts ( << ) und Bit-Oder ( | ) setzen und mit Bit shifts und Bit-Und ( & ) lesen. (Mehr Dazu)
 "#
                         }
-                        pre{(codeblock_html(codeblock::MarkupProps { id: "", data: 
-r#"int main(void){
-    printf("Hello World!\n");
-    return 0;
-}"#, prog_lang: "c" }))}
-                        (codeblock_html(codeblock::MarkupProps { id: "", data: "()", prog_lang: "cpp" }))
-                        (codeblock_html(codeblock::MarkupProps { id: "", data: "()", prog_lang: "cpp" }))
+                        pre{(codeblock_html(codeblock::MarkupProps { id: "", data: get_str_lines_range(TETRIS_H, 22, 31), prog_lang: "cpp" }))}
+                        pre{(codeblock_html(codeblock::MarkupProps { id: "", data: get_str_lines_range(TETRIS_H, 64, 75), prog_lang: "cpp" }))}
+                        pre{(codeblock_html(codeblock::MarkupProps { id: "", data: get_str_lines_range(TETRIS_H, 92, 98), prog_lang: "cpp" }))}
+                        pre{(codeblock_html(codeblock::MarkupProps { id: "", data: get_str_lines_range(TETRIS_H, 100, 135), prog_lang: "cpp" }))}
+                        pre{(codeblock_html(codeblock::MarkupProps { id: "", data: get_str_lines_range(TETRIS_C, 41, 54), prog_lang: "cpp" }))}
                         (codeblock_html(codeblock::MarkupProps { id: "", data: "()", prog_lang: "cpp" }))
                         (codeblock_html(codeblock::MarkupProps { id: "", data: "()", prog_lang: "cpp" }))
                         (codeblock_html(codeblock::MarkupProps { id: "", data: "()", prog_lang: "cpp" }))
                         p{r#"
-                        Die Erscheinungsraten der Tetrinos werden mit Hilfe eines Taschensystems generiert. Diese Tasche generiert alle Tetrinos und randomisiert ihre Order um zu garantieren, sodass es keine Folge "Ziehungen" gibt ein welcher eine art Tetrino öfter als 2 mal oder gar nicht vorkommt. 
+                        Die Erscheinungsraten der Tetrominos werden mit Hilfe eines Taschensystems generiert. Diese Tasche generiert alle Tetrominos und randomisiert ihre Order um zu garantieren, sodass es keine Folge "Ziehungen" gibt ein welcher eine art Tetromino öfter als 2 mal oder gar nicht vorkommt. 
                         "#}
-                        (codeblock_html(codeblock::MarkupProps { id: "", data: "()", prog_lang: "cpp" }))
+                        pre{(codeblock_html(codeblock::MarkupProps { id: "", data: get_str_lines_range(TETRIS_H, 34, 48), prog_lang: "cpp" }))}
                         ("Graph")
                         h3."body-strong"{"Hardware"}
                         p{}
