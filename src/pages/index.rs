@@ -91,111 +91,6 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
             }),
         )
     });
-    // let skills: [(&str, Vec<(Content, &'static str)>); 3] = [
-    //     (
-    //         &loader.get("Design"),
-    //         vec![
-    //             (
-    //                 html! {a.link.underline{"Adobe Illustrator"}}.into(),
-    //                 include_logo!("adobe-illustrator-svgrepo-com.svg"),
-    //             ),
-    //             (
-    //                 html! {a.link.underline{"Adobe Photoshop"}}.into(),
-    //                 include_logo!("adobe-photoshop-svgrepo-com.svg"),
-    //             ),
-    //             (
-    //                 html! {a.link.underline{"Adobe Premiere Pro"}}.into(),
-    //                 include_logo!("adobe-premiere-svgrepo-com.svg"),
-    //             ),
-    //             (
-    //                 html! {a.link.underline{"Adobe XD"}}.into(),
-    //                 include_logo!("adobe-xd-svgrepo-com.svg"),
-    //             ),
-    //             (
-    //                 html! {a.link.underline{"Figma"}}.into(),
-    //                 include_logo!("figma-svgrepo-com.svg"),
-    //             ),
-    //             (
-    //                 html! {a.link.underline{"Penpot"}}.into(),
-    //                 include_logo!("penpot-svgrepo-com.svg"),
-    //             ),
-    //             (
-    //                 html! {a.link.underline{"Blender"}}.into(),
-    //                 include_logo!("blender-svgrepo-com.svg"),
-    //             ),
-    //         ],
-    //     ),
-    //     (
-    //         &loader.get("ICT"),
-    //         vec![
-    //             (
-    //                 html! {a.link.underline{"Microsoft Office"}}.into(),
-    //                 include_logo!("office-1-logo-svgrepo-com.svg"),
-    //             ),
-    //             (
-    //                 html! {a.link.underline{"Microsoft Windwos"}}.into(),
-    //                 include_logo!("microsoft-windows-svgrepo-com.svg"),
-    //             ),
-    //             (
-    //                 html! {a.link.underline{"Apple MacOS"}}.into(),
-    //                 include_logo!("apple-nogb-svgrepo-com.svg"),
-    //             ),
-    //             (
-    //                 html! {a.link.underline{"Linux"}}.into(),
-    //                 include_logo!("linux-svgrepo-com.svg"),
-    //             ),
-    //             (
-    //                 html! {a.link.underline{"Microsoft VSCode"}}.into(),
-    //                 include_logo!("vs-code-svgrepo-com.svg"),
-    //             ),
-    //             (
-    //                 html! {a.link.underline{"NeoVim"}}.into(),
-    //                 include_logo!("neovim-mark@2x.svg"),
-    //             ),
-    //             (
-    //                 html! {a.link.underline{"Git"}}.into(),
-    //                 include_logo!("neovim-mark@2x.svg"),
-    //             ),
-    //             (
-    //                 html! {a.link.underline{"GitHub"}}.into(),
-    //                 include_logo!("neovim-mark@2x.svg"),
-    //             ),
-    //         ],
-    //     ),
-    //     (
-    //         &loader.get("languages"),
-    //         vec![
-    //             (
-    //                 html! {a.link.underline{"HTML"}}.into(),
-    //                 include_logo!("html-5-no-wordmark-svgrepo-com.svg"),
-    //             ),
-    //             (
-    //                 html! {a.link.underline{"CSS"}}.into(),
-    //                 include_logo!("CSS Logo.svg"),
-    //             ),
-    //             (
-    //                 html! {a.link.underline{"JavaScript"}}.into(),
-    //                 include_logo!("js-svgrepo-com.svg"),
-    //             ),
-    //             (
-    //                 html! {a.link.underline{"Rust"}}.into(),
-    //                 include_logo!("rust-svgrepo-com.svg"),
-    //             ),
-    //             (
-    //                 html! {a.link.underline{"Java"}}.into(),
-    //                 include_logo!("java-svgrepo-com.svg"),
-    //             ),
-    //             (
-    //                 html! {a.link.underline{"C/C++"}}.into(),
-    //                 include_logo!("cpp-svgrepo-com.svg"),
-    //             ),
-    //             (
-    //                 html! {a.link.underline{"Python"}}.into(),
-    //                 include_logo!("python-svgrepo-com.svg"),
-    //             ),
-    //         ],
-    //     ),
-    // ];
 
     components::page::page(
         page.path_to_root(lang),
@@ -271,7 +166,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                             }
                             div #Skills{
                                 div #SkillCategories {
-                                    @for (i,category) in skills.iter().enumerate(){
+                                    @for category in skills.iter(){
                                         div .category{
                                             h3 ."category-title"."body-strong" { (category.0) }
                                             ul."skills-list"{
