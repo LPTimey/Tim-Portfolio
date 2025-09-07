@@ -83,9 +83,15 @@
     aspect-ratio: 1;
     border-radius: 50%;
     padding: 0.5em;
-    background-color: #f0f0f0;
+    background-color: var(--light);
+    color: var(--dark);
     border: none;
     cursor: pointer;
+
+    svg {
+        stroke: var(--dark);
+        fill: var(--dark);
+    }
 }
 
 
