@@ -20,7 +20,7 @@ fn style() -> Link {
     link_public!("components/scroll_img.css")
 }
 
-pub fn component() -> Component<MarkupProps, ()> {
+pub fn component() -> Component<MarkupProps, Link, ()> {
     Component {
         html: markup,
         style: style(),

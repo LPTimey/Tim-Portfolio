@@ -32,7 +32,7 @@ fn style() -> Link {
     link_public!("components/project_card.css")
 }
 
-pub fn component<'a>() -> Component<MarkupProps<'a>, ()> {
+pub fn component<'a>() -> Component<MarkupProps<'a>, Link, ()> {
     Component {
         html: markup,
         style: style(),

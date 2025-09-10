@@ -5,7 +5,7 @@ use maud::PreEscaped;
 
 use crate::{
     components::{
-        carousel, codeblock, footer::footer, head::default_head, header::header, icon::{Icon, IconToMarkup}, img, page, project_table::{self, with_sub_heading}, tooltip, Component
+        carousel, codeblock, footer::footer, head::default_head, header::header, icon::{Icon, IconToMarkup}, img, mermaid, page, project_table::{self, with_sub_heading}, tooltip, Component
     },
     include_public,
     projects::ProjectMetadata,
@@ -14,8 +14,28 @@ use crate::{
 
 use super::super::*;
 
-pub const TETRIS_C: &str = include_public!("assets/Tetris/Tetris_new/Tetris/src/GameState.cpp");
-pub const TETRIS_H: &str = include_public!("assets/Tetris/Tetris_new/Tetris/src/GameState.hpp");
+const TETRIS_C: &str = include_public!("assets/Tetris/Tetris_new/Tetris/src/GameState.cpp");
+const TETRIS_H: &str = include_public!("assets/Tetris/Tetris_new/Tetris/src/GameState.hpp");
+
+const TetBagDiagram: &str = r#"
+A["Konstruktor aufgerufen<br>(mit oder ohne Seed)"]
+B["set_next_batch()"]
+C["Initialisiere Bag<br>mit allen 7 Tetrino-Typen"]
+D["Permutiere Bag<br>(Fisher-Yates Shuffle)"]
+E["Setze index = 0"]
+F["next() aufgerufen"]
+G["Gibt bag[index] zurück<br>index += 1"]
+H{"index < 7?"}
+    A --> B
+    B --> C
+    C --> D
+    D --> E
+    E --> F
+    F --> G
+    G --> H
+    H -- Ja --> F
+    H -- Nein --> B
+"#;
 
 fn get_str_lines_range(input: &str, start: usize, end: usize) -> &str {
     let mut line_start = 0;
@@ -85,6 +105,11 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
         style: codeblock_style,
         script: codeblock_script
     } = codeblock::component();
+    let Component {
+        html: mermaid_html,
+        script: mermaid_script,
+        ..
+    } = mermaid::component();
 
     page::page(
         page.path_to_root(lang),
@@ -92,6 +117,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
             head{
                 script type="module" src=(page.path_to_root(lang)+*carousel_script){}
                 script type="module" src=(page.path_to_root(lang)+*codeblock_script){}
+                script type="module" src=(page.path_to_root(lang)+*mermaid_script){}
                 (default_head("Tetris","//TODO: Add description",page, lang))
                 link rel="stylesheet" href=(page.path_to_root(lang)+*table_style);
                 link rel="stylesheet" href=(page.path_to_root(lang)+*carousel_style);
@@ -137,7 +163,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                         text: loader.get("content").leak().into()
                     }))
                     section.sect.content{
-                        h2.subhead{(loader.get("hardware"))" & "(loader.get("preparation"))}
+                        h2.subhead."mb-medium"{(loader.get("hardware"))" & "(loader.get("preparation"))}
                         p {(loader.get("hardware-prep"))}
                         ul{
                             li{"Arduino R3"}
@@ -164,9 +190,11 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                             link_public!("assets/Tetris/webp/buttons mit + und gnd topview_small.webp"),
                             link_public!("assets/Tetris/webp/Button verbunden topview_small.webp"),
                         ] }))
-                        h3."body-strong"{(loader.get("lessons-learned"))}
-                        p{(loader.get("lessons-learned-text"))}
-                        h3."body-strong"{(loader.get("follow-up"))}
+                        div."mb-medium"{
+                            h3.subhead{(loader.get("lessons-learned"))}
+                            p{(loader.get("lessons-learned-text"))}
+                        }
+                        h3.subhead{(loader.get("follow-up"))}
                         p{(loader.get("follow-up-text"))}
 
                         div .cut."bot-cut" {(PreEscaped(include_public!("assets/noise/waves-opacity.svg")))}
@@ -194,6 +222,7 @@ Um die Nutzereingabe zu lesen werden 2 Typen exportiert: Buttons und Button. But
                         "#}
                         pre{(codeblock_html(codeblock::MarkupProps { id: "", data: get_str_lines_range(TETRIS_H, 34, 48), prog_lang: "cpp" }))}
                         ("Graph")
+                        (mermaid_html(mermaid::MarkupProps { name: "TetrinoDiagram", defs: &[("horizontal",&format!("graph LR\n{}",TetBagDiagram)),("vertical",&format!("graph TB\n{}",TetBagDiagram))] }))
                         h3."body-strong"{"Hardware"}
                         p{}
                     }

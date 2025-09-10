@@ -93,7 +93,7 @@ fn script() -> Link {
     link_public!("components/hyper_img.js")
 }
 
-pub fn component() -> Component<MarkupProps, Link> {
+pub fn component() -> Component<MarkupProps, Link, Link> {
     Component {
         html: markup,
         style: style(),

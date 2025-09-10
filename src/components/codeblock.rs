@@ -17,7 +17,7 @@ pub fn style() -> Link {
 pub fn script() -> Link {
     link_public!("components/codeblock.js")
 }
-pub fn component<'a>() -> Component<MarkupProps<'a>, Link> {
+pub fn component<'a>() -> Component<MarkupProps<'a>, Link, Link> {
     Component {
         html: markup,
         style: style(),

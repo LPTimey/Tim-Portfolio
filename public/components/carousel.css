@@ -1,10 +1,17 @@
 .carousel {
     display: grid;
-    grid-template-areas:
+    /* grid-template-areas:
         "Content"
         "Dots"
         "Buttons";
-    grid-template-rows: 70dvh auto auto;
+    grid-template-rows: 70dvh auto auto; */
+
+    grid-template-areas:
+        "Content Content Content"
+        "Buttons Dots .";
+    grid-template-rows: 70dvh auto;
+    grid-template-columns: 1fr auto 1fr;
+
     gap: 0.5em;
     padding-block: 1em;
     width: 100%;
@@ -73,7 +80,7 @@
 .carousel-buttons {
     grid-area: Buttons;
     display: flex;
-    justify-content: center;
+    justify-content: start;
     gap: 3ch;
 }
 

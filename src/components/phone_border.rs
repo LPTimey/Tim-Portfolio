@@ -25,7 +25,7 @@ pub fn style() -> Link {
     link_public!("components/phone_border.css")
 }
 
-pub fn component() -> Component<MarkupProps, ()> {
+pub fn component() -> Component<MarkupProps, Link, ()> {
     Component {
         html: markup,
         style: style(),
