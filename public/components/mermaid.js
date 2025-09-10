@@ -6,18 +6,26 @@ const parser = new DOMParser();
 
 /** @type {import('../vendor/mermaid/mermaid-11.6.0/dist/mermaid').MermaidConfig} */
 const config = {
-    look: "handDrawn",
+    // look: "handDrawn",
+    look: "classic",
     htmlLabels: true,
     // themeVariables: { edgeLabelBackground: "transparent" },
-    // themeCSS: `
-    //     .edgeLabel .label-background {
-    //         fill: none !important;
-    //         stroke: none !important;
-    //     }
-    //     .edgeLabel, .edgeLabel * {
-    //         // background-color: rgba(from var(--bg) / 0.1) !important;
-    //     }
-    // `
+    themeCSS: `
+        .edgeLabel .label-background {
+            fill: none !important;
+            stroke: none !important;
+        }
+        .labelBkg, .edgeLabel *{
+            background-color: rgba(0 0 0 / 0);
+            border: none;
+        }
+        .edgeLabel p {
+            background-color: rgba(from var(--bg) r g b / 0.9) !important;
+            border-radius: 0.5em;
+            padding-inline: 0.5ch;
+            border: 1pt solid gray;
+        }
+    `
 }
 /** @type {import('../vendor/mermaid/mermaid-11.6.0/dist/mermaid').MermaidConfig} */
 const configLight = {

@@ -5,7 +5,14 @@ use maud::PreEscaped;
 
 use crate::{
     components::{
-        carousel, codeblock, footer::footer, head::default_head, header::header, icon::{Icon, IconToMarkup}, img, mermaid, page, project_table::{self, with_sub_heading}, tooltip, Component
+        Component, carousel, codeblock,
+        footer::footer,
+        head::default_head,
+        header::header,
+        icon::{Icon, IconToMarkup},
+        img, mermaid, page,
+        project_table::{self, with_sub_heading},
+        tooltip,
     },
     include_public,
     projects::ProjectMetadata,
@@ -17,25 +24,39 @@ use super::super::*;
 const TETRIS_C: &str = include_public!("assets/Tetris/Tetris_new/Tetris/src/GameState.cpp");
 const TETRIS_H: &str = include_public!("assets/Tetris/Tetris_new/Tetris/src/GameState.hpp");
 
-const TetBagDiagram: &str = r#"
-A["Konstruktor aufgerufen<br>(mit oder ohne Seed)"]
-B["set_next_batch()"]
-C["Initialisiere Bag<br>mit allen 7 Tetrino-Typen"]
-D["Permutiere Bag<br>(Fisher-Yates Shuffle)"]
-E["Setze index = 0"]
-F["next() aufgerufen"]
-G["Gibt bag[index] zurück<br>index += 1"]
-H{"index < 7?"}
-    A --> B
-    B --> C
-    C --> D
-    D --> E
-    E --> F
-    F --> G
-    G --> H
-    H -- Ja --> F
-    H -- Nein --> B
-"#;
+fn get_tet_bag_diagram(_lang: &LanguageIdentifier, horizontal: bool) -> String {
+    let res = format!(
+        r#"
+flowchart {}
+%% Diagramm: TetrominoBag Lifecycle
+Start["Start: Konstruktor<br>(TetrominoBag oder TetrominoBag(seed))"]
+InitSeed["Seed setzen<br>(Default oder übergeben)"]
+CallSetNextBatch["set_next_batch()"]
+FillBag["Befülle Bag<br>mit 7 Tetrominos"]
+Shuffle["Shuffle Bag<br>(Fisher-Yates, seed-basiert)"]
+ResetIndex["Setze index = 0"]
+NextCall["next() aufgerufen"]
+ReturnTetromino["Gib bag[index] zurück<br>und erhöhe index"]
+CheckIndex{{"index &lt; 7?"}}
+RefillBag["Alle Tetrominos verwendet<br>set_next_batch() erneut aufrufen"]
+
+    Start --> InitSeed
+    InitSeed --> CallSetNextBatch
+    CallSetNextBatch --> FillBag
+    FillBag --> Shuffle
+    Shuffle --> ResetIndex
+    ResetIndex --> NextCall
+    NextCall --> ReturnTetromino
+    ReturnTetromino --> CheckIndex
+    CheckIndex -- Ja --> NextCall
+    CheckIndex -- Nein --> RefillBag
+    RefillBag --> CallSetNextBatch
+"#,
+        if horizontal { "LR" } else { "TD" }
+    );
+    // println!("{}",res);
+    res
+}
 
 fn get_str_lines_range(input: &str, start: usize, end: usize) -> &str {
     let mut line_start = 0;
@@ -98,12 +119,12 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
     let Component {
         html: carousel_html,
         style: carousel_style,
-        script: carousel_script
+        script: carousel_script,
     } = carousel::component();
     let Component {
         html: codeblock_html,
         style: codeblock_style,
-        script: codeblock_script
+        script: codeblock_script,
     } = codeblock::component();
     let Component {
         html: mermaid_html,
@@ -118,6 +139,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                 script type="module" src=(page.path_to_root(lang)+*carousel_script){}
                 script type="module" src=(page.path_to_root(lang)+*codeblock_script){}
                 script type="module" src=(page.path_to_root(lang)+*mermaid_script){}
+                style{(PreEscaped(include_asset!("tetris.css")))}
                 (default_head("Tetris","//TODO: Add description",page, lang))
                 link rel="stylesheet" href=(page.path_to_root(lang)+*table_style);
                 link rel="stylesheet" href=(page.path_to_root(lang)+*carousel_style);
@@ -221,8 +243,8 @@ Um die Nutzereingabe zu lesen werden 2 Typen exportiert: Buttons und Button. But
                         Die Erscheinungsraten der Tetrominos werden mit Hilfe eines Taschensystems generiert. Diese Tasche generiert alle Tetrominos und randomisiert ihre Order um zu garantieren, sodass es keine Folge "Ziehungen" gibt ein welcher eine art Tetromino öfter als 2 mal oder gar nicht vorkommt. 
                         "#}
                         pre{(codeblock_html(codeblock::MarkupProps { id: "", data: get_str_lines_range(TETRIS_H, 34, 48), prog_lang: "cpp" }))}
-                        ("Graph")
-                        (mermaid_html(mermaid::MarkupProps { name: "TetrinoDiagram", defs: &[("horizontal",&format!("graph LR\n{}",TetBagDiagram)),("vertical",&format!("graph TB\n{}",TetBagDiagram))] }))
+
+                        (mermaid_html(mermaid::MarkupProps { name: "TetrinoDiagram", defs: &[("horizontal",&get_tet_bag_diagram(lang, true)),("vertical",&&get_tet_bag_diagram(lang, false))] }))
                         h3."body-strong"{"Hardware"}
                         p{}
                     }

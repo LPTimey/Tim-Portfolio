@@ -1,4 +1,4 @@
-use maud::{html, Markup, PreEscaped};
+use maud::{html, Markup, PreEscaped, Render};
 use Props::with_props;
 
 use crate::{components::Component, link_public, Link};
@@ -8,7 +8,9 @@ pub fn markup<'a, 'b, 'c, 'd>(name: &'a str, defs: &'b[(&'c str, &'d str)]) -> M
     html!{
         div."diagram-container".mermaid."margin-b-medium" name=(name) id=(name){
             @for def in defs{
-                script class=(format!("diagram-code {}",def.0)) type="text/plain" {(PreEscaped(def.1))}
+                script class=(format!("diagram-code {}",def.0)) type="text/plain" {
+                    (PreEscaped(def.1/*.replace('\n', "&#10;") */))
+                }
             }
         }
     }
