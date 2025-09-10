@@ -3,6 +3,7 @@ import mermaid from '../vendor/mermaid/mermaid-11.6.0/dist/mermaid.esm.min.mjs';
 
 mermaid.initialize({ startOnLoad: false });
 const parser = new DOMParser();
+const svgPadding = 10;
 
 /** @type {import('../vendor/mermaid/mermaid-11.6.0/dist/mermaid').MermaidConfig} */
 const config = {
@@ -71,10 +72,11 @@ window.addEventListener('DOMContentLoaded', async () => {
                     const g = /** @type {SVGGElement} */(svgElement.querySelector('g'));
                     const boundingBox = g.getBBox();
 
-                    svgElement.setAttribute('viewBox', `${boundingBox.x} ${boundingBox.y} ${boundingBox.width} ${boundingBox.height}`);
+                    svgElement.setAttribute('viewBox', `${Math.max(0, boundingBox.x - svgPadding)} ${Math.max(0, boundingBox.y - svgPadding)} ${boundingBox.width + svgPadding} ${boundingBox.height + svgPadding}`);
                     svgElement.setAttribute('preserveAspectRatio', 'xMidYMid meet');
                     svgElement.style.width = '100%';
                     svgElement.style.height = 'auto';
+                    // svgElement.style.overflow = 'visible';
 
                     if (svgElement.id.includes("THEME_Dark")) {
                         svgElement.classList.add("dark-only");

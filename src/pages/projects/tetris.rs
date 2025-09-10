@@ -28,29 +28,28 @@ fn get_tet_bag_diagram(_lang: &LanguageIdentifier, horizontal: bool) -> String {
     let res = format!(
         r#"
 flowchart {}
-%% Diagramm: TetrominoBag Lifecycle
-Start["Start: Konstruktor<br>(TetrominoBag oder TetrominoBag(seed))"]
-InitSeed["Seed setzen<br>(Default oder übergeben)"]
+Use[["bag.next()"]]
 CallSetNextBatch["set_next_batch()"]
-FillBag["Befülle Bag<br>mit 7 Tetrominos"]
-Shuffle["Shuffle Bag<br>(Fisher-Yates, seed-basiert)"]
+FillBag["Befülle Bag <br>mit allen 7 Tetrominos"]
+Shuffle["Shuffle Bag <br>(Fisher-Yates, seed-basiert)"]
 ResetIndex["Setze index = 0"]
-NextCall["next() aufgerufen"]
-ReturnTetromino["Gib bag[index] zurück<br>und erhöhe index"]
+NextCall[/"next() aufgerufen"/]
+SaveTetromino["speichere this->bag[index]<br>und erhöhe index"]
+ReturnTetromino["gespeicherten Tetromino zurückgeben"]
 CheckIndex{{"index &lt; 7?"}}
-RefillBag["Alle Tetrominos verwendet<br>set_next_batch() erneut aufrufen"]
+RefillBag[/"Alle Tetrominos verwendet<br>set_next_batch() aufrufen"/]
 
-    Start --> InitSeed
-    InitSeed --> CallSetNextBatch
+    Use --> NextCall
     CallSetNextBatch --> FillBag
     FillBag --> Shuffle
     Shuffle --> ResetIndex
-    ResetIndex --> NextCall
-    NextCall --> ReturnTetromino
-    ReturnTetromino --> CheckIndex
-    CheckIndex -- Ja --> NextCall
+    ResetIndex --> ReturnTetromino
+    NextCall --> SaveTetromino
+    SaveTetromino --> CheckIndex
+    CheckIndex -- Ja --> ReturnTetromino
     CheckIndex -- Nein --> RefillBag
     RefillBag --> CallSetNextBatch
+    ReturnTetromino --> Use
 "#,
         if horizontal { "LR" } else { "TD" }
     );
