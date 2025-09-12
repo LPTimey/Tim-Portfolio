@@ -43,9 +43,9 @@
     gap: 1ch;
     grid-template-areas:
         "GameStateText GameStateText ButtonText ButtonText"
-        "TetrinoText TetrinoText ButtonText ButtonText"
+        "TetrominoText TetrominoText ButtonText ButtonText"
         "GameStateCode GameStateCode ButtonsCode TetPosCode"
-        "GameStateCode GameStateCode PosRotCode TetrinoCode"
+        "GameStateCode GameStateCode PosRotCode TetrominoCode"
         "TetArrayMetaBlock TetArrayMetaBlock TetArrayMetaBlock TetArrayMetaBlock";
 }
 
@@ -53,8 +53,8 @@
     grid-area: GameStateText;
 }
 
-#TetrinoText {
-    grid-area: TetrinoText;
+#TetrominoText {
+    grid-area: TetrominoText;
 }
 
 #ButtonText {
@@ -77,8 +77,8 @@
     grid-area: TetPosCode;
 }
 
-#TetrinoCode {
-    grid-area: TetrinoCode;
+#TetrominoCode {
+    grid-area: TetrominoCode;
 }
 
 #TetArrayMetaBlock {
@@ -117,8 +117,8 @@
             "GameStateText ButtonText"
             "GameStateCode ButtonsCode"
             "GameStateCode PosRotCode"
-            "TetrinoText TetrinoText"
-            "TetrinoCode TetPosCode"
+            "TetrominoText TetrominoText"
+            "TetrominoCode TetPosCode"
             "TetArrayMetaBlock TetArrayMetaBlock"
         ;
     }
@@ -133,8 +133,8 @@
             "GameStateCode GameStateCode"
             "ButtonText ButtonText"
             "ButtonsCode PosRotCode"
-            "TetrinoText TetrinoText"
-            "TetrinoCode TetPosCode"
+            "TetrominoText TetrominoText"
+            "TetrominoCode TetPosCode"
             "TetArrayMetaBlock TetArrayMetaBlock"
         ;
     }
@@ -149,9 +149,9 @@
             "GameStateCode"
             "ButtonText"
             "ButtonsCode"
-            "TetrinoText"
+            "TetrominoText"
             "TetPosCode"
-            "TetrinoCode"
+            "TetrominoCode"
             "TetArrayMetaBlock"
             "PosRotCode"
         ;
@@ -172,7 +172,7 @@
     grid-area: TetBagText;
 }
 
-#TetrinoDiagram {
+#TetrominoDiagram {
     grid-area: Dia;
     margin: 0;
     container: DiagramCon / inline-size;

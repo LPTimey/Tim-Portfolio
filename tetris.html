@@ -203,13 +203,14 @@
                             Es stellt auch eine Methode bereit, um das aktuelle Feld entweder
                             als String oder Liste zu bekommen und es anzeigen zu können.
                         </p>
-                        <p id="TetrinoText">
-                            Die einzelnen <a href="TetrinoCode" class="link link-active underline"
-                                hover-border-target="TetrinoCode">Tetrinos</a> sind in einem Enum als Indexe zu einem
+                        <p id="TetrominoText">
+                            Die einzelnen <a href="TetrominoCode" class="link link-active underline"
+                                hover-border-target="TetrominoCode">Tetrominos</a> sind in einem Enum als Indexe zu
+                            einem
                             <span hover-border-target="TetArrayMetaBlock"><a href="#TetArrayMetaBlock"
                                     class="link link-active underline">Array</a>, welcher Postions-Matrizen der <a
-                                    href="#TetrinoCode" class="link link-active underline"
-                                    hover-border-target="TetrinoCode">Tetrinos</a>
+                                    href="#TetrominoCode" class="link link-active underline"
+                                    hover-border-target="TetrominoCode">Tetrominos</a>
                                 speichert.</span>
                             Um auch <a href="#PosRotCode" hover-border-target="PosRotCode"
                                 class="link link-active underline">Position & Rotation</a> zu speicher wird <a
@@ -242,8 +243,8 @@
                                       struct M {
                                         uint8_t field[Width * Height];
                                         Option&lt;TetPos&gt; current;
-                                        Tetrino nexts[3];
-                                        TetrinoBag bag;
+                                        Tetromino nexts[3];
+                                        TetrominoBag bag;
                                         size_t score = 0;
                                       } m;
 
@@ -298,7 +299,7 @@
                         <code-block no-todo id="TetPosCode" lang="cpp">
                             <pre>
                                         struct TetPos {
-                                          Tetrino cur;
+                                          Tetromino cur;
                                           Vec2 cur_pos;
                                           Rotation rot;
 
@@ -307,19 +308,19 @@
                                         };
                                     </pre>
                         </code-block>
-                        <!-- Tetrino -->
-                        <code-block no-todo id="TetrinoCode" lang="cpp">
+                        <!-- Tetromino -->
+                        <code-block no-todo id="TetrominoCode" lang="cpp">
                             <pre>
                                         // Index für Array
-                                        enum class Tetrino: uint8_t {
-                                          L   = 0, // -> Tetrinos[0]
-                                          R_L = 1, // -> Tetrinos[1]
-                                          I   = 2, // -> Tetrinos[2]
-                                          Z   = 3, // -> Tetrinos[3]
-                                          R_Z = 4, // -> Tetrinos[4]
-                                          B   = 5, // -> Tetrinos[5]
-                                          T   = 6, // -> Tetrinos[6]
-                                          NrOfTetrinos, // Wie .len
+                                        enum class Tetromino: uint8_t {
+                                          L   = 0, // -> Tetrominos[0]
+                                          R_L = 1, // -> Tetrominos[1]
+                                          I   = 2, // -> Tetrominos[2]
+                                          Z   = 3, // -> Tetrominos[3]
+                                          R_Z = 4, // -> Tetrominos[4]
+                                          B   = 5, // -> Tetrominos[5]
+                                          T   = 6, // -> Tetrominos[6]
+                                          NrOfTetrominos, // Wie .len
                                         };
                                     </pre>
                         </code-block>
@@ -328,18 +329,18 @@
                         <div id="TetArrayMetaBlock" style="border-radius: var(--border-r);">
                             <code-block no-todo lang="cpp">
                                 <pre>
-                                // ... Die anderen Tetrinos ...
+                                // ... Die anderen Tetrominos ...
                                 constexpr Vec2 T[] =
                                     { {0, 0}, {0, -1}, {-1, 0}, {1, 0} };
-                                constexpr Vec2* Tetrinos[] =
+                                constexpr Vec2* Tetrominos[] =
                                     { L, R_L, I, Z, R_Z, B, T };
                                 </pre>
                             </code-block>
                             <code-block no-todo lang="cpp">
                                 <pre>
-                                    // ... Die anderen Tetrinos ...
+                                    // ... Die anderen Tetrominos ...
                                     constexpr Vec2 T[] = { {0, 0}, {0, -1}, {-1, 0}, {1, 0} };
-                                    constexpr Vec2* Tetrinos[] = { L, R_L, I, Z, R_Z, B, T };
+                                    constexpr Vec2* Tetrominos[] = { L, R_L, I, Z, R_Z, B, T };
                                     </pre>
                             </code-block>
                         </div>
@@ -348,19 +349,19 @@
                     <div class="margin-b-small no-vis" aria-hidden="true"> x </div>
                     <div id="BagVisualisation" class="margin-b-medium">
                         <p id="TetBagText">
-                            Die Erscheinungsraten der Tetrinos werden mit Hilfe eines Taschensystems generiert.
-                            Diese Tasche generiert alle Tetrinos und randomisiert ihre Order um zu garantieren,
-                            sodass es keine Folge "Ziehungen" gibt ein welcher eine art Tetrino öfter als 2 mal
+                            Die Erscheinungsraten der Tetrominos werden mit Hilfe eines Taschensystems generiert.
+                            Diese Tasche generiert alle Tetrominos und randomisiert ihre Order um zu garantieren,
+                            sodass es keine Folge "Ziehungen" gibt ein welcher eine art Tetromino öfter als 2 mal
                             oder gar nicht vorkommt.
                         </p>
-                        <div class="diagram-container mermaid margin-b-medium" name="TetrinoDiagram"
-                            id="TetrinoDiagram">
+                        <div class="diagram-container mermaid margin-b-medium" name="TetrominoDiagram"
+                            id="TetrominoDiagram">
                             <!-- Mermaid-Diagramm im Plain-Script-Tag (sicher für HTML) -->
                             <script class="diagram-code horizontal" type="text/plain">
                                 graph LR
                                 A["Konstruktor aufgerufen<br>(mit oder ohne Seed)"]
                                 B["set_next_batch()"]
-                                C["Initialisiere Bag<br>mit allen 7 Tetrino-Typen"]
+                                C["Initialisiere Bag<br>mit allen 7 Tetromino-Typen"]
                                 D["Permutiere Bag<br>(Fisher-Yates Shuffle)"]
                                 E["Setze index = 0"]
                                 F["next() aufgerufen"]
@@ -380,7 +381,7 @@
                                 graph TB
                                 A["Konstruktor aufgerufen<br>(mit oder ohne Seed)"]
                                 B["set_next_batch()"]
-                                C["Initialisiere Bag<br>mit allen 7 Tetrino-Typen"]
+                                C["Initialisiere Bag<br>mit allen 7 Tetromino-Typen"]
                                 D["Permutiere Bag<br>(Fisher-Yates Shuffle)"]
                                 E["Setze index = 0"]
                                 F["next() aufgerufen"]
@@ -400,49 +401,49 @@
                         <div id="TetBagCode">
                             <code-block lang="cpp">
                                 <pre>
-                                    using Tetrino as T;
-                                    class TetrinoBag {
-                                        Tetrino bag
-                                          [(uint8_t)T::NrOfTetrinos];
+                                    using Tetromino as T;
+                                    class TetrominoBag {
+                                        Tetromino bag
+                                          [(uint8_t)T::NrOfTetrominos];
                                         uint8_t index = 0;
                                         uint32_t seed = 12345;
                                         void set_next_batch();
                                     public:
-                                        TetrinoBag();
-                                        TetrinoBag(uint32_t seed);
+                                        TetrominoBag();
+                                        TetrominoBag(uint32_t seed);
                                         void set_seed(uint32_t seed);
-                                        Tetrino next();
+                                        Tetromino next();
                                     };
                                 </pre>
                             </code-block>
                             <code-block lang="cpp">
                                 <pre>
-                                    using Tetrino as T;
-                                    class TetrinoBag {
-                                        Tetrino bag [(uint8_t)T::NrOfTetrinos];
+                                    using Tetromino as T;
+                                    class TetrominoBag {
+                                        Tetromino bag [(uint8_t)T::NrOfTetrominos];
                                         uint8_t index = 0;
                                         uint32_t seed = 12345;
                                         void set_next_batch();
                                     public:
-                                        TetrinoBag();
-                                        TetrinoBag(uint32_t seed);
+                                        TetrominoBag();
+                                        TetrominoBag(uint32_t seed);
                                         void set_seed(uint32_t seed);
-                                        Tetrino next();
+                                        Tetromino next();
                                     };
                                 </pre>
                             </code-block>
                             <code-block lang="cpp">
                                 <pre>
-                                    class TetrinoBag {
-                                      Tetrino bag[static_cast&lt;uint8_t&gt;(Tetrino::NrOfTetrinos)];
+                                    class TetrominoBag {
+                                      Tetromino bag[static_cast&lt;uint8_t&gt;(Tetromino::NrOfTetrominos)];
                                       uint8_t index = 0;
                                       uint32_t seed = 12345;
                                       void set_next_batch();
                                     public:
-                                      TetrinoBag();
-                                      TetrinoBag(uint32_t seed);
+                                      TetrominoBag();
+                                      TetrominoBag(uint32_t seed);
                                       void set_seed(uint32_t seed);
-                                      Tetrino next();
+                                      Tetromino next();
                                     };
                                 </pre>
                             </code-block>
@@ -552,7 +553,7 @@
                             <li>Projekt-ZIP-Datei entpacken</li>
                             <li>Zum Projektordner wechseln</li>
                             <li>Die Arduino IDE hier öffnen</li>
-                            <li><code>Tetrino.ino</code> bauen und auf das Arduino-Board flashen</li>
+                            <li><code>Tetromino.ino</code> bauen und auf das Arduino-Board flashen</li>
                         </ol>
                     </div>
                     <div id="PCCard">
