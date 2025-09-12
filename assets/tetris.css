@@ -1,6 +1,87 @@
-.vertical{
+.vertical {
     /* display: none; */
 }
-.horizontal{
+
+.horizontal {
     /* display: none; */
+}
+
+#EinzelteilePic {
+    position: relative;
+    width: fit-content;
+    height: fit-content;
+    grid-area: Img;
+    place-self: center;
+    width: fit-content;
+    --pop-top: 50%;
+    --pop-left: 50%;
+    --pop-pre-translate: translate(-50%, -50%);
+    --pop-translate: translate(calc(-100% - 1em), calc(-100% - 0.25em));
+    isolation: isolate;
+
+    img {
+        height: 60vh;
+        width: auto;
+        z-index: -1;
+    }
+
+    .marker {
+        position: absolute;
+        inset: 0;
+        width: auto;
+        height: auto;
+        border-radius: var(--border-r);
+
+        /* outline: 1px solid red; */
+
+        .tool-tip {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    .accent-point {
+        position: absolute;
+        left: var(--pop-left);
+        top: var(--pop-top);
+        translate: -50% -50%;
+        width: var(--_width);
+        height: var(--_width);
+    }
+
+    #UnoR4Marker {
+        inset: 50% 75% 25% 4%;
+    }
+
+    #UnoR3Marker {
+        inset: 66% 40% 15% 40%;
+        z-index: 2;
+    }
+
+    #MatrixMarker {
+        inset: 25% 50% 50% 22%;
+        z-index: 2;
+
+        --pop-top: 40%;
+    }
+
+    #ResistorsMarker {
+        inset: 7% 1% 28% 52%;
+        z-index: 0;
+
+        /* --pop-top: 20%;
+        --pop-left: 25%; */
+    }
+
+    #ExtrasMarker {
+        inset: 2% 47% 67% 10%;
+        z-index: 1;
+    }
+
+    #BreadboardMarker {
+        inset: 57% 48% 28% 35%;
+        z-index: 1;
+
+        --pop-top: 40%
+    }
 }

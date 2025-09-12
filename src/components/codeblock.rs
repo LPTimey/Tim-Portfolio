@@ -1,5 +1,5 @@
 use Props::with_props;
-use maud::{Markup, html};
+use maud::{html, Markup, PreEscaped};
 
 use crate::{Link, components::Component, link_public};
 
@@ -7,7 +7,7 @@ use crate::{Link, components::Component, link_public};
 pub fn markup<'a>(id: &'static str, data: &'a str, prog_lang: &'a str) -> Markup {
     html! {
         code.codeblock.(format!("language-{prog_lang}")) #(id){
-            (data)
+            (PreEscaped(data))
         }
     }
 }

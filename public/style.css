@@ -378,6 +378,16 @@
         }
     }
 
+    :where(.accent-point) {
+        --_width: 2ch;
+        aspect-ratio: 1;
+        border-radius: 100%;
+        width: var(--_width);
+        color: var(--center-color, var(--accent));
+        background-color: var(--center-color, var(--accent));
+        border: calc(var(--_width) / 4) solid var(--border-color, var(--bg));
+    }
+
     :where(.accent-text) {
         color: var(--accent);
     }
@@ -1179,7 +1189,8 @@
     flex-direction: column;
     border-radius: 0px;
 
-    &::after,&::before{
+    &::after,
+    &::before {
         content: "";
         flex-grow: 1;
     }

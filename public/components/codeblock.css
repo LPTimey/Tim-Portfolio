@@ -1,6 +1,7 @@
 
 .codeblock{
     border-radius: calc(var(--border-r) / 2);
+    font-family: "JetBrains Mono", var(--backup-fonts);
 }
 
 pre:has(.codeblock){

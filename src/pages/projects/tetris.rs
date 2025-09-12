@@ -5,14 +5,7 @@ use maud::PreEscaped;
 
 use crate::{
     components::{
-        Component, carousel, codeblock,
-        footer::footer,
-        head::default_head,
-        header::header,
-        icon::{Icon, IconToMarkup},
-        img, mermaid, page,
-        project_table::{self, with_sub_heading},
-        tooltip,
+        carousel, codeblock, footer::footer, head::default_head, header::header, icon::{Icon, IconToMarkup}, img, mermaid, page, project_table::{self, with_sub_heading}, tooltip::{self, Align}, Component
     },
     include_public,
     projects::ProjectMetadata,
@@ -21,8 +14,101 @@ use crate::{
 
 use super::super::*;
 
-const TETRIS_C: &str = include_public!("assets/Tetris/Tetris_new/Tetris/src/GameState.cpp");
+// const TETRIS_C: &str = include_public!("assets/Tetris/Tetris_new/Tetris/src/GameState.cpp");
 const TETRIS_H: &str = include_public!("assets/Tetris/Tetris_new/Tetris/src/GameState.hpp");
+
+const TET_STATE: &str = "\
+class GameState {
+    struct M {
+        uint8_t field[Width * Height];
+        Option&lt;TetPos&gt; current;
+        Tetromino nexts[3];
+        TetrominoBag bag;
+        size_t score = 0;
+    } m;
+
+    GameState() = delete;
+    GameState(M&& members);
+
+public:
+    static GameState create();
+    bool is_game_over();
+    bool game_tick();
+    bool player_tick(Buttons buttons);
+    auto field_with_floating ->
+    (uint8_t (&arr)[Width * Height]);
+    int32_t to_string
+    (char (&str)[Width*Height*2 + 1]);
+};";
+const TET_BUTTONS: &str = "\
+typedef uint8_t Buttons;
+enum class Button: Buttons {
+    TurnLeft  = 1, // 00000001
+    TurnRight = 2, // 00000010
+    Up    =  4,    // 00000100
+    Down  =  8,    // 00001000
+    Left  = 16,    // 00010000
+    Right = 32,    // 00100000
+    Swap  = 64,    // 01000000
+    Max_Button,    // size + 1
+};";
+const TET_POS_ROT: &str = "\
+struct Vec2 {
+    int8_t x, y;
+};
+
+enum class Rotation: uint8_t {
+    None   = 0,       //   0°
+    CounterClock = 1, //  90°
+    Mirror = 2,       // 180°
+    Clock  = 3,       // 270°
+    Max_Rotation // für Modulo
+};";
+const TET_TET_POS: &str = "\
+struct TetPos {
+    Tetromino cur;
+    Vec2 cur_pos;
+    Rotation rot;
+
+    auto get_indexes()
+    -> ptrdiff_t (&)[4];
+};";
+const TET_TETROMINO: &str = "\
+// Index für Array
+enum class Tetromino: uint8_t {
+    L   = 0, // -> Tetrominos[0]
+    R_L = 1, // -> Tetrominos[1]
+    I   = 2, // -> Tetrominos[2]
+    Z   = 3, // -> Tetrominos[3]
+    R_Z = 4, // -> Tetrominos[4]
+    B   = 5, // -> Tetrominos[5]
+    T   = 6, // -> Tetrominos[6]
+    NrOfTetrominos, // Wie .len
+};";
+const TET_TET_VEC_1: &str = "\
+// ... Die anderen Tetrominos ...
+constexpr Vec2 T[] =
+    { {0, 0}, {0, -1}, {-1, 0}, {1, 0} };
+constexpr Vec2* Tetrominos[] =
+    { L, R_L, I, Z, R_Z, B, T };";
+const TET_TET_VEC_2: &str = "\
+// ... Die anderen Tetrominos ...
+constexpr Vec2 T[] = { {0, 0}, {0, -1}, {-1, 0}, {1, 0} };
+constexpr Vec2* Tetrominos[] = { L, R_L, I, Z, R_Z, B, T };";
+const TET_BAG: &str = "\
+using Tetromino as T;
+class TetrominoBag {
+    Tetromino bag
+        [(uint8_t)T::NrOfTetrominos];
+    uint8_t index = 0;
+    uint32_t seed = 12345;
+    void set_next_batch();
+public:
+    TetrominoBag();
+    TetrominoBag(uint32_t seed);
+    void set_seed(uint32_t seed);
+    Tetromino next();
+};";
 
 fn get_tet_bag_diagram(_lang: &LanguageIdentifier, horizontal: bool) -> String {
     let res = format!(
@@ -194,7 +280,15 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                             li{(loader.get("matrix"))}
                             li{(loader.get("connectors"))}
                         }
-                        (img::img(img::ImgProps{pre_src:page.path_to_root(lang),src:link_public!("assets/Tetris/webp/Einzelteile.webp"),..Default::default()}))
+                        picture #EinzelteilePic{
+                            div.marker #UnoR4Marker{ (tooltip::markup(tooltip::MarkupProps{children:html!{ div."accent-point"{} }, content: PreEscaped("What is going on".to_owned()),popup_align:Align::Center,popup_justify:Align::Center,popup_begin_align:Align::Center,popup_begin_justify:Align::Center })) }
+                            div.marker #UnoR3Marker{ (tooltip::markup(tooltip::MarkupProps{children:html!{ div."accent-point"{} }, content: PreEscaped("What is going on".to_owned()),popup_align:Align::Center,popup_justify:Align::Center,popup_begin_align:Align::Center,popup_begin_justify:Align::Center })) }
+                            div.marker #MatrixMarker{ (tooltip::markup(tooltip::MarkupProps{children:html!{ div."accent-point"{} }, content: PreEscaped("What is going on".to_owned()),popup_align:Align::Center,popup_justify:Align::Center,popup_begin_align:Align::Center,popup_begin_justify:Align::Center })) }
+                            div.marker #ResistorsMarker{ (tooltip::markup(tooltip::MarkupProps{children:html!{ div."accent-point"{} }, content: PreEscaped("What is going on".to_owned()),popup_align:Align::Center,popup_justify:Align::Center,popup_begin_align:Align::Center,popup_begin_justify:Align::Center })) }
+                            div.marker #ExtrasMarker{ (tooltip::markup(tooltip::MarkupProps{children:html!{ div."accent-point"{} }, content: PreEscaped("What is going on".to_owned()),popup_align:Align::Center,popup_justify:Align::Center,popup_begin_align:Align::Center,popup_begin_justify:Align::Center })) }
+                            div.marker #BreadboardMarker{ (tooltip::markup(tooltip::MarkupProps{children:html!{ div."accent-point"{} }, content: PreEscaped("What is going on".to_owned()),popup_align:Align::Center,popup_justify:Align::Center,popup_begin_align:Align::Center,popup_begin_justify:Align::Center })) }
+                            (img::img(img::ImgProps{pre_src:page.path_to_root(lang),src:link_public!("assets/Tetris/webp/Einzelteile.webp"),..Default::default()}))
+                        }
                     }
                     section.sect."accent-background".content style="
                         --accent-bg-c: var(--black);
@@ -232,12 +326,12 @@ Die einzelnen Tetrominos sind in einem Enum als Indexe zu einem Array, welcher P
 Um die Nutzereingabe zu lesen werden 2 Typen exportiert: Buttons und Button. Button ist ein Enum welches alle Knöpfe auflistet und je einem Bit in einem Byte zuordnet, sodass alle möglichen Eingaben gleichzeitig und speichersparend verarbeitet werden können, da sie nun in einen Byte (Buttons) passen. Das ermöglicht schnelle Abfragen und kompakte Logik. Man kann sich dieses Flaggen-System vorstellen wie 8 boolesche Werte in einer Variable. Man kann diese Werte mit Bit shifts ( << ) und Bit-Oder ( | ) setzen und mit Bit shifts und Bit-Und ( & ) lesen. (Mehr Dazu)
 "#
                         }
-                        pre{(codeblock_html(codeblock::MarkupProps { id: "", data: get_str_lines_range(TETRIS_H, 22, 31), prog_lang: "cpp" }))}
-                        pre{(codeblock_html(codeblock::MarkupProps { id: "", data: get_str_lines_range(TETRIS_H, 64, 75), prog_lang: "cpp" }))}
-                        pre{(codeblock_html(codeblock::MarkupProps { id: "", data: get_str_lines_range(TETRIS_H, 92, 98), prog_lang: "cpp" }))}
-                        pre{(codeblock_html(codeblock::MarkupProps { id: "", data: get_str_lines_range(TETRIS_H, 100, 135), prog_lang: "cpp" }))}
-                        pre{(codeblock_html(codeblock::MarkupProps { id: "", data: get_str_lines_range(TETRIS_C, 41, 54), prog_lang: "cpp" }))}
-                        pre{(codeblock_html(codeblock::MarkupProps { id: "", data: get_str_lines_range(TETRIS_H, 9, 20), prog_lang: "cpp" }))}
+                        pre{(codeblock_html(codeblock::MarkupProps { id: "", data: TET_STATE, prog_lang: "cpp" }))}
+                        pre{(codeblock_html(codeblock::MarkupProps { id: "", data: TET_BUTTONS, prog_lang: "cpp" }))}
+                        pre{(codeblock_html(codeblock::MarkupProps { id: "", data: TET_POS_ROT, prog_lang: "cpp" }))}
+                        pre{(codeblock_html(codeblock::MarkupProps { id: "", data: TET_TET_POS, prog_lang: "cpp" }))}
+                        pre{(codeblock_html(codeblock::MarkupProps { id: "", data: TET_TET_VEC_1, prog_lang: "cpp" }))}
+                        pre{(codeblock_html(codeblock::MarkupProps { id: "", data: TET_TETROMINO, prog_lang: "cpp" }))}
                         p{r#"
                         Die Erscheinungsraten der Tetrominos werden mit Hilfe eines Taschensystems generiert. Diese Tasche generiert alle Tetrominos und randomisiert ihre Order um zu garantieren, sodass es keine Folge "Ziehungen" gibt ein welcher eine art Tetromino öfter als 2 mal oder gar nicht vorkommt. 
                         "#}
