@@ -1,6 +1,10 @@
 use maud::{PreEscaped, html};
 
-use crate::{components::{img, Component}, link_public, Link};
+use crate::{
+    Link,
+    components::{Component, img},
+    link_public,
+};
 
 use Props::with_props;
 
@@ -11,8 +15,22 @@ fn markup(img: Link, rows: u8, columns: u8, duration: std::time::Duration) -> ma
         .repeat(rows as usize * columns as usize);
 
     html! {
-        div."scroll-img" style=(format!("--columns: {columns};--rows: {rows};--duration: {duration}s",duration=duration.as_secs())){
+        div."scroll-img" style=(
+            format!(
+                "--columns: {columns};--rows: {rows};animation: {duration}s scroll-{columns}x{rows} infinite linear;",
+                duration=duration.as_secs()
+            )){
             (PreEscaped(imgs))
+
+            style{(PreEscaped(format!(
+                "@keyframes scroll-{columns}x{rows}{{
+                    from {{ transform: translate(0, 0); }}
+
+                    to {{ transform: translate({end_x}%, {end_y}%); }}
+                }}",
+                end_x=-2.0 * 100.0/rows as f64,
+                end_y=-100.0/rows as f64
+            )))}
         }
     }
 }

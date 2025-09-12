@@ -4,9 +4,10 @@
     grid-template-columns: repeat(var(--columns), 1fr);
     grid-template-rows: repeat(var(--rows), auto);
     width: calc(100% * var(--columns));
-    transform: translateX(-50%);
-    animation: var(--duration, 50s) linear 0s infinite running scroll;
+    will-change: transform;
+    /* animation: var(--duration, 50s) linear 0s infinite running scroll; */
     z-index: -2;
+    contain: auto;
 
     picture {
         display: block;
@@ -17,15 +18,5 @@
             height: 100%;
             border-radius: 0;
         }
-    }
-}
-
-@keyframes scroll {
-    from {
-        transform: translateX(calc(-1 * (100% / var(--columns)))) translateY(0);
-    }
-
-    to {
-        transform: translateX(0%) translateY(calc(-1 * (100% / var(--rows))));
     }
 }
