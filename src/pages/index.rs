@@ -112,8 +112,10 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                 (header(page, lang))
                 main{
                     section #Hero{
-                        // picture #HeroImg{img draggable="false" src=(*placeholder_img!(600,400)) alt="";}
-                        div #HeroImg{(scroll_img_html(scrolling_img::MarkupProps { img: Link((page.path_to_root(lang)+*link_public!("assets/Title-img.webp")).leak()), rows: 3, columns: 3, duration: Duration::from_secs(50) }))}
+                        div #HeroImg{
+                            // TODO: Move into noscript and do anim in canvas because firefox just cant do this somehow
+                            (scroll_img_html(scrolling_img::MarkupProps { img: Link((page.path_to_root(lang)+*link_public!("assets/Title-img.webp")).leak()), rows: 3, columns: 3, duration: Duration::from_secs(50) }))
+                        }
                         div ."hero-content"{
                             h1."mb-large"{
                                 span."fs-large"."lh-tight"."text-shadow"{ (loader.get("welcome")) } br;
