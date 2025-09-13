@@ -1,5 +1,5 @@
 use Props::with_props;
-use maud::{html, Markup, PreEscaped};
+use maud::{Markup, PreEscaped, html};
 
 use crate::{Link, components::Component, link_public};
 

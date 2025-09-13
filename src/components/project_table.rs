@@ -1,7 +1,12 @@
 use maud::{PreEscaped, Render, html};
 
 use crate::{
-    components::{img::{self, ImgProps}, Component}, link_public, Link
+    Link,
+    components::{
+        Component,
+        img::{self, ImgProps},
+    },
+    link_public,
 };
 use Props::with_props;
 

@@ -8,7 +8,8 @@ use strum::{EnumIter, VariantArray};
 use unic_langid::LanguageIdentifier;
 
 use crate::{
-    get_core_language_loader, include_asset, include_logo, link_public, path_to_root, projects::ProjectMetadata, Link
+    Link, get_core_language_loader, include_asset, include_logo, link_public, path_to_root,
+    projects::ProjectMetadata,
 };
 
 pub fn mod_path_to_href(mod_path: &str) -> Option<PathBuf> {
@@ -99,5 +100,4 @@ impl Page {
             Page::WebDev => loader.get("WebDev").to_string(),
         }
     }
-
 }

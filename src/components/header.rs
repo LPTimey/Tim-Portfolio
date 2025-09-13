@@ -6,17 +6,24 @@ use strum::IntoEnumIterator;
 use unic_langid::LanguageIdentifier;
 
 use crate::{
-    capitalize, components::theme_select::theme_select, get_core_language_loader, include_asset, Page, GIT_HUB_ICON, SUPPORTED_LANGS
+    GIT_HUB_ICON, Page, SUPPORTED_LANGS, capitalize, components::theme_select::theme_select,
+    get_core_language_loader, include_asset,
 };
 
-fn group_pages(lang: &LanguageIdentifier, loader: &FluentLanguageLoader) -> BTreeMap<Option<String>, Vec<Page>> {
+fn group_pages(
+    lang: &LanguageIdentifier,
+    loader: &FluentLanguageLoader,
+) -> BTreeMap<Option<String>, Vec<Page>> {
     let mut grouped: BTreeMap<Option<String>, Vec<Page>> = BTreeMap::new();
     for page in Page::iter() {
         let mut path = page.to_href(lang);
         let lang_prefix = lang.to_string();
 
         if path.starts_with(&lang_prefix) {
-            path = path.strip_prefix(&lang_prefix).unwrap_or(&path).to_path_buf();
+            path = path
+                .strip_prefix(&lang_prefix)
+                .unwrap_or(&path)
+                .to_path_buf();
         }
 
         let parent = path.parent().and_then(|p| {
@@ -24,9 +31,9 @@ fn group_pages(lang: &LanguageIdentifier, loader: &FluentLanguageLoader) -> BTre
                 None
             } else {
                 let string = p.display().to_string();
-                if loader.has(&string){
+                if loader.has(&string) {
                     Some(loader.get(&string))
-                }else{
+                } else {
                     Some(string)
                 }
             }
@@ -36,8 +43,8 @@ fn group_pages(lang: &LanguageIdentifier, loader: &FluentLanguageLoader) -> BTre
     grouped
 }
 
-pub fn lang_switcher(current_page: Page, lang: &LanguageIdentifier)->maud::Markup{
-    html!{
+pub fn lang_switcher(current_page: Page, lang: &LanguageIdentifier) -> maud::Markup {
+    html! {
         ul #Languages{
         @for (i,next_lang) in SUPPORTED_LANGS.iter().enumerate(){
             @if let Some(path) = if !lang.eq(next_lang) {Some(current_page.path_to_root(lang)+&current_page.to_href(next_lang).to_string_lossy())}else{None}{
@@ -72,7 +79,7 @@ pub fn header(current_page: Page, lang: &LanguageIdentifier) -> maud::Markup {
     };
 
     // Gruppiere Seiten nach Ordner (oder None für Top-Level)
-    let grouped = group_pages(lang,&loader);
+    let grouped = group_pages(lang, &loader);
     let mut groups = Vec::new();
     let group_name = |name: &str| {
         (

@@ -1,20 +1,17 @@
 mod components;
 mod pages;
 
+use i18n_embed::{LanguageLoader, fluent::FluentLanguageLoader};
+use image::ImageReader;
+pub use pages::*;
+use rust_embed::RustEmbed;
 use std::{
     fmt::Display,
     ops::Deref,
-    path::{Path, PathBuf}, sync::OnceLock,
-};
-use i18n_embed::{
-    fluent::FluentLanguageLoader,
-    LanguageLoader,
+    path::{Path, PathBuf},
+    sync::OnceLock,
 };
 use unic_langid::langid;
-// use i18n_embed_fl::fl;
-use rust_embed::RustEmbed;
-use image::ImageReader;
-pub use pages::*;
 
 #[macro_export]
 macro_rules! include_asset {
@@ -31,7 +28,11 @@ macro_rules! include_public {
 #[macro_export]
 macro_rules! include_logo {
     ($path:expr) => {
-        include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/public/assets/logos/", $path))
+        include_str!(concat!(
+            env!("CARGO_MANIFEST_DIR"),
+            "/public/assets/logos/",
+            $path
+        ))
     };
 }
 
@@ -56,14 +57,17 @@ macro_rules! link_logo {
 #[derive(RustEmbed)]
 #[folder = "i18n/"]
 pub struct Localizations;
-pub const SUPPORTED_LANGS: [unic_langid::LanguageIdentifier;2] =
+pub const SUPPORTED_LANGS: [unic_langid::LanguageIdentifier; 2] =
     [unic_langid::langid!("de-DE"), unic_langid::langid!("en-GB")];
 pub static CORE_LANGUAGE_LOADER: OnceLock<FluentLanguageLoader> = OnceLock::new();
 
 pub fn get_core_language_loader() -> &'static FluentLanguageLoader {
     setup_language_loader(&CORE_LANGUAGE_LOADER, "core")
 }
-pub fn setup_language_loader(loader:&'static OnceLock<FluentLanguageLoader>, domain: &str) -> &'static FluentLanguageLoader {
+pub fn setup_language_loader(
+    loader: &'static OnceLock<FluentLanguageLoader>,
+    domain: &str,
+) -> &'static FluentLanguageLoader {
     loader.get_or_init(|| {
         let loader = FluentLanguageLoader::new(domain, langid!("de-DE"));
         let _ = loader.load_languages(&Localizations, &SUPPORTED_LANGS);
@@ -166,4 +170,23 @@ pub fn capitalize(str: &str) -> String {
         })
         .collect::<Vec<_>>()
         .join(" ")
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Default)]
+pub struct TabIndex(u8);
+impl Deref for TabIndex {
+    type Target = u8;
+
+    fn deref(&self) -> &Self::Target {
+        &self.0
+    }
+}
+impl Iterator for TabIndex {
+    type Item = u8;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        let value = self.0;
+        self.0 = self.0.wrapping_add(1);
+        Some(value)
+    }
 }

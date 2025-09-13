@@ -1,11 +1,11 @@
-use maud::{html, Markup, PreEscaped};
 use Props::with_props;
+use maud::{Markup, PreEscaped, html};
 
-use crate::{components::Component, link_public, Link};
+use crate::{Link, components::Component, link_public};
 
 #[with_props]
-pub fn markup<'a, 'b, 'c, 'd>(name: &'a str, defs: &'b[(&'c str, &'d str)]) -> Markup{
-    html!{
+pub fn markup<'a, 'b, 'c, 'd>(name: &'a str, defs: &'b [(&'c str, &'d str)]) -> Markup {
+    html! {
         div."diagram-container".mermaid."margin-b-medium" name=(name) id=(name){
             style{
                 ".diagram-container svg{ padding-block:1em}"
@@ -18,9 +18,13 @@ pub fn markup<'a, 'b, 'c, 'd>(name: &'a str, defs: &'b[(&'c str, &'d str)]) -> M
         }
     }
 }
-pub fn script() -> Link{
+pub fn script() -> Link {
     link_public!("components/mermaid.js")
 }
-pub fn component<'a, 'b, 'c, 'd>()->Component<MarkupProps<'a, 'b, 'c, 'd>,(),Link>{
-    Component { html: markup, style: (), script: script() }
+pub fn component<'a, 'b, 'c, 'd>() -> Component<MarkupProps<'a, 'b, 'c, 'd>, (), Link> {
+    Component {
+        html: markup,
+        style: (),
+        script: script(),
+    }
 }

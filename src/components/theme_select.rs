@@ -1,9 +1,13 @@
 use maud::html;
 use unic_langid::LanguageIdentifier;
 
-use crate::{get_core_language_loader, Page, THEME_JS};
+use crate::{Page, THEME_JS, get_core_language_loader};
 
-pub fn theme_select(current_page: Page, themes: &[(&str, bool)], lang: &LanguageIdentifier) -> maud::Markup {
+pub fn theme_select(
+    current_page: Page,
+    themes: &[(&str, bool)],
+    lang: &LanguageIdentifier,
+) -> maud::Markup {
     let loader = get_core_language_loader().select_languages(&[lang]);
     let theme = |name: &str, default: bool| {
         html! {

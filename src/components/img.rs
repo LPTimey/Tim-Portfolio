@@ -1,23 +1,23 @@
-use maud::{self, Markup, html};
 use Props::with_props;
+use maud::{self, Markup, html};
 
 use crate::Link;
 
 #[with_props(Default)]
-pub fn img<'a,T: Into<String> + Default>(
+pub fn img<'a, T: Into<String> + Default>(
     pre_src: T,
     src: Link,
     alt: &'a str,
     id: Option<&'a str>,
-    class: &'a[&'a str],
-    style: Option<&'a str>
+    class: &'a [&'a str],
+    style: Option<&'a str>,
 ) -> Markup {
-    let img_d = match src.get_img_dimensions(){
+    let img_d = match src.get_img_dimensions() {
         Some(d) => d,
         None => {
-            eprintln!("cant find img {}",*src);
-            (0,0)
-        },
+            eprintln!("cant find img {}", *src);
+            (0, 0)
+        }
     };
     html! {
         img

@@ -4,8 +4,16 @@ use i18n_embed::fluent::FluentLanguageLoader;
 use maud::PreEscaped;
 
 use crate::{
+    TabIndex,
     components::{
-        carousel, codeblock, footer::footer, head::default_head, header::header, icon::{Icon, IconToMarkup}, img, mermaid, page, project_table::{self, with_sub_heading}, tooltip::{self, Align}, Component
+        Component, carousel, codeblock,
+        footer::footer,
+        head::default_head,
+        header::header,
+        icon::{Icon, IconToMarkup},
+        img, mermaid, page,
+        project_table::{self, with_sub_heading},
+        tooltip::{self, Align},
     },
     include_public,
     projects::ProjectMetadata,
@@ -193,6 +201,7 @@ pub fn meta_data(lang: &LanguageIdentifier) -> ProjectMetadata {
 }
 
 pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
+    let mut _tab_index = TabIndex::default();
     let meta_data = meta_data(lang);
     let loader = get_language_loader().select_languages(&[lang]);
     let core_loader = get_core_language_loader().select_languages(&[lang]);

@@ -2,7 +2,13 @@ use maud::html;
 use unic_langid::LanguageIdentifier;
 
 use crate::{
-    components::{img::{self, ImgProps}, Component}, link_public, projects::ProjectMetadata, Link
+    Link,
+    components::{
+        Component,
+        img::{self, ImgProps},
+    },
+    link_public,
+    projects::ProjectMetadata,
 };
 use Props::with_props;
 

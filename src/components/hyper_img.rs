@@ -4,7 +4,12 @@ use Props::with_props;
 use maud::{Markup, html};
 
 use crate::{
-    components::{img::{img, ImgProps}, Component}, link_public, Link
+    Link,
+    components::{
+        Component,
+        img::{ImgProps, img},
+    },
+    link_public,
 };
 
 #[derive(Default)]

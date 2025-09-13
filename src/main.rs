@@ -37,7 +37,6 @@ impl Cli {
                 let relative_path = page.to_href(lang);
                 let full_path = self.out.join(relative_path);
 
-
                 if let Some(parent) = full_path.parent() {
                     fs::create_dir_all(parent)?;
                 }

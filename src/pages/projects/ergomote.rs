@@ -5,8 +5,19 @@ use maud::PreEscaped;
 
 use crate::{
     components::{
-        self, footer::footer, head::default_head, header::header, icon::{Icon, IconToMarkup}, img, project_table::{self, with_sub_heading}, three_js_setup::import_map, tooltip, Component
-    }, include_public, projects::ProjectMetadata, setup_language_loader
+        self, Component,
+        footer::footer,
+        head::default_head,
+        header::header,
+        icon::{Icon, IconToMarkup},
+        img,
+        project_table::{self, with_sub_heading},
+        three_js_setup::import_map,
+        tooltip,
+    },
+    include_public,
+    projects::ProjectMetadata,
+    setup_language_loader,
 };
 
 use super::super::*;
