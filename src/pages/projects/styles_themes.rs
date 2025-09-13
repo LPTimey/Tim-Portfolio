@@ -26,7 +26,7 @@ einer Zielgruppenanalyse sowie der fundierten Begründung des Designprozesses.
 "#,
 );
 pub const MOD_PATH: &str = module_path!();
-pub fn meta_data(lang: &LanguageIdentifier) -> ProjectMetadata {
+pub fn meta_data(_lang: &LanguageIdentifier) -> ProjectMetadata {
     ProjectMetadata {
         page: Page::Styles,
         title_img: link_public!("assets/Screendesign/Styles/title-img.webp").into(),

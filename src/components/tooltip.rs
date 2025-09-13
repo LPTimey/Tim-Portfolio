@@ -9,6 +9,7 @@ use crate::{Link, components::Component, link_public};
 pub struct Percentage(u8);
 
 impl Percentage {
+    #[allow(unused)]
     /// Erstellt ein neues `Percentage`, wenn der Wert im gültigen Bereich liegt.
     /// Der Wert muss (inklusive) zwischen 0 und 100 liegen.
     pub const fn new(value: u8) -> Option<Self> {
@@ -25,6 +26,7 @@ impl Percentage {
         Self(value)
     }
 
+    #[allow(unused)]
     pub const fn get(self) -> u8 {
         self.0
     }
@@ -47,6 +49,7 @@ impl Display for Percentage {
     }
 }
 
+#[allow(unused)]
 pub enum Align {
     Begin,
     Center,

@@ -6,7 +6,8 @@ use crate::{
     components::{
         self, Component, footer::footer, head::default_head, header::header, icon::Icon,
         project_card, project_table::Content, scrolling_img, tooltip,
-    }, include_public, setup_language_loader,
+    },
+    include_public, setup_language_loader,
 };
 
 use super::*;
@@ -71,8 +72,8 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
         (
             loader.get("languages"),
             [
-                Icon::HTML,
-                Icon::CSS,
+                Icon::Html,
+                Icon::Css,
                 Icon::JavaScript,
                 Icon::Rust,
                 Icon::Java,
@@ -85,9 +86,12 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
         (
             cat,
             icons.map(|icon| {
-                (Into::<Content>::into(html! {
+                (
+                    Into::<Content>::into(html! {
                         a.link.underline target="_blank" href=(icon.site_link()) {(icon.name())}
-                    }), icon.img_link())
+                    }),
+                    icon.img_link(),
+                )
             }),
         )
     });

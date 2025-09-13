@@ -91,11 +91,11 @@ constexpr Vec2 T[] =
     { {0, 0}, {0, -1}, {-1, 0}, {1, 0} };
 constexpr Vec2* Tetrominos[] =
     { L, R_L, I, Z, R_Z, B, T };";
-const TET_TET_VEC_2: &str = "\
+const _TET_TET_VEC_2: &str = "\
 // ... Die anderen Tetrominos ...
 constexpr Vec2 T[] = { {0, 0}, {0, -1}, {-1, 0}, {1, 0} };
 constexpr Vec2* Tetrominos[] = { L, R_L, I, Z, R_Z, B, T };";
-const TET_BAG: &str = "\
+const _TET_BAG: &str = "\
 using Tetromino as T;
 class TetrominoBag {
     Tetromino bag
@@ -193,6 +193,7 @@ pub fn meta_data(lang: &LanguageIdentifier) -> ProjectMetadata {
 }
 
 pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
+    let meta_data = meta_data(lang);
     let loader = get_language_loader().select_languages(&[lang]);
     let core_loader = get_core_language_loader().select_languages(&[lang]);
 
@@ -225,7 +226,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                 script type="module" src=(page.path_to_root(lang)+*codeblock_script){}
                 script type="module" src=(page.path_to_root(lang)+*mermaid_script){}
                 style{(PreEscaped(include_asset!("tetris.css")))}
-                (default_head("Tetris","//TODO: Add description",page, lang))
+                (default_head("Tetris",meta_data.description,page, lang))
                 link rel="stylesheet" href=(page.path_to_root(lang)+*table_style);
                 link rel="stylesheet" href=(page.path_to_root(lang)+*carousel_style);
                 link rel="stylesheet" href=(page.path_to_root(lang)+*codeblock_style);
@@ -238,7 +239,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                     section #Hero{
                         picture #HeroImg{(img::img (img::ImgProps {
                                 pre_src: page.path_to_root(lang),
-                                src: meta_data(lang).title_img.light(),
+                                src: meta_data.title_img.light(),
                                 ..Default::default()
                             }))}
                     }
@@ -249,7 +250,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                             picture{
                                 (img::img (img::ImgProps {
                                     pre_src: page.path_to_root(lang),
-                                    src: meta_data(lang).title_img.light(),
+                                    src: meta_data.title_img.light(),
                                     ..Default::default()
                                 }))
                             }
@@ -337,7 +338,7 @@ Um die Nutzereingabe zu lesen werden 2 Typen exportiert: Buttons und Button. But
                         "#}
                         pre{(codeblock_html(codeblock::MarkupProps { id: "", data: get_str_lines_range(TETRIS_H, 34, 48), prog_lang: "cpp" }))}
 
-                        (mermaid_html(mermaid::MarkupProps { name: "TetrinoDiagram", defs: &[("horizontal",&get_tet_bag_diagram(lang, true)),("vertical",&&get_tet_bag_diagram(lang, false))] }))
+                        (mermaid_html(mermaid::MarkupProps { name: "TetrinoDiagram", defs: &[("horizontal",&get_tet_bag_diagram(lang, true)),("vertical",&get_tet_bag_diagram(lang, false))] }))
                         h3."body-strong"{"Hardware"}
                         p{}
                     }

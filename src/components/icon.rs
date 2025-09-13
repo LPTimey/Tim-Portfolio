@@ -42,10 +42,10 @@ pub enum Icon {
     C,
     Cpp,
     CSharp,
-    CSS,
+    Css,
     Docker,
     Dribbble,
-    HTML,
+    Html,
     Java,
     JavaScript,
     Jupyter,
@@ -84,14 +84,14 @@ impl Icon {
             Icon::C => "C",
             Icon::Cpp => "C++",
             Icon::CSharp => "C#",
-            Icon::CSS => "CSS",
+            Icon::Css => "CSS",
             Icon::Docker => "Docker",
             Icon::Dribbble => "Dribbble",
             Icon::Fedora => "Fedora",
             Icon::Fritzing => "Fritzing",
             Icon::Git => "Git",
             Icon::GitHub => "GitHub",
-            Icon::HTML => "HTML",
+            Icon::Html => "HTML",
             Icon::Java => "Java",
             Icon::JavaScript => "JavaScript",
             Icon::Jupyter => "Jupyter",
@@ -132,14 +132,14 @@ impl Icon {
             Icon::C => link_logo!("c-svgrepo-com.svg"),
             Icon::Cpp => link_logo!("c-plusplus-svgrepo-com.svg"),
             Icon::CSharp => link_logo!("c-sharp-svgrepo-com.svg"),
-            Icon::CSS => link_logo!("CSS Logo.svg"),
+            Icon::Css => link_logo!("CSS Logo.svg"),
             Icon::Docker => link_logo!("docker-svgrepo-com.svg"),
             Icon::Dribbble => link_logo!("dribbble-icon-svgrepo-com.svg"),
             Icon::Fedora => link_logo!("fedora-svgrepo-com.svg"),
             Icon::Fritzing => link_logo!("fritzing.svg"),
             Icon::Git => link_logo!("git-icon-svgrepo-com.svg"),
             Icon::GitHub => link_logo!("github-icon-svgrepo-com.svg"),
-            Icon::HTML => link_logo!("html-5-no-wordmark-svgrepo-com.svg"),
+            Icon::Html => link_logo!("html-5-no-wordmark-svgrepo-com.svg"),
             Icon::Java => link_logo!("java-svgrepo-com.svg"),
             Icon::JavaScript => link_logo!("js-svgrepo-com.svg"),
             Icon::Jupyter => link_logo!("jupyter-svgrepo-com.svg"),
@@ -188,10 +188,10 @@ impl Icon {
             // Icon::C => "https://en.wikipedia.org/wiki/C_(programming_language)",
             Icon::Cpp => "https://isocpp.org/",
             Icon::CSharp => "https://learn.microsoft.com/en-us/dotnet/csharp/",
-            Icon::CSS => "https://developer.mozilla.org/en-US/docs/Web/CSS",
+            Icon::Css => "https://developer.mozilla.org/en-US/docs/Web/CSS",
             Icon::Docker => "https://www.docker.com/",
             Icon::Dribbble => "https://dribbble.com/",
-            Icon::HTML => "https://developer.mozilla.org/en-US/docs/Web/HTML",
+            Icon::Html => "https://developer.mozilla.org/en-US/docs/Web/HTML",
             Icon::Java => "https://www.java.com/de/",
             Icon::JavaScript => "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
             Icon::Jupyter => "https://jupyter.org/",
@@ -235,15 +235,18 @@ impl IconToMarkup for [Icon] {
 }
 impl IconToMarkup for Icon {
     fn to_markup(&self, path_to_root: &str) -> Markup {
-        let (img_link,name,site_link) = (self.img_link(), self.name(), self.site_link());
-        html!((tooltip::markup(tooltip::MarkupProps{
-                children: html!{
+        let (img_link, name, site_link) = (self.img_link(), self.name(), self.site_link());
+        html!(
+            (tooltip::markup(tooltip::MarkupProps {
+                children: html! {
                     img."no-border-r" width="40" height="40" src=(path_to_root.to_owned()+*img_link) alt="icon";
                 },
                 content: html!(a.link.underline target="_blank" href=(site_link) {(name)}),
                 popup_align: tooltip::Align::Center,
                 popup_justify: tooltip::Align::End,
                 popup_begin_justify: tooltip::Align::Center,
-                popup_begin_align: tooltip::Align::Center})))
+                popup_begin_align: tooltip::Align::Center
+            }))
+        )
     }
 }

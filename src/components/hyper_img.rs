@@ -33,7 +33,7 @@ impl InsetPercent {
         }
     }
 
-    pub fn to_style(&self) -> String {
+    pub fn as_style(&self) -> String {
         let Self {
             top,
             right,
@@ -76,7 +76,7 @@ pub fn markup(map: HyperMap, path_to_root: String) -> Markup {
                         (img(ImgProps{pre_src:path_to_root.clone(),src:page.1.img, ..Default::default()}))
                         @for button in page.1.buttons.iter(){
                             @if !format!("{}",button.1).ends_with(page.0){
-                                button type="button" style=(button.0.to_style()) href=(button.1) aria-label=(format!("link to: {}",button.1)){}
+                                button type="button" style=(button.0.as_style()) href=(button.1) aria-label=(format!("link to: {}",button.1)){}
                             }
                         }
                     }
