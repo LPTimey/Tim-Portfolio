@@ -16,6 +16,7 @@ use crate::{
         project_table::{self, with_sub_heading},
         tooltip,
     },
+    include_public,
     projects::ProjectMetadata,
     setup_language_loader,
 };
@@ -112,7 +113,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                         ],
                         text: CONTENT.into()
                     }))
-                    section.sect.content{
+                    section.sect.content #OldSect{
                         h2.heading{ "Konzentration" }
                         p { "
                             Screendesigns lassen sich häufig in verschiedene Stile, Themen und Trends unterteilen. Diese Veränderungen betreffen in erster Linie die visuelle, nicht jedoch die interaktive Komponente des Designs. Um dies zu veranschaulichen, wurde das ursprüngliche Screendesign zunächst auf seine interaktiven Elemente hin analysiert, reduziert und anschließend in verschiedene andere Themen und Stile umgewandelt.
@@ -137,6 +138,36 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                                 path_to_root: page.path_to_root(lang)
                             }))
                         }
+                    }
+                    section.sect.content."accent-background" #Glass  style="
+                        --accent-bg-c: var(--black);
+                        --bg-light: #e2d279ff;
+                        --bg-normal: #F0D439;
+                        --bg-dark: #F0BE3A;"{
+                        div .cut."top-cut" {(PreEscaped(include_public!("assets/noise/wave.svg")))}
+                        div.desc{
+                            h2.heading{ "Glasmorphismus" }
+                            p { "Lorem" }
+                            div style="width:20vw"{
+                                (phone_html(phone_border::MarkupProps { content: html!(), path_to_root: page.path_to_root(lang) }))
+                            }
+                        }
+                        // div .cut."bot-cut" {(PreEscaped(include_public!("assets/noise/waves-opacity.svg")))}
+                    }
+                    section.sect.content."accent-background" #Bau style="
+                        --accent-bg-c: var(--white);
+                        --bg-light: #c879e2ff;
+                        --bg-normal: #c239f0ff;
+                        --bg-dark: #cc3af0ff;"{
+                        // div .cut."top-cut" {(PreEscaped(include_public!("assets/noise/wave.svg")))}
+                        div.desc{
+                            h2.heading{ "Bauhaus" }
+                            p { "Lorem" }
+                            div style="width:20vw"{
+                                (phone_html(phone_border::MarkupProps { content: html!(), path_to_root: page.path_to_root(lang) }))
+                            }
+                        }
+                        div .cut."bot-cut" {(PreEscaped(include_public!("assets/noise/waves-opacity.svg")))}
                     }
                 }
                 (footer(lang))

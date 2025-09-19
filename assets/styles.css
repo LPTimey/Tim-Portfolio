@@ -1,3 +1,26 @@
-.phone-border{
-    height: 40vh;
+#OldSect{
+    display: grid;
+    grid-template-areas: 
+        "heading phones"
+        "paragraph phones";
+    grid-template-rows: min-content fit-content;
+    grid-template-columns: 11fr 5fr;
+    gap: 3ch;
+    
+    >h2{
+        grid-area: heading;
+        align-self: end;
+        padding-bottom: 1em;
+    }
+
+    >p{
+        grid-area: paragraph;
+    }
+
+    >div{
+        grid-area: phones;
+        display: flex;
+        align-self: center;
+        gap: 3ch;
+    }
 }
