@@ -27,11 +27,11 @@
 .pic-content {
     position: absolute;
 
-    inset: 0;
+    inset: 2% 4%;
     z-index: -1;
-    padding: 2% 4%;
     border-radius: 20% / 10.5%;
     overflow: hidden;
+    box-sizing: border-box;
 
     >img{
         width: 100%;
