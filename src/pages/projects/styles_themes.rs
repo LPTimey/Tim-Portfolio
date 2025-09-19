@@ -1,18 +1,32 @@
+use std::sync::OnceLock;
+
+use i18n_embed::fluent::FluentLanguageLoader;
 use maud::PreEscaped;
 
 use crate::{
+    TabIndex,
     components::{
         Component,
         footer::footer,
         head::default_head,
         header::header,
-        img, page,
+        icon::{Icon, IconToMarkup},
+        img::{self, img},
+        page, phone_border,
         project_table::{self, with_sub_heading},
+        tooltip,
     },
     projects::ProjectMetadata,
+    setup_language_loader,
 };
 
 use super::super::*;
+
+pub static LANGUAGE_LOADER: OnceLock<FluentLanguageLoader> = OnceLock::new();
+
+pub fn get_language_loader() -> &'static FluentLanguageLoader {
+    setup_language_loader(&LANGUAGE_LOADER, "styles")
+}
 
 const DESCRIPTION: &str =
     r#"Ein Experiment, welches die Wichtigkeit eines Ansprechenden Visual Designs zeigt."#;
@@ -38,18 +52,31 @@ pub fn meta_data(_lang: &LanguageIdentifier) -> ProjectMetadata {
 }
 
 pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
+    let mut _tab_index = TabIndex::default();
+    let meta_data = meta_data(lang);
+    let loader = get_language_loader().select_languages(&[lang]);
+    let core_loader = get_core_language_loader().select_languages(&[lang]);
+
     let Component {
         html: table_html,
         style: table_style,
         ..
     } = project_table::component();
+    let Component {
+        html: phone_html,
+        style: phone_style,
+        ..
+    } = phone_border::component();
 
     page::page(
         page.path_to_root(lang),
         html! {
             head{
-                (default_head("Style","TODO: Add description",page,lang))
-                link rel="stylesheet" href=(page.path_to_root(lang)+*table_style);
+                (default_head("Style",DESCRIPTION,page,lang))
+                link rel="stylesheet" href=(page.path_to_root(lang) + *table_style );
+                link rel="stylesheet" href=(page.path_to_root(lang) + *tooltip::style() );
+                link rel="stylesheet" href=(page.path_to_root(lang) + *phone_style );
+                style{(PreEscaped(include_asset!("styles.css")))}
             }
 
             body{
@@ -58,7 +85,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                     section #Hero{
                         picture #HeroImg{(img::img (img::ImgProps {
                                 pre_src: page.path_to_root(lang),
-                                src: meta_data(lang).title_img.light(),
+                                src: meta_data.title_img.light(),
                                 ..Default::default()
                             }))}
                     }
@@ -73,13 +100,44 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                             }
                         }.into(),
                         rows:&[
-                            ("Studienmodul", "Gestaltung").into(),
-                            ("Zeitraum", "Oktober 2023 - Februar 2024").into(),
-                            ("Tools", "Illustrator, git, GitHub").into(),
+                            (&*core_loader.get("module").leak(), "Gestaltung").into(),
+                            (&*core_loader.get("period").leak(), format!("{} 2023 - {} 2024",core_loader.get("October"),core_loader.get("February")).leak()).into(),
+                            // ("Tools", "Illustrator, git, GitHub").into(),
+                            (&*core_loader.get("tools").leak(), html!{ul."icon-row"{([
+                                Icon::Illustrator,
+                                Icon::Git,
+                                Icon::GitHub,
+                                ].to_markup(&page.path_to_root(lang)))}}).into(),
                             ("Hochschule", "Technische Hochschule Ingolstadt").into(),
                         ],
                         text: CONTENT.into()
                     }))
+                    section.sect.content{
+                        h2.heading{ "Konzentration" }
+                        p { "
+                            Screendesigns lassen sich häufig in verschiedene Stile, Themen und Trends unterteilen. Diese Veränderungen betreffen in erster Linie die visuelle, nicht jedoch die interaktive Komponente des Designs. Um dies zu veranschaulichen, wurde das ursprüngliche Screendesign zunächst auf seine interaktiven Elemente hin analysiert, reduziert und anschließend in verschiedene andere Themen und Stile umgewandelt.
+
+                            Diese Version, die das Layout-Design und den tatsächlichen Content ohne das vollständige Screendesign enthält, dient als Grundversion für die nachfolgenden Screendesigns. Es werden keine grundlegenden Änderungen am Layout vorgenommen, sondern lediglich neue Screendesigns hinzugefügt.
+                        " }
+                        div{
+                            (phone_html(phone_border::MarkupProps {
+                                content: img(img::ImgProps {
+                                    pre_src: page.path_to_root(lang),
+                                    src: link_public!("assets/Screendesign/Styles/Tim_Ruland_Styles_Screendesign_Original-06.webp"),
+                                    style:Some("background-color:var(--light);"), ..Default::default()
+                                }),
+                                path_to_root: page.path_to_root(lang)
+                            }))
+                            (phone_html(phone_border::MarkupProps {
+                                content: img(img::ImgProps {
+                                    pre_src: page.path_to_root(lang),
+                                    src: link_public!("assets/Screendesign/Styles/Tim_Ruland_Styles_Screendesign_Original Pic.webp"),
+                                    ..Default::default()
+                                }),
+                                path_to_root: page.path_to_root(lang)
+                            }))
+                        }
+                    }
                 }
                 (footer(lang))
             }
