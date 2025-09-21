@@ -28,10 +28,18 @@ pub fn default_head(
         link rel="shortcut icon" href=(path_to_root.clone()+"assets/Lebenslauf/schönes bild klein@0,25x.png") type="image/x-icon";
 
         @for page in Page::iter() {
-            link rel="prefetch" href=(path_to_root.to_string()+&page.to_href(lang).display().to_string());
+            link rel="prefetch" href=(path_to_root.to_string()+&page.to_href(lang).components()
+                .map(|c| c.as_os_str().to_string_lossy())
+                .collect::<Vec<_>>()
+                .join("/"));
         }
-        @for lang in SUPPORTED_LANGS {
-            link rel="preload" href=(path_to_root.to_string()+&page.to_href(&lang).display().to_string());
+        @for langx in SUPPORTED_LANGS {
+            @if langx.language != lang.language {
+                link rel="prefetch" href=(path_to_root.to_string()+&page.to_href(&langx).components()
+                    .map(|c| c.as_os_str().to_string_lossy())
+                    .collect::<Vec<_>>()
+                    .join("/")) as="document";
+            }
         }
     }
 }

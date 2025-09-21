@@ -31,6 +31,7 @@ export async function initInfoSpin() {
     const renderer = new THREE.WebGLRenderer(
         { alpha: true, canvas: infoCanvas, antialias: true }
     );
+    renderer.toneMapping = THREE.NoToneMapping;
 
     const scene = new THREE.Scene();
     scene.add(watch.scene.clone());
