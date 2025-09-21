@@ -35,7 +35,7 @@
 .phone-content {
     position: absolute;
     align-self: center;
-    inset: 1% 2%;
+    inset: 1% 1.75%;
     z-index: -1;
     border-radius: 15% / 9%;
     overflow: hidden;

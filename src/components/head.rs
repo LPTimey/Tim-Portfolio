@@ -31,7 +31,7 @@ pub fn default_head(
             link rel="prefetch" href=(path_to_root.to_string()+&page.to_href(lang).display().to_string());
         }
         @for lang in SUPPORTED_LANGS {
-            link rel="prefetch" href=(path_to_root.to_string()+&page.to_href(&lang).display().to_string());
+            link rel="preload" href=(path_to_root.to_string()+&page.to_href(&lang).display().to_string());
         }
     }
 }

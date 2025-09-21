@@ -1,26 +1,95 @@
-#OldSect{
+.phone-border {
+    height: 50vh;
+    width: auto;
+}
+
+#OldSect {
+    padding-top: 0;
     display: grid;
-    grid-template-areas: 
-        "heading phones"
+    grid-template-areas:
+        "heading   phones"
         "paragraph phones";
     grid-template-rows: min-content fit-content;
     grid-template-columns: 11fr 5fr;
     gap: 3ch;
-    
-    >h2{
+
+    >h2 {
         grid-area: heading;
         align-self: end;
         padding-bottom: 1em;
     }
 
-    >p{
+    >p {
         grid-area: paragraph;
     }
 
-    >div{
+    >div {
         grid-area: phones;
         display: flex;
         align-self: center;
         gap: 3ch;
     }
+}
+
+#Bau>.desc,
+#Glass>.desc {
+    display: grid;
+    grid-template-rows: 1fr auto auto 1fr;
+    column-gap: 4ch;
+
+    >h2,
+    >.sub {
+        max-width: 60ch;
+    }
+
+    >p,
+    >ul {
+        max-width: 80ch;
+    }
+
+    >div:has(.phone-border) {
+        grid-area: phone;
+        display: flex;
+        align-self: center;
+        gap: 3ch;
+        justify-self: center;
+    }
+
+    >h2 {
+        grid-area: heading;
+        align-self: end;
+    }
+
+    >.sub {
+        grid-area: subheading;
+        padding-bottom: 2em;
+    }
+
+    >p {
+        grid-area: paragraph;
+    }
+
+    >ul {
+        grid-area: bullets;
+    }
+}
+
+#Bau>.desc {
+    grid-template-columns: 1fr 2fr;
+    grid-template-areas:
+        "phone heading"
+        "phone subheading"
+        "phone paragraph"
+        "phone bullets"
+    ;
+}
+
+#Glass>.desc {
+    grid-template-columns: 3fr 1fr;
+    grid-template-areas:
+        "heading    phone"
+        "subheading phone"
+        "paragraph  phone"
+        "bullets    phone"
+    ;
 }

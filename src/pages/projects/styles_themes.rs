@@ -29,24 +29,14 @@ pub fn get_language_loader() -> &'static FluentLanguageLoader {
     setup_language_loader(&LANGUAGE_LOADER, "styles")
 }
 
-const DESCRIPTION: &str =
-    r#"Ein Experiment, welches die Wichtigkeit eines Ansprechenden Visual Designs zeigt."#;
-const CONTENT: PreEscaped<&'static str> = PreEscaped(
-    r#"
-Im Rahmen dieses Projekts habe ich einen bestehenden Screen einer App oder Website analysiert, 
-nachgebaut und anschließend in drei unterschiedlichen UI-Stilen neugestaltet. 
-Ziel war es, verschiedene Designtrends zu untersuchen und deren Wirkung auf unterschiedliche Zielgruppen zu reflektieren. 
-Neben der gestalterischen Umsetzung lag der Fokus auf der stilistischen Recherche, 
-einer Zielgruppenanalyse sowie der fundierten Begründung des Designprozesses.
-"#,
-);
 pub const MOD_PATH: &str = module_path!();
-pub fn meta_data(_lang: &LanguageIdentifier) -> ProjectMetadata {
+pub fn meta_data(lang: &LanguageIdentifier) -> ProjectMetadata {
+    let loader = get_language_loader().select_languages(&[lang]);
     ProjectMetadata {
         page: Page::Styles,
         title_img: link_public!("assets/Screendesign/Styles/title-img.webp").into(),
-        name: "Themen & Stile",
-        description: DESCRIPTION,
+        name: loader.get("name").leak(),
+        description: loader.get("description").leak(),
         category: projects::Category::Screendesign,
         favorite: true,
     }
@@ -73,7 +63,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
         page.path_to_root(lang),
         html! {
             head{
-                (default_head("Style",DESCRIPTION,page,lang))
+                (default_head("Style",loader.get("description").leak(),page,lang))
                 link rel="stylesheet" href=(page.path_to_root(lang) + *table_style );
                 link rel="stylesheet" href=(page.path_to_root(lang) + *tooltip::style() );
                 link rel="stylesheet" href=(page.path_to_root(lang) + *phone_style );
@@ -92,7 +82,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                     }
                     (table_html(project_table::MarkupProps {
                         // title: "UI-Stile im Screendesign".into(),
-                        title: with_sub_heading("UI Themen & Stile","Screendesign"),
+                        title: with_sub_heading(loader.get("name").leak(),"Screendesign"),
                         graphic: html!{
                             picture{
                                 img loading="lazy" draggable="false" id="OriginalImage"
@@ -109,17 +99,13 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                                 Icon::Git,
                                 Icon::GitHub,
                                 ].to_markup(&page.path_to_root(lang)))}}).into(),
-                            ("Hochschule", "Technische Hochschule Ingolstadt").into(),
+                            (&*core_loader.get("university").leak(), "Technische Hochschule Ingolstadt").into(),
                         ],
-                        text: CONTENT.into()
+                        text: loader.get("content").leak().into()
                     }))
                     section.sect.content #OldSect{
-                        h2.heading{ "Konzentration" }
-                        p { "
-                            Screendesigns lassen sich häufig in verschiedene Stile, Themen und Trends unterteilen. Diese Veränderungen betreffen in erster Linie die visuelle, nicht jedoch die interaktive Komponente des Designs. Um dies zu veranschaulichen, wurde das ursprüngliche Screendesign zunächst auf seine interaktiven Elemente hin analysiert, reduziert und anschließend in verschiedene andere Themen und Stile umgewandelt.
-
-                            Diese Version, die das Layout-Design und den tatsächlichen Content ohne das vollständige Screendesign enthält, dient als Grundversion für die nachfolgenden Screendesigns. Es werden keine grundlegenden Änderungen am Layout vorgenommen, sondern lediglich neue Screendesigns hinzugefügt.
-                        " }
+                        h2.heading{ (loader.get("concentration")) }
+                        p { (loader.get("concentration-text")) }
                         div{
                             (phone_html(phone_border::MarkupProps {
                                 content: img(img::ImgProps {
@@ -146,10 +132,24 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                         --bg-dark: #F0BE3A;"{
                         div .cut."top-cut" {(PreEscaped(include_public!("assets/noise/wave.svg")))}
                         div.desc{
-                            h2.heading{ "Glasmorphismus" }
-                            p { "Lorem" }
-                            div style="width:20vw"{
-                                (phone_html(phone_border::MarkupProps { content: html!(), path_to_root: page.path_to_root(lang) }))
+                            h2.heading{ (loader.get("glass-morphism")) }
+                            p.sub { (loader.get("glass-morphism-sub")) }
+                            p {  (loader.get("glass-morphism-text")) }
+                            ul.list {
+                                li { (loader.get("glass-morphism-list-1")) }
+                                li { (loader.get("glass-morphism-list-2")) }
+                                li { (loader.get("glass-morphism-list-3")) }
+                                li { (loader.get("glass-morphism-list-4")) }
+                            }
+                            div{
+                                (phone_html(phone_border::MarkupProps {
+                                    content: img(img::ImgProps {
+                                        pre_src: page.path_to_root(lang),
+                                        src: link_public!("assets/Screendesign/Styles/Tim_Ruland_Styles_Screendesign_Glas.webp"),
+                                        ..Default::default()
+                                    }),
+                                    path_to_root: page.path_to_root(lang)
+                                }))
                             }
                         }
                         // div .cut."bot-cut" {(PreEscaped(include_public!("assets/noise/waves-opacity.svg")))}
@@ -158,17 +158,31 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                         --accent-bg-c: var(--white);
                         --bg-light: #c879e2ff;
                         --bg-normal: #c239f0ff;
-                        --bg-dark: #cc3af0ff;"{
+                        --bg-dark: #ac33caff;"{
                         // div .cut."top-cut" {(PreEscaped(include_public!("assets/noise/wave.svg")))}
                         div.desc{
-                            h2.heading{ "Bauhaus" }
-                            p { "Lorem" }
-                            div style="width:20vw"{
-                                (phone_html(phone_border::MarkupProps { content: html!(), path_to_root: page.path_to_root(lang) }))
+                            h2.heading{ (loader.get("bau")) }
+                            p.sub { (loader.get("bau-sub")) }
+                            p { (loader.get("bau-text")) }
+                            ul.list {
+                                li { (loader.get("bau-list-1")) }
+                                li { (loader.get("bau-list-2")) }
+                                li { (loader.get("bau-list-3")) }
+                            }
+                            div{
+                                (phone_html(phone_border::MarkupProps {
+                                    content: img(img::ImgProps {
+                                        pre_src: page.path_to_root(lang),
+                                        src: link_public!("assets/Screendesign/Styles/Tim_Ruland_Styles_Screendesign_Bauhaus.webp"),
+                                        ..Default::default()
+                                    }),
+                                    path_to_root: page.path_to_root(lang)
+                                }))
                             }
                         }
                         div .cut."bot-cut" {(PreEscaped(include_public!("assets/noise/waves-opacity.svg")))}
                     }
+                    section.sect{}
                 }
                 (footer(lang))
             }
