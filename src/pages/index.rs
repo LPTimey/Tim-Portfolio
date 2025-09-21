@@ -113,7 +113,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                 main{
                     section #Hero{
                         div #HeroImg{
-                            // TODO: Move into noscript and do anim in canvas because firefox just cant do this somehow
+                            // TODO: Move into noscript and do anim in canvas because Firefox just cant do this somehow
                             (scroll_img_html(scrolling_img::MarkupProps { img: Link((page.path_to_root(lang)+*link_public!("assets/Title-img.webp")).leak()), rows: 3, columns: 3, duration: Duration::from_secs(50) }))
                         }
                         div ."hero-content"{
@@ -124,7 +124,6 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                             a draggable="false" .btn."accent-btn".shadow href="#AboutMe" { span{(loader.get("discover-more"))} }
                         }
                     }
-
 
                     section #AboutMe .sect."sect-large-start"."sect-small-end" {
                         div.content {
