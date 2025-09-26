@@ -24,9 +24,9 @@ fn markup(img: Link, rows: u8, columns: u8, duration: std::time::Duration) -> ma
 
             style{(PreEscaped(format!(
                 "@keyframes scroll-{columns}x{rows}{{
-                    from {{ transform: translate(0, 0); }}
+                    from {{ transform: translate({end_x}%, 0%); }}
 
-                    to {{ transform: translate({end_x}%, {end_y}%); }}
+                    to {{ transform: translate(0, {end_y}%); }}
                 }}",
                 end_x=-2.0 * 100.0/rows as f64,
                 end_y=-100.0/rows as f64
