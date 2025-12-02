@@ -33,3 +33,4 @@ period = Period
 team = Team
 tools = Tools
 university = University
+internship = Internship

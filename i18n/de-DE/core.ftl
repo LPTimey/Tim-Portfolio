@@ -33,3 +33,4 @@ period = Zeitraum
 team = Team
 tools = Tools
 university = Hochschule
+internship = Praktikum

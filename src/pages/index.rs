@@ -142,6 +142,15 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                                 div .timeline {
                                     div ."timeline-item" {
                                         span ."timeline-date" {
+                                            "2025 - 2026"
+                                        }
+                                        div ."timeline-content" {
+                                            h3 { "ADVERMA Advertising & Marketing GmbH" }
+                                            p { (core_loader.get("internship")) }
+                                        }
+                                    }
+                                    div ."timeline-item" {
+                                        span ."timeline-date" {
                                             "2023 - " (loader.get("today"))
                                         }
                                         div ."timeline-content" {
