@@ -64,7 +64,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                 Icon::Windows,
                 Icon::Apple,
                 Icon::Linux,
-                Icon::NeoVim,
+                Icon::VSCode,
                 Icon::Git,
                 Icon::GitHub,
             ],

@@ -1,5 +1,5 @@
 pub mod index;
-pub mod adverma;
+pub mod experience;
 pub mod projects;
 
 use std::{ops::Deref, path::PathBuf};
@@ -66,7 +66,7 @@ impl Page {
             Page::Tetris => mod_path_to_href(projects::tetris::MOD_PATH).unwrap(),
             Page::Ergomote => mod_path_to_href(projects::ergomote::MOD_PATH).unwrap(),
             Page::WebDev => mod_path_to_href(projects::webdev::MOD_PATH).unwrap(),
-            Page::Adverma => mod_path_to_href(adverma::MOD_PATH).unwrap(),
+            Page::Adverma => mod_path_to_href(experience::adverma::MOD_PATH).unwrap(),
         })
     }
     pub fn to_markup(self, lang: &LanguageIdentifier) -> Markup {
@@ -79,7 +79,7 @@ impl Page {
             Page::Tetris => projects::tetris::page(self, lang),
             Page::Ergomote => projects::ergomote::page(self, lang),
             Page::WebDev => projects::webdev::page(self, lang),
-            Page::Adverma => adverma::page(self, lang),
+            Page::Adverma => experience::adverma::page(self, lang),
         }
     }
     pub fn projects(lang: &LanguageIdentifier) -> Vec<ProjectMetadata> {
