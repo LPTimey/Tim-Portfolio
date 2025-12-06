@@ -46,6 +46,19 @@ follow-up-text =
     Eingabeverarbeitung vom automatischen Fallverhalten entkoppeln, was das Spiel deutlich
     reaktionsschneller macht.
     Eingaben können nun jederzeit erkannt werden, nicht nur während eines Ticks.
+
+how-run = Anleitung
 requirements = Voraussetzungen
 pc = PC
 step-by-step = Schritt für Schritt Anleitung
+src = Quellcode
+download = Download
+listed-hardware = Aufgelistete oder gleichwertige Hardware
+hardware-build = Hardware wie oben anbauen
+de-zip = Projekt-ZIP-Datei entpacken
+cd = In den Projektordner wechseln
+open-ide = Arduino IDE darin öffnen
+build-ino = Tetris.ino bauen und auf das Arduino-Board flash-en
+compiler = C/C++-Compiler (z.B: clang++)
+build-nob = nob.c (Buildsystem) zu einer ausführbaren Datei kompilieren
+unix-like = Unix artig

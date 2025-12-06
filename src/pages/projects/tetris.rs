@@ -280,7 +280,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                         text: loader.get("content").leak().into()
                     }))
                     section.sect.content{
-                        h2.subhead."mb-medium"{(loader.get("hardware"))" & "(loader.get("preparation"))}
+                        h2.heading."mb-medium"{(loader.get("hardware"))" & "(loader.get("preparation"))}
                         div #PrepGrid {
                             p {(loader.get("hardware-prep"))}
                             // ul{
@@ -309,7 +309,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                         --bg-dark: #F0BE3A;"{
                         div .cut."top-cut" {(PreEscaped(include_public!("assets/noise/wave.svg")))}
 
-                        h2.subhead{(loader.get("result"))}
+                        h2.heading{(loader.get("result"))}
                         p {(loader.get("result-coarse"))}
                         (carousel_html(carousel::MarkupProps { id: "ResultPhotos", pre_src: &page.path_to_root(lang), images:&[
                             link_public!("assets/Tetris/webp/Tetris_Steckplatine_small.webp"),
@@ -327,8 +327,9 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                         div .cut."bot-cut" {(PreEscaped(include_public!("assets/noise/waves-opacity.svg")))}
                     }
                     section.sect.content{
-                        h2.subhead{"Umsetzung"}
-                        h3."body-strong"{"Code"}
+                        h2.heading{"Umsetzung"}
+                        h3.subhead{"Code"}
+                        // TODO: Layout
                         p{
                             r#" Für den Hackathon, habe ich eine Tetris Bibliothek in C++ entwickelt und als Nachbereitung auf R3 erweitert. Diese basiert auf GameState welches alle wichtigen Daten einer runde speichert und Tick-Methoden bereitstellt um das spiel zu treiben. Es stellt auch eine Methode bereit, um das aktuelle Feld entweder als String oder Liste zu bekommen und es anzeigen zu können.
 
@@ -350,7 +351,8 @@ Um die Nutzereingabe zu lesen werden 2 Typen exportiert: Buttons und Button. But
                         pre{(codeblock_html(codeblock::MarkupProps { id: "", data: get_str_lines_range(TETRIS_H, 34, 48), prog_lang: "cpp" }))}
 
                         (mermaid_html(mermaid::MarkupProps { name: "TetrinoDiagram", defs: &[("horizontal",&get_tet_bag_diagram(lang, true)),("vertical",&get_tet_bag_diagram(lang, false))] }))
-                        h3."body-strong"{"Hardware"}
+                        h3.subhead{"Hardware"}
+                        // TODO: Content
                         p{}
                     }
                     section.sect."accent-background".content #RunSect style="
@@ -360,59 +362,86 @@ Um die Nutzereingabe zu lesen werden 2 Typen exportiert: Buttons und Button. But
                         --bg-dark: #F0BE3A;"{
                         div .cut."top-cut" {(PreEscaped(include_public!("assets/noise/wave.svg")))}
 
-                        h2.subhead{"How to run"}
+                        h2.heading{(loader.get("how-run"))}
                         div #RunCards {
                             div.card.shadow."no-hover" {
                                 h3.subhead{"Arduino"}
                                 div.group{
-                                    h4."body-strong"{(loader.get("requirements"))}
+                                    h4."body-strong"{(loader.get("requirements"))":"}
                                     ul{
-                                        // TODO: Translate
-                                        li{"Quellcode (Download)"}
+                                        li{
+                                            (loader.get("src"))
+                                            " ("
+                                            // TODO: href
+                                            a.link.underline href=""{
+                                                (loader.get("download"))
+                                            }
+                                            ")"
+                                        }
                                         li{"Arduino IDE"}
-                                        li{"Aufgelistete oder gleichwertige Hardware"}
+                                        li{(loader.get("listed-hardware"))}
                                     }
                                 }
                                 div.group{
-                                    h4."body-strong"{(loader.get("step-by-step"))}
+                                    h4."body-strong"{(loader.get("step-by-step"))":"}
                                     ul{
-                                        // TODO: Translate
-                                        li{"Hardware wie oben anbauen"}
-                                        li{"Projekt-ZIP-Datei entpacken"}
-                                        li{"In den Projektordner wechseln"}
-                                        li{"Arduino IDE darin öffnen"}
-                                        li{"Tetris.ino bauen und auf das Arduino-Board flash-en"}
+                                        li{(loader.get("hardware-build"))}
+                                        li{(loader.get("de-zip"))}
+                                        li{(loader.get("cd"))}
+                                        li{(loader.get("open-ide"))}
+                                        li{(loader.get("build-ino"))}
                                     }
                                 }
                             }
                             div.card.shadow."no-hover" {
                                 h3.subhead{(loader.get("pc"))}
                                 div.group{
-                                    h4."body-strong"{(loader.get("requirements"))}
+                                    h4."body-strong"{(loader.get("requirements"))":"}
                                     ul{
-                                        // TODO: Translate
-                                        li{"Quellcode (Download)"}
-                                        li{"C/C++-Compiler (z.B: clang++)"}
+                                        li{
+                                            (loader.get("src"))
+                                            " ("
+                                            // TODO: href
+                                            a.link.underline href=""{
+                                                (loader.get("download"))
+                                            }
+                                            ")"
+                                        }
+                                        li{(loader.get("compiler"))}
                                     }
                                 }
                                 div.group{
-                                    h4."body-strong"{(loader.get("step-by-step"))}
+                                    h4."body-strong"{(loader.get("step-by-step"))":"}
                                     ul{
-                                        // TODO: Translate
-                                        li{"Projekt-ZIP-Datei entpacken"}
-                                        li{"In den Projektordner wechseln"}
+                                        li{(loader.get("de-zip"))}
+                                        li{(loader.get("cd"))}
                                         li{
-                                            "nob.c (Buildsystem) zu einer ausführbaren Datei kompilieren"
+                                            (loader.get("build-nob"))
                                             ul{
-                                                li {"Unix artig: clang -o nob nob.c"}
-                                                li {"Windows: clang -o nob.exe nob.c"}
+                                                li {
+                                                    (loader.get("unix-like"))
+                                                    ": "
+                                                    (codeblock_html(codeblock::MarkupProps { id: "", data: "clang -o nob nob.c", prog_lang: "bash" }))
+                                                }
+                                                li {
+                                                    "Windows"
+                                                    ": "
+                                                    (codeblock_html(codeblock::MarkupProps { id: "", data: "clang -o nob.exe nob.c", prog_lang: "bash" }))
+                                                }
                                             }
                                         }
                                         li{
                                             "nob ausführen"
                                             ul{
-                                                li {"Unix artig: ./nob"}
-                                                li {"Windows: .\\nob.exe"}
+                                                li {
+                                                    (loader.get("unix-like"))
+                                                    ": "
+                                                    (codeblock_html(codeblock::MarkupProps { id: "", data: "./nob", prog_lang: "bash" }))
+                                                }
+                                                li {
+                                                    "Windows"
+                                                    ": "(codeblock_html(codeblock::MarkupProps { id: "", data: ".\\nob.exe", prog_lang: "bash" }))
+                                                }
                                             }
                                         }
                                     }
