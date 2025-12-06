@@ -46,6 +46,6 @@ follow-up-text =
     Eingabeverarbeitung vom automatischen Fallverhalten entkoppeln, was das Spiel deutlich
     reaktionsschneller macht.
     Eingaben können nun jederzeit erkannt werden, nicht nur während eines Ticks.
-req = Requirements
-pc = Computer
+requirements = Voraussetzungen
+pc = PC
 step-by-step = Schritt für Schritt Anleitung

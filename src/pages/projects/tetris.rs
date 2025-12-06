@@ -364,31 +364,58 @@ Um die Nutzereingabe zu lesen werden 2 Typen exportiert: Buttons und Button. But
                         div #RunCards {
                             div.card.shadow."no-hover" {
                                 h3.subhead{"Arduino"}
-                                h4{(loader.get("req"))}
-                                ul{
-                                    li{"Quellcode (Download)"}
-                                    li{"Arduino IDE"}
-                                    li{"Aufgelistete oder gleichwertige Hardware"}
+                                div.group{
+                                    h4."body-strong"{(loader.get("requirements"))}
+                                    ul{
+                                        // TODO: Translate
+                                        li{"Quellcode (Download)"}
+                                        li{"Arduino IDE"}
+                                        li{"Aufgelistete oder gleichwertige Hardware"}
+                                    }
                                 }
-                                h4{(loader.get("step-by-step"))}
-                                ul{
-                                    li{}
-                                    li{}
-                                    li{}
-                                    li{}
-                                    li{}
+                                div.group{
+                                    h4."body-strong"{(loader.get("step-by-step"))}
+                                    ul{
+                                        // TODO: Translate
+                                        li{"Hardware wie oben anbauen"}
+                                        li{"Projekt-ZIP-Datei entpacken"}
+                                        li{"In den Projektordner wechseln"}
+                                        li{"Arduino IDE darin öffnen"}
+                                        li{"Tetris.ino bauen und auf das Arduino-Board flash-en"}
+                                    }
                                 }
                             }
                             div.card.shadow."no-hover" {
                                 h3.subhead{(loader.get("pc"))}
-                                h4{(loader.get("req"))}
-                                ul{
-                                    li{"Quellcode (Download)"}
-                                    li{"C/C++-Compiler (z.B: clang++)"}
+                                div.group{
+                                    h4."body-strong"{(loader.get("requirements"))}
+                                    ul{
+                                        // TODO: Translate
+                                        li{"Quellcode (Download)"}
+                                        li{"C/C++-Compiler (z.B: clang++)"}
+                                    }
                                 }
-                                h4{(loader.get("step-by-step"))}
-                                ul{
-                                    li{}
+                                div.group{
+                                    h4."body-strong"{(loader.get("step-by-step"))}
+                                    ul{
+                                        // TODO: Translate
+                                        li{"Projekt-ZIP-Datei entpacken"}
+                                        li{"In den Projektordner wechseln"}
+                                        li{
+                                            "nob.c (Buildsystem) zu einer ausführbaren Datei kompilieren"
+                                            ul{
+                                                li {"Unix artig: clang -o nob nob.c"}
+                                                li {"Windows: clang -o nob.exe nob.c"}
+                                            }
+                                        }
+                                        li{
+                                            "nob ausführen"
+                                            ul{
+                                                li {"Unix artig: ./nob"}
+                                                li {"Windows: .\\nob.exe"}
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
