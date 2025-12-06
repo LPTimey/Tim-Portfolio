@@ -552,10 +552,14 @@
                 &:active {
                     &::after {
                         transform: translate(0, 0);
-                        opacity: 0.2;
                     }
                 }
             }
+        }
+
+        &.no-hover:hover::after {
+            transform: translate(0.25rem, 0.35rem) scale(1) !important;
+            opacity: calc(1 - var(--transparency)) !important;
         }
     }
 

@@ -1,5 +1,5 @@
-pub mod index;
 pub mod experience;
+pub mod index;
 pub mod projects;
 
 use std::{ops::Deref, path::PathBuf};
@@ -53,7 +53,8 @@ pub enum Page {
     Tetris,
     Ergomote,
     WebDev,
-    Adverma
+    Adverma,
+    Experience,
 }
 impl Page {
     pub fn to_href(self, lang: &LanguageIdentifier) -> PathBuf {
@@ -67,6 +68,7 @@ impl Page {
             Page::Ergomote => mod_path_to_href(projects::ergomote::MOD_PATH).unwrap(),
             Page::WebDev => mod_path_to_href(projects::webdev::MOD_PATH).unwrap(),
             Page::Adverma => mod_path_to_href(experience::adverma::MOD_PATH).unwrap(),
+            Page::Experience => mod_path_to_href(experience::index::MOD_PATH).unwrap(),
         })
     }
     pub fn to_markup(self, lang: &LanguageIdentifier) -> Markup {
@@ -80,6 +82,7 @@ impl Page {
             Page::Ergomote => projects::ergomote::page(self, lang),
             Page::WebDev => projects::webdev::page(self, lang),
             Page::Adverma => experience::adverma::page(self, lang),
+            Page::Experience => experience::index::page(self, lang),
         }
     }
     pub fn projects(lang: &LanguageIdentifier) -> Vec<ProjectMetadata> {
@@ -102,7 +105,16 @@ impl Page {
             Page::Tetris => loader.get("Tetris").to_string(),
             Page::Ergomote => loader.get("Ergomote").to_string(),
             Page::WebDev => loader.get("WebDev").to_string(),
-            Page::Adverma => "ADVERMA".to_string(),
+            Page::Adverma => loader.get("ADVERMA").to_string(),
+            Page::Experience => loader.get("Experience").to_string(),
+        }
+    }
+    pub fn has_priority(self) -> bool {
+        match self {
+            Page::Experience => true,
+            Page::Projects => true,
+            Page::Home => true,
+            _ => false,
         }
     }
 }

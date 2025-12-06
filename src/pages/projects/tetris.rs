@@ -281,23 +281,25 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                     }))
                     section.sect.content{
                         h2.subhead."mb-medium"{(loader.get("hardware"))" & "(loader.get("preparation"))}
-                        p {(loader.get("hardware-prep"))}
-                        ul{
-                            li{"Arduino R3"}
-                            li{"Arduino R4"}
-                            li{(loader.get("breadboard"))}
-                            li{(loader.get("resistors"))}
-                            li{(loader.get("matrix"))}
-                            li{(loader.get("connectors"))}
-                        }
-                        picture #EinzelteilePic{
-                            div.marker #UnoR4Marker{ (tooltip::markup(tooltip::MarkupProps{children:html!{ div."accent-point"{} }, content: PreEscaped("What is going on".to_owned()),popup_align:Align::Center,popup_justify:Align::Center,popup_begin_align:Align::Center,popup_begin_justify:Align::Center })) }
-                            div.marker #UnoR3Marker{ (tooltip::markup(tooltip::MarkupProps{children:html!{ div."accent-point"{} }, content: PreEscaped("What is going on".to_owned()),popup_align:Align::Center,popup_justify:Align::Center,popup_begin_align:Align::Center,popup_begin_justify:Align::Center })) }
-                            div.marker #MatrixMarker{ (tooltip::markup(tooltip::MarkupProps{children:html!{ div."accent-point"{} }, content: PreEscaped("What is going on".to_owned()),popup_align:Align::Center,popup_justify:Align::Center,popup_begin_align:Align::Center,popup_begin_justify:Align::Center })) }
-                            div.marker #ResistorsMarker{ (tooltip::markup(tooltip::MarkupProps{children:html!{ div."accent-point"{} }, content: PreEscaped("What is going on".to_owned()),popup_align:Align::Center,popup_justify:Align::Center,popup_begin_align:Align::Center,popup_begin_justify:Align::Center })) }
-                            div.marker #ExtrasMarker{ (tooltip::markup(tooltip::MarkupProps{children:html!{ div."accent-point"{} }, content: PreEscaped("What is going on".to_owned()),popup_align:Align::Center,popup_justify:Align::Center,popup_begin_align:Align::Center,popup_begin_justify:Align::Center })) }
-                            div.marker #BreadboardMarker{ (tooltip::markup(tooltip::MarkupProps{children:html!{ div."accent-point"{} }, content: PreEscaped("What is going on".to_owned()),popup_align:Align::Center,popup_justify:Align::Center,popup_begin_align:Align::Center,popup_begin_justify:Align::Center })) }
-                            (img::img(img::ImgProps{pre_src:page.path_to_root(lang),src:link_public!("assets/Tetris/webp/Einzelteile.webp"),..Default::default()}))
+                        div #PrepGrid {
+                            p {(loader.get("hardware-prep"))}
+                            // ul{
+                            //     li{"Arduino R3"}
+                            //     li{"Arduino R4"}
+                            //     li{(loader.get("breadboard"))}
+                            //     li{(loader.get("resistors"))}
+                            //     li{(loader.get("matrix"))}
+                            //     li{(loader.get("connectors"))}
+                            // }
+                            picture #EinzelteilePic{
+                                div.marker #UnoR4Marker{ (tooltip::markup(tooltip::MarkupProps{children:html!{ div."accent-point"{} }, content: PreEscaped("Arduino R4".to_owned()),popup_align:Align::Center,popup_justify:Align::Center,popup_begin_align:Align::Center,popup_begin_justify:Align::Center })) }
+                                div.marker #UnoR3Marker{ (tooltip::markup(tooltip::MarkupProps{children:html!{ div."accent-point"{} }, content: PreEscaped("Arduino R3".to_owned()),popup_align:Align::Center,popup_justify:Align::Center,popup_begin_align:Align::Center,popup_begin_justify:Align::Center })) }
+                                div.marker #MatrixMarker{ (tooltip::markup(tooltip::MarkupProps{children:html!{ div."accent-point"{} }, content: PreEscaped(loader.get("matrix")),popup_align:Align::Center,popup_justify:Align::Center,popup_begin_align:Align::Center,popup_begin_justify:Align::Center })) }
+                                div.marker #ResistorsMarker{ (tooltip::markup(tooltip::MarkupProps{children:html!{ div."accent-point"{} }, content: PreEscaped(loader.get("resistors")),popup_align:Align::Center,popup_justify:Align::Center,popup_begin_align:Align::Center,popup_begin_justify:Align::Center })) }
+                                div.marker #ExtrasMarker{ (tooltip::markup(tooltip::MarkupProps{children:html!{ div."accent-point"{} }, content: PreEscaped(loader.get("connectors")),popup_align:Align::Center,popup_justify:Align::Center,popup_begin_align:Align::Center,popup_begin_justify:Align::Center })) }
+                                div.marker #BreadboardMarker{ (tooltip::markup(tooltip::MarkupProps{children:html!{ div."accent-point"{} }, content: PreEscaped(loader.get("breadboard")),popup_align:Align::Center,popup_justify:Align::Center,popup_begin_align:Align::Center,popup_begin_justify:Align::Center })) }
+                                (img::img(img::ImgProps{pre_src:page.path_to_root(lang),src:link_public!("assets/Tetris/webp/Einzelteile.webp"),..Default::default()}))
+                            }
                         }
                     }
                     section.sect."accent-background".content style="
@@ -351,7 +353,7 @@ Um die Nutzereingabe zu lesen werden 2 Typen exportiert: Buttons und Button. But
                         h3."body-strong"{"Hardware"}
                         p{}
                     }
-                    section.sect."accent-background".content style="
+                    section.sect."accent-background".content #RunSect style="
                         --accent-bg-c: var(--black);
                         --bg-light: #e2d279ff;
                         --bg-normal: #F0D439;
@@ -359,33 +361,35 @@ Um die Nutzereingabe zu lesen werden 2 Typen exportiert: Buttons und Button. But
                         div .cut."top-cut" {(PreEscaped(include_public!("assets/noise/wave.svg")))}
 
                         h2.subhead{"How to run"}
-                        div{
-                            h3.subhead{"Arduino"}
-                            h4{(loader.get("req"))}
-                            ul{
-                                li{"Quellcode (Download)"}
-                                li{"Arduino IDE"}
-                                li{"Aufgelistete Hardware oder gleichwertige Komponenten"}
+                        div #RunCards {
+                            div.card.shadow."no-hover" {
+                                h3.subhead{"Arduino"}
+                                h4{(loader.get("req"))}
+                                ul{
+                                    li{"Quellcode (Download)"}
+                                    li{"Arduino IDE"}
+                                    li{"Aufgelistete oder gleichwertige Hardware"}
+                                }
+                                h4{(loader.get("step-by-step"))}
+                                ul{
+                                    li{}
+                                    li{}
+                                    li{}
+                                    li{}
+                                    li{}
+                                }
                             }
-                            h4{(loader.get("step-by-step"))}
-                            ul{
-                                li{}
-                                li{}
-                                li{}
-                                li{}
-                                li{}
-                            }
-                        }
-                        div{
-                            h3.subhead{(loader.get("pc"))}
-                            h4{(loader.get("req"))}
-                            ul{
-                                li{"Quellcode (Download)"}
-                                li{"C/C++-Compiler (z.B: clang++)"}
-                            }
-                            h4{(loader.get("step-by-step"))}
-                            ul{
-                                li{}
+                            div.card.shadow."no-hover" {
+                                h3.subhead{(loader.get("pc"))}
+                                h4{(loader.get("req"))}
+                                ul{
+                                    li{"Quellcode (Download)"}
+                                    li{"C/C++-Compiler (z.B: clang++)"}
+                                }
+                                h4{(loader.get("step-by-step"))}
+                                ul{
+                                    li{}
+                                }
                             }
                         }
 

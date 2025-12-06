@@ -95,6 +95,7 @@ impl ProjectMetadata {
             Page::Ergomote => Some(ergomote::meta_data(lang)),
             Page::WebDev => Some(webdev::meta_data(lang)),
             Page::Adverma => None,
+            Page::Experience => None,
         }
     }
 }

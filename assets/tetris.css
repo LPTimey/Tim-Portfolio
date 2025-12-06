@@ -1,5 +1,5 @@
 .vertical {
-    /* display: none; */
+    display: none;
 }
 
 .horizontal {
@@ -10,9 +10,7 @@
     position: relative;
     width: fit-content;
     height: fit-content;
-    grid-area: Img;
     place-self: center;
-    width: fit-content;
     --pop-top: 50%;
     --pop-left: 50%;
     --pop-pre-translate: translate(-50%, -50%);
@@ -84,4 +82,38 @@
 
         --pop-top: 40%
     }
+}
+
+#PrepGrid {
+    display: flex;
+    flex-wrap: wrap;
+
+    p {
+        min-width: 60ch;
+        margin-right: auto;
+    }
+}
+
+#RunSect{
+    container-type: inline-size;
+}
+
+#RunCards {
+    margin-top: 1rem;
+    display: grid;
+    gap: 2ch;
+    grid-template-columns: 1fr 1fr;
+
+    @container (max-width: 100ch) {
+        grid-template-columns: 1fr;
+        grid-auto-rows: 1fr;
+    }
+}
+
+.card {
+    position: relative;
+    background-color: var(--bg);
+    color: var(--fg);
+    padding: 2ch;
+    border-radius: var(--border-r);
 }

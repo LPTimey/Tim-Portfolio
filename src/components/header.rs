@@ -18,6 +18,7 @@ fn group_pages(
     for page in Page::iter() {
         let mut path = page.to_href(lang);
         let lang_prefix = lang.to_string();
+        let has_prio = page.has_priority();
 
         if path.starts_with(&lang_prefix) {
             path = path
@@ -38,7 +39,11 @@ fn group_pages(
                 }
             }
         });
-        grouped.entry(parent).or_default().push(page);
+        if has_prio {
+            grouped.entry(parent).or_default().insert(0, page);
+        } else {
+            grouped.entry(parent).or_default().push(page);
+        }
     }
     grouped
 }

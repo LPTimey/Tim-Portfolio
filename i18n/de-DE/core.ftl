@@ -1,4 +1,5 @@
 projects = Projekte
+experience = Erfahrung
 Home = Startseite
 all-projects = Alle Projekte
 Watchout = Watchout
@@ -7,6 +8,8 @@ Styles = Styles
 Tetris = Tetris
 Ergomote = Ergomote
 WebDev = WebDev
+Experience = Erfahrung
+ADVERMA = ADVERMA
 
 System = System
 Light = Licht
