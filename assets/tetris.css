@@ -122,21 +122,50 @@
     @container (max-width: 100ch) {
         grid-column: span 2;
     }
-    h3{
+
+    h3 {
+        position: relative;
         text-align: center;
         padding-bottom: calc(var(--padding) * 0.5);
-        border-bottom: 3px solid var(--bg-normal);
+        /* border-bottom: 3px solid var(--bg-normal); */
+
+        &::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            width: auto;
+            left: 0;
+            right: 0;
+            height: 3px;
+            border-radius: var(--border-r);
+            background-color: var(--bg-normal);
+        }
     }
-    .group{
+
+    .group {
         padding-left: calc(var(--padding) * 0.5);
 
-         h4{
+        h4 {
+            position: relative;
             margin-left: calc(var(--padding) * -0.55);
             margin-bottom: 0.75rem;
-            padding-left: calc(var(--padding) * 0.25);
-            border-left: 6px solid var(--bg-normal);
+            padding-left: calc(var(--padding) * 0.5);
+            /* border-left: 6px solid var(--bg-normal); */
+
+            &::before {
+                content: "";
+                position: absolute;
+                width: 6px;
+                left: -3px;
+                height: auto;
+                bottom: 0;
+                top: 0;
+                border-radius: var(--border-r);
+                background-color: var(--bg-normal);
+            }
         }
-        ul{
+
+        ul {
             margin-left: 2ch;
         }
     }
