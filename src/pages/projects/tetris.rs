@@ -44,9 +44,9 @@ public:
     bool game_tick();
     bool player_tick(Buttons buttons);
     auto field_with_floating ->
-    (uint8_t (&arr)[Width * Height]);
+      (uint8_t (&arr)[Width * Height]);
     int32_t to_string
-    (char (&str)[Width*Height*2 + 1]);
+      (char (&str)[Width*Height*2 + 1]);
 };";
 const TET_BUTTONS: &str = "\
 typedef uint8_t Buttons;

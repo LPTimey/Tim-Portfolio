@@ -12,7 +12,7 @@
         "Graphic ."
         "Graphic Content"
         "Graphic .";
-    grid-template-rows: min-content auto;
+    grid-template-rows: min-content auto auto auto auto min-content;
     grid-template-columns: 1fr 1fr;
 }
 
@@ -94,7 +94,8 @@
             "Graphic Heading"
             "Graphic Table"
             "Graphic ."
-            "Content Content";
+            "Content Content"
+            ;
         grid-template-rows: min-content auto auto min-content;
     }
 
