@@ -7,7 +7,11 @@ content =
 hardware = Hardware
 preparation = Vorbereitung
 hardware-prep = 
-    TODO:
+    TODO:<br/>
+    Die verwendete Hardware bestand auf folgenden Teilen:
+small = klein
+optional = Optional
+
 result = Ergebnis
 result-coarse =
     Am Ende des Hackathons hatte ich ein funktionsfähiges Tetris Spiel auf der eingebauten Matrix

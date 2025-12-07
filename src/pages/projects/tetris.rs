@@ -280,17 +280,36 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                         text: loader.get("content").leak().into()
                     }))
                     section.sect.content{
-                        h2.heading."mb-medium"{(loader.get("hardware"))" & "(loader.get("preparation"))}
                         div #PrepGrid {
-                            p {(loader.get("hardware-prep"))}
-                            // ul{
-                            //     li{"Arduino R3"}
-                            //     li{"Arduino R4"}
-                            //     li{(loader.get("breadboard"))}
-                            //     li{(loader.get("resistors"))}
-                            //     li{(loader.get("matrix"))}
-                            //     li{(loader.get("connectors"))}
-                            // }
+                            div.grow {
+                                h2.heading."mb-medium"{(loader.get("hardware"))" & "(loader.get("preparation"))}
+                                p {(PreEscaped(loader.get("hardware-prep")))}
+                                ul.list {
+                                    // TODO: Translate
+                                    // TODO: href
+                                    li {"Arduino UNO R4 WiFi (" a{} ")"}
+                                    li {"Arduino UNO R3 (gegeben vom Hackathon & Optional)"}
+                                    li {
+                                        (loader.get("breadboard"))
+                                        " "
+                                        (loader.get("small"))
+                                        " ("
+                                        (loader.get("optional"))
+                                        ")"
+                                    }
+                                    li {"Widerstände (min 6x 1kOhm)"}
+                                    li {"Kabel, Buttons & Breadboard groß"}
+                                    li {"WaveShare screen (Fehlentscheidung)"}
+                                }
+                                // ul{
+                                //     li{"Arduino R3"}
+                                //     li{"Arduino R4"}
+                                //     li{(loader.get("breadboard"))}
+                                //     li{(loader.get("resistors"))}
+                                //     li{(loader.get("matrix"))}
+                                //     li{(loader.get("connectors"))}
+                                // }
+                            }
                             picture #EinzelteilePic{
                                 div.marker #UnoR4Marker{ (tooltip::markup(tooltip::MarkupProps{children:html!{ div."accent-point"{} }, content: PreEscaped("Arduino R4".to_owned()),popup_align:Align::Center,popup_justify:Align::Center,popup_begin_align:Align::Center,popup_begin_justify:Align::Center })) }
                                 div.marker #UnoR3Marker{ (tooltip::markup(tooltip::MarkupProps{children:html!{ div."accent-point"{} }, content: PreEscaped("Arduino R3".to_owned()),popup_align:Align::Center,popup_justify:Align::Center,popup_begin_align:Align::Center,popup_begin_justify:Align::Center })) }
