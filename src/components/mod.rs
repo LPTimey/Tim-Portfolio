@@ -20,6 +20,7 @@ pub mod scrolling_img;
 pub mod theme_select;
 pub mod three_js_setup;
 pub mod tooltip;
+pub mod timeline;
 
 // Definiere ein Trait
 pub trait ScriptType {}

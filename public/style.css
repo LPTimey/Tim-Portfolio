@@ -434,8 +434,14 @@
             background-color: var(--accent);
             color: var(--white);
 
+            /* &:where(.gradient) {
+                --_left: var(--left, var(--accent-dark));
+                --_right: var(--right, var(--accent-light));
+                background: linear-gradient(to right, var(--_left), var(--_right));
+            } */
+
             @media (hover: hover) {
-                &:hover {
+                &:not(.no-hover):hover {
                     background-color: var(--accent-2);
                 }
             }
@@ -451,11 +457,11 @@
                 translate 0.25s var(--spring-ease);
 
             @media (hover: hover) {
-                &:hover {
+                &:not(.no-hover):hover {
                     translate: 0 -10%;
                 }
 
-                &:active {
+                &:not(.no-hover):active {
                     translate: 0 10%;
                 }
             }
