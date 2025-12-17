@@ -43,7 +43,13 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                 main{
                     section.sect.content{(timeline_html(timeline::MarkupProps {
                         heading:"Erfahrung",
-                        items: &[timeline::Item{content:r#"Ein Praktikum für das 5. Semester an der Thi.\ndarin habe ich..."#,content_long:"test",title:"ADVERMA GmbH",wide:false,year:"2025 - 2026"}],
+                        items: &[
+                            timeline::Item{content:r#"Ein Praktikum für das 5. Semester an der Thi.\ndarin habe ich..."#,content_long:"test",title:"ADVERMA GmbH",wide:false,year:"2025 - 2026"},
+                            timeline::Item{content:r#"Ein Praktikum für das 5. Semester an der Thi.\ndarin habe ich..."#,content_long:"test",title:"ADVERMA GmbH",wide:false,year:"2025 - 2026"},
+                            timeline::Item{content:r#"Ein Praktikum für das 5. Semester an der Thi.\ndarin habe ich..."#,content_long:"test",title:"ADVERMA GmbH",wide:false,year:"2025 - 2026"},
+                            timeline::Item{content:r#"Ein Praktikum für das 5. Semester an der Thi.\ndarin habe ich..."#,content_long:"test",title:"ADVERMA GmbH",wide:false,year:"2025 - 2026"},
+                            timeline::Item{content:r#"Ein Praktikum für das 5. Semester an der Thi.\ndarin habe ich..."#,content_long:"test",title:"ADVERMA GmbH",wide:false,year:"2025 - 2026"},
+                            ],
                         start_left:true
                     }))}
                 }

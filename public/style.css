@@ -486,6 +486,7 @@
         text-decoration: none;
         /* padding: 0.1em; */
         color: var(--fg);
+        background-color: transparent;
         cursor: pointer;
 
         /* IMPORTANT: Keep in sync with &:hover */

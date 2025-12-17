@@ -21,11 +21,18 @@ pub fn markup<'a>(heading: &'a str, items: &'a [Item<'a>], start_left: bool) -> 
                     div."detail-timeline-item" data-left=((start_left as usize + 1 * i) % 2 != 0) {
                         h2.subtitle."dt-item-title"{ (item.title) }
                         p."dt-button" {}
-                        p.shadow."no-hover"."dt-year" {
+                        p.shadow."no-hover"."dt-year" data-wide=(item.wide) {
                             (item.year)
                         }
                         div."dt-content"{
-                            (item.content)
+                            div."dt-short-content"{
+                                (item.content)
+                                button.link.underline { "Mehr >" }
+                            }
+                            div."dt-long-content"{
+                                (item.content_long)
+                                button.link.underline { "< Weniger" }
+                            }
                         }
                     }
                 }
