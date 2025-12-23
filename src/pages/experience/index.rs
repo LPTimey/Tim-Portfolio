@@ -3,8 +3,16 @@ use maud::PreEscaped;
 use std::sync::OnceLock;
 
 use crate::{
-    components::{self, Component, footer::footer, head::default_head, header::header, timeline}, lang_to_html, setup_language_loader
+    components::{
+        self, Component,
+        footer::footer,
+        head::default_head,
+        header::header,
+        timeline,
+    },
+    lang_to_html, setup_language_loader,
 };
+pub const ICH: Link = link_public!("assets/Lebenslauf/schönes bild klein bg@0,33x.jpg");
 
 use super::super::*;
 
@@ -30,7 +38,12 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
     let items = [
         timeline::Item {
             content: PreEscaped(lang_to_html(&loader.get("adverma-short"))),
-            content_long: PreEscaped(lang_to_html(&loader.get("adverma-long"))),
+            content_long: html! {
+                div style="display:flex; justify-content: space-between;"{
+                    p {(lang_to_html(&loader.get("adverma-long")))}
+                    picture style="width:fit-content"{img style="height:10rem;" draggable="false" src=(page.path_to_root(lang) + *ICH) alt="";}
+                }
+            },
             title: "ADVERMA GmbH",
             wide: false,
             year: "2025 - 2026",

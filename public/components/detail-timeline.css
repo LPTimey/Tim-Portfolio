@@ -148,7 +148,7 @@
     position: relative;
     background-color: var(--light);
     border-radius: var(--border-r);
-    padding: 1rem;
+    padding: 1.5rem;
     width: 100%;
 
     &[data-open="false"] .dt-long-content {
@@ -161,5 +161,9 @@
         .dt-short-content {
             display: none;
         }
+    }
+
+    button {
+        color: var(--accent-2);
     }
 }
