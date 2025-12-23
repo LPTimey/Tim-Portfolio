@@ -75,6 +75,10 @@ pub fn setup_language_loader(
     })
 }
 
+pub fn lang_to_html(string: &str) -> String{
+    string.replace("\\\n", "").replace("\n", "<br />").replace("\\n", "<br />")
+}
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Default)]
 pub struct Link(&'static str);
 impl Link {

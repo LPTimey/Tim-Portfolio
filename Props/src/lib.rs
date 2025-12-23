@@ -3,7 +3,7 @@
 use convert_case::{Case, Casing};
 use proc_macro::TokenStream;
 use quote::{format_ident, quote};
-use syn::{parse_macro_input, spanned::Spanned, FnArg, GenericParam, ItemFn, Pat, PatIdent};
+use syn::{FnArg, GenericParam, ItemFn, Pat, PatIdent, parse_macro_input, spanned::Spanned};
 
 #[proc_macro_attribute]
 pub fn with_props(attr: TokenStream, item: TokenStream) -> TokenStream {
@@ -25,6 +25,8 @@ pub fn with_props(attr: TokenStream, item: TokenStream) -> TokenStream {
         .filter_map(|param| {
             if let GenericParam::Type(ty_param) = param {
                 Some(&ty_param.ident)
+            } else if let GenericParam::Const(constant) = param {
+                Some(&constant.ident)
             } else {
                 None
             }
@@ -76,5 +78,6 @@ pub fn with_props(attr: TokenStream, item: TokenStream) -> TokenStream {
             #(#fields),*
         }
     };
+    // println!("{}", &expanded);
     expanded.into()
 }

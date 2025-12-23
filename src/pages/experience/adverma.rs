@@ -1,13 +1,10 @@
 use i18n_embed::fluent::FluentLanguageLoader;
 use maud::PreEscaped;
-use std::{sync::OnceLock, time::Duration};
+use std::sync::OnceLock;
 
 use crate::{
-    components::{
-        self, Component, footer::footer, head::default_head, header::header, icon::Icon,
-        project_card, project_table::Content, scrolling_img, tooltip,
-    },
-    include_public, setup_language_loader,
+    components::{self, footer::footer, head::default_head, header::header},
+    setup_language_loader,
 };
 
 use super::super::*;
@@ -26,7 +23,6 @@ pub const SCRIPT: &str = include_asset!("index.js");
 pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
     let core_loader = get_core_language_loader().select_languages(&[lang]);
     // let loader = get_language_loader().select_languages(&[lang]);
-
 
     components::page::page(
         page.path_to_root(lang),
