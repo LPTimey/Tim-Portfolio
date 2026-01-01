@@ -99,26 +99,43 @@ noDrags.forEach(el => {
 
 //#region DodgeHeader
 
-const dodgers = document.querySelectorAll(".dodge-header");
+const dodgers = /** @type {NodeListOf<HTMLElement>} */(document.querySelectorAll(".dodge-header"));
 const headerBar = /** @type {HTMLElement} */(document.querySelector("#SiteHeader"));
+const headerDetails = /** @type {NodeListOf<HTMLDetailsElement>} */(headerBar.querySelectorAll("nav details"));
 
-window.addEventListener("DOMContentLoaded", () => {
-    if (!dodgers || dodgers.length === 0 || !headerBar) {
+/**
+ * 
+ * @param {HTMLElement} dodger 
+ */
+function setDodgerHeight(dodger) {
+    if (headerBar.clientHeight >= window.innerHeight) {
+        dodger.style.height = "0";
         return;
     }
-    const fn = () => {
+    console.log(headerBar)
+    console.log(headerBar.clientHeight)
+    dodger.style.height = String(headerBar.clientHeight) + "px";
+}
+
+headerDetails.forEach((details) => {
+    details.addEventListener("toggle", function (e) {
+        // if (details.open) {
+        //     console.log("open: ", e)
+        // } else {
+        //     console.log("close: ", e)
+        // }
         dodgers.forEach(el => {
-            if (!(el instanceof HTMLElement)) { return; }
-            if (headerBar.clientHeight >= window.innerHeight) {
-                el.style.height = "0";
-                return;
-            }
-            el.style.height = String(headerBar.clientHeight) + "px";
+            const transitionDuration = window.getComputedStyle(el).transitionDuration;
+            const durationInMilliseconds = parseFloat(transitionDuration) * (transitionDuration.includes("s") ? 1000 : 1);
+            setDodgerHeight(el)
+            let interval = window.setInterval( setDodgerHeight, 50, el)
+            window.setTimeout(() => {
+                window.clearInterval(interval)
+            }, durationInMilliseconds+10);
         });
-    };
-    fn()
-    window.setInterval(fn, 500);
+    })
 })
+dodgers.forEach(setDodgerHeight)
 
 //#endregion DodgeHeader
 
