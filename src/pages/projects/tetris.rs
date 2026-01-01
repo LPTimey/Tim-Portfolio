@@ -301,14 +301,6 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                                     li {"Kabel, Buttons & Breadboard groß"}
                                     li {"WaveShare screen (Fehlentscheidung)"}
                                 }
-                                // ul{
-                                //     li{"Arduino R3"}
-                                //     li{"Arduino R4"}
-                                //     li{(loader.get("breadboard"))}
-                                //     li{(loader.get("resistors"))}
-                                //     li{(loader.get("matrix"))}
-                                //     li{(loader.get("connectors"))}
-                                // }
                             }
                             picture #EinzelteilePic{
                                 div.marker #UnoR4Marker{ (tooltip::markup(tooltip::MarkupProps{children:html!{ div."accent-point"{} }, content: PreEscaped("Arduino R4".to_owned()),popup_align:Align::Center,popup_justify:Align::Center,popup_begin_align:Align::Center,popup_begin_justify:Align::Center })) }
@@ -349,27 +341,37 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                         h2.heading{"Umsetzung"}
                         h3.subhead{"Code"}
                         // TODO: Layout
-                        p{
-                            r#" Für den Hackathon, habe ich eine Tetris Bibliothek in C++ entwickelt und als Nachbereitung auf R3 erweitert. Diese basiert auf GameState welches alle wichtigen Daten einer runde speichert und Tick-Methoden bereitstellt um das spiel zu treiben. Es stellt auch eine Methode bereit, um das aktuelle Feld entweder als String oder Liste zu bekommen und es anzeigen zu können.
-
-Die einzelnen Tetrominos sind in einem Enum als Indexe zu einem Array, welcher Postions-Matrizen der Tetrominos speichert. Um auch Position & Rotation zu speicher wird TetPos benutzt. 
-
-
-Um die Nutzereingabe zu lesen werden 2 Typen exportiert: Buttons und Button. Button ist ein Enum welches alle Knöpfe auflistet und je einem Bit in einem Byte zuordnet, sodass alle möglichen Eingaben gleichzeitig und speichersparend verarbeitet werden können, da sie nun in einen Byte (Buttons) passen. Das ermöglicht schnelle Abfragen und kompakte Logik. Man kann sich dieses Flaggen-System vorstellen wie 8 boolesche Werte in einer Variable. Man kann diese Werte mit Bit shifts ( << ) und Bit-Oder ( | ) setzen und mit Bit shifts und Bit-Und ( & ) lesen. (Mehr Dazu)
-"#
+                        div #Bento {
+                            p #StateText{
+                                r#"
+                                Für den Hackathon, habe ich eine Tetris Bibliothek in C++ entwickelt und als Nachbereitung auf R3 erweitert. Diese basiert auf GameState welches alle wichtigen Daten einer runde speichert und Tick-Methoden bereitstellt um das spiel zu treiben. Es stellt auch eine Methode bereit, um das aktuelle Feld entweder als String oder Liste zu bekommen und es anzeigen zu können.
+                                "#
+                            }
+                            pre #TET_STATE_Code {(codeblock_html(codeblock::MarkupProps { id: "", data: TET_STATE, prog_lang: "cpp" }))}
+                            p #InputText {
+                                r#"
+                                Um die Nutzereingabe zu lesen werden 2 Typen exportiert: Buttons und Button. Button ist ein Enum welches alle Knöpfe auflistet und je einem Bit in einem Byte zuordnet, sodass alle möglichen Eingaben gleichzeitig und speichersparend verarbeitet werden können, da sie nun in einen Byte (Buttons) passen. Das ermöglicht schnelle Abfragen und kompakte Logik. Man kann sich dieses Flaggen-System vorstellen wie 8 boolesche Werte in einer Variable. Man kann diese Werte mit Bit shifts ( << ) und Bit-Oder ( | ) setzen und mit Bit shifts und Bit-Und ( & ) lesen. (Mehr Dazu)
+                                "#
+                            }
+                            pre #TET_BUTTONS_Code {(codeblock_html(codeblock::MarkupProps { id: "", data: TET_BUTTONS, prog_lang: "cpp" }))}
+                            pre #TET_POS_ROT_Code {(codeblock_html(codeblock::MarkupProps { id: "", data: TET_POS_ROT, prog_lang: "cpp" }))}
+                            p #TetArrayText {
+                                r#"
+                                Die einzelnen Tetrinos sind in einem Enum als Indexe zu einem Array, welcher Postions-Matrizen der Tetrinos speichert. Um auch Position & Rotation zu speicher wird TetPos benutzt.
+                                "#
+                            }
+                            pre #TET_TET_POS_Code {(codeblock_html(codeblock::MarkupProps { id: "", data: TET_TET_POS, prog_lang: "cpp" }))}
+                            pre #TET_TET_VEC_1_Code {(codeblock_html(codeblock::MarkupProps { id: "", data: TET_TET_VEC_1, prog_lang: "cpp" }))}
+                            pre #TET_TETROMINO_Code {(codeblock_html(codeblock::MarkupProps { id: "", data: TET_TETROMINO, prog_lang: "cpp" }))}
                         }
-                        pre{(codeblock_html(codeblock::MarkupProps { id: "", data: TET_STATE, prog_lang: "cpp" }))}
-                        pre{(codeblock_html(codeblock::MarkupProps { id: "", data: TET_BUTTONS, prog_lang: "cpp" }))}
-                        pre{(codeblock_html(codeblock::MarkupProps { id: "", data: TET_POS_ROT, prog_lang: "cpp" }))}
-                        pre{(codeblock_html(codeblock::MarkupProps { id: "", data: TET_TET_POS, prog_lang: "cpp" }))}
-                        pre{(codeblock_html(codeblock::MarkupProps { id: "", data: TET_TET_VEC_1, prog_lang: "cpp" }))}
-                        pre{(codeblock_html(codeblock::MarkupProps { id: "", data: TET_TETROMINO, prog_lang: "cpp" }))}
-                        p{r#"
-                        Die Erscheinungsraten der Tetrominos werden mit Hilfe eines Taschensystems generiert. Diese Tasche generiert alle Tetrominos und randomisiert ihre Order um zu garantieren, sodass es keine Folge "Ziehungen" gibt ein welcher eine art Tetromino öfter als 2 mal oder gar nicht vorkommt. 
-                        "#}
-                        pre{(codeblock_html(codeblock::MarkupProps { id: "", data: get_str_lines_range(TETRIS_H, 34, 48), prog_lang: "cpp" }))}
+                        div #Bag {
+                            p #BagText {r#"
+                            Die Erscheinungsraten der Tetrominos werden mit Hilfe eines Taschensystems generiert. Diese Tasche generiert alle Tetrominos und randomisiert ihre Order um zu garantieren, sodass es keine Folge "Ziehungen" gibt ein welcher eine art Tetromino öfter als 2 mal oder gar nicht vorkommt. 
+                            "#}
+                            pre #TET_BAG_CODE {(codeblock_html(codeblock::MarkupProps { id: "", data: get_str_lines_range(TETRIS_H, 34, 48), prog_lang: "cpp" }))}
 
-                        (mermaid_html(mermaid::MarkupProps { name: "TetrinoDiagram", defs: &[("horizontal",&get_tet_bag_diagram(lang, true)),("vertical",&get_tet_bag_diagram(lang, false))] }))
+                            (mermaid_html(mermaid::MarkupProps { name: "TetrominoDiagram", defs: &[("horizontal",&get_tet_bag_diagram(lang, true)),("vertical",&get_tet_bag_diagram(lang, false))] }))
+                        }
                         h3.subhead{"Hardware"}
                         // TODO: Content
                         p{}

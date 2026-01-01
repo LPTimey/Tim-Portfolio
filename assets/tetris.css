@@ -1,15 +1,8 @@
-.vertical {
-    display: none;
-}
-
-.horizontal {
-    /* display: none; */
-}
-
 #EinzelteilePic {
     position: relative;
     width: fit-content;
     height: fit-content;
+    max-width: 60ch;
     place-self: center;
     --pop-top: 50%;
     --pop-left: 50%;
@@ -18,8 +11,6 @@
     isolation: isolate;
 
     img {
-        height: 60vh;
-        width: auto;
         z-index: -1;
     }
 
@@ -29,6 +20,10 @@
         width: auto;
         height: auto;
         border-radius: var(--border-r);
+
+        * {
+            border-color: var(--light);
+        }
 
         /* outline: 1px solid red; */
 
@@ -85,12 +80,206 @@
 }
 
 #PrepGrid {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto;
+    gap: 2rem;
 
-    p {
-        min-width: 60ch;
-        margin-right: auto;
+    >div,
+    >#EinzelteilePic {
+        grid-column: span 1;
+    }
+
+    @media (width < 1300px) {
+        grid-template-rows: auto auto;
+
+        >div,
+        >#EinzelteilePic {
+            grid-column: span 2;
+        }
+    }
+}
+
+#Bento {
+    display: grid;
+    gap: 1rem;
+    grid-auto-columns: 1fr;
+
+    pre,
+    code {
+        height: 100%;
+        align-self: center;
+    }
+
+    @media (width <=900px) {
+        grid-template-areas:
+            "StateText"
+            "TET_STATE_Code"
+            "InputText"
+            "TET_BUTTONS_Code"
+            "TET_POS_ROT_Code"
+            "TetArrayText"
+            "TET_TET_POS_Code"
+            "TET_TET_VEC_1_Code"
+            "TET_TETROMINO_Code"
+        ;
+    }
+
+    @media (width > 900px) {
+        grid-template-areas:
+            "StateText StateText"
+            "TET_STATE_Code TET_STATE_Code"
+            "InputText InputText"
+            "TET_BUTTONS_Code TET_POS_ROT_Code"
+            "TetArrayText TetArrayText"
+            "TET_TET_POS_Code TET_TETROMINO_Code"
+            "TET_TET_VEC_1_Code TET_TET_VEC_1_Code"
+        ;
+    }
+
+    @media (width > 1200px) {
+        grid-template-areas:
+            "StateText InputText"
+            "TET_STATE_Code TET_BUTTONS_Code"
+            "TET_STATE_Code TET_POS_ROT_Code"
+            "TetArrayText TetArrayText"
+            "TET_TET_POS_Code TET_TETROMINO_Code"
+            "TET_TET_VEC_1_Code TET_TET_VEC_1_Code"
+        ;
+    }
+
+    @media (width > 1850px) {
+        grid-template-areas:
+            "StateText StateText InputText InputText"
+            "TetArrayText TetArrayText InputText InputText"
+            "TET_STATE_Code TET_STATE_Code TET_BUTTONS_Code TET_TET_POS_Code"
+            "TET_STATE_Code TET_STATE_Code TET_POS_ROT_Code TET_TETROMINO_Code"
+            "TET_TET_VEC_1_Code TET_TET_VEC_1_Code TET_TET_VEC_1_Code TET_TET_VEC_1_Code"
+        ;
+    }
+
+    #StateText {
+        grid-area: StateText;
+    }
+
+    #TET_STATE_Code {
+        grid-area: TET_STATE_Code;
+    }
+
+    #InputText {
+        grid-area: InputText;
+    }
+
+    #TET_BUTTONS_Code {
+        grid-area: TET_BUTTONS_Code;
+    }
+
+    #TET_POS_ROT_Code {
+        grid-area: TET_POS_ROT_Code;
+    }
+
+    #TetArrayText {
+        grid-area: TetArrayText;
+    }
+
+    #TET_TET_POS_Code {
+        grid-area: TET_TET_POS_Code;
+    }
+
+    #TET_TET_VEC_1_Code {
+        grid-area: TET_TET_VEC_1_Code;
+    }
+
+    #TET_TETROMINO_Code {
+        grid-area: TET_TETROMINO_Code;
+    }
+}
+
+#Bag {
+    display: grid;
+    gap: 1rem;
+    grid-auto-columns: 1fr;
+
+    @media (width <=800px) {
+        grid-template-areas:
+            "text"
+            "code"
+            "dia"
+        ;
+
+        #TetrominoDiagram {
+            svg.vertical {
+                display: block;
+            }
+
+            svg.horizontal {
+                display: none;
+            }
+        }
+    }
+
+    @media (width > 800px) {
+        grid-template-areas:
+            "text"
+            "code"
+            "dia"
+        ;
+
+        #TetrominoDiagram {
+            svg.vertical {
+                display: none;
+            }
+
+            svg.horizontal {
+                display: block;
+            }
+        }
+    }
+
+    @media (width > 1000px) {
+        grid-template-areas:
+            "text dia"
+            "code dia"
+        ;
+
+        #TetrominoDiagram {
+            svg.vertical {
+                display: block;
+            }
+
+            svg.horizontal {
+                display: none;
+            }
+        }
+    }
+
+    @media (width > 1150px) {
+        grid-template-areas:
+            "text code"
+            "dia dia"
+        ;
+
+        #TetrominoDiagram {
+            svg.vertical {
+                display: none;
+            }
+
+            svg.horizontal {
+                display: block;
+            }
+        }
+    }
+
+    #GabText {
+        grid-area: text;
+    }
+
+    #TET_BAG_CODE {
+        grid-area: code;
+    }
+
+    #TetrominoDiagram {
+        grid-area: dia;
     }
 }
 
