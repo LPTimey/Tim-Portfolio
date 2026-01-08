@@ -92,7 +92,8 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                             ("Tools", "Illustrator, XD, git, GitHub").into(),
                             ("Hochschule", "Technische Hochschule Ingolstadt").into(),
                         ],
-                        text: CONTENT.into()
+                        text: CONTENT.into(),
+                        long_text: true
                     }))
                     section.sect.content #Login{
                         picture{(img::img(img::ImgProps{

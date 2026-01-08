@@ -72,7 +72,8 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                             ("Tools", "Rust, HTML, CSS, JS, Illustrator, Figma, VSCode, Neovim, git, GitHub").into(),
                             ("Hochschule", "Technische Hochschule Ingolstadt").into(),
                         ],
-                        text: CONTENT.into()
+                        text: CONTENT.into(),
+                        long_text: false
                     }))
                 }
                 (footer(lang))

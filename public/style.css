@@ -1012,7 +1012,8 @@
     z-index: 101;
 }
 
-@media (width<60ch) {
+/* TODO: make mobile nav better */
+@media (width<680px) {
     #BurgerToggle {
         display: block;
     }

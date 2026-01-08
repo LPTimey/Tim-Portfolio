@@ -116,7 +116,8 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                                 ].to_markup(&page.path_to_root(lang)))}}).into(),
                             ("Hochschule", "Technische Hochschule Ingolstadt").into(),
                         ],
-                        text: (&*loader.get("content").leak()).into()
+                        text: (&*loader.get("content").leak()).into(),
+                        long_text: false
                     }))
                     section.sect."accent-background".content style="
                         --accent-bg-c: var(--black);

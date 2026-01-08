@@ -140,7 +140,8 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                             }
                         }.into(),
                         rows,
-                        text: (&*loader.get("content").leak()).into()
+                        text: (&*loader.get("content").leak()).into(),
+                        long_text: true
                     }))
                     section.sect."accent-background" #FinishSect{
                         div .cut."top-cut" {(PreEscaped(include_public!("assets/noise/wave.svg")))}

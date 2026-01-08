@@ -9,12 +9,21 @@
     grid-template-areas:
         "Content Content Content"
         "Buttons Dots .";
-    grid-template-rows: 70dvh auto;
+    grid-template-rows: auto auto;
     grid-template-columns: 1fr auto 1fr;
 
     gap: 0.5em;
     padding-block: 1em;
     width: 100%;
+
+    @media (width < 740px) {
+        grid-template-areas:
+            "Content Content Content"
+            ". Dots ."
+            ". Buttons ."
+            ;
+            grid-template-rows: auto auto auto;
+    }
 }
 
 .carousel-content {
@@ -29,13 +38,17 @@
     scrollbar-width: none;
     /* IE 10+ */
     -ms-overflow-style: none;
+    height: fit-content;
+    place-items: center;
 
     * {
         scroll-snap-align: start;
         flex-shrink: 0;
         flex-grow: 0;
-        height: 100%;
+        height: auto;
+        max-height: 50vh;
         width: auto;
+        max-width: 100%;
     }
 }
 
