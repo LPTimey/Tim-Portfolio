@@ -1,9 +1,12 @@
-
-.codeblock{
+.codeblock {
     border-radius: calc(var(--border-r) / 2);
     font-family: "JetBrains Mono", var(--backup-fonts);
+    overflow: auto;
+    max-width: 100%;
 }
 
-pre:has(.codeblock){
+pre:has(.codeblock) {
     margin-block: 1em;
+    overflow: auto;
+    max-width: 100%;
 }

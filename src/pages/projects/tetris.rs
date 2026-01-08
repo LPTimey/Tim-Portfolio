@@ -93,21 +93,34 @@ enum class Tetromino: uint8_t {
     T   = 6, // -> Tetrominos[6]
     NrOfTetrominos, // Wie .len
 };";
-const TET_TET_VEC_1: &str = "\
+const TET_TET_VEC_SHORT: &str = "\
 // ... Die anderen Tetrominos ...
 constexpr Vec2 T[] =
     { {0, 0}, {0, -1}, {-1, 0}, {1, 0} };
 constexpr Vec2* Tetrominos[] =
     { L, R_L, I, Z, R_Z, B, T };";
-const _TET_TET_VEC_2: &str = "\
+const TET_TET_VEC_LONG: &str = "\
 // ... Die anderen Tetrominos ...
 constexpr Vec2 T[] = { {0, 0}, {0, -1}, {-1, 0}, {1, 0} };
 constexpr Vec2* Tetrominos[] = { L, R_L, I, Z, R_Z, B, T };";
-const _TET_BAG: &str = "\
+const TET_BAG_SHORT: &str = "\
 using Tetromino as T;
 class TetrominoBag {
     Tetromino bag
         [(uint8_t)T::NrOfTetrominos];
+    uint8_t index = 0;
+    uint32_t seed = 12345;
+    void set_next_batch();
+public:
+    TetrominoBag();
+    TetrominoBag(uint32_t seed);
+    void set_seed(uint32_t seed);
+    Tetromino next();
+};";
+const TET_BAG_LONG: &str = "\
+using Tetromino as T;
+class TetrominoBag {
+    Tetromino bag[(uint8_t)T::NrOfTetrominos];
     uint8_t index = 0;
     uint32_t seed = 12345;
     void set_next_batch();
@@ -288,7 +301,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                                     // TODO: Translate
                                     // TODO: href
                                     li {"Arduino UNO R4 WiFi (" a{} ")"}
-                                    li {"Arduino UNO R3 (gegeben vom Hackathon & Optional)"}
+                                    li {(loader.get("UNO-R3"))}
                                     li {
                                         (loader.get("breadboard"))
                                         " "
@@ -297,9 +310,9 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                                         (loader.get("optional"))
                                         ")"
                                     }
-                                    li {"Widerstände (min 6x 1kOhm)"}
-                                    li {"Kabel, Buttons & Breadboard groß"}
-                                    li {"WaveShare screen (Fehlentscheidung)"}
+                                    li {(loader.get("resistors"))" (6x 1k\u{2126})"}
+                                    li {(loader.get("cables"))", "(loader.get("buttons"))" & "(loader.get("big")) " " (loader.get("breadboard"))}
+                                    li {(loader.get("wave-screen"))}
                                 }
                             }
                             picture #EinzelteilePic{
@@ -343,32 +356,24 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                         // TODO: Layout
                         div #Bento {
                             p #StateText{
-                                r#"
-                                Für den Hackathon, habe ich eine Tetris Bibliothek in C++ entwickelt und als Nachbereitung auf R3 erweitert. Diese basiert auf GameState welches alle wichtigen Daten einer runde speichert und Tick-Methoden bereitstellt um das spiel zu treiben. Es stellt auch eine Methode bereit, um das aktuelle Feld entweder als String oder Liste zu bekommen und es anzeigen zu können.
-                                "#
+                                (loader.get("game-state-text"))
                             }
                             pre #TET_STATE_Code {(codeblock_html(codeblock::MarkupProps { id: "", data: TET_STATE, prog_lang: "cpp" }))}
                             p #InputText {
-                                r#"
-                                Um die Nutzereingabe zu lesen werden 2 Typen exportiert: Buttons und Button. Button ist ein Enum welches alle Knöpfe auflistet und je einem Bit in einem Byte zuordnet, sodass alle möglichen Eingaben gleichzeitig und speichersparend verarbeitet werden können, da sie nun in einen Byte (Buttons) passen. Das ermöglicht schnelle Abfragen und kompakte Logik. Man kann sich dieses Flaggen-System vorstellen wie 8 boolesche Werte in einer Variable. Man kann diese Werte mit Bit shifts ( << ) und Bit-Oder ( | ) setzen und mit Bit shifts und Bit-Und ( & ) lesen. (Mehr Dazu)
-                                "#
+                                (loader.get("input-text")) "("(loader.get("more-on"))")"
                             }
                             pre #TET_BUTTONS_Code {(codeblock_html(codeblock::MarkupProps { id: "", data: TET_BUTTONS, prog_lang: "cpp" }))}
                             pre #TET_POS_ROT_Code {(codeblock_html(codeblock::MarkupProps { id: "", data: TET_POS_ROT, prog_lang: "cpp" }))}
                             p #TetArrayText {
-                                r#"
-                                Die einzelnen Tetrinos sind in einem Enum als Indexe zu einem Array, welcher Postions-Matrizen der Tetrinos speichert. Um auch Position & Rotation zu speicher wird TetPos benutzt.
-                                "#
+                                (loader.get("tet-array-text"))
                             }
                             pre #TET_TET_POS_Code {(codeblock_html(codeblock::MarkupProps { id: "", data: TET_TET_POS, prog_lang: "cpp" }))}
-                            pre #TET_TET_VEC_1_Code {(codeblock_html(codeblock::MarkupProps { id: "", data: TET_TET_VEC_1, prog_lang: "cpp" }))}
+                            pre #TET_TET_VEC_1_Code {(codeblock_html(codeblock::MarkupProps { id: "", data: TET_TET_VEC_SHORT, prog_lang: "cpp" }))}
                             pre #TET_TETROMINO_Code {(codeblock_html(codeblock::MarkupProps { id: "", data: TET_TETROMINO, prog_lang: "cpp" }))}
                         }
                         div #Bag {
-                            p #BagText {r#"
-                            Die Erscheinungsraten der Tetrominos werden mit Hilfe eines Taschensystems generiert. Diese Tasche generiert alle Tetrominos und randomisiert ihre Order um zu garantieren, sodass es keine Folge "Ziehungen" gibt ein welcher eine art Tetromino öfter als 2 mal oder gar nicht vorkommt. 
-                            "#}
-                            pre #TET_BAG_CODE {(codeblock_html(codeblock::MarkupProps { id: "", data: get_str_lines_range(TETRIS_H, 34, 48), prog_lang: "cpp" }))}
+                            p #BagText {(loader.get("tet-bag-text"))}
+                            pre #TET_BAG_CODE {(codeblock_html(codeblock::MarkupProps { id: "", data: TET_BAG_SHORT, prog_lang: "cpp" }))}
 
                             (mermaid_html(mermaid::MarkupProps { name: "TetrominoDiagram", defs: &[("horizontal",&get_tet_bag_diagram(lang, true)),("vertical",&get_tet_bag_diagram(lang, false))] }))
                         }

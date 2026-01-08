@@ -9,8 +9,14 @@ preparation = Vorbereitung
 hardware-prep = 
     TODO:<br/>
     Die verwendete Hardware bestand auf folgenden Teilen:
+UNO-R3 = Arduino UNO R3 (gegeben vom Hackathon & nicht notwendig)
 small = klein
+big = großes
 optional = Optional
+resistors = Widerstände
+cables = Kabel
+buttons = Knöpfe
+wave-screen = WaveShare screen (Fehlentscheidung)
 
 result = Ergebnis
 result-coarse =
@@ -50,6 +56,28 @@ follow-up-text =
     Eingabeverarbeitung vom automatischen Fallverhalten entkoppeln, was das Spiel deutlich
     reaktionsschneller macht.
     Eingaben können nun jederzeit erkannt werden, nicht nur während eines Ticks.
+
+game-state-text = 
+    Für den Hackathon, habe ich eine Tetris Bibliothek in C++ entwickelt und als Nachbereitung auf R3 erweitert. 
+    Diese basiert auf GameState welches alle wichtigen Daten einer runde speichert und Tick-Methoden 
+    bereitstellt um das spiel zu treiben. Es stellt auch eine Methode bereit, um das aktuelle 
+    Feld entweder als String oder Liste zu bekommen und es anzeigen zu können.
+input-text = 
+    Um die Nutzereingabe zu lesen werden 2 Typen exportiert: Buttons und Button. Button ist ein Enum 
+    welches alle Knöpfe auflistet und je einem Bit in einem Byte zuordnet, sodass alle möglichen 
+    Eingaben gleichzeitig und speichersparend verarbeitet werden können, da sie nun in einen 
+    Byte (Buttons) passen. Das ermöglicht schnelle Abfragen und kompakte Logik. Man kann sich dieses 
+    Flaggen-System vorstellen wie 8 boolesche Werte in einer Variable. Man kann diese Werte mit 
+    Bit shifts ( << ) und Bit-Oder ( | ) setzen und mit Bit shifts und Bit-Und ( & ) lesen.
+more-on = Mehr Dazu
+tet-array-text = 
+    Die einzelnen Tetrominos sind in einem Enum als Indexe zu einem Array, welcher Postions-Matrizen 
+    der Tetrominos speichert. Um auch Position & Rotation zu speicher wird TetPos benutzt.
+tet-bag-text = 
+    Die Erscheinungsraten der Tetrominos werden mit Hilfe eines Taschensystems generiert. 
+    Diese Tasche generiert alle Tetrominos und randomisiert ihre Order um zu garantieren, 
+    sodass es keine Folge "Ziehungen" gibt ein welcher eine art 
+    Tetromino öfter als 2 mal oder gar nicht vorkommt. 
 
 how-run = Anleitung
 requirements = Voraussetzungen

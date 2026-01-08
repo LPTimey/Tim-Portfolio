@@ -199,6 +199,7 @@
     display: grid;
     gap: 1rem;
     grid-auto-columns: 1fr;
+    margin-top: 1rem;
 
     @media (width <=800px) {
         grid-template-areas:
@@ -255,7 +256,7 @@
 
     @media (width > 1150px) {
         grid-template-areas:
-            "text code"
+            "code text"
             "dia dia"
         ;
 
@@ -270,8 +271,10 @@
         }
     }
 
-    #GabText {
+    #BagText {
         grid-area: text;
+        place-self: center;
+        padding-top: 1rem;
     }
 
     #TET_BAG_CODE {
