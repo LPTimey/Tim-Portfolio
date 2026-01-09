@@ -4,7 +4,7 @@ use std::{sync::OnceLock, time::Duration};
 
 use crate::{
     components::{
-        self, Component, footer::footer, head::default_head, header::header, icon::Icon,
+        self, Component, footer::footer, head::default_head, header::header, icon::{Icon, IconToMarkup},
         project_card, project_table::Content, scrolling_img, tooltip,
     },
     include_public, setup_language_loader,
@@ -85,14 +85,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
     .map(|(cat, icons)| {
         (
             cat,
-            icons.map(|icon| {
-                (
-                    Into::<Content>::into(html! {
-                        a.link.underline target="_blank" href=(icon.site_link()) {(icon.name())}
-                    }),
-                    icon.img_link(),
-                )
-            }),
+            icons.to_markup(&page.path_to_root(lang)),
         )
     });
 
@@ -184,19 +177,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                                         div .category{
                                             h3 ."category-title"."body-strong" { (category.0) }
                                             ul."skills-list"{
-                                                @for icon in category.1.iter() {
-                                                    li ."skill-icon"{
-                                                        (tooltip_html(tooltip::MarkupProps{
-                                                            children: html!{
-                                                                img."no-border-r" width="40" height="40" src=(page.path_to_root(lang)+*icon.1) alt="icon";
-                                                            },
-                                                            content: html!((icon.0)),
-                                                            popup_align: tooltip::Align::Center,
-                                                            popup_justify: tooltip::Align::End,
-                                                            popup_begin_justify: tooltip::Align::Center,
-                                                            popup_begin_align: tooltip::Align::Center}))
-                                                    }
-                                                }
+                                                (category.1)
                                             }
                                         }
                                     }

@@ -914,6 +914,10 @@
     .light-only {
         display: none !important;
     }
+
+    :where(.invert-dark) {
+        filter: invert(1);
+    }
 }
 
 :root:has(input[type="radio"]#Custom:checked),

@@ -202,32 +202,65 @@ impl Icon {
             Icon::WebAssembly => "https://webassembly.org/",
         }
     }
+    pub const fn invert_when_dark(&self) -> bool {
+        match self {
+            Icon::AfterEffects => false,
+            Icon::Audacity => false,
+            Icon::Blender => false,
+            Icon::CreativeCloud => false,
+            Icon::Figma => false,
+            Icon::Houdini => false,
+            Icon::Illustrator => false,
+            Icon::Penpot => true,
+            Icon::Photoshop => false,
+            Icon::Premiere => false,
+            Icon::XD => false,
+            Icon::Apple => false,
+            Icon::Excel => false,
+            Icon::MacOS => false,
+            Icon::Fedora => false,
+            Icon::Fritzing => false,
+            Icon::Git => false,
+            Icon::GitHub => true,
+            Icon::Linux => false,
+            Icon::Microsoft => false,
+            Icon::NeoVim => false,
+            Icon::Office => false,
+            Icon::PowerPoint => false,
+            Icon::VSCode => false,
+            Icon::Windows => false,
+            Icon::Word => false,
+            Icon::Arduino => false,
+            Icon::Bash => false,
+            Icon::Bootstrap => false,
+            Icon::C => false,
+            Icon::Cpp => false,
+            Icon::CSharp => false,
+            Icon::Css => false,
+            Icon::Docker => false,
+            Icon::Dribbble => false,
+            Icon::Html => false,
+            Icon::Java => false,
+            Icon::JavaScript => false,
+            Icon::Jupyter => false,
+            Icon::Lua => false,
+            Icon::Python => false,
+            Icon::Rust => true,
+            Icon::TypeScript => false,
+            Icon::WebAssembly => false,
+        }
+    }
 }
 pub trait IconToMarkup {
     fn to_markup(&self, path_to_root: &str) -> Markup;
 }
 impl IconToMarkup for [Icon] {
     fn to_markup(&self, path_to_root: &str) -> Markup {
-        let icon_data = self.iter().map(|icon| {
-            (
-                html! {
-                    a.link.underline target="_blank" href=(icon.site_link()) {(icon.name())}
-                },
-                icon.img_link(),
-            )
-        });
+
         html! {
-            @for icon in icon_data {
+            @for icon in self {
                 li ."skill-icon"{
-                    (tooltip::markup(tooltip::MarkupProps{
-                        children: html!{
-                            img."no-border-r" width="40" height="40" src=(path_to_root.to_owned()+*icon.1) alt="icon";
-                        },
-                        content: html!((icon.0)),
-                        popup_align: tooltip::Align::Center,
-                        popup_justify: tooltip::Align::End,
-                        popup_begin_justify: tooltip::Align::Center,
-                        popup_begin_align: tooltip::Align::Center}))
+                    (icon.to_markup(path_to_root))
                 }
             }
         }
@@ -239,7 +272,8 @@ impl IconToMarkup for Icon {
         html!(
             (tooltip::markup(tooltip::MarkupProps {
                 children: html! {
-                    img."no-border-r" width="40" height="40" src=(path_to_root.to_owned()+*img_link) alt="icon";
+                    img."no-border-r".(if self.invert_when_dark() {"invert-dark"} else {"test"})
+                        width="40" height="40" src=(path_to_root.to_owned()+*img_link) alt="icon";
                 },
                 content: html!(a.link.underline target="_blank" href=(site_link) {(name)}),
                 popup_align: tooltip::Align::Center,
