@@ -1,7 +1,12 @@
 use Props::with_props;
 use maud::{Markup, PreEscaped, html};
 
-use crate::{Link, components::Component, link_public};
+use crate::{
+    Link,
+    color::{Color, RGBA},
+    components::{Component, badge},
+    link_public,
+};
 
 pub struct Item<'a> {
     pub year: &'a str,
@@ -15,7 +20,7 @@ pub struct Item<'a> {
 pub fn markup<'a, const S: usize>(
     heading: &'a str,
     level: u8,
-    items: [Item<'a>; S],
+    items: [(Item<'a>, Box<[badge::Badge]>); S],
     start_left: bool,
 ) -> Markup {
     html! {
@@ -30,7 +35,7 @@ pub fn markup<'a, const S: usize>(
                 _ => p.hero."dt-title" {(PreEscaped(heading))}
             }
             div."dt-items" {
-                @for (i,item) in items.iter().enumerate() {
+                @for (i,(item,badges)) in items.into_iter().enumerate() {
                     div."dt-item" data-left=((start_left as usize + 1 * i) % 2 != 0) {
                         @match level {
                             1 => h2.heading."dt-item-title"{ (item.title) }
@@ -47,6 +52,11 @@ pub fn markup<'a, const S: usize>(
                         div."dt-content".shadow."no-hover" data-open="false"{
                             div."dt-short-content"{
                                 p{(item.content)}
+                                ul."badge-list"{
+                                    @for badge in badges.into_iter() {
+                                        li{(badge)}
+                                    }
+                                }
                                 button.link.underline { "Mehr >" }
                             }
                             div."dt-long-content"{

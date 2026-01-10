@@ -3,12 +3,9 @@ use maud::PreEscaped;
 use std::sync::OnceLock;
 
 use crate::{
+    color::RGBA,
     components::{
-        self, Component,
-        footer::footer,
-        head::default_head,
-        header::header,
-        timeline,
+        self, Component, badge, footer::footer, head::default_head, header::header, timeline,
     },
     lang_to_html, setup_language_loader,
 };
@@ -34,48 +31,72 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
         style: timeline_style,
         script: timeline_script,
     } = timeline::component();
+    let Component {
+        style: badge_style, ..
+    } = badge::component();
 
-    let items = [
-        timeline::Item {
-            content: PreEscaped(lang_to_html(&loader.get("adverma-short"))),
-            content_long: html! {
-                div style="display:flex; justify-content: space-between;"{
-                    p {(lang_to_html(&loader.get("adverma-long")))}
-                    picture style="width:fit-content"{img style="height:10rem;" draggable="false" src=(page.path_to_root(lang) + *ICH) alt="";}
-                }
+    let items: [(timeline::Item<'_>, Box<[badge::Badge]>); 5] = [
+        (
+            timeline::Item {
+                content: PreEscaped(lang_to_html(&loader.get("adverma-short"))),
+                content_long: html! {
+                    div style="display:flex; justify-content: space-between;"{
+                        p {(lang_to_html(&loader.get("adverma-long")))}
+                        picture style="width:fit-content"{img style="height:10rem;" draggable="false" src=(page.path_to_root(lang) + *ICH) alt="";}
+                    }
+                },
+                title: "ADVERMA GmbH",
+                wide: false,
+                year: "2025 - 2026",
             },
-            title: "ADVERMA GmbH",
-            wide: false,
-            year: "2025 - 2026",
-        },
-        timeline::Item {
-            content: PreEscaped(lang_to_html(&loader.get("sem-4-short"))),
-            content_long: PreEscaped(lang_to_html(&loader.get("sem-4-long"))),
-            title: "THI - Semester 4",
-            wide: true,
-            year: "2025",
-        },
-        timeline::Item {
-            content: PreEscaped(lang_to_html(&loader.get("sem-3-short"))),
-            content_long: PreEscaped(lang_to_html(&loader.get("sem-3-long"))),
-            title: "THI - Semester 3",
-            wide: false,
-            year: "2024 - 2025",
-        },
-        timeline::Item {
-            content: PreEscaped(lang_to_html(&loader.get("sem-2-short"))),
-            content_long: PreEscaped(lang_to_html(&loader.get("sem-2-long"))),
-            title: "THI - Semester 2",
-            wide: true,
-            year: "2024",
-        },
-        timeline::Item {
-            content: PreEscaped(lang_to_html(&loader.get("sem-1-short"))),
-            content_long: PreEscaped(lang_to_html(&loader.get("sem-1-long"))),
-            title: "THI - Semester 1",
-            wide: false,
-            year: "2023 - 2024",
-        },
+            Box::from([]),
+        ),
+        (
+            timeline::Item {
+                content: PreEscaped(lang_to_html(&loader.get("sem-4-short"))),
+                content_long: PreEscaped(lang_to_html(&loader.get("sem-4-long"))),
+                title: "THI - Semester 4",
+                wide: true,
+                year: "2025",
+            },
+            Box::from([
+                badge::Badge::WDWU,
+                badge::Badge::ProduktDesign,
+                badge::Badge::PcGraph,
+                badge::Badge::PMMI,
+                badge::Badge::ProjektManagement,
+            ]),
+        ),
+        (
+            timeline::Item {
+                content: PreEscaped(lang_to_html(&loader.get("sem-3-short"))),
+                content_long: PreEscaped(lang_to_html(&loader.get("sem-3-long"))),
+                title: "THI - Semester 3",
+                wide: false,
+                year: "2024 - 2025",
+            },
+            Box::from([]),
+        ),
+        (
+            timeline::Item {
+                content: PreEscaped(lang_to_html(&loader.get("sem-2-short"))),
+                content_long: PreEscaped(lang_to_html(&loader.get("sem-2-long"))),
+                title: "THI - Semester 2",
+                wide: true,
+                year: "2024",
+            },
+            Box::from([]),
+        ),
+        (
+            timeline::Item {
+                content: PreEscaped(lang_to_html(&loader.get("sem-1-short"))),
+                content_long: PreEscaped(lang_to_html(&loader.get("sem-1-long"))),
+                title: "THI - Semester 1",
+                wide: false,
+                year: "2023 - 2024",
+            },
+            Box::from([]),
+        ),
     ];
 
     components::page::page(
@@ -85,6 +106,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                 script type="module" src=(page.path_to_root(lang)+*timeline_script){}
                 link rel="stylesheet" href=(page.path_to_root(lang)+*timeline_style);
                 (default_head(&core_loader.get("Experience"),"//TODO:", page, lang))
+                link rel="stylesheet" href=(page.path_to_root(lang)+*badge_style);
             }
 
             body{
