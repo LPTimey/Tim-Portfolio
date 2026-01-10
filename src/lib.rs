@@ -1,8 +1,10 @@
 mod components;
 mod pages;
+mod color;
 
 use i18n_embed::{LanguageLoader, fluent::FluentLanguageLoader};
 use image::ImageReader;
+use maud::PreEscaped;
 pub use pages::*;
 use rust_embed::RustEmbed;
 use std::{
@@ -11,6 +13,7 @@ use std::{
     path::{Path, PathBuf},
     sync::OnceLock,
 };
+use thiserror::Error;
 use unic_langid::langid;
 
 #[macro_export]
@@ -75,8 +78,11 @@ pub fn setup_language_loader(
     })
 }
 
-pub fn lang_to_html(string: &str) -> String{
-    string.replace("\\\n", "").replace("\n", "<br />").replace("\\n", "<br />")
+pub fn lang_to_html(string: &str) -> String {
+    string
+        .replace("\\\n", "")
+        .replace("\n", "<br />")
+        .replace("\\n", "<br />")
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Default)]

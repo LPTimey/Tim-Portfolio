@@ -2,6 +2,7 @@ use maud::Markup;
 
 use crate::Link;
 
+pub mod badge;
 pub mod carousel;
 pub mod codeblock;
 pub mod footer;
@@ -19,8 +20,8 @@ pub mod project_table;
 pub mod scrolling_img;
 pub mod theme_select;
 pub mod three_js_setup;
-pub mod tooltip;
 pub mod timeline;
+pub mod tooltip;
 
 // Definiere ein Trait
 pub trait ScriptType {}
