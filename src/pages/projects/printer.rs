@@ -9,8 +9,7 @@ use crate::{
         hyper_img::{self, Href, HyperMap, InsetPercent, MapNode},
         img, page,
         project_table::{self, with_sub_heading},
-    },
-    projects::ProjectMetadata,
+    }, link_public_img, projects::ProjectMetadata
 };
 
 use super::super::*;
@@ -34,7 +33,7 @@ pub const MOD_PATH: &str = module_path!();
 pub fn meta_data(_lang: &LanguageIdentifier) -> ProjectMetadata {
     ProjectMetadata {
         page: Page::Printer,
-        title_img: link_public!(
+        title_img: link_public_img!(
             (path_to_root(mod_path_to_href(MOD_PATH).expect("A valid path").as_path())
                 + "assets/Screendesign/Drucker/title-img-zoomed.webp")
                 .leak()
@@ -77,7 +76,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                     section #Hero{
                         picture #HeroImg{(img::img (img::ImgProps {
                                 pre_src: page.path_to_root(lang),
-                                src: link_public!("assets/Screendesign/Drucker/title-img.webp"),
+                                src: link_public!("assets/Screendesign/Drucker/title-img.webp").into(),
                                 ..Default::default()
                             }))}
                     }
@@ -98,7 +97,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                     section.sect.content #Login{
                         picture{(img::img(img::ImgProps{
                                 pre_src: page.path_to_root(lang),
-                                src: link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_05.png"),
+                                src: link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_05.png").into(),
                                 ..Default::default()
                         }))}
                         div {
@@ -146,22 +145,22 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                         }
                         picture{(img::img(img::ImgProps{
                             pre_src:page.path_to_root(lang),
-                            src:link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_07.png"),
+                            src:link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_07.png").into(),
                             ..Default::default()})
                         )}
                         picture{(img::img(img::ImgProps{
                             pre_src:page.path_to_root(lang),
-                            src:link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_08.png"),
+                            src:link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_08.png").into(),
                             ..Default::default()})
                         )}
                         picture{(img::img(img::ImgProps{
                             pre_src:page.path_to_root(lang),
-                            src:link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_09.png"),
+                            src:link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_09.png").into(),
                             ..Default::default()})
                         )}
                         picture{(img::img(img::ImgProps{
                             pre_src:page.path_to_root(lang),
-                            src:link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_13.png"),
+                            src:link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_13.png").into(),
                             ..Default::default()})
                         )}
                     }
@@ -225,7 +224,7 @@ pub fn hyper_map() -> HyperMap {
             buttons: login_links,
             img: link_public!(
                 "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_05.png"
-            ),
+            ).into(),
             alpha: false,
             default: true,
         },
@@ -242,7 +241,7 @@ pub fn hyper_map() -> HyperMap {
             buttons: login_card_links,
             img: link_public!(
                 "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_06.png"
-            ),
+            ).into(),
             alpha: false,
             default: false,
         },
@@ -270,7 +269,7 @@ pub fn hyper_map() -> HyperMap {
             buttons: home_links,
             img: link_public!(
                 "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_07.png"
-            ),
+            ).into(),
             alpha: false,
             default: false,
         },
@@ -295,7 +294,7 @@ pub fn hyper_map() -> HyperMap {
             buttons: auswahl_links,
             img: link_public!(
                 "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_08.png"
-            ),
+            ).into(),
             alpha: false,
             default: false,
         },
@@ -320,7 +319,7 @@ pub fn hyper_map() -> HyperMap {
             buttons: auswahl_alles_links,
             img: link_public!(
                 "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_08 - alles.webp"
-            ),
+            ).into(),
             alpha: false,
             default: false,
         },
@@ -343,7 +342,7 @@ pub fn hyper_map() -> HyperMap {
         EINSTELLEN_STR.to_string(),
         MapNode {
             buttons: einstellen_links,
-            img: link_public!(
+            img: link_public_img!(
                 "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_09.png"
             ),
             alpha: false,
@@ -372,7 +371,7 @@ pub fn hyper_map() -> HyperMap {
         DRUCKEN_STR.to_string(),
         MapNode {
             buttons: drucken_links,
-            img: link_public!(
+            img: link_public_img!(
                 "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_13.png"
             ),
             alpha: false,
@@ -396,7 +395,7 @@ pub fn hyper_map() -> HyperMap {
         AFTER_STR.to_string(),
         MapNode {
             buttons: after_links,
-            img: link_public!(
+            img: link_public_img!(
                 "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_21.png"
             ),
             alpha: false,

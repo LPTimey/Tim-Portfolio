@@ -14,7 +14,7 @@ use crate::{
 pub fn markup(content: Markup, path_to_root: String) -> Markup {
     html! {
         picture."phone-border"{
-            (img(ImgProps{pre_src:path_to_root,src:link_public!("assets/iPhone Template [Konvertiert] noBG.png"),class:&["phone"], ..Default::default()}))
+            (img(ImgProps{pre_src:path_to_root,src:link_public!("assets/iPhone Template [Konvertiert] noBG.png").into(),class:&["phone"], ..Default::default()}))
             div."phone-content"{(content)}
         }
     }

@@ -4,19 +4,17 @@ use Props::with_props;
 use maud::{Markup, html};
 
 use crate::{
-    Link,
-    components::{
+    Img, Link, components::{
         Component,
         img::{ImgProps, img},
-    },
-    link_public,
+    }, link_public
 };
 
 #[derive(Default)]
 pub struct HyperMap(pub HashMap<String, MapNode>);
 pub struct MapNode {
     pub buttons: Vec<(InsetPercent, Href)>,
-    pub img: Link,
+    pub img: Img,
     pub alpha: bool,
     pub default: bool,
 }

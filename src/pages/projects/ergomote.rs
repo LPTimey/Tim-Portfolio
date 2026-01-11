@@ -14,10 +14,7 @@ use crate::{
         project_table::{self, with_sub_heading},
         three_js_setup::import_map,
         tooltip,
-    },
-    include_public,
-    projects::ProjectMetadata,
-    setup_language_loader,
+    }, include_public, link_public_img, projects::ProjectMetadata, setup_language_loader
 };
 
 use super::super::*;
@@ -36,7 +33,7 @@ pub fn meta_data(lang: &LanguageIdentifier) -> ProjectMetadata {
     let loader = get_language_loader().select_languages(&[lang]);
     ProjectMetadata {
         page: Page::Ergomote,
-        title_img: link_public!("assets/Ergomote/render3.png").into(),
+        title_img: link_public_img!("assets/Ergomote/render3.png").into(),
         name: "Ergomote",
         description: loader.get("description").leak(),
         category: projects::Category::Design3D,
@@ -86,7 +83,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                             picture{
                                 (img::img (img::ImgProps {
                                     pre_src: page.path_to_root(lang),
-                                    src: link_public!("assets/Ergomote/render.png"),
+                                    src: link_public!("assets/Ergomote/render.png").into(),
                                     ..Default::default()
                                 }))
                             }

@@ -1,15 +1,13 @@
 use maud::{PreEscaped, html};
 
 use crate::{
-    Link,
-    components::{Component, img},
-    link_public,
+    Img, Link, components::{Component, img}, link_public
 };
 
 use Props::with_props;
 
 #[with_props]
-fn markup(img: Link, rows: u8, columns: u8, duration: std::time::Duration) -> maud::Markup {
+fn markup(img: Img, rows: u8, columns: u8, duration: std::time::Duration) -> maud::Markup {
     let imgs = html! {picture{(img::img(img::ImgProps{pre_src:"",src:img, ..Default::default()}))}}
         .into_string()
         .repeat(rows as usize * columns as usize);

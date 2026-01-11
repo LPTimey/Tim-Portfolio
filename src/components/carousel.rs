@@ -2,16 +2,14 @@ use Props::with_props;
 use maud::{Markup, PreEscaped, html};
 
 use crate::{
-    Link,
-    components::{
+    Img, Link, components::{
         Component,
         img::{self, ImgProps},
-    },
-    include_asset, link_public,
+    }, include_asset, link_public
 };
 
 #[with_props]
-pub fn markup<'a>(id: &'static str, pre_src: &'a str, images: &'a [Link]) -> Markup {
+pub fn markup<'a>(id: &'static str, pre_src: &'a str, images: &'a [Img]) -> Markup {
     html! {
         div.carousel #(id) "data-current"=(0){
             ul."carousel-content"{@for (i,img) in images.iter().enumerate(){

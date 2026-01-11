@@ -15,10 +15,7 @@ use crate::{
         project_table::{self, with_sub_heading},
         three_js_setup::import_map,
         tooltip,
-    },
-    include_public,
-    projects::ProjectMetadata,
-    setup_language_loader,
+    }, include_public, link_public_img, projects::ProjectMetadata, setup_language_loader
 };
 
 use super::super::*;
@@ -34,7 +31,7 @@ pub fn meta_data(lang: &LanguageIdentifier) -> ProjectMetadata {
     let loader = get_language_loader().select_languages(&[lang]);
     ProjectMetadata {
         page: Page::Watchout,
-        title_img: link_public!(
+        title_img: link_public_img!(
             "assets/Design der Mensch Maschine Schnittstelle/WatchOut/title-img-flipp-bg.webp"
         )
         .into(),
@@ -240,7 +237,7 @@ pub fn watchout_hi_map() -> HyperMap {
         HOME_STR.to_string(),
         MapNode {
             buttons: home_links,
-            img: link_public!(
+            img: link_public_img!(
                 "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/Recent Events  – log.png"
             ),
             alpha: false,
@@ -267,7 +264,7 @@ pub fn watchout_hi_map() -> HyperMap {
         HISTORY_STR.to_string(),
         MapNode {
             buttons: history_links,
-            img: link_public!(
+            img: link_public_img!(
                 "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/History  – 1 Log.png"
             ),
             alpha: false,
@@ -298,7 +295,7 @@ pub fn watchout_hi_map() -> HyperMap {
         MAP_STR.to_string(),
         MapNode {
             buttons: map_links,
-            img: link_public!(
+            img: link_public_img!(
                 "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/Map – 1.png"
             ),
             alpha: false,
@@ -329,7 +326,7 @@ pub fn watchout_hi_map() -> HyperMap {
         MAP_OVERLAY_HELEN_STR.to_string(),
         MapNode {
             buttons: map_overlay_helen_links,
-            img: link_public!(
+            img: link_public_img!(
                 "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/Map Overlay – 1 – Event.png"
             ),
             alpha: true,
@@ -356,7 +353,7 @@ pub fn watchout_hi_map() -> HyperMap {
         MAP_OVERLAY_JOE_STR.to_string(),
         MapNode {
             buttons: map_overlay_joe_links,
-            img: link_public!(
+            img: link_public_img!(
                 "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/Map Overlay – 2 – Joe.png"
             ),
             alpha: true,
@@ -383,7 +380,7 @@ pub fn watchout_hi_map() -> HyperMap {
         MAP_OVERLAY_GUNTHER_STR.to_string(),
         MapNode {
             buttons: map_overlay_gunther_links,
-            img: link_public!(
+            img: link_public_img!(
                 "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/Map Overlay – 2 – Gunther.png"
             ),
             alpha: true,
@@ -397,7 +394,7 @@ pub fn watchout_hi_map() -> HyperMap {
         SETTINGS_STR.to_string(),
         MapNode {
             buttons: settings_links,
-            img: link_public!(
+            img: link_public_img!(
                 "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/Settings – 1.png"
             ),
             alpha: false,
@@ -424,7 +421,7 @@ pub fn watchout_hi_map() -> HyperMap {
         EVENT_OVERLAY_STR.to_string(),
         MapNode {
             buttons: event_overlay_links,
-            img: link_public!(
+            img: link_public_img!(
                 "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/Message Overlay – new.png"
             ),
             alpha: true,
@@ -451,7 +448,7 @@ pub fn watchout_hi_map() -> HyperMap {
         EVENT_OVERLAY_PASSIVE_STR.to_string(),
         MapNode {
             buttons: event_overlay_passive_links,
-            img: link_public!(
+            img: link_public_img!(
                 "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/Message Overlay seen.png"
             ),
             alpha: true,
@@ -465,7 +462,7 @@ pub fn watchout_hi_map() -> HyperMap {
         CALL_LIST_STR.to_string(),
         MapNode {
             buttons: call_list_links,
-            img: link_public!(
+            img: link_public_img!(
                 "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/Call List Expanded.png"
             ),
             alpha: true,
