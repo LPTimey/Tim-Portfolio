@@ -3,10 +3,18 @@ use maud::PreEscaped;
 use std::{sync::OnceLock, time::Duration};
 
 use crate::{
-    Img, components::{
-        self, Component, footer::footer, head::default_head, header::header, icon::{Icon, IconToMarkup},
-        project_card, project_table::Content, scrolling_img, tooltip,
-    }, include_public, setup_language_loader
+    Img,
+    components::{
+        self, Component,
+        footer::footer,
+        head::default_head,
+        header::header,
+        icon::{Icon, IconToMarkup},
+        img, project_card,
+        project_table::Content,
+        scrolling_img, tooltip,
+    },
+    include_public, setup_language_loader,
 };
 
 use super::*;
@@ -81,12 +89,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
             ],
         ),
     ]
-    .map(|(cat, icons)| {
-        (
-            cat,
-            icons.to_markup(&page.path_to_root(lang)),
-        )
-    });
+    .map(|(cat, icons)| (cat, icons.to_markup(&page.path_to_root(lang))));
 
     components::page::page(
         page.path_to_root(lang),
@@ -106,7 +109,8 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                     section #Hero{
                         div #HeroImg{
                             // TODO: Move into noscript and do anim in canvas because Firefox just cant do this somehow
-                            (scroll_img_html(scrolling_img::MarkupProps { img: Img(Link((page.path_to_root(lang)+*link_public!("assets/Title-img.webp")).leak())), rows: 3, columns: 3, duration: Duration::from_secs(50) }))
+                            // (scroll_img_html(scrolling_img::MarkupProps { img: Img(Link(*link_public!("assets/Title-img.webp"))), rows: 3, columns: 3, duration: Duration::from_secs(50) }))
+                            (scroll_img_html(scrolling_img::MarkupProps { img: img::ImgProps{pre_src:&page.path_to_root(lang),src:Img(Link(*link_public!("assets/Title-img.webp"))),..Default::default()}, rows: 3, columns: 3, duration: Duration::from_secs(50) }))
                         }
                         div ."hero-content"{
                             h1."mb-large"{

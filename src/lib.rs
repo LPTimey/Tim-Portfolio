@@ -6,6 +6,7 @@ use i18n_embed::{LanguageLoader, fluent::FluentLanguageLoader};
 use image::ImageReader;
 use maud::PreEscaped;
 pub use pages::*;
+use rayon::prelude::*;
 use rust_embed::RustEmbed;
 use std::{
     fmt::Display,
@@ -13,7 +14,6 @@ use std::{
     path::{Path, PathBuf},
     sync::OnceLock,
 };
-use thiserror::Error;
 use unic_langid::langid;
 
 #[macro_export]
@@ -181,41 +181,63 @@ impl Img {
     pub fn get_img_dimensions_panic(&self) -> (usize, usize) {
         self.get_img_dimensions().expect("a valid img")
     }
-    pub fn sizes_to_disc(&self) -> Option<()> {
+    pub fn get_img_srcset(image_data: &[(u32, PathBuf)], path_to_root: &str) -> String {
+        image_data
+            .iter()
+            .map(|(size, path)| {
+                let clean_path = path.strip_prefix("public").unwrap_or(path);
+
+                let web_path = clean_path.to_string_lossy().replace('\\', "/");
+
+                format!("{}{} {}w", path_to_root, web_path, size)
+            })
+            .collect::<Vec<String>>()
+            .join(", ")
+    }
+    pub fn sizes_to_disc(&self) -> Option<Vec<(u32, PathBuf)>> {
         if !self.0.exists() {
             return None;
         }
-        let path = self.0.into_public_path();
-        let file = std::fs::File::open(&path).ok()?;
-        let reader = std::io::BufReader::new(file);
-        let image = ImageReader::new(reader)
+
+        let original_path = self.0.into_public_path();
+        let target_dir = original_path.with_extension("");
+
+        std::fs::create_dir_all(&target_dir).ok()?;
+        let ignore_path = target_dir.join(".gitignore");
+        if !ignore_path.exists() {
+            std::fs::write(ignore_path, "*").ok()?;
+        }
+
+        let image = ImageReader::open(&original_path)
+            .ok()?
             .with_guessed_format()
             .ok()?
             .decode()
             .ok()?;
 
-        Self::SIZES
-            .iter()
+        let paths: Vec<(u32, PathBuf)> = Self::SIZES
+            .into_par_iter()
             .map(|size| {
-                (
-                    image.resize(*size, image.height(), image::imageops::FilterType::Nearest),
-                    *size,
-                )
-            })
-            .for_each(|(image, size)| {
-                let filename = format!(
+                let file_path = target_dir.join(format!(
                     "{}.{}",
-                    size.to_string(),
+                    size,
                     image::ImageFormat::WebP.extensions_str()[0]
-                );
-                let _ = image.save_with_format(
-                    path.clone()
-                        .join(filename),
-                    image::ImageFormat::WebP,
-                );
-            });
+                ));
 
-        todo!()
+                // Überspringen, falls Datei existiert
+                if !file_path.exists() {
+                    // Thumbnail erstellen (behält Seitenverhältnis bei, effizienter als resize)
+                    let resized = image.thumbnail(size, size);
+
+                    // Speichern
+                    let _ = resized.save_with_format(&file_path, image::ImageFormat::WebP);
+                }
+
+                (size, file_path)
+            })
+            .collect();
+
+        Some(paths)
     }
 }
 impl From<Link> for Img {
