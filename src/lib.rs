@@ -4,7 +4,6 @@ mod pages;
 
 use i18n_embed::{LanguageLoader, fluent::FluentLanguageLoader};
 use image::ImageReader;
-use maud::PreEscaped;
 pub use pages::*;
 use rayon::prelude::*;
 use rust_embed::RustEmbed;
