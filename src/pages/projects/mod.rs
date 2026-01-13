@@ -1,9 +1,9 @@
-use std::fmt::Debug;
+use std::{fmt::Debug, sync::Arc};
 
 use strum::Display;
 use unic_langid::LanguageIdentifier;
 
-use crate::{LightDark, Link, Page};
+use crate::{LightDark, Page, assets::img::Img};
 
 pub mod ergomote;
 pub mod index;
@@ -33,32 +33,32 @@ impl Ord for Category {
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Eq, Display)]
+#[derive(Debug, Clone, Display)]
 pub enum ThemeLink {
-    Single(Link),
-    LightDark(LightDark<Link>),
+    Single(Arc<Img>),
+    LightDark(LightDark<Arc<Img>>),
 }
 impl ThemeLink {
-    pub fn light(&self) -> Link {
+    pub fn light(&self) -> Arc<Img> {
         match self {
-            ThemeLink::Single(link) => *link,
-            ThemeLink::LightDark(light_dark) => light_dark.light,
+            ThemeLink::Single(link) => link.clone(),
+            ThemeLink::LightDark(light_dark) => light_dark.light.clone(),
         }
     }
-    pub fn dark(&self) -> Link {
+    pub fn dark(&self) -> Arc<Img> {
         match self {
-            ThemeLink::Single(link) => *link,
-            ThemeLink::LightDark(light_dark) => light_dark.dark,
+            ThemeLink::Single(link) => link.clone(),
+            ThemeLink::LightDark(light_dark) => light_dark.dark.clone(),
         }
     }
 }
-impl From<Link> for ThemeLink {
-    fn from(value: Link) -> Self {
+impl From<Arc<Img>> for ThemeLink {
+    fn from(value: Arc<Img>) -> Self {
         Self::Single(value)
     }
 }
-impl From<LightDark<Link>> for ThemeLink {
-    fn from(value: LightDark<Link>) -> Self {
+impl From<LightDark<Arc<Img>>> for ThemeLink {
+    fn from(value: LightDark<Arc<Img>>) -> Self {
         Self::LightDark(value)
     }
 }

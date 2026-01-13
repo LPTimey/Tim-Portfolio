@@ -1,13 +1,14 @@
 use maud::PreEscaped;
 
 use crate::{
+    assets::img::{Img, ImgProps},
     components::{
         Component,
         footer::footer,
         head::default_head,
         header::header,
         hyper_img::{self, Href, HyperMap, InsetPercent, MapNode},
-        img, page,
+        page,
         project_table::{self, with_sub_heading},
     },
     projects::ProjectMetadata,
@@ -34,11 +35,12 @@ pub const MOD_PATH: &str = module_path!();
 pub fn meta_data(_lang: &LanguageIdentifier) -> ProjectMetadata {
     ProjectMetadata {
         page: Page::Printer,
-        title_img: link_public!(
-            (path_to_root(mod_path_to_href(MOD_PATH).expect("A valid path").as_path())
-                + "assets/Screendesign/Drucker/title-img-zoomed.webp")
-                .leak()
+        title_img: Img::new(
+            "public",
+            "assets/Screendesign/Drucker/title-img-zoomed.png",
+            "",
         )
+        .unwrap()
         .into(),
         name: "Drucker Touchscreen",
         description: DESCRIPTION,
@@ -60,6 +62,33 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
         script: hy_img_script,
     } = hyper_img::component();
 
+    let title_img = Img::new("public", "assets/Screendesign/Drucker/title-img.webp", "").unwrap();
+    let login_img = Img::new("public", "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_05.png", "").unwrap();
+    // picture{(img::img(img::ImgProps{
+    //     pre_src:page.path_to_root(lang),
+    //     src:link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_07.png"),
+    //     ..Default::default()})
+    // )}
+    let home_img = Img::new("public", "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_07.png", "").unwrap();
+    // picture{(img::img(img::ImgProps{
+    //     pre_src:page.path_to_root(lang),
+    //     src:link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_08.png"),
+    //     ..Default::default()})
+    // )}
+    let select_img = Img::new("public", "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_08.png", "").unwrap();
+    // picture{(img::img(img::ImgProps{
+    //     pre_src:page.path_to_root(lang),
+    //     src:link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_09.png"),
+    //     ..Default::default()})
+    // )}
+    let setting_img = Img::new("public", "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_09.png", "").unwrap();
+    // picture{(img::img(img::ImgProps{
+    //     pre_src:page.path_to_root(lang),
+    //     src:link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_13.png"),
+    //     ..Default::default()})
+    // )}
+    let print_img = Img::new("public", "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_13.png", "").unwrap();
+
     page::page(
         page.path_to_root(lang),
         html! {
@@ -75,17 +104,18 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                 (header(page,lang))
                 main{
                     section #Hero{
-                        picture #HeroImg{(img::img (img::ImgProps {
-                                pre_src: page.path_to_root(lang),
-                                src: link_public!("assets/Screendesign/Drucker/title-img.webp"),
-                                ..Default::default()
-                            }))}
+                        (title_img.render(ImgProps {
+                            path_to_root: &page.path_to_root(lang),
+                            eager:true,
+                            id:Some("HeroImg"),
+                            ..Default::default()
+                        }))
                     }
                     (table_html(project_table::MarkupProps {
                         // title: "Drucker: Motivation & Generelles".into(),
                         title: with_sub_heading("Drucker Re-Design","Screendesign"),
                         // graphic: (page.path_to_root(lang),meta_data(lang).title_img.light()).into(),
-                        graphic: html!{(hy_img_html(hyper_img::MarkupProps { map: hyper_map(), path_to_root: page.path_to_root(lang) }))}.into(),
+                        graphic: html!{(hy_img_html(hyper_img::MarkupProps { map: hyper_map(), path_to_root: page.path_to_root(lang), eager:false }))}.into(),
                         rows:&[
                             ("Studienmodul", "Projekt Gestaltung II").into(),
                             ("Zeitraum", "März 2024 - Juli 2024").into(),
@@ -96,11 +126,10 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                         long_text: true
                     }))
                     section.sect.content #Login{
-                        picture{(img::img(img::ImgProps{
-                                pre_src: page.path_to_root(lang),
-                                src: link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_05.png"),
+                        (login_img.render(ImgProps{
+                                path_to_root: &page.path_to_root(lang),
                                 ..Default::default()
-                        }))}
+                        }))
                         div {
                             h2.heading{ "Login" }
                             p{
@@ -144,26 +173,22 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                                 }
                             }
                         }
-                        picture{(img::img(img::ImgProps{
-                            pre_src:page.path_to_root(lang),
-                            src:link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_07.png"),
-                            ..Default::default()})
-                        )}
-                        picture{(img::img(img::ImgProps{
-                            pre_src:page.path_to_root(lang),
-                            src:link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_08.png"),
-                            ..Default::default()})
-                        )}
-                        picture{(img::img(img::ImgProps{
-                            pre_src:page.path_to_root(lang),
-                            src:link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_09.png"),
-                            ..Default::default()})
-                        )}
-                        picture{(img::img(img::ImgProps{
-                            pre_src:page.path_to_root(lang),
-                            src:link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_13.png"),
-                            ..Default::default()})
-                        )}
+                        (home_img.render(ImgProps{
+                                path_to_root: &page.path_to_root(lang),
+                                ..Default::default()
+                        }))
+                        (select_img.render(ImgProps{
+                                path_to_root: &page.path_to_root(lang),
+                                ..Default::default()
+                        }))
+                        (setting_img.render(ImgProps{
+                                path_to_root: &page.path_to_root(lang),
+                                ..Default::default()
+                        }))
+                        (print_img.render(ImgProps{
+                                path_to_root: &page.path_to_root(lang),
+                                ..Default::default()
+                        }))
                     }
                 }
                 (footer(lang))
@@ -218,14 +243,20 @@ pub fn hyper_map() -> HyperMap {
             Href::Specific(HOME_STR.to_string()),
         ),
     ];
+    let login_img = Img::new("public", "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_05.png", "").unwrap();
+    let login_card_img = Img::new("public", "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_06.png", "").unwrap();
+    let home_img = Img::new("public", "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_07.png", "").unwrap();
+    let auswahl_img = Img::new("public", "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_08.png", "").unwrap();
+    let auswahl_alles_img = Img::new("public", "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_08 - alles.webp", "").unwrap();
+    let einstellen_img = Img::new("public", "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_09.png", "").unwrap();
+    let drucken_img = Img::new("public", "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_13.png", "").unwrap();
+    let after_img = Img::new("public", "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_21.png", "").unwrap();
     // login_links.extend_from_slice(&nav);
     let login = (
         LOGIN_STR.to_string(),
         MapNode {
             buttons: login_links,
-            img: link_public!(
-                "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_05.png"
-            ),
+            img: login_img.clone(),
             alpha: false,
             default: true,
         },
@@ -240,9 +271,7 @@ pub fn hyper_map() -> HyperMap {
         LOGIN_CARD_STR.to_string(),
         MapNode {
             buttons: login_card_links,
-            img: link_public!(
-                "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_06.png"
-            ),
+            img: login_card_img.clone(),
             alpha: false,
             default: false,
         },
@@ -268,9 +297,7 @@ pub fn hyper_map() -> HyperMap {
         HOME_STR.to_string(),
         MapNode {
             buttons: home_links,
-            img: link_public!(
-                "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_07.png"
-            ),
+            img: home_img.clone(),
             alpha: false,
             default: false,
         },
@@ -293,9 +320,7 @@ pub fn hyper_map() -> HyperMap {
         AUSWAHL_STR.to_string(),
         MapNode {
             buttons: auswahl_links,
-            img: link_public!(
-                "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_08.png"
-            ),
+            img: auswahl_img.clone(),
             alpha: false,
             default: false,
         },
@@ -318,9 +343,7 @@ pub fn hyper_map() -> HyperMap {
         AUSWAHL_ALLES_STR.to_string(),
         MapNode {
             buttons: auswahl_alles_links,
-            img: link_public!(
-                "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_08 - alles.webp"
-            ),
+            img: auswahl_alles_img.clone(),
             alpha: false,
             default: false,
         },
@@ -343,9 +366,7 @@ pub fn hyper_map() -> HyperMap {
         EINSTELLEN_STR.to_string(),
         MapNode {
             buttons: einstellen_links,
-            img: link_public!(
-                "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_09.png"
-            ),
+            img: einstellen_img.clone(),
             alpha: false,
             default: false,
         },
@@ -372,9 +393,7 @@ pub fn hyper_map() -> HyperMap {
         DRUCKEN_STR.to_string(),
         MapNode {
             buttons: drucken_links,
-            img: link_public!(
-                "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_13.png"
-            ),
+            img: drucken_img.clone(),
             alpha: false,
             default: false,
         },
@@ -396,9 +415,7 @@ pub fn hyper_map() -> HyperMap {
         AFTER_STR.to_string(),
         MapNode {
             buttons: after_links,
-            img: link_public!(
-                "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_21.png"
-            ),
+            img: after_img.clone(),
             alpha: false,
             default: false,
         },

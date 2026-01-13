@@ -1,10 +1,10 @@
 mod components;
 mod pages;
 mod color;
+mod assets;
 
 use i18n_embed::{LanguageLoader, fluent::FluentLanguageLoader};
 use image::ImageReader;
-use maud::PreEscaped;
 pub use pages::*;
 use rust_embed::RustEmbed;
 use std::{
@@ -13,7 +13,6 @@ use std::{
     path::{Path, PathBuf},
     sync::OnceLock,
 };
-use thiserror::Error;
 use unic_langid::langid;
 
 #[macro_export]

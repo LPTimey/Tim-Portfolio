@@ -1,16 +1,16 @@
+use std::sync::Arc;
+
 use maud::{PreEscaped, html};
 
 use crate::{
-    Link,
-    components::{Component, img},
-    link_public,
+    Link, assets::img::{Img, ImgProps}, components::Component, link_public
 };
 
 use Props::with_props;
 
 #[with_props]
-fn markup(img: Link, rows: u8, columns: u8, duration: std::time::Duration) -> maud::Markup {
-    let imgs = html! {picture{(img::img(img::ImgProps{pre_src:"",src:img, ..Default::default()}))}}
+fn markup<'a>(img: Arc<Img>, props: ImgProps<'a>, rows: u8, columns: u8, duration: std::time::Duration) -> maud::Markup {
+    let imgs = img.render(props)
         .into_string()
         .repeat(rows as usize * columns as usize);
 
@@ -38,7 +38,7 @@ fn style() -> Link {
     link_public!("components/scroll_img.css")
 }
 
-pub fn component() -> Component<MarkupProps, Link, ()> {
+pub fn component<'a>() -> Component<MarkupProps<'a>, Link, ()> {
     Component {
         html: markup,
         style: style(),

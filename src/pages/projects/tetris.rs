@@ -4,20 +4,16 @@ use i18n_embed::fluent::FluentLanguageLoader;
 use maud::PreEscaped;
 
 use crate::{
-    TabIndex,
-    components::{
+    TabIndex, assets::img::{Img, ImgProps}, components::{
         Component, carousel, codeblock,
         footer::footer,
         head::default_head,
         header::header,
         icon::{Icon, IconToMarkup},
-        img, mermaid, page,
+        mermaid, page,
         project_table::{self, with_sub_heading},
         tooltip::{self, Align},
-    },
-    include_public,
-    projects::ProjectMetadata,
-    setup_language_loader,
+    }, include_public, projects::ProjectMetadata, setup_language_loader
 };
 
 use super::super::*;
@@ -205,7 +201,10 @@ pub fn meta_data(lang: &LanguageIdentifier) -> ProjectMetadata {
     let loader = get_language_loader().select_languages(&[lang]);
     ProjectMetadata {
         page: Page::Tetris,
-        title_img: link_public!("assets/Tetris/Title-img.webp").into(),
+        title_img: 
+        // link_public!("assets/Tetris/Title-img.webp")
+        Img::new("public","assets/Tetris/Title-img.webp","").unwrap()
+        .into(),
         name: "Tetris in Arduino & C",
         description: loader.get("description").leak(),
         category: projects::Category::Programmieren,
@@ -240,6 +239,15 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
         ..
     } = mermaid::component();
 
+    let dark_title_img = meta_data.title_img.dark();
+    let light_title_img = meta_data.title_img.light();
+
+    let einzelteile_img = Img::new("public", "assets/Tetris/webp/Einzelteile.webp", "").unwrap();
+    let carousel_img_1= Img::new("public","assets/Tetris/webp/Tetris_Steckplatine_small.webp","").unwrap();
+    let carousel_img_2 = Img::new("public","assets/Tetris/webp/Buttons mit widerstand_small.webp","").unwrap();
+    let carousel_img_3 = Img::new("public","assets/Tetris/webp/buttons mit + und gnd topview_small.webp","").unwrap();
+    let carousel_img_4 = Img::new("public","assets/Tetris/webp/Button verbunden topview_small.webp","").unwrap();
+
     page::page(
         page.path_to_root(lang),
         html! {
@@ -259,23 +267,17 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                 (header(page, lang))
                 main{
                     section #Hero{
-                        picture #HeroImg{(img::img (img::ImgProps {
-                                pre_src: page.path_to_root(lang),
-                                src: meta_data.title_img.light(),
-                                ..Default::default()
-                            }))}
+                        picture #HeroImg{
+                            (dark_title_img.clone().render(ImgProps { path_to_root: &page.path_to_root(lang), eager: true, class: &["dark-only"], ..Default::default() }))
+                            (light_title_img.clone().render(ImgProps { path_to_root: &page.path_to_root(lang), eager: true, class: &["light-only"], ..Default::default() }))
+                        }
                     }
                     (table_html(project_table::MarkupProps {
                         // title: "Tetris auf dem Arduino?".into(),
                         title: with_sub_heading("Tetris auf dem Arduino?","Programmieren"),
                         graphic: html!{
-                            picture{
-                                (img::img (img::ImgProps {
-                                    pre_src: page.path_to_root(lang),
-                                    src: meta_data.title_img.light(),
-                                    ..Default::default()
-                                }))
-                            }
+                            (dark_title_img.render(ImgProps { path_to_root: &page.path_to_root(lang), eager: true, class: &["dark-only"], ..Default::default() }))
+                            (light_title_img.render(ImgProps { path_to_root: &page.path_to_root(lang), eager: true, class: &["light-only"], ..Default::default() }))
                         }.into(),
                         rows:&[
                             (&*core_loader.get("module").leak(), "TMMIP").into(),
@@ -323,7 +325,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                                 div.marker #ResistorsMarker{ (tooltip::markup(tooltip::MarkupProps{children:html!{ div."accent-point"{} }, content: PreEscaped(loader.get("resistors")),popup_align:Align::Center,popup_justify:Align::Center,popup_begin_align:Align::Center,popup_begin_justify:Align::Center })) }
                                 div.marker #ExtrasMarker{ (tooltip::markup(tooltip::MarkupProps{children:html!{ div."accent-point"{} }, content: PreEscaped(loader.get("connectors")),popup_align:Align::Center,popup_justify:Align::Center,popup_begin_align:Align::Center,popup_begin_justify:Align::Center })) }
                                 div.marker #BreadboardMarker{ (tooltip::markup(tooltip::MarkupProps{children:html!{ div."accent-point"{} }, content: PreEscaped(loader.get("breadboard")),popup_align:Align::Center,popup_justify:Align::Center,popup_begin_align:Align::Center,popup_begin_justify:Align::Center })) }
-                                (img::img(img::ImgProps{pre_src:page.path_to_root(lang),src:link_public!("assets/Tetris/webp/Einzelteile.webp"),..Default::default()}))
+                                (einzelteile_img.render(ImgProps{path_to_root:&page.path_to_root(lang),..Default::default()}))
                             }
                         }
                     }
@@ -336,11 +338,11 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
 
                         h2.heading{(loader.get("result"))}
                         p {(loader.get("result-coarse"))}
-                        (carousel_html(carousel::MarkupProps { id: "ResultPhotos", pre_src: &page.path_to_root(lang), images:&[
-                            link_public!("assets/Tetris/webp/Tetris_Steckplatine_small.webp"),
-                            link_public!("assets/Tetris/webp/Buttons mit widerstand_small.webp"),
-                            link_public!("assets/Tetris/webp/buttons mit + und gnd topview_small.webp"),
-                            link_public!("assets/Tetris/webp/Button verbunden topview_small.webp"),
+                        (carousel_html(carousel::MarkupProps { id: "ResultPhotos", pre_src: &page.path_to_root(lang), eager:false, images:&[
+                            carousel_img_1,
+                            carousel_img_2,
+                            carousel_img_3,
+                            carousel_img_4,
                         ] }))
                         div."mb-medium"{
                             h3.subhead{(loader.get("lessons-learned"))}

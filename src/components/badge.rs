@@ -1,12 +1,7 @@
 use Props::with_props;
 use maud::{Markup, PreEscaped, Render, html};
 
-use crate::{
-    Link,
-    color::{CssColor, RGBA},
-    components::Component,
-    link_public,
-};
+use crate::{Link, color::CssColor, components::Component, link_public};
 
 #[with_props]
 pub fn markup(content: PreEscaped<String>, color: CssColor, bg_color: CssColor) -> Markup {
@@ -44,7 +39,9 @@ impl Badge {
             Badge::WDWU => MarkupProps {
                 content: PreEscaped("WDWU".to_string()),
                 color: CssColor::Var("--white"),
-                bg_color: CssColor::Calc("linear-gradient(to Bottom,var(--accent-light),var(--accent-dark))"),
+                bg_color: CssColor::Calc(
+                    "linear-gradient(to Bottom,var(--accent-light),var(--accent-dark))",
+                ),
             },
             Badge::ProduktDesign => MarkupProps {
                 content: PreEscaped("ProduktDesign".to_string()),

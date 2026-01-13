@@ -1,13 +1,8 @@
+use std::sync::Arc;
+
 use maud::{PreEscaped, Render, html};
 
-use crate::{
-    Link,
-    components::{
-        Component,
-        img::{self, ImgProps},
-    },
-    link_public,
-};
+use crate::{Link, assets::img::{Img, ImgProps}, components::Component, link_public};
 use Props::with_props;
 
 #[derive(Debug)]
@@ -68,18 +63,17 @@ impl<T: Into<&'static str>, C: Into<Content>> From<(T, C)> for Row {
 }
 
 pub enum Graphic {
-    Link { path_to_root: String, link: Link },
+    Link { path_to_root: String, img: Arc<Img> },
     Markup(PreEscaped<String>),
 }
 impl Render for Graphic {
-    fn render_to(&self, buffer: &mut String) {
+    fn render(&self) -> PreEscaped<String> {
         match self {
-            Graphic::Link { path_to_root, link } => {
-                html! {picture{(img::img(ImgProps{pre_src:path_to_root.to_owned(),src:*link,..Default::default()}));}}
-                    .render_to(buffer);
+            Graphic::Link { path_to_root, img } => {
+                img.clone().render(ImgProps{path_to_root,..Default::default()})
             }
-            Graphic::Markup(pre_escaped) => pre_escaped.render_to(buffer),
-        };
+            Graphic::Markup(pre_escaped) => pre_escaped.clone(),
+        }
     }
 }
 impl From<PreEscaped<String>> for Graphic {
@@ -87,11 +81,11 @@ impl From<PreEscaped<String>> for Graphic {
         Graphic::Markup(value)
     }
 }
-impl<T: Into<String>> From<(T, Link)> for Graphic {
-    fn from((path_to_root, link): (T, Link)) -> Self {
+impl<T: Into<String>> From<(T, Arc<Img>)> for Graphic {
+    fn from((path_to_root, img): (T, Arc<Img>)) -> Self {
         Graphic::Link {
             path_to_root: path_to_root.into(),
-            link,
+            img,
         }
     }
 }
@@ -107,7 +101,13 @@ pub fn with_sub_heading(title: &str, sub: &str) -> Content {
 }
 
 #[with_props]
-fn markup<'a>(title: Content, graphic: Graphic, rows: &'a [Row], text: Content, long_text: bool) -> maud::Markup {
+fn markup<'a>(
+    title: Content,
+    graphic: Graphic,
+    rows: &'a [Row],
+    text: Content,
+    long_text: bool,
+) -> maud::Markup {
     html! {
         section.sect.content #Intro{
             div #GeneralInfo{

@@ -1,22 +1,27 @@
+use std::sync::Arc;
+
 use Props::with_props;
 use maud::{Markup, PreEscaped, html};
 
 use crate::{
     Link,
-    components::{
-        Component,
-        img::{self, ImgProps},
-    },
+    assets::img::{Img, ImgProps},
+    components::Component,
     include_asset, link_public,
 };
 
 #[with_props]
-pub fn markup<'a>(id: &'static str, pre_src: &'a str, images: &'a [Link]) -> Markup {
+pub fn markup<'a>(
+    id: &'static str,
+    pre_src: &'a str,
+    images: &'a [Arc<Img>],
+    eager: bool,
+) -> Markup {
     html! {
         div.carousel #(id) "data-current"=(0){
-            ul."carousel-content"{@for (i,img) in images.iter().enumerate(){
+            ul."carousel-content"{@for (i,img) in images.into_iter().enumerate(){
                     li "data-index"=(i){picture{
-                        (img::img(ImgProps{pre_src,src:*img,..Default::default()}))
+                        (Arc::clone(&img).render(ImgProps{path_to_root:pre_src,eager,..Default::default()}))
                     }}
                 }
                 li."carousel-spacer"{}

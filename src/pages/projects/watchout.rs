@@ -4,21 +4,18 @@ use i18n_embed::fluent::FluentLanguageLoader;
 use maud::PreEscaped;
 
 use crate::{
-    components::{
+    assets::img::{Img, ImgProps}, components::{
         self, Component,
         footer::footer,
         head::default_head,
         header::header,
         hyper_img::{self, Href, HyperMap, InsetPercent, MapNode},
         icon::{Icon, IconToMarkup},
-        img, phone_border,
+        phone_border,
         project_table::{self, with_sub_heading},
         three_js_setup::import_map,
         tooltip,
-    },
-    include_public,
-    projects::ProjectMetadata,
-    setup_language_loader,
+    }, include_public, projects::ProjectMetadata, setup_language_loader
 };
 
 use super::super::*;
@@ -34,9 +31,11 @@ pub fn meta_data(lang: &LanguageIdentifier) -> ProjectMetadata {
     let loader = get_language_loader().select_languages(&[lang]);
     ProjectMetadata {
         page: Page::Watchout,
-        title_img: link_public!(
-            "assets/Design der Mensch Maschine Schnittstelle/WatchOut/title-img-flipp-bg.webp"
-        )
+        title_img: 
+        // link_public!(
+        //     "assets/Design der Mensch Maschine Schnittstelle/WatchOut/title-img-flipp-bg.webp"
+        // )
+        Img::new("public", "assets/Design der Mensch Maschine Schnittstelle/WatchOut/title-img-flipp-bg.webp", "").unwrap()
         .into(),
         name: "WatchOut",
         description: loader.get("description").leak(),
@@ -102,6 +101,10 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
     let video_href = page.path_to_root(lang)
         + *link_public!("assets/Design der Mensch Maschine Schnittstelle/WatchOut/Video720_1.mp4");
 
+    let meta_data = meta_data(lang);
+    let dark_title_img = meta_data.title_img.dark();
+    let light_title_img = meta_data.title_img.light();
+
     components::page::page(
         page.path_to_root(lang),
         html! {
@@ -123,13 +126,10 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                 (header(page, lang))
                 main{
                     section #Hero{
-                        picture #HeroImg{(
-                            img::img (img::ImgProps {
-                                pre_src: page.path_to_root(lang),
-                                src: meta_data(lang).title_img.light(),
-                                ..Default::default()
-                            })
-                        )}
+                        picture #HeroImg{
+                            (dark_title_img.render(ImgProps { path_to_root: &page.path_to_root(lang), eager: true, class: &["dark-only"], ..Default::default() }))
+                            (light_title_img.render(ImgProps { path_to_root: &page.path_to_root(lang), eager: true, class: &["light-only"], ..Default::default() }))
+                        }
                     }
                     (table_html(project_table::MarkupProps {
                         title: with_sub_heading("WatchOut App & Uhr","Design der Mensch-Maschine-Schnittstelle"),
@@ -175,7 +175,15 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                                     }
                                 }
                                 div #AppInfo{
-                                    (phone_border_html(phone_border::MarkupProps{content: hyper_img_html(hyper_img::MarkupProps { map: watchout_hi_map(), path_to_root: page.path_to_root(lang) }), path_to_root: page.path_to_root(lang)}))
+                                    (phone_border_html(phone_border::MarkupProps{
+                                        content: hyper_img_html(hyper_img::MarkupProps {
+                                            map: watchout_hi_map(),
+                                            path_to_root: page.path_to_root(lang),
+                                            eager: false,
+                                        }),
+                                        path_to_root: page.path_to_root(lang),
+                                        eager: false
+                                    }))
                                 }
                             }
                         }
@@ -225,6 +233,17 @@ pub fn watchout_hi_map() -> HyperMap {
         ),
     ];
 
+    let home_img = Img::new("public", "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/Recent Events  – log.png", "").unwrap();
+    let history_img = Img::new("public", "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/History  – 1 Log.png", "").unwrap();
+    let maps_img = Img::new("public", "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/Map – 1.png", "").unwrap();
+    let map_overlay_helen_img = Img::new("public", "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/Map Overlay – 1 – Event.png", "").unwrap();
+    let map_overlay_joe_img = Img::new("public", "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/Map Overlay – 2 – Joe.png", "").unwrap();
+    let map_overlay_gunther_img = Img::new("public", "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/Map Overlay – 2 – Gunther.png", "").unwrap();
+    let settings_img = Img::new("public", "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/Settings – 1.png", "").unwrap();
+    let event_overlay_img = Img::new("public", "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/Message Overlay – new.png", "").unwrap();
+    let event_overlay_passive_links_img = Img::new("public", "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/Message Overlay seen.png", "").unwrap();
+    let call_list_links_img = Img::new("public", "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/Call List Expanded.png", "").unwrap();
+
     let mut home_links = vec![
         (
             InsetPercent::new(40, 10, 50, 10),
@@ -240,9 +259,7 @@ pub fn watchout_hi_map() -> HyperMap {
         HOME_STR.to_string(),
         MapNode {
             buttons: home_links,
-            img: link_public!(
-                "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/Recent Events  – log.png"
-            ),
+            img: home_img.clone(),
             alpha: false,
             default: true,
         },
@@ -267,9 +284,7 @@ pub fn watchout_hi_map() -> HyperMap {
         HISTORY_STR.to_string(),
         MapNode {
             buttons: history_links,
-            img: link_public!(
-                "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/History  – 1 Log.png"
-            ),
+            img: history_img.clone(),
             alpha: false,
             default: false,
         },
@@ -298,9 +313,7 @@ pub fn watchout_hi_map() -> HyperMap {
         MAP_STR.to_string(),
         MapNode {
             buttons: map_links,
-            img: link_public!(
-                "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/Map – 1.png"
-            ),
+            img: maps_img.clone(),
             alpha: false,
             default: false,
         },
@@ -329,9 +342,7 @@ pub fn watchout_hi_map() -> HyperMap {
         MAP_OVERLAY_HELEN_STR.to_string(),
         MapNode {
             buttons: map_overlay_helen_links,
-            img: link_public!(
-                "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/Map Overlay – 1 – Event.png"
-            ),
+            img: map_overlay_helen_img.clone(),
             alpha: true,
             default: false,
         },
@@ -356,9 +367,7 @@ pub fn watchout_hi_map() -> HyperMap {
         MAP_OVERLAY_JOE_STR.to_string(),
         MapNode {
             buttons: map_overlay_joe_links,
-            img: link_public!(
-                "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/Map Overlay – 2 – Joe.png"
-            ),
+            img: map_overlay_joe_img.clone(),
             alpha: true,
             default: false,
         },
@@ -383,9 +392,7 @@ pub fn watchout_hi_map() -> HyperMap {
         MAP_OVERLAY_GUNTHER_STR.to_string(),
         MapNode {
             buttons: map_overlay_gunther_links,
-            img: link_public!(
-                "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/Map Overlay – 2 – Gunther.png"
-            ),
+            img: map_overlay_gunther_img.clone(),
             alpha: true,
             default: false,
         },
@@ -397,9 +404,7 @@ pub fn watchout_hi_map() -> HyperMap {
         SETTINGS_STR.to_string(),
         MapNode {
             buttons: settings_links,
-            img: link_public!(
-                "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/Settings – 1.png"
-            ),
+            img: settings_img.clone(),
             alpha: false,
             default: false,
         },
@@ -424,9 +429,7 @@ pub fn watchout_hi_map() -> HyperMap {
         EVENT_OVERLAY_STR.to_string(),
         MapNode {
             buttons: event_overlay_links,
-            img: link_public!(
-                "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/Message Overlay – new.png"
-            ),
+            img:event_overlay_img.clone(),
             alpha: true,
             default: false,
         },
@@ -451,9 +454,7 @@ pub fn watchout_hi_map() -> HyperMap {
         EVENT_OVERLAY_PASSIVE_STR.to_string(),
         MapNode {
             buttons: event_overlay_passive_links,
-            img: link_public!(
-                "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/Message Overlay seen.png"
-            ),
+            img: event_overlay_passive_links_img.clone(),
             alpha: true,
             default: false,
         },
@@ -465,9 +466,7 @@ pub fn watchout_hi_map() -> HyperMap {
         CALL_LIST_STR.to_string(),
         MapNode {
             buttons: call_list_links,
-            img: link_public!(
-                "./assets/Design der Mensch Maschine Schnittstelle/WatchOut/Watch out Exports/Call List Expanded.png"
-            ),
+            img: call_list_links_img.clone(),
             alpha: true,
             default: false,
         },

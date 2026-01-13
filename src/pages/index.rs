@@ -1,11 +1,17 @@
 use i18n_embed::fluent::FluentLanguageLoader;
 use maud::PreEscaped;
-use std::{sync::OnceLock, time::Duration};
+use std::{path::Path, sync::OnceLock, time::Duration};
 
 use crate::{
+    assets::img::{Img, ImgProps},
     components::{
-        self, Component, footer::footer, head::default_head, header::header, icon::{Icon, IconToMarkup},
-        project_card, project_table::Content, scrolling_img, tooltip,
+        self, Component,
+        footer::footer,
+        head::default_head,
+        header::header,
+        icon::{Icon, IconToMarkup},
+        project_card,
+        scrolling_img, tooltip,
     },
     include_public, setup_language_loader,
 };
@@ -39,7 +45,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
         ..
     } = scrolling_img::component();
     let Component {
-        html: tooltip_html,
+        html: _tooltip_html,
         style: tooltip_style,
         ..
     } = tooltip::component();
@@ -82,12 +88,9 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
             ],
         ),
     ]
-    .map(|(cat, icons)| {
-        (
-            cat,
-            icons.to_markup(&page.path_to_root(lang)),
-        )
-    });
+    .map(|(cat, icons)| (cat, icons.to_markup(&page.path_to_root(lang))));
+
+    let title_img = Img::new("public", Path::new("assets").join("Title-img.png"), "").unwrap();
 
     components::page::page(
         page.path_to_root(lang),
@@ -106,8 +109,17 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                 main{
                     section #Hero{
                         div #HeroImg{
-                            // TODO: Move into noscript and do anim in canvas because Firefox just cant do this somehow
-                            (scroll_img_html(scrolling_img::MarkupProps { img: Link((page.path_to_root(lang)+*link_public!("assets/Title-img.webp")).leak()), rows: 3, columns: 3, duration: Duration::from_secs(50) }))
+                            (scroll_img_html(scrolling_img::MarkupProps {
+                                img: title_img,
+                                props: ImgProps{
+                                    path_to_root:&page.path_to_root(lang),
+                                    eager:true,
+                                    ..Default::default()
+                                },
+                                rows: 3,
+                                columns: 3,
+                                duration: Duration::from_secs(50)
+                            }))
                         }
                         div ."hero-content"{
                             h1."mb-large"{

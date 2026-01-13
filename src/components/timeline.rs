@@ -3,7 +3,6 @@ use maud::{Markup, PreEscaped, html};
 
 use crate::{
     Link,
-    color::{Color, RGBA},
     components::{Component, badge},
     link_public,
 };

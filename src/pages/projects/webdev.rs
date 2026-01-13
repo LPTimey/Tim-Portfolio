@@ -1,11 +1,11 @@
 use crate::{
     LightDark,
+    assets::img::{Img, ImgProps},
     components::{
         self, Component,
         footer::footer,
         head::default_head,
         header::header,
-        img,
         project_table::{self, with_sub_heading},
     },
     placeholder_img,
@@ -22,8 +22,8 @@ pub fn meta_data(_lang: &LanguageIdentifier) -> ProjectMetadata {
     ProjectMetadata {
         page: Page::WebDev,
         title_img: LightDark {
-            light: link_public!("assets/WebSite/title-img-light.webp"),
-            dark: link_public!("assets/WebSite/title-img-dark.webp"),
+            light: Img::new("public", "assets/WebSite/title-img-light.webp", "").unwrap(),
+            dark: Img::new("public", "assets/WebSite/title-img-dark.webp", "").unwrap(),
         }
         .into(),
         name: "Website Development",
@@ -40,6 +40,10 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
         ..
     } = project_table::component();
 
+    let meta_data = meta_data(lang);
+    let dark_title_img = meta_data.title_img.dark();
+    let light_title_img = meta_data.title_img.light();
+
     components::page::page(
         page.path_to_root(lang),
         html! {
@@ -52,10 +56,10 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                 (header(page, lang))
                 main{
                     section #Hero{
-                        picture #HeroImg{(
-                            // img::img (page.path_to_root(lang),meta_data(lang).title_img.light(),"",None,&[],None)
-                            img::img (img::ImgProps{pre_src:page.path_to_root(lang),src:meta_data(lang).title_img.light(),..Default::default()})
-                        )}
+                        picture #HeroImg{
+                            (dark_title_img.render(ImgProps { path_to_root: &page.path_to_root(lang), eager: true, class: &["dark-only"], ..Default::default() }))
+                            (light_title_img.render(ImgProps { path_to_root: &page.path_to_root(lang), eager: true, class: &["light-only"], ..Default::default() }))
+                        }
                     }
                     (table_html(project_table::MarkupProps {
                         // title: "Webentwicklung: Design und Programmieren".into(),

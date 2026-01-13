@@ -4,21 +4,16 @@ use i18n_embed::fluent::FluentLanguageLoader;
 use maud::PreEscaped;
 
 use crate::{
-    TabIndex,
-    components::{
+    TabIndex, assets::img::{Img, ImgProps}, components::{
         Component,
         footer::footer,
         head::default_head,
         header::header,
         icon::{Icon, IconToMarkup},
-        img::{self, img},
         page, phone_border,
         project_table::{self, with_sub_heading},
         tooltip,
-    },
-    include_public,
-    projects::ProjectMetadata,
-    setup_language_loader,
+    }, include_public, projects::ProjectMetadata, setup_language_loader
 };
 
 use super::super::*;
@@ -34,7 +29,10 @@ pub fn meta_data(lang: &LanguageIdentifier) -> ProjectMetadata {
     let loader = get_language_loader().select_languages(&[lang]);
     ProjectMetadata {
         page: Page::Styles,
-        title_img: link_public!("assets/Screendesign/Styles/title-img.webp").into(),
+        title_img: 
+        // link_public!("assets/Screendesign/Styles/title-img.webp")
+        Img::new("public","assets/Screendesign/Styles/title-img.webp","").unwrap()
+        .into(),
         name: loader.get("name").leak(),
         description: loader.get("description").leak(),
         category: projects::Category::Screendesign,
@@ -59,6 +57,15 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
         ..
     } = phone_border::component();
 
+    let dark_title_img = meta_data.title_img.dark();
+    let light_title_img = meta_data.title_img.light();
+
+
+    let original_img = Img::new("public", "assets/Screendesign/Styles/Tim_Ruland_Styles_Screendesign_Original-06.webp", "").unwrap();
+    let clear_img = Img::new("public", "assets/Screendesign/Styles/Tim_Ruland_Styles_Screendesign_Original Pic.webp", "").unwrap();
+    let glass_img = Img::new("public", "assets/Screendesign/Styles/Tim_Ruland_Styles_Screendesign_Glas.webp", "").unwrap();
+    let bau_img = Img::new("public", "assets/Screendesign/Styles/Tim_Ruland_Styles_Screendesign_Bauhaus.webp", "").unwrap();
+
     page::page(
         page.path_to_root(lang),
         html! {
@@ -74,11 +81,10 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                 (header(page, lang))
                 main{
                     section #Hero{
-                        picture #HeroImg{(img::img (img::ImgProps {
-                                pre_src: page.path_to_root(lang),
-                                src: meta_data.title_img.light(),
-                                ..Default::default()
-                            }))}
+                        picture #HeroImg{
+                            (dark_title_img.render(ImgProps { path_to_root: &page.path_to_root(lang), eager: true, class: &["dark-only"], ..Default::default() }))
+                            (light_title_img.render(ImgProps { path_to_root: &page.path_to_root(lang), eager: true, class: &["light-only"], ..Default::default() }))
+                        }
                     }
                     (table_html(project_table::MarkupProps {
                         // title: "UI-Stile im Screendesign".into(),
@@ -109,19 +115,19 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                         p { (loader.get("concentration-text")) }
                         div{
                             (phone_html(phone_border::MarkupProps {
-                                content: img(img::ImgProps {
-                                    pre_src: page.path_to_root(lang),
-                                    src: link_public!("assets/Screendesign/Styles/Tim_Ruland_Styles_Screendesign_Original-06.webp"),
+                                content: original_img.render(ImgProps {
+                                    path_to_root: &page.path_to_root(lang),
                                     style:Some("background-color:var(--light);"), ..Default::default()
                                 }),
+                                eager:false,
                                 path_to_root: page.path_to_root(lang)
                             }))
                             (phone_html(phone_border::MarkupProps {
-                                content: img(img::ImgProps {
-                                    pre_src: page.path_to_root(lang),
-                                    src: link_public!("assets/Screendesign/Styles/Tim_Ruland_Styles_Screendesign_Original Pic.webp"),
-                                    ..Default::default()
+                                content: clear_img.render(ImgProps {
+                                    path_to_root: &page.path_to_root(lang),
+                                    style:Some("background-color:var(--light);"), ..Default::default()
                                 }),
+                                eager:false,
                                 path_to_root: page.path_to_root(lang)
                             }))
                         }
@@ -144,11 +150,11 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                             }
                             div{
                                 (phone_html(phone_border::MarkupProps {
-                                    content: img(img::ImgProps {
-                                        pre_src: page.path_to_root(lang),
-                                        src: link_public!("assets/Screendesign/Styles/Tim_Ruland_Styles_Screendesign_Glas.webp"),
-                                        ..Default::default()
+                                    content: glass_img.render(ImgProps {
+                                        path_to_root: &page.path_to_root(lang),
+                                        style:Some("background-color:var(--light);"), ..Default::default()
                                     }),
+                                    eager:false,
                                     path_to_root: page.path_to_root(lang)
                                 }))
                             }
@@ -172,11 +178,11 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                             }
                             div{
                                 (phone_html(phone_border::MarkupProps {
-                                    content: img(img::ImgProps {
-                                        pre_src: page.path_to_root(lang),
-                                        src: link_public!("assets/Screendesign/Styles/Tim_Ruland_Styles_Screendesign_Bauhaus.webp"),
-                                        ..Default::default()
+                                    content: bau_img.render(ImgProps {
+                                        path_to_root: &page.path_to_root(lang),
+                                        style:Some("background-color:var(--light);"), ..Default::default()
                                     }),
+                                    eager:false,
                                     path_to_root: page.path_to_root(lang)
                                 }))
                             }

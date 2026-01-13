@@ -1,15 +1,7 @@
 use maud::html;
 use unic_langid::LanguageIdentifier;
 
-use crate::{
-    Link,
-    components::{
-        Component,
-        img::{self, ImgProps},
-    },
-    link_public,
-    projects::ProjectMetadata,
-};
+use crate::{Link, assets::img::ImgProps, components::Component, link_public, projects::ProjectMetadata};
 use Props::with_props;
 
 #[with_props]
@@ -24,8 +16,8 @@ fn markup<'a>(
         a ."project-card" draggable="false" "in-grid"=(is_in_grid) href=(path_to_root + &data.page.to_href(lang).display().to_string()) {
             div ."pjc-grid" "reactive-color"=(reactive_color) {
                 picture{
-                    (img::img(ImgProps{pre_src:data.page.path_to_root(lang),src:data.title_img.light(), class:&["light-only"], ..Default::default()}))
-                    (img::img(ImgProps{pre_src:data.page.path_to_root(lang),src:data.title_img.dark(), class:&["dark-only"], ..Default::default()}))
+                    (data.title_img.light().render(ImgProps{path_to_root:&data.page.path_to_root(lang), class:&["light-only"], ..Default::default()}))
+                    (data.title_img.dark().render(ImgProps{path_to_root:&data.page.path_to_root(lang), class:&["dark-only"], ..Default::default()}))
                 }
                 h3 .subhead { (data.name) }
                 h4 { (data.category) }

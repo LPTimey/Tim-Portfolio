@@ -1,16 +1,16 @@
-use std::sync::OnceLock;
+use std::{path::Path, sync::OnceLock};
 
 use i18n_embed::fluent::FluentLanguageLoader;
 use maud::PreEscaped;
 
 use crate::{
+    assets::img::{Img, ImgProps},
     components::{
         self, Component,
         footer::footer,
         head::default_head,
         header::header,
         icon::{Icon, IconToMarkup},
-        img,
         project_table::{self, with_sub_heading},
         three_js_setup::import_map,
         tooltip,
@@ -36,7 +36,13 @@ pub fn meta_data(lang: &LanguageIdentifier) -> ProjectMetadata {
     let loader = get_language_loader().select_languages(&[lang]);
     ProjectMetadata {
         page: Page::Ergomote,
-        title_img: link_public!("assets/Ergomote/render3.png").into(),
+        title_img: Img::new(
+            "public",
+            Path::new("assets").join("Ergomote").join("render3.png"),
+            "",
+        )
+        .unwrap()
+        .into(),
         name: "Ergomote",
         description: loader.get("description").leak(),
         category: projects::Category::Design3D,
@@ -53,6 +59,11 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
         style: table_style,
         ..
     } = project_table::component();
+
+    let meta_data = meta_data(lang);
+    let dark_title = meta_data.title_img.dark();
+    let light_title = meta_data.title_img.light();
+    let table_img = Img::new("public", "assets/Ergomote/render.png", "").unwrap();
 
     components::page::page(
         page.path_to_root(lang),
@@ -73,20 +84,18 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                 (header(page,lang))
                 main{
                     section #Hero{
-                        picture #HeroImg{(img::img (img::ImgProps {
-                                pre_src: page.path_to_root(lang),
-                                src: meta_data(lang).title_img.light(),
-                                ..Default::default()
-                            }))}
+                        picture #HeroImg{
+                            (dark_title.render(ImgProps { path_to_root: &page.path_to_root(lang), eager: true, class: &["dark-only"], ..Default::default() }))
+                            (light_title.render(ImgProps { path_to_root: &page.path_to_root(lang), eager: true, class: &["light-only"], ..Default::default() }))
+                        }
                     }
                     (table_html(project_table::MarkupProps {
                         // title: "Ergomote".into(),
                         title: with_sub_heading("Ergomote","3D- & Produktdesign"),
                         graphic: html!{
                             picture{
-                                (img::img (img::ImgProps {
-                                    pre_src: page.path_to_root(lang),
-                                    src: link_public!("assets/Ergomote/render.png"),
+                                (table_img.render(ImgProps {
+                                    path_to_root: &page.path_to_root(lang),
                                     ..Default::default()
                                 }))
                             }

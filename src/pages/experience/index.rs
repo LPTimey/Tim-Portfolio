@@ -3,7 +3,6 @@ use maud::PreEscaped;
 use std::sync::OnceLock;
 
 use crate::{
-    color::RGBA,
     components::{
         self, Component, badge, footer::footer, head::default_head, header::header, timeline,
     },
