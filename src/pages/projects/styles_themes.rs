@@ -4,7 +4,8 @@ use i18n_embed::fluent::FluentLanguageLoader;
 use maud::PreEscaped;
 
 use crate::{
-    TabIndex, components::{
+    TabIndex,
+    components::{
         Component,
         footer::footer,
         head::default_head,
@@ -14,7 +15,10 @@ use crate::{
         page, phone_border,
         project_table::{self, with_sub_heading},
         tooltip,
-    }, include_public, link_public_img, projects::ProjectMetadata, setup_language_loader
+    },
+    include_public,
+    projects::ProjectMetadata,
+    setup_language_loader,
 };
 
 use super::super::*;
@@ -30,7 +34,7 @@ pub fn meta_data(lang: &LanguageIdentifier) -> ProjectMetadata {
     let loader = get_language_loader().select_languages(&[lang]);
     ProjectMetadata {
         page: Page::Styles,
-        title_img: link_public_img!("assets/Screendesign/Styles/title-img.webp").into(),
+        title_img: link_public!("assets/Screendesign/Styles/title-img.webp").into(),
         name: loader.get("name").leak(),
         description: loader.get("description").leak(),
         category: projects::Category::Screendesign,
@@ -107,7 +111,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                             (phone_html(phone_border::MarkupProps {
                                 content: img(img::ImgProps {
                                     pre_src: page.path_to_root(lang),
-                                    src: link_public_img!("assets/Screendesign/Styles/Tim_Ruland_Styles_Screendesign_Original-06.webp"),
+                                    src: link_public!("assets/Screendesign/Styles/Tim_Ruland_Styles_Screendesign_Original-06.webp"),
                                     style:Some("background-color:var(--light);"), ..Default::default()
                                 }),
                                 path_to_root: page.path_to_root(lang)
@@ -115,7 +119,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                             (phone_html(phone_border::MarkupProps {
                                 content: img(img::ImgProps {
                                     pre_src: page.path_to_root(lang),
-                                    src: link_public_img!("assets/Screendesign/Styles/Tim_Ruland_Styles_Screendesign_Original Pic.webp"),
+                                    src: link_public!("assets/Screendesign/Styles/Tim_Ruland_Styles_Screendesign_Original Pic.webp"),
                                     ..Default::default()
                                 }),
                                 path_to_root: page.path_to_root(lang)
@@ -142,7 +146,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                                 (phone_html(phone_border::MarkupProps {
                                     content: img(img::ImgProps {
                                         pre_src: page.path_to_root(lang),
-                                        src: link_public_img!("assets/Screendesign/Styles/Tim_Ruland_Styles_Screendesign_Glas.webp"),
+                                        src: link_public!("assets/Screendesign/Styles/Tim_Ruland_Styles_Screendesign_Glas.webp"),
                                         ..Default::default()
                                     }),
                                     path_to_root: page.path_to_root(lang)
@@ -170,7 +174,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                                 (phone_html(phone_border::MarkupProps {
                                     content: img(img::ImgProps {
                                         pre_src: page.path_to_root(lang),
-                                        src: link_public_img!("assets/Screendesign/Styles/Tim_Ruland_Styles_Screendesign_Bauhaus.webp"),
+                                        src: link_public!("assets/Screendesign/Styles/Tim_Ruland_Styles_Screendesign_Bauhaus.webp"),
                                         ..Default::default()
                                     }),
                                     path_to_root: page.path_to_root(lang)

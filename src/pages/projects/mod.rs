@@ -3,7 +3,7 @@ use std::fmt::Debug;
 use strum::Display;
 use unic_langid::LanguageIdentifier;
 
-use crate::{Img, LightDark, Link, Page};
+use crate::{LightDark, Link, Page};
 
 pub mod ergomote;
 pub mod index;
@@ -35,30 +35,30 @@ impl Ord for Category {
 
 #[derive(Debug, Clone, PartialEq, Eq, Display)]
 pub enum ThemeLink {
-    Single(Img),
-    LightDark(LightDark<Img>),
+    Single(Link),
+    LightDark(LightDark<Link>),
 }
 impl ThemeLink {
-    pub fn light(&self) -> Img {
+    pub fn light(&self) -> Link {
         match self {
             ThemeLink::Single(link) => *link,
             ThemeLink::LightDark(light_dark) => light_dark.light,
         }
     }
-    pub fn dark(&self) -> Img {
+    pub fn dark(&self) -> Link {
         match self {
             ThemeLink::Single(link) => *link,
             ThemeLink::LightDark(light_dark) => light_dark.dark,
         }
     }
 }
-impl From<Img> for ThemeLink {
-    fn from(value: Img) -> Self {
+impl From<Link> for ThemeLink {
+    fn from(value: Link) -> Self {
         Self::Single(value)
     }
 }
-impl From<LightDark<Img>> for ThemeLink {
-    fn from(value: LightDark<Img>) -> Self {
+impl From<LightDark<Link>> for ThemeLink {
+    fn from(value: LightDark<Link>) -> Self {
         Self::LightDark(value)
     }
 }

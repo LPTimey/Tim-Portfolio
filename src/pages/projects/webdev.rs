@@ -1,12 +1,15 @@
 use crate::{
-    LightDark, components::{
+    LightDark,
+    components::{
         self, Component,
         footer::footer,
         head::default_head,
         header::header,
         img,
         project_table::{self, with_sub_heading},
-    }, link_public_img, placeholder_img, projects::ProjectMetadata
+    },
+    placeholder_img,
+    projects::ProjectMetadata,
 };
 
 use super::super::*;
@@ -19,8 +22,8 @@ pub fn meta_data(_lang: &LanguageIdentifier) -> ProjectMetadata {
     ProjectMetadata {
         page: Page::WebDev,
         title_img: LightDark {
-            light: link_public_img!("assets/WebSite/title-img-light.webp"),
-            dark: link_public_img!("assets/WebSite/title-img-dark.webp"),
+            light: link_public!("assets/WebSite/title-img-light.webp"),
+            dark: link_public!("assets/WebSite/title-img-dark.webp"),
         }
         .into(),
         name: "Website Development",

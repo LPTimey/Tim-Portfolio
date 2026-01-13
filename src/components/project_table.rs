@@ -1,10 +1,12 @@
 use maud::{PreEscaped, Render, html};
 
 use crate::{
-    Img, Link, components::{
+    Link,
+    components::{
         Component,
         img::{self, ImgProps},
-    }, link_public
+    },
+    link_public,
 };
 use Props::with_props;
 
@@ -66,7 +68,7 @@ impl<T: Into<&'static str>, C: Into<Content>> From<(T, C)> for Row {
 }
 
 pub enum Graphic {
-    Link { path_to_root: String, link: Img },
+    Link { path_to_root: String, link: Link },
     Markup(PreEscaped<String>),
 }
 impl Render for Graphic {
@@ -85,8 +87,8 @@ impl From<PreEscaped<String>> for Graphic {
         Graphic::Markup(value)
     }
 }
-impl<T: Into<String>> From<(T, Img)> for Graphic {
-    fn from((path_to_root, link): (T, Img)) -> Self {
+impl<T: Into<String>> From<(T, Link)> for Graphic {
+    fn from((path_to_root, link): (T, Link)) -> Self {
         Graphic::Link {
             path_to_root: path_to_root.into(),
             link,

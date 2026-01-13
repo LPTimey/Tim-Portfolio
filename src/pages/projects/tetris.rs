@@ -4,7 +4,8 @@ use i18n_embed::fluent::FluentLanguageLoader;
 use maud::PreEscaped;
 
 use crate::{
-    TabIndex, components::{
+    TabIndex,
+    components::{
         Component, carousel, codeblock,
         footer::footer,
         head::default_head,
@@ -13,7 +14,10 @@ use crate::{
         img, mermaid, page,
         project_table::{self, with_sub_heading},
         tooltip::{self, Align},
-    }, include_public, link_public_img, projects::ProjectMetadata, setup_language_loader
+    },
+    include_public,
+    projects::ProjectMetadata,
+    setup_language_loader,
 };
 
 use super::super::*;
@@ -201,7 +205,7 @@ pub fn meta_data(lang: &LanguageIdentifier) -> ProjectMetadata {
     let loader = get_language_loader().select_languages(&[lang]);
     ProjectMetadata {
         page: Page::Tetris,
-        title_img: link_public_img!("assets/Tetris/Title-img.webp").into(),
+        title_img: link_public!("assets/Tetris/Title-img.webp").into(),
         name: "Tetris in Arduino & C",
         description: loader.get("description").leak(),
         category: projects::Category::Programmieren,
@@ -319,7 +323,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                                 div.marker #ResistorsMarker{ (tooltip::markup(tooltip::MarkupProps{children:html!{ div."accent-point"{} }, content: PreEscaped(loader.get("resistors")),popup_align:Align::Center,popup_justify:Align::Center,popup_begin_align:Align::Center,popup_begin_justify:Align::Center })) }
                                 div.marker #ExtrasMarker{ (tooltip::markup(tooltip::MarkupProps{children:html!{ div."accent-point"{} }, content: PreEscaped(loader.get("connectors")),popup_align:Align::Center,popup_justify:Align::Center,popup_begin_align:Align::Center,popup_begin_justify:Align::Center })) }
                                 div.marker #BreadboardMarker{ (tooltip::markup(tooltip::MarkupProps{children:html!{ div."accent-point"{} }, content: PreEscaped(loader.get("breadboard")),popup_align:Align::Center,popup_justify:Align::Center,popup_begin_align:Align::Center,popup_begin_justify:Align::Center })) }
-                                (img::img(img::ImgProps{pre_src:page.path_to_root(lang),src:link_public_img!("assets/Tetris/webp/Einzelteile.webp"),..Default::default()}))
+                                (img::img(img::ImgProps{pre_src:page.path_to_root(lang),src:link_public!("assets/Tetris/webp/Einzelteile.webp"),..Default::default()}))
                             }
                         }
                     }
@@ -333,10 +337,10 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                         h2.heading{(loader.get("result"))}
                         p {(loader.get("result-coarse"))}
                         (carousel_html(carousel::MarkupProps { id: "ResultPhotos", pre_src: &page.path_to_root(lang), images:&[
-                            link_public_img!("assets/Tetris/webp/Tetris_Steckplatine_small.webp"),
-                            link_public_img!("assets/Tetris/webp/Buttons mit widerstand_small.webp"),
-                            link_public_img!("assets/Tetris/webp/buttons mit + und gnd topview_small.webp"),
-                            link_public_img!("assets/Tetris/webp/Button verbunden topview_small.webp"),
+                            link_public!("assets/Tetris/webp/Tetris_Steckplatine_small.webp"),
+                            link_public!("assets/Tetris/webp/Buttons mit widerstand_small.webp"),
+                            link_public!("assets/Tetris/webp/buttons mit + und gnd topview_small.webp"),
+                            link_public!("assets/Tetris/webp/Button verbunden topview_small.webp"),
                         ] }))
                         div."mb-medium"{
                             h3.subhead{(loader.get("lessons-learned"))}

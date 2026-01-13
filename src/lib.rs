@@ -1,6 +1,6 @@
-mod color;
 mod components;
 mod pages;
+mod color;
 
 use i18n_embed::{LanguageLoader, fluent::FluentLanguageLoader};
 use image::ImageReader;
@@ -50,16 +50,6 @@ macro_rules! link_public {
     };
 }
 #[macro_export]
-macro_rules! link_public_img {
-    ($path: literal) => {{
-        // const _: &[u8] = include_bytes!(concat!(env!("CARGO_MANIFEST_DIR"), "/public/", $path)); // compileTime check if file exists
-        $crate::Img($crate::Link($path))
-    }};
-    ($path:expr) => {
-        $crate::Img($crate::Link($path))
-    };
-}
-#[macro_export]
 macro_rules! link_logo {
     ($path:literal) => {{
         // const _: &[u8] = include_bytes!(concat!(env!("CARGO_MANIFEST_DIR"), "/public/assets/logos/", $path));
@@ -101,6 +91,27 @@ impl Link {
     pub fn exists(&self) -> bool {
         self.into_public_path().exists()
     }
+    pub fn get_img_dimensions(&self) -> Option<(usize, usize)> {
+        let path = self.into_public_path();
+
+        if !path.exists() {
+            return None;
+        }
+
+        let file = std::fs::File::open(path).ok()?;
+        let reader = std::io::BufReader::new(file);
+
+        let image = ImageReader::new(reader)
+            .with_guessed_format()
+            .ok()?
+            .into_dimensions()
+            .ok()?;
+
+        Some((image.0 as usize, image.1 as usize))
+    }
+    pub fn get_img_dimensions_panic(&self) -> (usize, usize) {
+        self.get_img_dimensions().expect("a valid img")
+    }
     /// Entfernt führende ../ oder ./ und prepend "public/"
     pub fn into_public_path(&self) -> PathBuf {
         let mut cleaned = self.0;
@@ -136,91 +147,6 @@ impl From<&'static str> for Link {
 impl Display for Link {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{}", self.0)
-    }
-}
-
-pub enum Size {
-    Mobile = 360,
-    MobilePlus = 412,
-    HD = 768,
-    Tablet = 1024,
-    HDPlus = 1920,
-    Content = 1260,
-    UHD = 2560,
-}
-#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Default)]
-struct Img(Link);
-impl Img {
-    const SIZES: [u32; 7] = [
-        Size::Mobile as u32,
-        Size::MobilePlus as u32,
-        Size::HD as u32,
-        Size::Tablet as u32,
-        Size::HDPlus as u32,
-        Size::Content as u32,
-        Size::UHD as u32,
-    ];
-    pub fn get_img_dimensions(&self) -> Option<(usize, usize)> {
-        let path = self.0.into_public_path();
-
-        if !path.exists() {
-            return None;
-        }
-
-        let file = std::fs::File::open(path).ok()?;
-        let reader = std::io::BufReader::new(file);
-
-        let image = ImageReader::new(reader)
-            .with_guessed_format()
-            .ok()?
-            .into_dimensions()
-            .ok()?;
-
-        Some((image.0 as usize, image.1 as usize))
-    }
-    pub fn get_img_dimensions_panic(&self) -> (usize, usize) {
-        self.get_img_dimensions().expect("a valid img")
-    }
-    pub fn sizes_to_disc(&self) -> Option<()> {
-        if !self.0.exists() {
-            return None;
-        }
-        let path = self.0.into_public_path();
-        let file = std::fs::File::open(&path).ok()?;
-        let reader = std::io::BufReader::new(file);
-        let image = ImageReader::new(reader)
-            .with_guessed_format()
-            .ok()?
-            .decode()
-            .ok()?;
-
-        Self::SIZES
-            .iter()
-            .map(|size| {
-                (
-                    image.resize(*size, image.height(), image::imageops::FilterType::Nearest),
-                    *size,
-                )
-            })
-            .for_each(|(image, size)| {
-                let filename = format!(
-                    "{}.{}",
-                    size.to_string(),
-                    image::ImageFormat::WebP.extensions_str()[0]
-                );
-                let _ = image.save_with_format(
-                    path.clone()
-                        .join(filename),
-                    image::ImageFormat::WebP,
-                );
-            });
-
-        todo!()
-    }
-}
-impl From<Link> for Img {
-    fn from(value: Link) -> Self {
-        Self(value)
     }
 }
 
