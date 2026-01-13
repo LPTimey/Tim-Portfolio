@@ -1,7 +1,7 @@
 use Props::with_props;
 use maud::{self, Markup, html};
 
-use crate::Img;
+use crate::{Img, Link};
 
 #[with_props(Default)]
 pub fn img<'a, T: Into<String> + Default>(
@@ -12,7 +12,6 @@ pub fn img<'a, T: Into<String> + Default>(
     class: &'a [&'a str],
     style: Option<&'a str>,
 ) -> Markup {
-    let pre_src = pre_src.into();
     let img_d = match src.get_img_dimensions() {
         Some(d) => d,
         None => {
@@ -20,12 +19,10 @@ pub fn img<'a, T: Into<String> + Default>(
             (0, 0)
         }
     };
-    let paths = Img::get_img_srcset(&src.sizes_to_disc().unwrap_or_default(), &pre_src);
-
+    src.sizes_to_disc();
     html! {
         img
-            src=(pre_src+*src.0)
-            srcset=(paths)
+            src=(pre_src.into()+*src.0)
             alt=(alt)
             width=(img_d.0)
             height=(img_d.1)

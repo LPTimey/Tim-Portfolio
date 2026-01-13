@@ -7,8 +7,8 @@ use crate::{
 use Props::with_props;
 
 #[with_props]
-fn markup<'a>(img: img::ImgProps<'a,&'a str>, rows: u8, columns: u8, duration: std::time::Duration) -> maud::Markup {
-    let imgs = img::img(img)
+fn markup(img: Img, rows: u8, columns: u8, duration: std::time::Duration) -> maud::Markup {
+    let imgs = html! {picture{(img::img(img::ImgProps{pre_src:"",src:img, ..Default::default()}))}}
         .into_string()
         .repeat(rows as usize * columns as usize);
 
@@ -36,7 +36,7 @@ fn style() -> Link {
     link_public!("components/scroll_img.css")
 }
 
-pub fn component<'a>() -> Component<MarkupProps<'a>, Link, ()> {
+pub fn component() -> Component<MarkupProps, Link, ()> {
     Component {
         html: markup,
         style: style(),
