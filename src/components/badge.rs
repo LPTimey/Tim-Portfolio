@@ -3,7 +3,7 @@ use maud::{Markup, PreEscaped, Render, html};
 
 use crate::{
     Link,
-    color::CssColor,
+    color::{CssColor, RGBA},
     components::Component,
     link_public,
 };

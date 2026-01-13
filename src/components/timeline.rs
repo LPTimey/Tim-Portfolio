@@ -3,6 +3,7 @@ use maud::{Markup, PreEscaped, html};
 
 use crate::{
     Link,
+    color::{Color, RGBA},
     components::{Component, badge},
     link_public,
 };
@@ -35,7 +36,7 @@ pub fn markup<'a, const S: usize>(
             }
             div."dt-items" {
                 @for (i,(item,badges)) in items.into_iter().enumerate() {
-                    div."dt-item" data-left=((start_left as usize + i) % 2 != 0) {
+                    div."dt-item" data-left=((start_left as usize + 1 * i) % 2 != 0) {
                         @match level {
                             1 => h2.heading."dt-item-title"{ (item.title) }
                             2 => h3.heading."dt-item-title"{ (item.title) }

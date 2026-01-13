@@ -3,6 +3,7 @@ use maud::PreEscaped;
 use std::sync::OnceLock;
 
 use crate::{
+    color::RGBA,
     components::{
         self, Component, badge, footer::footer, head::default_head, header::header, timeline,
     },
@@ -115,7 +116,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                     section.sect.content{(timeline_html(timeline::MarkupProps {
                         heading:"Erfahrung",
                         level: 1,
-                        items,
+                        items: items,
                         start_left:true
                     }))}
                 }

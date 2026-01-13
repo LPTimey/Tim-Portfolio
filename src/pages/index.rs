@@ -11,6 +11,7 @@ use crate::{
         header::header,
         icon::{Icon, IconToMarkup},
         img, project_card,
+        project_table::Content,
         scrolling_img, tooltip,
     },
     include_public, setup_language_loader,

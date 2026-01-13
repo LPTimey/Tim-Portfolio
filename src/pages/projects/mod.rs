@@ -3,7 +3,7 @@ use std::fmt::Debug;
 use strum::Display;
 use unic_langid::LanguageIdentifier;
 
-use crate::{Img, LightDark, Page};
+use crate::{Img, LightDark, Link, Page};
 
 pub mod ergomote;
 pub mod index;
