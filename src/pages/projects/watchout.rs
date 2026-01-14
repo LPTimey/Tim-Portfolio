@@ -485,5 +485,5 @@ pub fn watchout_hi_map() -> HyperMap {
         call_list,
     ]);
 
-    HyperMap(h_map)
+    HyperMap(h_map, home_img.get_dimensions())
 }

@@ -432,5 +432,7 @@ pub fn hyper_map() -> HyperMap {
         after,
     ]);
 
+    hyper_map.1 = drucken_img.get_dimensions();
+
     hyper_map
 }

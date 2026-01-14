@@ -1,6 +1,6 @@
 use std::{io, path::PathBuf, sync::Arc};
 
-use image::ImageFormat;
+use image::{GenericImageView, ImageFormat};
 use maud::{Markup, PreEscaped, html};
 
 use super::{Asset, register_or_get, register_used};
@@ -129,6 +129,10 @@ impl Img {
             }
             None => self.file_stem().to_string(),
         }
+    }
+
+    pub fn get_dimensions(&self)->(u32,u32){
+        image::open(self.full_path()).unwrap().dimensions()
     }
 
     fn srcset(&self, format: ImageFormat) -> String {

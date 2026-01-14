@@ -11,7 +11,7 @@ use crate::{
 };
 
 #[derive(Default)]
-pub struct HyperMap(pub HashMap<String, MapNode>);
+pub struct HyperMap(pub HashMap<String, MapNode>,pub (u32,u32));
 pub struct MapNode {
     pub buttons: Vec<(InsetPercent, Href)>,
     pub img: Arc<Img>,
@@ -71,8 +71,9 @@ impl Display for Href {
 
 #[with_props]
 pub fn markup(map: HyperMap, path_to_root: String, eager: bool) -> Markup {
+    
     html! {
-        div ."hyper-img"{
+        div ."hyper-img" style=(format!("--aspect:{} / {}",map.1.0,map.1.1)){
             @for page in map.0.iter(){
                 div."hi-page-wrapper" for=(page.0){
                     (Arc::clone(&page.1.img).render(ImgProps{
