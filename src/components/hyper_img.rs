@@ -3,7 +3,12 @@ use std::{collections::HashMap, fmt::Display, sync::Arc};
 use Props::with_props;
 use maud::{Markup, html};
 
-use crate::{Link, assets::img::{Img, ImgProps}, components::Component, link_public};
+use crate::{
+    Link,
+    assets::img::{Img, ImgProps},
+    components::Component,
+    link_public,
+};
 
 #[derive(Default)]
 pub struct HyperMap(pub HashMap<String, MapNode>);
@@ -70,14 +75,21 @@ pub fn markup(map: HyperMap, path_to_root: String, eager: bool) -> Markup {
         div ."hyper-img"{
             @for page in map.0.iter(){
                 div."hi-page-wrapper" for=(page.0){
-                    picture."hi-page" #(page.0) data-active=(page.1.default){
-                        (Arc::clone(&page.1.img).render(ImgProps{path_to_root:&path_to_root, eager,..Default::default()}))
-                        @for button in page.1.buttons.iter(){
-                            @if !format!("{}",button.1).ends_with(page.0){
-                                button type="button" style=(button.0.as_style()) href=(button.1) aria-label=(format!("link to: {}",button.1)){}
+                    (Arc::clone(&page.1.img).render(ImgProps{
+                        path_to_root: &path_to_root,
+                        eager,
+                        id: Some(page.0),
+                        class: &["hi-page"],
+                        attrs: &[("data-active",&page.1.default.to_string())],
+                        children: Some(html!{
+                            @for button in page.1.buttons.iter(){
+                                @if !format!("{}",button.1).ends_with(page.0){
+                                    button type="button" style=(button.0.as_style()) href=(button.1) aria-label=(format!("link to: {}",button.1)){}
+                                }
                             }
-                        }
-                    }
+                        }),
+                        ..Default::default()
+                    }))
                 }
             }
         }

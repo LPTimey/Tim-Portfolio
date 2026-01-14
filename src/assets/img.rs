@@ -1,7 +1,7 @@
 use std::{io, path::PathBuf, sync::Arc};
 
 use image::ImageFormat;
-use maud::{Markup, html};
+use maud::{Markup, PreEscaped, html};
 
 use super::{Asset, register_or_get, register_used};
 
@@ -58,32 +58,44 @@ impl Img {
         // automatische Registrierung beim Rendern
         register_used(&(self.clone() as Arc<dyn Asset>));
 
-        html! {
-            picture
-                id=(props.id.unwrap_or_default())
-                class=(props.class.join(" "))
-                style=(props.style.unwrap_or_default()) {
-                    // TODO: Reactivate after impl process
-                    // source
-                    //     type=(Self::FORMATS[0].to_mime_type())
-                    //     srcset=(self.srcset(Self::FORMATS[0]));
+        PreEscaped(format!(
+            r#"<picture id='{id}' class='{class}' style='{style}' {attrs}>{html}</picture>"#,
+            id = props.id.unwrap_or_default(),
+            class = (props.class.join(" ")),
+            style = (props.style.unwrap_or_default()),
+            attrs = props
+                .attrs
+                .into_iter()
+                .map(|(name, value)| format!(r#"{name}="{value}""#))
+                .collect::<Vec<_>>()
+                .join(" "),
+            html = html! {
+            // TODO: Reactivate after impl process
+            // source
+            //     type=(Self::FORMATS[0].to_mime_type())
+            //     srcset=(self.srcset(Self::FORMATS[0]));
 
-                    // TODO: Reactivate after impl process
-                    // source
-                    //     type=(Self::FORMATS[1].to_mime_type())
-                    //     srcset=(self.srcset(Self::FORMATS[1]));
+            // TODO: Reactivate after impl process
+            // source
+            //     type=(Self::FORMATS[1].to_mime_type())
+            //     srcset=(self.srcset(Self::FORMATS[1]));
 
-                    img
-                        src=(self.web_path(props.path_to_root))
-                        // TODO: Reactivate after impl process
-                        // srcset=(self.srcset(Self::FORMATS[2]))
-                        alt=(self.alt)
-                        loading="lazy"
-                        decoding="async"
-                        loading=(if props.eager {"eager"} else{"lazy"})
-                        draggable="false";
+            img
+                src=(self.web_path(props.path_to_root))
+                // TODO: Reactivate after impl process
+                // srcset=(self.srcset(Self::FORMATS[2]))
+                alt=(self.alt)
+                loading="lazy"
+                decoding="async"
+                loading=(if props.eager {"eager"} else{"lazy"})
+                draggable="false";
+            @if let Some(children) = props.children{
+                (children)
             }
-        }
+            }
+            .to_owned()
+            .0
+        ))
     }
 
     /// Vollständiger Filesystem-Pfad (für Optimierung / Lesen)
@@ -150,4 +162,6 @@ pub struct ImgProps<'a> {
     pub alt: &'a str,
     pub class: &'a [&'a str],
     pub style: Option<&'a str>,
+    pub attrs: &'a [(&'a str, &'a str)],
+    pub children: Option<Markup>
 }

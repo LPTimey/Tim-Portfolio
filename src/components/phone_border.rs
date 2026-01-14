@@ -12,7 +12,6 @@ pub fn markup(content: Markup, path_to_root: String, eager:bool) -> Markup {
     let img = Img::new("public", Path::new("assets").join("iPhone Template [Konvertiert] noBG.png"), "").unwrap();
     html! {
         div."phone-border"{
-            // TODO: fix overflows
             (img.render(ImgProps{path_to_root:&path_to_root,class:&["phone"],eager, ..Default::default()}))
             div."phone-content"{(content)}
         }
