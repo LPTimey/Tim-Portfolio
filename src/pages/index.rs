@@ -121,6 +121,8 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                                 duration: Duration::from_secs(50)
                             }))
                         }
+                        // TODO: Better Opener oder ein floating down arrow button
+                        // div ."hero-content"."visually-hidden"{
                         div ."hero-content"{
                             h1."mb-large"{
                                 span."fs-large"."lh-tight"."text-shadow"{ (loader.get("welcome")) } br;
