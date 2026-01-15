@@ -40,13 +40,19 @@ impl Cli {
     }
 
     fn build_pages(&self) -> io::Result<()> {
-        for lang in SUPPORTED_LANGS.iter() {
-            for page in Page::VARIANTS {
+        SUPPORTED_LANGS.par_iter().for_each(|lang| {
+            Page::VARIANTS.into_par_iter().for_each(|page| {
                 let relative_path = page.to_href(lang);
                 let full_path = self.out.join(relative_path);
 
                 if let Some(parent) = full_path.parent() {
-                    fs::create_dir_all(parent)?;
+                    match fs::create_dir_all(parent) {
+                        Ok(_) => (),
+                        Err(_) => {
+                            eprintln!("❌  Fehler: {}", parent.display());
+                            return;
+                        }
+                    };
                 }
 
                 let markup = page.to_markup(lang).0;
@@ -56,12 +62,14 @@ impl Cli {
                 };
                 if !needs_copy {
                     println!("✔️  Seite vorhanden: {}", full_path.display());
-                    continue;
+                    return;
                 }
-                fs::write(&full_path, markup)?;
-                println!("✔️  Seite geschrieben: {}", full_path.display());
-            }
-        }
+                match fs::write(&full_path, markup) {
+                    Ok(_) => println!("✔️  Seite geschrieben: {}", full_path.display()),
+                    Err(_) => eprintln!("❌  Fehler: {}", full_path.display()),
+                };
+            })
+        });
         Ok(())
     }
 
