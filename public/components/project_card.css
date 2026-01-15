@@ -82,8 +82,8 @@
     height: auto;
     width: auto;
     display: grid;
-    --padding: 1rem;
-    column-gap: var(--padding);
+    --img-padding: 1rem;
+    column-gap: var(--img-padding);
     border-radius: inherit;
     overflow: hidden;
     row-gap: 0;
@@ -111,7 +111,7 @@
         height: 100%;
         width: 100%;
         overflow: hidden;
-        padding-bottom: var(--padding);
+        padding-bottom: var(--img-padding);
 
         img {
             height: 100%;
@@ -130,6 +130,6 @@
 
     p {
         grid-area: Text;
-        padding-bottom: var(--padding);
+        padding-bottom: var(--img-padding);
     }
 }

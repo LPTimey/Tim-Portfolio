@@ -15,10 +15,8 @@ fn markup<'a>(
     html! {
         a ."project-card" draggable="false" "in-grid"=(is_in_grid) href=(path_to_root + &data.page.to_href(lang).display().to_string()) {
             div ."pjc-grid" "reactive-color"=(reactive_color) {
-                picture{
-                    (data.title_img.light().render(ImgProps{path_to_root:&data.page.path_to_root(lang), class:&["light-only"], ..Default::default()}))
-                    (data.title_img.dark().render(ImgProps{path_to_root:&data.page.path_to_root(lang), class:&["dark-only"], ..Default::default()}))
-                }
+                (data.title_img.light().render(ImgProps{path_to_root:&data.page.path_to_root(lang), class:&["light-only"], ..Default::default()}))
+                (data.title_img.dark().render(ImgProps{path_to_root:&data.page.path_to_root(lang), class:&["dark-only"], ..Default::default()}))
                 h3 .subhead { (data.name) }
                 h4 { (data.category) }
                 p { (data.description) }

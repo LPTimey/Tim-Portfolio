@@ -91,6 +91,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
     .map(|(cat, icons)| (cat, icons.to_markup(&page.path_to_root(lang))));
 
     let title_img = Img::new("public", Path::new("assets").join("Title-img.png"), "").unwrap();
+    let profile_img = Img::new("public","assets/Lebenslauf/schönes bild.JPG", "").unwrap();
 
     components::page::page(
         page.path_to_root(lang),
@@ -133,7 +134,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                     section #AboutMe .sect."sect-large-start"."sect-small-end" {
                         div.content {
                             h2.heading{ span."accent-text"{ (loader.get("hi")) } " " (loader.get("greeting-title")) }
-                            picture{img draggable="false" src=(page.path_to_root(lang) + *ICH) alt="";}
+                            (profile_img.render(ImgProps { ..Default::default() }))
                             p{
                                 (PreEscaped(loader.get("about-me")))
                             }
