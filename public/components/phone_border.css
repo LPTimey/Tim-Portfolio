@@ -20,7 +20,9 @@
 }
 
 .phone,
-.phone-content {
+.phone-content,
+.phone > *,
+.phone-content > * {
     position: absolute;
     aspect-ratio: var(--phone-aspect);
 }
