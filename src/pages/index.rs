@@ -10,8 +10,7 @@ use crate::{
         head::default_head,
         header::header,
         icon::{Icon, IconToMarkup},
-        project_card,
-        scrolling_img, tooltip,
+        project_card, scrolling_img, tooltip,
     },
     include_public, setup_language_loader,
 };
@@ -91,7 +90,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
     .map(|(cat, icons)| (cat, icons.to_markup(&page.path_to_root(lang))));
 
     let title_img = Img::new("public", Path::new("assets").join("Title-img.png"), "").unwrap();
-    let profile_img = Img::new("public","assets/Lebenslauf/schönes bild.JPG", "").unwrap();
+    let profile_img = Img::new("public", "assets/Lebenslauf/schönes bild.JPG", "").unwrap();
 
     components::page::page(
         page.path_to_root(lang),
@@ -134,7 +133,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                     section #AboutMe .sect."sect-large-start"."sect-small-end" {
                         div.content {
                             h2.heading{ span."accent-text"{ (loader.get("hi")) } " " (loader.get("greeting-title")) }
-                            (profile_img.render(ImgProps { ..Default::default() }))
+                            (profile_img.render(ImgProps { path_to_root:&page.path_to_root(lang),..Default::default() }))
                             p{
                                 (PreEscaped(loader.get("about-me")))
                             }

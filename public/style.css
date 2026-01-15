@@ -1113,13 +1113,13 @@
     }
 
     &[open] {
-        background-color: rgb(from var(--bg) r g b / var(--transparency));
+        background-color: rgb(from var(--bg) r g b / 1);
         -webkit-backdrop-filter: blur(var(--_blur-r));
         backdrop-filter: blur(var(--_blur-r));
         border-radius: var(--border-r) var(--border-r) 0 0;
 
         ul {
-            background-color: rgb(from var(--bg) r g b / var(--transparency));
+            background-color: rgb(from var(--bg) r g b / 1);
             -webkit-backdrop-filter: blur(var(--_blur-r));
             backdrop-filter: blur(var(--_blur-r));
             align-items: center;

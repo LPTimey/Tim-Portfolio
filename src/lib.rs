@@ -1,8 +1,9 @@
+mod assets;
+mod color;
 mod components;
 mod pages;
-mod color;
-mod assets;
 
+pub use crate::assets::used_assets;
 use i18n_embed::{LanguageLoader, fluent::FluentLanguageLoader};
 use image::ImageReader;
 pub use pages::*;
@@ -199,3 +200,32 @@ impl Iterator for TabIndex {
         Some(value)
     }
 }
+
+pub fn canonicalize_web_path(path: &str) -> String {
+    let path = path.replace('\\', "/");
+    let mut parts = vec![];
+
+    for part in path.split('/') {
+        match part {
+            "" | "." => continue,
+            ".." => {
+                if let Some(last) = parts.last() {
+                    if *last != ".." {
+                        parts.pop();
+                        continue;
+                    }
+                }
+                // Anfangs-.. oder vor anderen ..: behalten
+                parts.push("..");
+            }
+            p => parts.push(p),
+        }
+    }
+
+    if parts.is_empty() {
+        ".".to_string()
+    } else {
+        parts.join("/")
+    }
+}
+

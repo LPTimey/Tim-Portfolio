@@ -3,14 +3,24 @@ use std::sync::Arc;
 use maud::{PreEscaped, html};
 
 use crate::{
-    Link, assets::img::{Img, ImgProps}, components::Component, link_public
+    Link,
+    assets::img::{Img, ImgProps},
+    components::Component,
+    link_public,
 };
 
 use Props::with_props;
 
 #[with_props]
-fn markup<'a>(img: Arc<Img>, props: ImgProps<'a>, rows: u8, columns: u8, duration: std::time::Duration) -> maud::Markup {
-    let imgs = img.render(props)
+fn markup<'a>(
+    img: Arc<Img>,
+    props: ImgProps<'a>,
+    rows: u8,
+    columns: u8,
+    duration: std::time::Duration,
+) -> maud::Markup {
+    let imgs = img
+        .render(props)
         .into_string()
         .repeat(rows as usize * columns as usize);
 

@@ -1,7 +1,14 @@
-use std::{io, path::PathBuf, sync::Arc};
+use std::{
+    io,
+    path::{Path, PathBuf},
+    sync::{Arc, OnceLock},
+};
 
-use image::{GenericImageView, ImageFormat};
+use image::{DynamicImage, GenericImageView, ImageFormat, imageops::FilterType};
 use maud::{Markup, PreEscaped, html};
+use rayon::prelude::*;
+
+use crate::canonicalize_web_path;
 
 use super::{Asset, register_or_get, register_used};
 
@@ -13,12 +20,19 @@ pub struct Img {
     /// Web-relativer Pfad, z. B. assets/img/profile.jpg
     pub path: PathBuf,
 
+    /// Fallback alt (kann beim Render überschrieben werden)
     pub alt: String,
+
+    /// Lazy Cache für (width, height)
+    dimensions: OnceLock<(u32, u32)>,
 }
 
 impl Img {
     pub const SIZES: [u16; 7] = [360, 412, 768, 1024, 1260, 1920, 2560];
-    pub const FORMATS: [ImageFormat; 3] = [ImageFormat::Avif, ImageFormat::WebP, ImageFormat::Jpeg];
+    pub const FORMATS: [ImageFormat; 2] = [
+        /*ImageFormat::Avif,*/ ImageFormat::WebP,
+        ImageFormat::Png,
+    ];
 
     pub fn new(
         prefix: impl Into<PathBuf>,
@@ -41,22 +55,20 @@ impl Img {
             prefix: prefix.into(),
             path: path.into(),
             alt: alt.into(),
+            dimensions: OnceLock::new(),
         });
 
         // Registriere oder hole vorhandenes Asset
         let registered: Arc<dyn Asset> = register_or_get(candidate.clone() as Arc<dyn Asset>);
 
-        // Versuche Downcast zurück zu Arc<Img>
-        Ok(if let Ok(img) = Arc::downcast::<Img>(registered) {
-            img
-        } else {
-            candidate
-        })
+        Ok(Arc::downcast::<Img>(registered).unwrap_or(candidate))
     }
 
     pub fn render(self: Arc<Self>, props: ImgProps<'_>) -> Markup {
         // automatische Registrierung beim Rendern
         register_used(&(self.clone() as Arc<dyn Asset>));
+
+        let (width, height) = self.get_dimensions().unwrap();
 
         PreEscaped(format!(
             r#"<picture id='{id}' class='{class}' style='{style}' {attrs}>{html}</picture>"#,
@@ -70,28 +82,29 @@ impl Img {
                 .collect::<Vec<_>>()
                 .join(" "),
             html = html! {
-            // TODO: Reactivate after impl process
-            // source
-            //     type=(Self::FORMATS[0].to_mime_type())
-            //     srcset=(self.srcset(Self::FORMATS[0]));
+                @for format in Self::FORMATS.iter().take(1) {
+                    source
+                        type=(format.to_mime_type())
+                        // width=(width)
+                        // height=(height)
+                        // sizes=(props.sizes)
+                        srcset=(self.srcset(props.path_to_root,*format));
+                }
 
-            // TODO: Reactivate after impl process
-            // source
-            //     type=(Self::FORMATS[1].to_mime_type())
-            //     srcset=(self.srcset(Self::FORMATS[1]));
+                img
+                    src=(self.web_path(props.path_to_root))
+                    width=(width)
+                    height=(height)
+                    sizes=(props.sizes)
+                    srcset=(self.srcset(props.path_to_root,Self::FORMATS[1]))
+                    alt=(if let Some(alt)=props.alt{alt}else {&self.alt})
+                    decoding="async"
+                    loading=(if props.eager {"eager"} else{"lazy"})
+                    draggable="false";
 
-            img
-                src=(self.web_path(props.path_to_root))
-                // TODO: Reactivate after impl process
-                // srcset=(self.srcset(Self::FORMATS[2]))
-                alt=(self.alt)
-                loading="lazy"
-                decoding="async"
-                loading=(if props.eager {"eager"} else{"lazy"})
-                draggable="false";
-            @if let Some(children) = props.children{
-                (children)
-            }
+                @if let Some(children) = props.children{
+                    (children)
+                }
             }
             .to_owned()
             .0
@@ -105,10 +118,11 @@ impl Img {
 
     /// Web-Pfad (HTML-safe, immer `/`)
     pub fn web_path(&self, path_to_root: &str) -> String {
-        format!(
+        let path = format!(
             "{path_to_root}/{}",
             self.path.to_string_lossy().replace('\\', "/")
-        )
+        );
+        canonicalize_web_path(&path)
     }
 
     /// Dateiname ohne Extension
@@ -130,18 +144,45 @@ impl Img {
             None => self.file_stem().to_string(),
         }
     }
-
-    pub fn get_dimensions(&self)->(u32,u32){
-        image::open(self.full_path()).unwrap().dimensions()
+    /// ../../assets/img/foo/360.webp
+    fn processed_web_url(&self, path_to_root: &str, size: u16, format: ImageFormat) -> String {
+        let path = format!(
+            "{}/{}",
+            path_to_root.trim_end_matches('/'),
+            self.processed_web_path(size, format)
+        );
+        canonicalize_web_path(&path)
+    }
+    /// Verzeichnis + Dateiname + Size + Format (Web-Pfad)
+    /// assets/img/foo/360.webp
+    fn processed_web_path(&self, size: u16, format: ImageFormat) -> String {
+        let ext = format.extensions_str()[0];
+        let path = format!("{}/{size}.{ext}", self.web_base_path());
+        canonicalize_web_path(&path)
+    }
+    /// Filesystem-Pfad für das verarbeitete Bild
+    fn processed_fs_path(&self, prefix: &Path, size: u16, format: ImageFormat) -> PathBuf {
+        prefix.join(self.processed_web_path(size, format))
     }
 
-    fn srcset(&self, format: ImageFormat) -> String {
-        let base = self.web_base_path();
-        let ext = format.extensions_str()[0];
+    pub fn get_dimensions(&self) -> Result<(u32, u32), image::ImageError> {
+        if let Some(dim) = self.dimensions.get() {
+            return Ok(*dim);
+        }
 
+        let dim = image::open(self.full_path())?.dimensions();
+        let _ = self.dimensions.set(dim);
+        Ok(dim)
+    }
+
+    pub fn open(&self) -> Result<DynamicImage, image::ImageError> {
+        image::open(self.full_path())
+    }
+
+    fn srcset(&self, path_to_root: &str, format: ImageFormat) -> String {
         Self::SIZES
             .iter()
-            .map(|s| format!("{base}-{s}.{ext} {s}w"))
+            .map(|s| format!("{} {s}w", self.processed_web_url(path_to_root, *s, format)))
             .collect::<Vec<_>>()
             .join(", ")
     }
@@ -153,19 +194,57 @@ impl Asset for Img {
         self.full_path().to_string_lossy().into_owned()
     }
 
-    fn process(self: Arc<Self>) -> Result<(), Box<dyn std::error::Error>> {
-        todo!()
+    fn process(
+        self: Arc<Self>,
+        prefix: &Path,
+        overwrite: bool,
+    ) -> Result<(), Box<dyn std::error::Error>> {
+        let image = self.open()?;
+
+        // Zielverzeichnis einmal anlegen
+        let base_dir = prefix.join(&self.path).with_extension("");
+
+        std::fs::create_dir_all(&base_dir)?;
+
+        for format in Self::FORMATS {
+            Self::SIZES
+                .par_iter()
+                .map(|size| (size, self.processed_fs_path(prefix, *size, format)))
+                .filter(|(_, path)| overwrite && path.exists())
+                .map(|(size, path)| {
+                    let resized = image.resize(*size as u32, u32::MAX, FilterType::Lanczos3);
+                    (path, resized)
+                })
+                .map(|(path, img)| {
+                    let img = match format {
+                        ImageFormat::Jpeg => DynamicImage::ImageRgb8(img.to_rgb8()), // Alpha wegwerfen
+                        ImageFormat::WebP => DynamicImage::ImageRgba8(img.to_rgba8()), // RGBA16 → RGBA8
+                        _ => img,
+                    };
+                    (path, img)
+                })
+                .for_each(|(path, image)| {
+                    let res = image.save_with_format(&path, format);
+                    match res {
+                        Ok(_) => println!("saved {}", path.display()),
+                        Err(e) => println!("failed:\n\t{}\n\t{:?}", path.display(), e),
+                    }
+                });
+        }
+        // println!("Done {}", base_dir.display());
+        Ok(())
     }
 }
 
 #[derive(Debug, Default)]
 pub struct ImgProps<'a> {
     pub path_to_root: &'a str,
+    pub sizes: &'a str,
     pub eager: bool,
     pub id: Option<&'a str>,
-    pub alt: &'a str,
+    pub alt: Option<&'a str>,
     pub class: &'a [&'a str],
     pub style: Option<&'a str>,
     pub attrs: &'a [(&'a str, &'a str)],
-    pub children: Option<Markup>
+    pub children: Option<Markup>,
 }

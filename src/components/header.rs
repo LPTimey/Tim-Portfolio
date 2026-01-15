@@ -133,7 +133,6 @@ pub fn header(current_page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                         ("System", false),
                         ("Light", true),
                         ("Dark", false),
-                        ("Custom", false)
                     ], lang)) }
                 li { (lang_switcher(current_page, lang)) }
                 li { a draggable="false" target="_blank" href="https://github.com/LPTimey/Tim-Portfolio" aria-label="Mein Github"{ (PreEscaped(GIT_HUB_ICON)) /*"GitHub"*/ } }

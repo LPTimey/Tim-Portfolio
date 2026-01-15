@@ -14,3 +14,4 @@ i18n-embed = { version = "0.16", features = ["fluent-system", "desktop-requester
 rust-embed = "8"
 unic-langid = { version ="0.9", features = ["macros"]}
 thiserror = "2.0.17"
+rayon = "1.11.0"

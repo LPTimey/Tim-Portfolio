@@ -3,9 +3,11 @@ use std::io;
 use std::path::{Path, PathBuf};
 
 use clap::Parser;
+use rayon::prelude::*;
 use strum::VariantArray;
 use website::Page;
 use website::SUPPORTED_LANGS;
+use website::used_assets;
 
 fn main() {
     // Page::VARIANTS.iter().for_each(|page| {
@@ -23,11 +25,17 @@ struct Cli {
     /// Sets the output Directory
     #[arg(short, long, value_name = "DIR", default_value = "dist")]
     out: PathBuf,
+    #[arg(long, default_value = "false")]
+    overwrite: bool,
 }
 impl Cli {
     pub fn build(&self) -> io::Result<()> {
         self.build_pages()?;
         self.copy_public_assets("public")?;
+        used_assets().into_par_iter().for_each(|asset| {
+            let _res = asset.process(&self.out, self.overwrite);
+            // let _ = dbg!(res);
+        });
         Ok(())
     }
 
