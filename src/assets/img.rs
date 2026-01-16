@@ -29,8 +29,8 @@ pub struct Img {
 
 impl Img {
     pub const SIZES: [u16; 7] = [360, 412, 768, 1024, 1260, 1920, 2560];
-    pub const FORMATS: [ImageFormat; 2] = [
-        /*ImageFormat::Avif,*/ ImageFormat::WebP,
+    pub const FORMATS: [ImageFormat; 3] = [
+        ImageFormat::Avif, ImageFormat::WebP,
         ImageFormat::Png,
     ];
 
@@ -82,7 +82,7 @@ impl Img {
                 .collect::<Vec<_>>()
                 .join(" "),
             html = html! {
-                @for format in Self::FORMATS.iter().take(1) {
+                @for format in Self::FORMATS.iter().take(2) {
                     source
                         type=(format.to_mime_type())
                         // width=(width)
@@ -92,7 +92,7 @@ impl Img {
                 }
 
                 img
-                    src=(self.web_path(props.path_to_root))
+                    // src=(self.web_path(props.path_to_root))
                     width=(width)
                     height=(height)
                     sizes=(props.sizes)
@@ -210,7 +210,7 @@ impl Asset for Img {
             Self::SIZES
                 .par_iter()
                 .map(|size| (size, self.processed_fs_path(prefix, *size, format)))
-                .filter(|(_, path)| overwrite && path.exists())
+                .filter(|(_, path)| overwrite || !path.exists())
                 .map(|(size, path)| {
                     let resized = image.resize(*size as u32, u32::MAX, FilterType::Lanczos3);
                     (path, resized)
