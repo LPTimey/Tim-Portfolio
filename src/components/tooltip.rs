@@ -3,7 +3,7 @@ use std::{fmt::Display, sync::Arc};
 use Props::with_props;
 use maud::{Markup, html};
 
-use crate::{Link, assets::stylesheet::StyleSheet, components::Component, link_public};
+use crate::{assets::stylesheet::StyleSheet, components::Component};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub struct Percentage(u8);

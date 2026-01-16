@@ -19,9 +19,9 @@ pub fn markup<'a>(
 ) -> Markup {
     html! {
         div.carousel #(id) "data-current"=(0){
-            ul."carousel-content"{@for (i,img) in images.into_iter().enumerate(){
+            ul."carousel-content"{@for (i,img) in images.iter().enumerate(){
                     li "data-index"=(i){picture{
-                        (Arc::clone(&img).render(ImgProps{path_to_root:pre_src,eager,..Default::default()}))
+                        (Arc::clone(img).render(ImgProps{path_to_root:pre_src,eager,..Default::default()}))
                     }}
                 }
                 li."carousel-spacer"{}

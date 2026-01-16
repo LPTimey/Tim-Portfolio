@@ -18,7 +18,7 @@ pub fn markup(content: PreEscaped<String>, color: CssColor, bg_color: CssColor) 
 }
 pub fn style() -> Arc<StyleSheet> {
     let sheet = StyleSheet::new("public", "components/badge.css").unwrap();
-    return sheet;
+    sheet
 }
 
 pub fn component() -> Component<MarkupProps, Arc<StyleSheet>, ()> {

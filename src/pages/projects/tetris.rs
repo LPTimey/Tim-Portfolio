@@ -19,7 +19,7 @@ use crate::{
 use super::super::*;
 
 // const TETRIS_C: &str = include_public!("assets/Tetris/Tetris_new/Tetris/src/GameState.cpp");
-const TETRIS_H: &str = include_public!("assets/Tetris/Tetris_new/Tetris/src/GameState.hpp");
+// const TETRIS_H: &str = include_public!("assets/Tetris/Tetris_new/Tetris/src/GameState.hpp");
 
 const TET_STATE: &str = "\
 class GameState {
@@ -95,7 +95,7 @@ constexpr Vec2 T[] =
     { {0, 0}, {0, -1}, {-1, 0}, {1, 0} };
 constexpr Vec2* Tetrominos[] =
     { L, R_L, I, Z, R_Z, B, T };";
-const TET_TET_VEC_LONG: &str = "\
+const _TET_TET_VEC_LONG: &str = "\
 // ... Die anderen Tetrominos ...
 constexpr Vec2 T[] = { {0, 0}, {0, -1}, {-1, 0}, {1, 0} };
 constexpr Vec2* Tetrominos[] = { L, R_L, I, Z, R_Z, B, T };";
@@ -113,7 +113,7 @@ public:
     void set_seed(uint32_t seed);
     Tetromino next();
 };";
-const TET_BAG_LONG: &str = "\
+const _TET_BAG_LONG: &str = "\
 using Tetromino as T;
 class TetrominoBag {
     Tetromino bag[(uint8_t)T::NrOfTetrominos];
@@ -160,7 +160,7 @@ RefillBag[/"Alle Tetrominos verwendet<br>set_next_batch() aufrufen"/]
     res
 }
 
-fn get_str_lines_range(input: &str, start: usize, end: usize) -> &str {
+fn _get_str_lines_range(input: &str, start: usize, end: usize) -> &str {
     let mut line_start = 0;
     let mut slice_start = 0;
     let mut slice_end = 0;

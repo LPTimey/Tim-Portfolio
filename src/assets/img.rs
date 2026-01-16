@@ -52,8 +52,8 @@ impl Img {
         }
 
         let candidate = Arc::new(Self {
-            prefix: prefix.into(),
-            path: path.into(),
+            prefix: prefix,
+            path: path,
             alt: alt.into(),
             dimensions: OnceLock::new(),
         });
@@ -77,7 +77,7 @@ impl Img {
             style = (props.style.unwrap_or_default()),
             attrs = props
                 .attrs
-                .into_iter()
+                .iter()
                 .map(|(name, value)| format!(r#"{name}="{value}""#))
                 .collect::<Vec<_>>()
                 .join(" "),

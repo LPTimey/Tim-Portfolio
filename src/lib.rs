@@ -209,12 +209,11 @@ pub fn canonicalize_web_path(path: &str) -> String {
         match part {
             "" | "." => continue,
             ".." => {
-                if let Some(last) = parts.last() {
-                    if *last != ".." {
+                if let Some(last) = parts.last()
+                    && *last != ".." {
                         parts.pop();
                         continue;
                     }
-                }
                 // Anfangs-.. oder vor anderen ..: behalten
                 parts.push("..");
             }

@@ -1,6 +1,6 @@
 use std::{
     io,
-    path::{Path, PathBuf},
+    path::PathBuf,
     sync::Arc,
 };
 

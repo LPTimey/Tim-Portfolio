@@ -3,10 +3,8 @@ use std::sync::Arc;
 use maud::{PreEscaped, html};
 
 use crate::{
-    Link,
     assets::{img::{Img, ImgProps}, stylesheet::StyleSheet},
     components::Component,
-    link_public,
 };
 
 use Props::with_props;

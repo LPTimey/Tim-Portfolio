@@ -10,13 +10,13 @@ pub mod stylesheet;
 static SEEN_ASSETS: LazyLock<RwLock<HashMap<String, (Arc<dyn Asset>, bool)>>> =
     LazyLock::new(|| RwLock::new(HashMap::new()));
 
-pub(self) fn register_used(asset: &Arc<dyn Asset>) {
+ fn register_used(asset: &Arc<dyn Asset>) {
     let mut used = SEEN_ASSETS.write().unwrap();
     used.entry(asset.key())
         .and_modify(|(_, used)| *used = true)
         .or_insert_with(|| (asset.clone(), true));
 }
-pub(self) fn register_seen_or_get(asset: Arc<dyn Asset>) -> Arc<dyn Asset> {
+ fn register_seen_or_get(asset: Arc<dyn Asset>) -> Arc<dyn Asset> {
     let mut used = SEEN_ASSETS.write().unwrap();
     used.entry(asset.key())
         .or_insert_with(|| (asset.clone(), false))

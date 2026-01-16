@@ -115,7 +115,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                     section.sect.content{(timeline_html(timeline::MarkupProps {
                         heading:"Erfahrung",
                         level: 1,
-                        items: items,
+                        items,
                         start_left:true
                     }))}
                 }
