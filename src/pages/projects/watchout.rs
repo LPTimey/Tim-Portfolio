@@ -4,7 +4,7 @@ use i18n_embed::fluent::FluentLanguageLoader;
 use maud::PreEscaped;
 
 use crate::{
-    assets::{img::{Img, ImgProps}, script::Script}, components::{
+    assets::{img::{Img, ImgProps}, script::Script, video::Video}, components::{
         self, Component,
         footer::footer,
         head::default_head,
@@ -15,7 +15,7 @@ use crate::{
         project_table::{self, with_sub_heading},
         three_js_setup::import_map,
         tooltip,
-    }, include_public, link_public, projects::ProjectMetadata, setup_language_loader
+    }, include_public, projects::ProjectMetadata, setup_language_loader
 };
 
 use super::super::*;
@@ -98,8 +98,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
         (&*core_loader.get("university").leak(), "Technische Hochschule Ingolstadt").into(),
     ];
 
-    let video_href = page.path_to_root(lang)
-        + *link_public!("assets/Design der Mensch Maschine Schnittstelle/WatchOut/Video720_1.mp4");
+    let video = Video::new("public", "assets/Design der Mensch Maschine Schnittstelle/WatchOut/Video720_1.mp4").unwrap();
 
     let meta_data = meta_data(lang);
     let dark_title_img = meta_data.title_img.dark();
@@ -134,12 +133,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                     }
                     (table_html(project_table::MarkupProps {
                         title: with_sub_heading("WatchOut App & Uhr","Design der Mensch-Maschine-Schnittstelle"),
-                        graphic: html!{
-                            video controls{
-                                source src=(video_href) type="video/mp4";
-                                a href=(video_href) type="video/mp4"{ "Download" }
-                            }
-                        }.into(),
+                        graphic: video.render(&page.path_to_root(lang)).into(),
                         rows,
                         text: (&*loader.get("content").leak()).into(),
                         long_text: true

@@ -8,6 +8,7 @@ pub mod img;
 pub mod stylesheet;
 pub mod script;
 pub mod svg;
+pub mod video;
 
 static SEEN_ASSETS: LazyLock<RwLock<HashMap<String, (Arc<dyn Asset>, bool)>>> =
     LazyLock::new(|| RwLock::new(HashMap::new()));
