@@ -252,9 +252,9 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
         page.path_to_root(lang),
         html! {
             head{
-                script type="module" src=(page.path_to_root(lang)+*carousel_script){}
-                script type="module" src=(page.path_to_root(lang)+*codeblock_script){}
-                script type="module" src=(page.path_to_root(lang)+*mermaid_script){}
+                (carousel_script.render(&page.path_to_root(lang)))
+                (codeblock_script.render(&page.path_to_root(lang)))
+                (mermaid_script.render(&page.path_to_root(lang)))
                 style{(PreEscaped(include_asset!("tetris.css")))}
                 (default_head("Tetris",meta_data.description,page, lang))
                 (table_style.render(&page.path_to_root(lang)))

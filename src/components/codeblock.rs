@@ -3,7 +3,10 @@ use std::sync::Arc;
 use Props::with_props;
 use maud::{Markup, PreEscaped, html};
 
-use crate::{Link, assets::stylesheet::StyleSheet, components::Component, link_public};
+use crate::{
+    assets::{script::Script, stylesheet::StyleSheet},
+    components::Component,
+};
 
 #[with_props]
 pub fn markup<'a>(id: &'static str, data: &'a str, prog_lang: &'a str) -> Markup {
@@ -14,12 +17,12 @@ pub fn markup<'a>(id: &'static str, data: &'a str, prog_lang: &'a str) -> Markup
     }
 }
 pub fn style() -> Arc<StyleSheet> {
-    StyleSheet::new("public","components/codeblock.css").unwrap()
+    StyleSheet::new("public", "components/codeblock.css").unwrap()
 }
-pub fn script() -> Link {
-    link_public!("components/codeblock.js")
+pub fn script() -> Arc<Script> {
+    Script::new("public", "components/codeblock.js").unwrap()
 }
-pub fn component<'a>() -> Component<MarkupProps<'a>, Arc<StyleSheet>, Link> {
+pub fn component<'a>() -> Component<MarkupProps<'a>, Arc<StyleSheet>, Arc<Script>> {
     Component {
         html: markup,
         style: style(),

@@ -4,10 +4,12 @@ use Props::with_props;
 use maud::{Markup, html};
 
 use crate::{
-    Link,
-    assets::{img::{Img, ImgProps}, stylesheet::StyleSheet},
+    assets::{
+        img::{Img, ImgProps},
+        script::Script,
+        stylesheet::StyleSheet,
+    },
     components::Component,
-    link_public,
 };
 
 #[derive(Default)]
@@ -97,13 +99,13 @@ pub fn markup(map: HyperMap, path_to_root: String, eager: bool) -> Markup {
 }
 
 fn style() -> Arc<StyleSheet> {
-    StyleSheet::new("public","components/hyper_img.css").unwrap()
+    StyleSheet::new("public", "components/hyper_img.css").unwrap()
 }
-fn script() -> Link {
-    link_public!("components/hyper_img.js")
+fn script() -> Arc<Script> {
+    Script::new("public", "components/hyper_img.js").unwrap()
 }
 
-pub fn component() -> Component<MarkupProps, Arc<StyleSheet>, Link> {
+pub fn component() -> Component<MarkupProps, Arc<StyleSheet>, Arc<Script>> {
     Component {
         html: markup,
         style: style(),

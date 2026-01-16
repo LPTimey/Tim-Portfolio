@@ -2,7 +2,7 @@ use std::sync::Arc;
 
 use maud::Markup;
 
-use crate::{Link, assets::stylesheet::StyleSheet};
+use crate::{Link, assets::{script::Script, stylesheet::StyleSheet}};
 
 pub mod badge;
 pub mod carousel;
@@ -27,11 +27,10 @@ pub mod tooltip;
 pub trait ScriptType {}
 impl ScriptType for &str {}
 impl ScriptType for Link {}
+impl ScriptType for Arc<Script> {}
 impl ScriptType for () {}
 
 pub trait StyleType {}
-impl StyleType for &str {}
-impl StyleType for Link {}
 impl StyleType for Arc<StyleSheet> {}
 impl StyleType for () {}
 pub struct Component<T, St: StyleType, Sc: ScriptType> {

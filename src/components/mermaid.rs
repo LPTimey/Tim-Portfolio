@@ -1,7 +1,9 @@
+use std::sync::Arc;
+
 use Props::with_props;
 use maud::{Markup, PreEscaped, html};
 
-use crate::{Link, components::Component, link_public};
+use crate::{assets::script::Script, components::Component};
 
 #[with_props]
 pub fn markup<'a, 'b, 'c, 'd>(name: &'a str, defs: &'b [(&'c str, &'d str)]) -> Markup {
@@ -18,10 +20,10 @@ pub fn markup<'a, 'b, 'c, 'd>(name: &'a str, defs: &'b [(&'c str, &'d str)]) -> 
         }
     }
 }
-pub fn script() -> Link {
-    link_public!("components/mermaid.js")
+pub fn script() -> Arc<Script> {
+    Script::new("public", "components/mermaid.js").unwrap()
 }
-pub fn component<'a, 'b, 'c, 'd>() -> Component<MarkupProps<'a, 'b, 'c, 'd>, (), Link> {
+pub fn component<'a, 'b, 'c, 'd>() -> Component<MarkupProps<'a, 'b, 'c, 'd>, (), Arc<Script>> {
     Component {
         html: markup,
         style: (),

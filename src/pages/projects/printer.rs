@@ -93,7 +93,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
         page.path_to_root(lang),
         html! {
             head{
-                script type="module" src=(page.path_to_root(lang)+*hy_img_script) {}
+                (hy_img_script.render(&page.path_to_root(lang)))
                 (default_head("Drucker",DESCRIPTION,page,lang))
                 (hy_img_style.render(&page.path_to_root(lang)))
                 (table_style.render(&page.path_to_root(lang)))

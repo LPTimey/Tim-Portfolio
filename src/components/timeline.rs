@@ -4,7 +4,7 @@ use Props::with_props;
 use maud::{Markup, PreEscaped, html};
 
 use crate::{
-    Link, assets::stylesheet::StyleSheet, components::{Component, badge}, link_public
+    assets::{script::Script, stylesheet::StyleSheet}, components::{Component, badge}
 };
 
 pub struct Item<'a> {
@@ -74,11 +74,11 @@ pub fn style() -> Arc<StyleSheet> {
     StyleSheet::new("public", "components/detail-timeline.css").unwrap()
 }
 
-pub fn script() -> Link {
-    link_public!("components/detail-timeline.js")
+pub fn script() -> Arc<Script> {
+    Script::new("public", "components/detail-timeline.js").unwrap()
 }
 
-pub fn component<const S: usize>() -> Component<MarkupProps<'static, S>, Arc<StyleSheet>, Link> {
+pub fn component<const S: usize>() -> Component<MarkupProps<'static, S>, Arc<StyleSheet>, Arc<Script>> {
     Component {
         html: markup,
         style: style(),

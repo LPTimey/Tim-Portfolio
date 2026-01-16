@@ -102,7 +102,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
         page.path_to_root(lang),
         html! {
             head{
-                script type="module" src=(page.path_to_root(lang)+*timeline_script){}
+                (timeline_script.render(&page.path_to_root(lang)))
                 (timeline_style.render(&page.path_to_root(lang)))
                 (default_head(&core_loader.get("Experience"),"//TODO:", page, lang))
                 (badge_style.render(&page.path_to_root(lang)))

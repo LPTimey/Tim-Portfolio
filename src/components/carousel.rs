@@ -4,10 +4,13 @@ use Props::with_props;
 use maud::{Markup, PreEscaped, html};
 
 use crate::{
-    Link,
-    assets::{img::{Img, ImgProps}, stylesheet::StyleSheet},
+    assets::{
+        img::{Img, ImgProps},
+        script::Script,
+        stylesheet::StyleSheet,
+    },
     components::Component,
-    include_asset, link_public,
+    include_asset,
 };
 
 #[with_props]
@@ -39,10 +42,10 @@ pub fn markup<'a>(
 pub fn style() -> Arc<StyleSheet> {
     StyleSheet::new("public", "components/carousel.css").unwrap()
 }
-pub fn script() -> Link {
-    link_public!("components/carousel.js")
+pub fn script() -> Arc<Script> {
+    Script::new("public", "components/carousel.js").unwrap()
 }
-pub fn component<'a>() -> Component<MarkupProps<'a>, Arc<StyleSheet>, Link> {
+pub fn component<'a>() -> Component<MarkupProps<'a>, Arc<StyleSheet>, Arc<Script>> {
     Component {
         html: markup,
         style: style(),
