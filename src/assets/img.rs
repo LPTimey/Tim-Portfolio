@@ -28,9 +28,12 @@ pub struct Img {
 }
 
 impl Img {
-    pub const SIZES: [u16; 7] = [360, 412, 768, 1024, 1260, 1920, 2560];
-    pub const FORMATS: [ImageFormat; 3] = [
-        ImageFormat::Avif, ImageFormat::WebP,
+    pub const SIZES: [u16; 6] = [360, 768, 1024, 1280, 1920, 2560];
+    /// last = Fallback
+    pub const FORMATS: [ImageFormat; 2] = [
+        // Avif slow AF to encode
+        // ImageFormat::Avif, 
+        ImageFormat::WebP,
         ImageFormat::Png,
     ];
 
@@ -69,6 +72,7 @@ impl Img {
         register_used(&(self.clone() as Arc<dyn Asset>));
 
         let (width, height) = self.get_dimensions().unwrap();
+        let (last, rest) = Self::FORMATS.split_last().unwrap();
 
         PreEscaped(format!(
             r#"<picture id='{id}' class='{class}' style='{style}' {attrs}>{html}</picture>"#,
@@ -82,21 +86,21 @@ impl Img {
                 .collect::<Vec<_>>()
                 .join(" "),
             html = html! {
-                @for format in Self::FORMATS.iter().take(2) {
+                @for format in rest.iter() {
                     source
                         type=(format.to_mime_type())
-                        // width=(width)
-                        // height=(height)
-                        // sizes=(props.sizes)
+                        width=(width)
+                        height=(height)
+                        sizes=(props.sizes)
                         srcset=(self.srcset(props.path_to_root,*format));
                 }
 
                 img
-                    // src=(self.web_path(props.path_to_root))
+                    src=(self.web_path(props.path_to_root))
                     width=(width)
                     height=(height)
                     sizes=(props.sizes)
-                    srcset=(self.srcset(props.path_to_root,Self::FORMATS[1]))
+                    srcset=(self.srcset(props.path_to_root,*last))
                     alt=(if let Some(alt)=props.alt{alt}else {&self.alt})
                     decoding="async"
                     loading=(if props.eager {"eager"} else{"lazy"})
@@ -239,6 +243,7 @@ impl Asset for Img {
 #[derive(Debug, Default)]
 pub struct ImgProps<'a> {
     pub path_to_root: &'a str,
+    // TODO: tell the compile 1 (str1,str2) per Img::Sizes str1:media str2:width
     pub sizes: &'a str,
     pub eager: bool,
     pub id: Option<&'a str>,

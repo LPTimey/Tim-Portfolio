@@ -6,7 +6,10 @@ use strum::IntoEnumIterator;
 use unic_langid::LanguageIdentifier;
 
 use crate::{
-    GIT_HUB_ICON, Page, SUPPORTED_LANGS, capitalize, components::theme_select::theme_select,
+    Page, SUPPORTED_LANGS,
+    assets::svg::SvgProps,
+    capitalize,
+    components::{icon::Icon, theme_select::theme_select},
     get_core_language_loader, include_asset,
 };
 
@@ -135,7 +138,13 @@ pub fn header(current_page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                         ("Dark", false),
                     ], lang)) }
                 li { (lang_switcher(current_page, lang)) }
-                li { a draggable="false" target="_blank" href="https://github.com/LPTimey/Tim-Portfolio" aria-label="Mein Github"{ (PreEscaped(GIT_HUB_ICON)) /*"GitHub"*/ } }
+                li { a draggable="false" target="_blank" href="https://github.com/LPTimey/Tim-Portfolio" aria-label="Mein Github"{ 
+                    (Icon::GitHub.img_link().render(SvgProps{
+                        path_to_root:&current_page.path_to_root(lang),
+                        class: &["invert-dark"],
+                        ..Default::default()
+                    })) /*"GitHub"*/ 
+                } }
             }
             div #Groups{
                 @for (name,children) in groups.iter(){

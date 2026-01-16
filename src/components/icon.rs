@@ -1,4 +1,11 @@
-use crate::{Link, components::tooltip, link_logo};
+use std::sync::Arc;
+
+use crate::{
+    assets::{
+        svg::{Svg, SvgProps},
+    },
+    components::tooltip,
+};
 use maud::{Markup, html};
 use strum::Display;
 
@@ -105,52 +112,126 @@ impl Icon {
             Icon::WebAssembly => "WebAssembly",
         }
     }
-    pub const fn img_link(self) -> Link {
+    pub fn img_link(self) -> Arc<Svg> {
         match self {
-            Icon::AfterEffects => link_logo!("adobe-after-effects-svgrepo-com.svg"),
-            Icon::Audacity => link_logo!("Audacity_Logo.svg"),
-            Icon::Blender => link_logo!("blender-svgrepo-com.svg"),
-            Icon::CreativeCloud => link_logo!("adobe-creative-cloud-svgrepo-com.svg"),
-            Icon::Figma => link_logo!("figma-svgrepo-com.svg"),
-            Icon::Illustrator => link_logo!("adobe-illustrator-svgrepo-com.svg"),
-            Icon::Penpot => link_logo!("penpot-svgrepo-com.svg"),
-            Icon::Photoshop => link_logo!("adobe-photoshop-svgrepo-com.svg"),
-            Icon::Premiere => link_logo!("adobe-premiere-svgrepo-com.svg"),
-            Icon::XD => link_logo!("adobe-xd-svgrepo-com.svg"),
-            Icon::Houdini => link_logo!("houdini_logos/houdini_badge/houdini_badge_flat.svg"),
-            Icon::Apple => link_logo!("apple-svgrepo-com.svg"),
-            Icon::Excel => link_logo!("ms-excel-svgrepo-com.svg"),
-            Icon::MacOS => link_logo!("macos-svgrepo-com.svg"),
-            Icon::Microsoft => link_logo!("microsoft-svgrepo-com.svg"),
-            Icon::Office => link_logo!("office-1-logo-svgrepo-com.svg"),
-            Icon::PowerPoint => link_logo!("ms-powerpoint-svgrepo-com.svg"),
-            Icon::Windows => link_logo!("microsoft-windows-svgrepo-com.svg"),
-            Icon::Word => link_logo!("ms-word-svgrepo-com.svg"),
-            Icon::Arduino => link_logo!("arduino-svgrepo-com.svg"),
-            Icon::Bash => link_logo!("bash-icon-svgrepo-com.svg"),
-            Icon::Bootstrap => link_logo!("bootstrap-svgrepo-com.svg"),
-            Icon::C => link_logo!("c-svgrepo-com.svg"),
-            Icon::Cpp => link_logo!("c-plusplus-svgrepo-com.svg"),
-            Icon::CSharp => link_logo!("c-sharp-svgrepo-com.svg"),
-            Icon::Css => link_logo!("CSS Logo.svg"),
-            Icon::Docker => link_logo!("docker-svgrepo-com.svg"),
-            Icon::Dribbble => link_logo!("dribbble-icon-svgrepo-com.svg"),
-            Icon::Fedora => link_logo!("fedora-svgrepo-com.svg"),
-            Icon::Fritzing => link_logo!("fritzing.svg"),
-            Icon::Git => link_logo!("git-icon-svgrepo-com.svg"),
-            Icon::GitHub => link_logo!("github-icon-svgrepo-com.svg"),
-            Icon::Html => link_logo!("html-5-no-wordmark-svgrepo-com.svg"),
-            Icon::Java => link_logo!("java-svgrepo-com.svg"),
-            Icon::JavaScript => link_logo!("js-svgrepo-com.svg"),
-            Icon::Jupyter => link_logo!("jupyter-svgrepo-com.svg"),
-            Icon::Linux => link_logo!("linux-svgrepo-com.svg"),
-            Icon::Lua => link_logo!("lua-svgrepo-com.svg"),
-            Icon::NeoVim => link_logo!("neovim-mark@2x.svg"),
-            Icon::Python => link_logo!("python-svgrepo-com.svg"),
-            Icon::Rust => link_logo!("rust-svgrepo-com.svg"),
-            Icon::TypeScript => link_logo!("typescript-icon-svgrepo-com.svg"),
-            Icon::VSCode => link_logo!("vs-code-svgrepo-com.svg"),
-            Icon::WebAssembly => link_logo!("webassembly-svgrepo-com.svg"),
+            Icon::AfterEffects => Svg::new(
+                "public",
+                "assets/logos/adobe-after-effects-svgrepo-com.svg",
+                "",
+            )
+            .expect("Expected Valid Link To File"),
+            Icon::Audacity => Svg::new("public", "assets/logos/Audacity_Logo.svg", "")
+                .expect("Expected Valid Link To File"),
+            Icon::Blender => Svg::new("public", "assets/logos/blender-svgrepo-com.svg", "")
+                .expect("Expected Valid Link To File"),
+            Icon::CreativeCloud => Svg::new(
+                "public",
+                "assets/logos/adobe-creative-cloud-svgrepo-com.svg",
+                "",
+            )
+            .expect("Expected Valid Link To File"),
+            Icon::Figma => Svg::new("public", "assets/logos/figma-svgrepo-com.svg", "")
+                .expect("Expected Valid Link To File"),
+            Icon::Illustrator => Svg::new(
+                "public",
+                "assets/logos/adobe-illustrator-svgrepo-com.svg",
+                "",
+            )
+            .expect("Expected Valid Link To File"),
+            Icon::Penpot => Svg::new("public", "assets/logos/penpot-svgrepo-com.svg", "")
+                .expect("Expected Valid Link To File"),
+            Icon::Photoshop => {
+                Svg::new("public", "assets/logos/adobe-photoshop-svgrepo-com.svg", "")
+                    .expect("Expected Valid Link To File")
+            }
+            Icon::Premiere => Svg::new("public", "assets/logos/adobe-premiere-svgrepo-com.svg", "")
+                .expect("Expected Valid Link To File"),
+            Icon::XD => Svg::new("public", "assets/logos/adobe-xd-svgrepo-com.svg", "")
+                .expect("Expected Valid Link To File"),
+            Icon::Houdini => Svg::new(
+                "public",
+                "assets/logos/houdini_logos/houdini_badge/houdini_badge_flat.svg",
+                "",
+            )
+            .expect("Expected Valid Link To File"),
+            Icon::Apple => Svg::new("public", "assets/logos/apple-svgrepo-com.svg", "")
+                .expect("Expected Valid Link To File"),
+            Icon::Excel => Svg::new("public", "assets/logos/ms-excel-svgrepo-com.svg", "")
+                .expect("Expected Valid Link To File"),
+            Icon::MacOS => Svg::new("public", "assets/logos/macos-svgrepo-com.svg", "")
+                .expect("Expected Valid Link To File"),
+            Icon::Microsoft => Svg::new("public", "assets/logos/microsoft-svgrepo-com.svg", "")
+                .expect("Expected Valid Link To File"),
+            Icon::Office => Svg::new("public", "assets/logos/office-1-logo-svgrepo-com.svg", "")
+                .expect("Expected Valid Link To File"),
+            Icon::PowerPoint => {
+                Svg::new("public", "assets/logos/ms-powerpoint-svgrepo-com.svg", "")
+                    .expect("Expected Valid Link To File")
+            }
+            Icon::Windows => Svg::new(
+                "public",
+                "assets/logos/microsoft-windows-svgrepo-com.svg",
+                "",
+            )
+            .expect("Expected Valid Link To File"),
+            Icon::Word => Svg::new("public", "assets/logos/ms-word-svgrepo-com.svg", "")
+                .expect("Expected Valid Link To File"),
+            Icon::Arduino => Svg::new("public", "assets/logos/arduino-svgrepo-com.svg", "")
+                .expect("Expected Valid Link To File"),
+            Icon::Bash => Svg::new("public", "assets/logos/bash-icon-svgrepo-com.svg", "")
+                .expect("Expected Valid Link To File"),
+            Icon::Bootstrap => Svg::new("public", "assets/logos/bootstrap-svgrepo-com.svg", "")
+                .expect("Expected Valid Link To File"),
+            Icon::C => Svg::new("public", "assets/logos/c-svgrepo-com.svg", "")
+                .expect("Expected Valid Link To File"),
+            Icon::Cpp => Svg::new("public", "assets/logos/c-plusplus-svgrepo-com.svg", "")
+                .expect("Expected Valid Link To File"),
+            Icon::CSharp => Svg::new("public", "assets/logos/c-sharp-svgrepo-com.svg", "")
+                .expect("Expected Valid Link To File"),
+            Icon::Css => Svg::new("public", "assets/logos/CSS Logo.svg", "")
+                .expect("Expected Valid Link To File"),
+            Icon::Docker => Svg::new("public", "assets/logos/docker-svgrepo-com.svg", "")
+                .expect("Expected Valid Link To File"),
+            Icon::Dribbble => Svg::new("public", "assets/logos/dribbble-icon-svgrepo-com.svg", "")
+                .expect("Expected Valid Link To File"),
+            Icon::Fedora => Svg::new("public", "assets/logos/fedora-svgrepo-com.svg", "")
+                .expect("Expected Valid Link To File"),
+            Icon::Fritzing => Svg::new("public", "assets/logos/fritzing.svg", "")
+                .expect("Expected Valid Link To File"),
+            Icon::Git => Svg::new("public", "assets/logos/git-icon-svgrepo-com.svg", "")
+                .expect("Expected Valid Link To File"),
+            Icon::GitHub => Svg::new("public", "assets/logos/github-icon-svgrepo-com.svg", "")
+                .expect("Expected Valid Link To File"),
+            Icon::Html => Svg::new(
+                "public",
+                "assets/logos/html-5-no-wordmark-svgrepo-com.svg",
+                "",
+            )
+            .expect("Expected Valid Link To File"),
+            Icon::Java => Svg::new("public", "assets/logos/java-svgrepo-com.svg", "")
+                .expect("Expected Valid Link To File"),
+            Icon::JavaScript => Svg::new("public", "assets/logos/js-svgrepo-com.svg", "")
+                .expect("Expected Valid Link To File"),
+            Icon::Jupyter => Svg::new("public", "assets/logos/jupyter-svgrepo-com.svg", "")
+                .expect("Expected Valid Link To File"),
+            Icon::Linux => Svg::new("public", "assets/logos/linux-svgrepo-com.svg", "")
+                .expect("Expected Valid Link To File"),
+            Icon::Lua => Svg::new("public", "assets/logos/lua-svgrepo-com.svg", "")
+                .expect("Expected Valid Link To File"),
+            Icon::NeoVim => Svg::new("public", "assets/logos/neovim-mark@2x.svg", "")
+                .expect("Expected Valid Link To File"),
+            Icon::Python => Svg::new("public", "assets/logos/python-svgrepo-com.svg", "")
+                .expect("Expected Valid Link To File"),
+            Icon::Rust => Svg::new("public", "assets/logos/rust-svgrepo-com.svg", "")
+                .expect("Expected Valid Link To File"),
+            Icon::TypeScript => {
+                Svg::new("public", "assets/logos/typescript-icon-svgrepo-com.svg", "")
+                    .expect("Expected Valid Link To File")
+            }
+            Icon::VSCode => Svg::new("public", "assets/logos/vs-code-svgrepo-com.svg", "")
+                .expect("Expected Valid Link To File"),
+            Icon::WebAssembly => Svg::new("public", "assets/logos/webassembly-svgrepo-com.svg", "")
+                .expect("Expected Valid Link To File"),
         }
     }
     pub const fn site_link(self) -> &'static str {
@@ -256,7 +337,6 @@ pub trait IconToMarkup {
 }
 impl IconToMarkup for [Icon] {
     fn to_markup(&self, path_to_root: &str) -> Markup {
-
         html! {
             @for icon in self {
                 li ."skill-icon"{
@@ -272,8 +352,9 @@ impl IconToMarkup for Icon {
         html!(
             (tooltip::markup(tooltip::MarkupProps {
                 children: html! {
-                    img."no-border-r".(if self.invert_when_dark() {"invert-dark"} else {"test"})
-                        width="40" height="40" src=(path_to_root.to_owned()+*img_link) alt="icon";
+                    // img."no-border-r".(if self.invert_when_dark() {"invert-dark"} else {"test"})
+                    //     width="40" height="40" src=(path_to_root.to_owned()+*img_link) alt="icon";
+                    (img_link.render(SvgProps{path_to_root:path_to_root,class:&["no-border-r",(if self.invert_when_dark() {"invert-dark"} else {""})],..Default::default()}))
                 },
                 content: html!(a.link.underline target="_blank" href=(site_link) {(name)}),
                 popup_align: tooltip::Align::Center,

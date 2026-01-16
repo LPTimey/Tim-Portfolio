@@ -60,7 +60,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
     let dark_title_img = meta_data.title_img.dark();
     let light_title_img = meta_data.title_img.light();
 
-
+    let full_img = Img::new("public", "assets/Screendesign/Styles/Tim_Ruland_Styles_Screendesign_Original_with_new.webp", "").unwrap();
     let original_img = Img::new("public", "assets/Screendesign/Styles/Tim_Ruland_Styles_Screendesign_Original-06.webp", "").unwrap();
     let clear_img = Img::new("public", "assets/Screendesign/Styles/Tim_Ruland_Styles_Screendesign_Original Pic.webp", "").unwrap();
     let glass_img = Img::new("public", "assets/Screendesign/Styles/Tim_Ruland_Styles_Screendesign_Glas.webp", "").unwrap();
@@ -90,11 +90,17 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                         // title: "UI-Stile im Screendesign".into(),
                         title: with_sub_heading(loader.get("name").leak(),"Screendesign"),
                         graphic: html!{
-                            picture{
-                                img loading="lazy" draggable="false" id="OriginalImage"
-                                    src=(page.path_to_root(lang)+*link_public!("/assets/Screendesign/Styles/Tim_Ruland_Styles_Screendesign_Original_with_new.webp"))
-                                    data-source="https://medium.muz.li/weekly-design-inspiration-368-273380298382" alt="";
-                            }
+                            (full_img.render(ImgProps{
+                                path_to_root:&page.path_to_root(lang),
+                                id:Some("OriginalImage"),
+                                attrs:&[("data-source","https://medium.muz.li/weekly-design-inspiration-368-273380298382")],
+                                ..Default::default()
+                            }))
+                            // picture{
+                            //     img loading="lazy" draggable="false" id="OriginalImage"
+                            //         src=(page.path_to_root(lang)+*link_public!("/assets/Screendesign/Styles/Tim_Ruland_Styles_Screendesign_Original_with_new.webp"))
+                            //         data-source="https://medium.muz.li/weekly-design-inspiration-368-273380298382" alt="";
+                            // }
                         }.into(),
                         rows:&[
                             (&*core_loader.get("module").leak(), "Gestaltung").into(),

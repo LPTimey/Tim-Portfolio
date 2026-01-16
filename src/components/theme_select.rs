@@ -1,7 +1,7 @@
 use maud::html;
 use unic_langid::LanguageIdentifier;
 
-use crate::{Page, THEME_JS, get_core_language_loader};
+use crate::{Page, assets::script::Script, get_core_language_loader};
 
 pub fn theme_select(
     current_page: Page,
@@ -9,6 +9,7 @@ pub fn theme_select(
     lang: &LanguageIdentifier,
 ) -> maud::Markup {
     let loader = get_core_language_loader().select_languages(&[lang]);
+    let theme_js = Script::new("public", "script.js").unwrap();
     let theme = |name: &str, default: bool| {
         html! {
             label for=(name) class="visually-hidden" { (name) }
@@ -21,40 +22,41 @@ pub fn theme_select(
     };
     html! {
         div{
-        form id="ColorPicker" class="visually-hidden" action="" {
-            fieldset {
-                legend class="visually-hidden" { "Pick a color scheme" }
-                // (theme("System", false))
-                // (theme("Light", true))
-                // (theme("Dark", false))
-                // (theme("Custom", false))
-                @for pair in themes {
-                    (theme(pair.0,pair.1))
-                }
-            }
-        }
-
-        // select #ThemeSelect{
-        //     @for pair in themes {
-        //         option value=(pair.0) selected=(pair.1) { (pair.0) }
-        //     }
-        // }
-
-        details #ThemeSelect .dismiss{
-            summary.link.underline {
-                span {
+            form id="ColorPicker" class="visually-hidden" action="" {
+                fieldset {
+                    legend class="visually-hidden" { "Pick a color scheme" }
+                    // (theme("System", false))
+                    // (theme("Light", true))
+                    // (theme("Dark", false))
+                    // (theme("Custom", false))
                     @for pair in themes {
-                        span data-theme=(pair.0) {(loader.get(pair.0))}
+                        (theme(pair.0,pair.1))
                     }
                 }
             }
-            ul {
-                @for pair in themes {
-                    li{label.link."underline-child" for=(pair.0) selected=(pair.1) { span{(loader.get(pair.0))} }}
+
+            // select #ThemeSelect{
+            //     @for pair in themes {
+            //         option value=(pair.0) selected=(pair.1) { (pair.0) }
+            //     }
+            // }
+
+            details #ThemeSelect .dismiss{
+                summary.link.underline {
+                    span {
+                        @for pair in themes {
+                            span data-theme=(pair.0) {(loader.get(pair.0))}
+                        }
+                    }
+                }
+                ul {
+                    @for pair in themes {
+                        li{label.link."underline-child" for=(pair.0) selected=(pair.1) { span{(loader.get(pair.0))} }}
+                    }
                 }
             }
-        }
 
-        script src=(current_page.path_to_root(lang) + *THEME_JS) {}}
+            (theme_js.render(&current_page.path_to_root(lang)))
+        }
     }
 }

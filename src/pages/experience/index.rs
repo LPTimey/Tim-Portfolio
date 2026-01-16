@@ -3,12 +3,10 @@ use maud::PreEscaped;
 use std::sync::OnceLock;
 
 use crate::{
-    components::{
+    assets::img::{Img, ImgProps}, components::{
         self, Component, badge, footer::footer, head::default_head, header::header, timeline,
-    },
-    lang_to_html, setup_language_loader,
+    }, lang_to_html, setup_language_loader
 };
-pub const ICH: Link = link_public!("assets/Lebenslauf/schönes bild klein bg@0,33x.jpg");
 
 use super::super::*;
 
@@ -33,6 +31,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
     let Component {
         style: badge_style, ..
     } = badge::component();
+    let profile_img = Img::new("public", "assets/Lebenslauf/schönes bild.JPG", "").unwrap();
 
     let items: [(timeline::Item<'_>, Box<[badge::Badge]>); 5] = [
         (
@@ -41,7 +40,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                 content_long: html! {
                     div style="display:flex; justify-content: space-between;"{
                         p {(lang_to_html(&loader.get("adverma-long")))}
-                        picture style="width:fit-content"{img style="height:10rem;" draggable="false" src=(page.path_to_root(lang) + *ICH) alt="";}
+                        (profile_img.render(ImgProps { path_to_root:&page.path_to_root(lang),..Default::default() }))
                     }
                 },
                 title: "ADVERMA GmbH",

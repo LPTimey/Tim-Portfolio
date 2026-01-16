@@ -27,7 +27,6 @@ pub const MOD_PATH: &str = module_path!();
 
 pub const STYLE: &str = include_asset!("index.css");
 pub const SCRIPT: &str = include_asset!("index.js");
-pub const ICH: Link = link_public!("assets/Lebenslauf/schönes bild klein bg@0,33x.jpg");
 
 pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
     let core_loader = get_core_language_loader().select_languages(&[lang]);

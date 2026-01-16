@@ -39,6 +39,7 @@ macro_rules! include_logo {
     };
 }
 
+// TODO: remove when video works with assets
 #[macro_export]
 macro_rules! link_public {
     ($path: literal) => {{
@@ -48,13 +49,6 @@ macro_rules! link_public {
     ($path:expr) => {
         $crate::Link($path)
     };
-}
-#[macro_export]
-macro_rules! link_logo {
-    ($path:literal) => {{
-        // const _: &[u8] = include_bytes!(concat!(env!("CARGO_MANIFEST_DIR"), "/public/assets/logos/", $path));
-        $crate::Link(concat!("assets/logos/",$path))
-    }};
 }
 
 #[derive(RustEmbed)]
