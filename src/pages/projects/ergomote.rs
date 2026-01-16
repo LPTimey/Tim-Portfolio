@@ -73,8 +73,8 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                 script type="module" src=(page.path_to_root(lang)+*link_public!("ergomote.js")){}
                 (default_head("Ergomote",&loader.get("description"),page,lang))
 
-                link rel="stylesheet" href=(page.path_to_root(lang)+*table_style);
-                link rel="stylesheet" href=(page.path_to_root(lang) + *tooltip::style() );
+                (table_style.render(&page.path_to_root(lang)))
+                (tooltip::style().render(&page.path_to_root(lang)))
                 style{
                     (PreEscaped(include_asset!("ergomote.css")))
                 }

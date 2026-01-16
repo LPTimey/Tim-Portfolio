@@ -1,6 +1,8 @@
+use std::sync::Arc;
+
 use maud::Markup;
 
-use crate::Link;
+use crate::{Link, assets::stylesheet::StyleSheet};
 
 pub mod badge;
 pub mod carousel;
@@ -8,7 +10,6 @@ pub mod codeblock;
 pub mod footer;
 pub mod head;
 pub mod header;
-pub mod hero;
 pub mod hyper_img;
 pub mod icon;
 pub mod mermaid;
@@ -31,6 +32,7 @@ impl ScriptType for () {}
 pub trait StyleType {}
 impl StyleType for &str {}
 impl StyleType for Link {}
+impl StyleType for Arc<StyleSheet> {}
 impl StyleType for () {}
 pub struct Component<T, St: StyleType, Sc: ScriptType> {
     pub html: fn(T) -> Markup,

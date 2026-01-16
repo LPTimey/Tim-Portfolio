@@ -1,10 +1,10 @@
+use std::sync::Arc;
+
 use Props::with_props;
 use maud::{Markup, PreEscaped, html};
 
 use crate::{
-    Link,
-    components::{Component, badge},
-    link_public,
+    Link, assets::stylesheet::StyleSheet, components::{Component, badge}, link_public
 };
 
 pub struct Item<'a> {
@@ -70,15 +70,15 @@ pub fn markup<'a, const S: usize>(
     }
 }
 
-pub fn style() -> Link {
-    link_public!("components/detail-timeline.css")
+pub fn style() -> Arc<StyleSheet> {
+    StyleSheet::new("public", "components/detail-timeline.css").unwrap()
 }
 
 pub fn script() -> Link {
     link_public!("components/detail-timeline.js")
 }
 
-pub fn component<const S: usize>() -> Component<MarkupProps<'static, S>, Link, Link> {
+pub fn component<const S: usize>() -> Component<MarkupProps<'static, S>, Arc<StyleSheet>, Link> {
     Component {
         html: markup,
         style: style(),

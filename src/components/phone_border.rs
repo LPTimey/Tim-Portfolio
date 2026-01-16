@@ -1,10 +1,10 @@
-use std::path::Path;
+use std::{path::Path, sync::Arc};
 
 use Props::with_props;
 use maud::{Markup, html};
 
 use crate::{
-    Link, assets::img::{Img, ImgProps}, components::Component, link_public
+    assets::{img::{Img, ImgProps}, stylesheet::StyleSheet}, components::Component
 };
 
 #[with_props]
@@ -17,11 +17,11 @@ pub fn markup(content: Markup, path_to_root: String, eager:bool) -> Markup {
         }
     }
 }
-pub fn style() -> Link {
-    link_public!("components/phone_border.css")
+pub fn style() -> Arc<StyleSheet> {
+    StyleSheet::new("public", "components/phone_border.css").unwrap()
 }
 
-pub fn component() -> Component<MarkupProps, Link, ()> {
+pub fn component() -> Component<MarkupProps, Arc<StyleSheet>, ()> {
     Component {
         html: markup,
         style: style(),

@@ -2,7 +2,7 @@ use std::sync::Arc;
 
 use maud::{PreEscaped, Render, html};
 
-use crate::{Link, assets::img::{Img, ImgProps}, components::Component, link_public};
+use crate::{assets::{img::{Img, ImgProps}, stylesheet::StyleSheet}, components::Component};
 use Props::with_props;
 
 #[derive(Debug)]
@@ -132,11 +132,11 @@ fn markup<'a>(
         }
     }
 }
-fn style() -> Link {
-    link_public!("components/project_table.css")
+fn style() -> Arc<StyleSheet> {
+    StyleSheet::new("public", "components/project_table.css").unwrap()
 }
 
-pub fn component<'a>() -> Component<MarkupProps<'a>, Link, ()> {
+pub fn component<'a>() -> Component<MarkupProps<'a>, Arc<StyleSheet>, ()> {
     Component {
         html: markup,
         style: style(),

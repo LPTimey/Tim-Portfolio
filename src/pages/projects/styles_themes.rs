@@ -71,9 +71,9 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
         html! {
             head{
                 (default_head("Style",loader.get("description").leak(),page,lang))
-                link rel="stylesheet" href=(page.path_to_root(lang) + *table_style );
-                link rel="stylesheet" href=(page.path_to_root(lang) + *tooltip::style() );
-                link rel="stylesheet" href=(page.path_to_root(lang) + *phone_style );
+                (table_style.render(&page.path_to_root(lang)))
+                (tooltip::style().render(&page.path_to_root(lang)))
+                (phone_style.render(&page.path_to_root(lang)))
                 style{(PreEscaped(include_asset!("styles.css")))}
             }
 

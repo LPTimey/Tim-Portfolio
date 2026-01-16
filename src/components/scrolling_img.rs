@@ -4,7 +4,7 @@ use maud::{PreEscaped, html};
 
 use crate::{
     Link,
-    assets::img::{Img, ImgProps},
+    assets::{img::{Img, ImgProps}, stylesheet::StyleSheet},
     components::Component,
     link_public,
 };
@@ -44,11 +44,11 @@ fn markup<'a>(
         }
     }
 }
-fn style() -> Link {
-    link_public!("components/scroll_img.css")
+fn style() -> Arc<StyleSheet> {
+    StyleSheet::new("public", "components/scroll_img.css").unwrap()
 }
 
-pub fn component<'a>() -> Component<MarkupProps<'a>, Link, ()> {
+pub fn component<'a>() -> Component<MarkupProps<'a>, Arc<StyleSheet>, ()> {
     Component {
         html: markup,
         style: style(),

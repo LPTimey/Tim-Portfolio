@@ -1,7 +1,9 @@
+use std::sync::Arc;
+
 use Props::with_props;
 use maud::{Markup, PreEscaped, Render, html};
 
-use crate::{Link, color::CssColor, components::Component, link_public};
+use crate::{assets::stylesheet::StyleSheet, color::CssColor, components::Component};
 
 #[with_props]
 pub fn markup(content: PreEscaped<String>, color: CssColor, bg_color: CssColor) -> Markup {
@@ -14,11 +16,12 @@ pub fn markup(content: PreEscaped<String>, color: CssColor, bg_color: CssColor) 
         }
     }
 }
-pub fn style() -> Link {
-    link_public!("components/badge.css")
+pub fn style() -> Arc<StyleSheet> {
+    let sheet = StyleSheet::new("public", "components/badge.css").unwrap();
+    return sheet;
 }
 
-pub fn component() -> Component<MarkupProps, Link, ()> {
+pub fn component() -> Component<MarkupProps, Arc<StyleSheet>, ()> {
     Component {
         html: markup,
         style: style(),

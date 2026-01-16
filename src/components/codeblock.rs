@@ -1,7 +1,9 @@
+use std::sync::Arc;
+
 use Props::with_props;
 use maud::{Markup, PreEscaped, html};
 
-use crate::{Link, components::Component, link_public};
+use crate::{Link, assets::stylesheet::StyleSheet, components::Component, link_public};
 
 #[with_props]
 pub fn markup<'a>(id: &'static str, data: &'a str, prog_lang: &'a str) -> Markup {
@@ -11,13 +13,13 @@ pub fn markup<'a>(id: &'static str, data: &'a str, prog_lang: &'a str) -> Markup
         }
     }
 }
-pub fn style() -> Link {
-    link_public!("components/codeblock.css")
+pub fn style() -> Arc<StyleSheet> {
+    StyleSheet::new("public","components/codeblock.css").unwrap()
 }
 pub fn script() -> Link {
     link_public!("components/codeblock.js")
 }
-pub fn component<'a>() -> Component<MarkupProps<'a>, Link, Link> {
+pub fn component<'a>() -> Component<MarkupProps<'a>, Arc<StyleSheet>, Link> {
     Component {
         html: markup,
         style: style(),

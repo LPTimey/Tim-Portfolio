@@ -5,7 +5,7 @@ use maud::{Markup, PreEscaped, html};
 
 use crate::{
     Link,
-    assets::img::{Img, ImgProps},
+    assets::{img::{Img, ImgProps}, stylesheet::StyleSheet},
     components::Component,
     include_asset, link_public,
 };
@@ -36,13 +36,13 @@ pub fn markup<'a>(
         }
     }
 }
-pub fn style() -> Link {
-    link_public!("components/carousel.css")
+pub fn style() -> Arc<StyleSheet> {
+    StyleSheet::new("public", "components/carousel.css").unwrap()
 }
 pub fn script() -> Link {
     link_public!("components/carousel.js")
 }
-pub fn component<'a>() -> Component<MarkupProps<'a>, Link, Link> {
+pub fn component<'a>() -> Component<MarkupProps<'a>, Arc<StyleSheet>, Link> {
     Component {
         html: markup,
         style: style(),

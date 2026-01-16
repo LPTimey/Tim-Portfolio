@@ -1,7 +1,9 @@
+use std::sync::Arc;
+
 use maud::html;
 use unic_langid::LanguageIdentifier;
 
-use crate::{Link, assets::img::ImgProps, components::Component, link_public, projects::ProjectMetadata};
+use crate::{assets::{img::ImgProps, stylesheet::StyleSheet}, components::Component, projects::ProjectMetadata};
 use Props::with_props;
 
 #[with_props]
@@ -24,11 +26,11 @@ fn markup<'a>(
         }
     }
 }
-fn style() -> Link {
-    link_public!("components/project_card.css")
+fn style() -> Arc<StyleSheet> {
+    StyleSheet::new("public", "components/project_card.css").unwrap()
 }
 
-pub fn component<'a>() -> Component<MarkupProps<'a>, Link, ()> {
+pub fn component<'a>() -> Component<MarkupProps<'a>, Arc<StyleSheet>, ()> {
     Component {
         html: markup,
         style: style(),

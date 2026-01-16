@@ -10,7 +10,7 @@ use rayon::prelude::*;
 
 use crate::canonicalize_web_path;
 
-use super::{Asset, register_or_get, register_used};
+use super::{Asset, register_seen_or_get, register_used};
 
 #[derive(Debug)]
 pub struct Img {
@@ -59,7 +59,7 @@ impl Img {
         });
 
         // Registriere oder hole vorhandenes Asset
-        let registered: Arc<dyn Asset> = register_or_get(candidate.clone() as Arc<dyn Asset>);
+        let registered: Arc<dyn Asset> = register_seen_or_get(candidate.clone() as Arc<dyn Asset>);
 
         Ok(Arc::downcast::<Img>(registered).unwrap_or(candidate))
     }

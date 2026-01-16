@@ -97,10 +97,10 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
         html! {
             head{
                 (default_head(&core_loader.get("Home"),&loader.get("description"), page, lang))
-                link rel="stylesheet" href=(page.path_to_root(lang) + *card_style );
+                (card_style.render(&page.path_to_root(lang)))
                 // script type="module" src=(page.path_to_root(lang) + *card_script ){}
-                link rel="stylesheet" href=(page.path_to_root(lang) + *scroll_img_style );
-                link rel="stylesheet" href=(page.path_to_root(lang) + *tooltip_style );
+                (scroll_img_style.render(&page.path_to_root(lang)));
+                (tooltip_style.render(&page.path_to_root(lang)));
                 style { (PreEscaped(STYLE)) }
             }
 

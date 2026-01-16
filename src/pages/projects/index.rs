@@ -26,7 +26,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                 style{
                     (PreEscaped(include_asset!("projekte.css")))
                 }
-                link rel="stylesheet" href=(page.path_to_root(lang) + *card_style );
+                (card_style.render(&page.path_to_root(lang)))
             }
 
             body{

@@ -1,9 +1,9 @@
-use std::fmt::Display;
+use std::{fmt::Display, sync::Arc};
 
 use Props::with_props;
 use maud::{Markup, html};
 
-use crate::{Link, components::Component, link_public};
+use crate::{Link, assets::stylesheet::StyleSheet, components::Component, link_public};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub struct Percentage(u8);
@@ -94,11 +94,12 @@ pub fn markup(
     }
 }
 
-pub fn style() -> Link {
-    link_public!("components/tooltip.css")
+pub fn style() -> Arc<StyleSheet> {
+    // link_public!("components/tooltip.css")
+    StyleSheet::new("public", "components/tooltip.css").unwrap()
 }
 
-pub fn component() -> Component<MarkupProps, Link, ()> {
+pub fn component() -> Component<MarkupProps, Arc<StyleSheet>, ()> {
     Component {
         html: markup,
         style: style(),
