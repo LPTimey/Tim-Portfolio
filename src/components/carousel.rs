@@ -1,4 +1,4 @@
-use std::sync::Arc;
+use std::{sync::Arc, time::Duration};
 
 use Props::with_props;
 use maud::{Markup, PreEscaped, html};
@@ -14,35 +14,34 @@ use crate::{
 };
 
 #[with_props]
-pub fn markup<'a>(
-    id: &'static str,
-    pre_src: &'a str,
-    images: &'a [Arc<Img>],
+pub fn markup(
+    id: String,
+    class: String,
+    pre_src: String,
+    images: Vec<Arc<Img>>,
+    aspect: f64,
+    auto_scroll: Option<Duration>,
     eager: bool,
 ) -> Markup {
+    let auto_scroll = if let Some(auto_scroll) = auto_scroll {
+        auto_scroll.as_millis()
+    } else {
+        0
+    };
     html! {
-        div.carousel #(id) data-current=(0){
+        div class=(format!("carousel {}",class)) #(id) data-current=(0) data-scroll=(auto_scroll) style=(format!("--aspect-ratio:{};",aspect)){
             ul."carousel-content"{
                 @for (i,img) in images.iter().enumerate(){
-                    li data-clone-index-left=(i) {
-                        (Arc::clone(img).render(ImgProps{path_to_root:pre_src,eager:false,high_prio:Some(false),..Default::default()}))
-                    }
-                }
-                @for (i,img) in images.iter().enumerate(){
                     li "data-index"=(i){
-                        (Arc::clone(img).render(ImgProps{path_to_root:pre_src,eager,..Default::default()}))
+                        (Arc::clone(img).render(ImgProps{path_to_root:&pre_src,eager,..Default::default()}))
                     }
                 }
-                @for (i,img) in images.iter().enumerate(){
-                    li data-clone-index-right=(i) {
-                        (Arc::clone(img).render(ImgProps{path_to_root:pre_src,eager:false,high_prio:Some(false),..Default::default()}))
-                    }
-                }
-                li."carousel-spacer"{}
             }
-            ul."carousel-dots"{@for (i,_) in images.iter().enumerate(){
-                li."carousel-dot" "data-for"=(i){}
-            }}
+            div."carousel-dots-wrapper"{
+                ul."carousel-dots"{@for (i,_) in images.iter().enumerate(){
+                    li."carousel-dot" "data-for"=(i){}
+                }}
+            }
             button."carousel-button-left".btn."secondary-btn".shadow{(PreEscaped(include_asset!("Material Symbols/play_arrow_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg")))}
             button."carousel-button-right".btn."secondary-btn".shadow{(PreEscaped(include_asset!("Material Symbols/play_arrow_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg")))}
         }
@@ -54,7 +53,7 @@ pub fn style() -> Arc<StyleSheet> {
 pub fn script() -> Arc<Script> {
     Script::new("public", "components/carousel.js").unwrap()
 }
-pub fn component<'a>() -> Component<MarkupProps<'a>, Arc<StyleSheet>, Arc<Script>> {
+pub fn component() -> Component<MarkupProps, Arc<StyleSheet>, Arc<Script>> {
     Component {
         html: markup,
         style: style(),

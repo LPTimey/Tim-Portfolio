@@ -5,14 +5,7 @@ use maud::PreEscaped;
 
 use crate::{
     TabIndex, assets::img::{Img, ImgProps}, components::{
-        Component, carousel, codeblock,
-        footer::footer,
-        head::default_head,
-        header::header,
-        icon::{Icon, IconToMarkup},
-        mermaid, page,
-        project_table::{self, with_sub_heading},
-        tooltip::{self, Align},
+        Component, carousel, codeblock, footer::footer, head::default_head, header::header, icon::{Icon, IconToMarkup}, mermaid, page, project_table::{self, with_sub_heading}, tooltip::{self, Align}
     }, include_public, projects::ProjectMetadata, setup_language_loader
 };
 
@@ -243,10 +236,13 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
     let light_title_img = meta_data.title_img.light();
 
     let einzelteile_img = Img::new("public", "assets/Tetris/webp/Einzelteile.webp", "").unwrap();
-    let carousel_img_1= Img::new("public","assets/Tetris/webp/Tetris_Steckplatine_small.webp","").unwrap();
-    let carousel_img_2 = Img::new("public","assets/Tetris/webp/Buttons mit widerstand_small.webp","").unwrap();
-    let carousel_img_3 = Img::new("public","assets/Tetris/webp/buttons mit + und gnd topview_small.webp","").unwrap();
-    let carousel_img_4 = Img::new("public","assets/Tetris/webp/Button verbunden topview_small.webp","").unwrap();
+    let schaltdiagramm= Img::new("public","assets/Tetris/webp/Tetris_Steckplatine_small.webp","").unwrap();
+    let buttons_resistors_img = Img::new("public","assets/Tetris/webp/Buttons mit widerstand_small.webp","").unwrap();
+    let buttons_resistor_cables_img = Img::new("public","assets/Tetris/webp/buttons mit + und gnd topview_small.webp","").unwrap();
+    let arduino_block_img_h = Img::new("public","assets/Tetris/Arduino Tetris Block Horizontal.jpeg","").unwrap();
+    let full_connection_img_h = Img::new("public","assets/Tetris/Buttons verbunden Horizontal.jpeg","").unwrap();
+    let arduino_block_img = Img::new("public","assets/Tetris/Arduino Tetris Block.jpeg","").unwrap();
+    let full_connection_img = Img::new("public","assets/Tetris/Buttons verbunden.jpeg","").unwrap();
 
     page::page(
         page.path_to_root(lang),
@@ -336,27 +332,55 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                         --bg-dark: #F0BE3A;"{
                         div .cut."top-cut" {(PreEscaped(include_public!("assets/noise/wave.svg")))}
 
-                        h2.heading{(loader.get("result"))}
-                        p {(loader.get("result-coarse"))}
-                        (carousel_html(carousel::MarkupProps { id: "ResultPhotos", pre_src: &page.path_to_root(lang), eager:false, images:&[
-                            carousel_img_1,
-                            carousel_img_2,
-                            carousel_img_3,
-                            carousel_img_4,
-                        ] }))
-                        div."mb-medium"{
-                            h3.subhead{(loader.get("lessons-learned"))}
-                            p{(loader.get("lessons-learned-text"))}
+                        div #Ergebnis {
+                            h2.heading #ErgebnisH {(loader.get("result"))}
+
+                            div #Sliders{
+                                (carousel_html(carousel::MarkupProps {
+                                    id: "ResultPhotosH".to_string(),
+                                    class: String::new(),
+                                    pre_src: page.path_to_root(lang),
+                                    eager:false,
+                                    images:vec![
+                                        arduino_block_img_h.clone(),
+                                        full_connection_img_h.clone(),
+                                    ],
+                                    aspect: {
+                                        let (w,h)=arduino_block_img_h.clone().get_dimensions().unwrap();
+                                        w as f64/h as f64
+                                    },
+                                    auto_scroll: None
+                                }))
+                                (carousel_html(carousel::MarkupProps {
+                                    id: "ResultPhotosV".to_string(),
+                                    class: String::new(),
+                                    pre_src: page.path_to_root(lang),
+                                    eager:false,
+                                    images:vec![
+                                        arduino_block_img.clone(),
+                                        full_connection_img.clone(),
+                                    ],
+                                    aspect: {
+                                        let (w,h)=arduino_block_img.clone().get_dimensions().unwrap();
+                                        w as f64/h as f64
+                                    },
+                                    auto_scroll: None
+                                }))
+                            }
+                            p #ErgebnisT {(loader.get("result-coarse"))}
+
+                            h3.subhead #LessonsH{(loader.get("lessons-learned"))}
+                            p #LessonsT{(loader.get("lessons-learned-text"))}
+
+                            h3.subhead #FollowH{(loader.get("follow-up"))}
+                            p #FollowT {(loader.get("follow-up-text"))}
                         }
-                        h3.subhead{(loader.get("follow-up"))}
-                        p{(loader.get("follow-up-text"))}
 
                         div .cut."bot-cut" {(PreEscaped(include_public!("assets/noise/waves-opacity.svg")))}
                     }
                     section.sect.content{
                         h2.heading{"Umsetzung"}
                         h3.subhead{"Code"}
-                        // TODO: Layout
                         div #Bento {
                             p #StateText{
                                 (loader.get("game-state-text"))

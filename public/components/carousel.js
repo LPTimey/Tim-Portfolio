@@ -1,149 +1,141 @@
 "use strict";
 
 /**
- * Unendliches Carousel mit Clones links/rechts und Teleport
+ * @typedef {HTMLDivElement & {
+ *   dataset: {
+ *     current: string,
+ *     scroll: string
+ *   }
+ * }} CarouselElement
  */
-
+/**
+ * @typedef {HTMLLIElement & {
+ *   dataset: {
+ *     for: string
+ *   }
+ * }} CarouselDot
+ */
+/**
+ * @typedef {HTMLLIElement & {
+ *   dataset: {
+ *     index: string
+ *   }
+ * }} CarouselImg
+ */
 
 /**
- * Kontrolliert Ob Aktives Bild Links | Mitte | Rechts ist
- * @type {ScrollLogicalPosition }
+ * @param {CarouselElement} carousel
  */
-const scrollPos = "center";
-/**
- * Kontrolliert wie Lange das Teleportieren wartet (in ms)
- * @type {number}
- */
-const animationWait = 400;
-
-const carousels = /** @type {NodeListOf<HTMLDivElement>} */ (
-    document.querySelectorAll(".carousel")
-);
-
-for (const carousel of carousels) {
-
-    const content = /** @type {HTMLUListElement} */ (
-        carousel.querySelector(".carousel-content")
+function initCarousel(carousel) {
+    const content = carousel.querySelector(".carousel-content");
+    if (!content) {
+        console.error(`${carousel} doesn't have content`);
+        return
+    }
+    const slides = /** @type {CarouselImg[]} */(
+        Array.from(content.children)
     );
-
-    const children = /** @type {HTMLElement[]} */ ([...content.children]);
-    const clonesLeft = children.filter(el => el.dataset.cloneIndexLeft !== undefined);
-    const clonesRight = children.filter(el => el.dataset.cloneIndexRight !== undefined);
-    const imgs = children.filter(el => el.dataset.index !== undefined);
-
-    const back = /** @type {HTMLButtonElement} */ (
+    const dots = /** @type {CarouselDot[]} */(
+        Array.from(carousel.querySelectorAll(".carousel-dot"))
+    );
+    const btnLeft = /** @type {HTMLButtonElement | null} */(
         carousel.querySelector(".carousel-button-left")
     );
-    const next = /** @type {HTMLButtonElement} */ (
+    const btnRight = /** @type {HTMLButtonElement | null} */(
         carousel.querySelector(".carousel-button-right")
     );
-    const dots = /** @type {NodeListOf<HTMLLIElement>} */ (
-        carousel.querySelectorAll(".carousel-dot")
-    );
 
-    const items = imgs.length;
-
-    // Master-Index inklusive Clones
-    let fakeCurrent = clonesLeft.length;
-    // Index der echten Bilder
-    let current = fakeCurrent - clonesLeft.length;
-    /** @type {number | null} */
-    let teleportTimer = null;
+    const slideCount = slides.length;
+    let current = Number(carousel.dataset.current) || 0;
+    const autoScrollMs = Number(carousel.dataset.scroll) || 0;
 
     /**
-     * Scrollt zu fakeCurrent
-     * @param {boolean} smooth 
+     * @param {number} index
      */
-    function scrollToCurrent(smooth) {
-        const child = content.children[fakeCurrent];
-        child.scrollIntoView({
-            behavior: smooth ? "smooth" : "instant",
-            inline: scrollPos, // horizontal
-            block: "nearest", // vertical
-        });
-    }
-
-    /**
-     * Update Carousel Klassen & Dots
-     */
-    function updateCarousel(scroll = true) {
-        // Ableiten current
-        current = fakeCurrent - clonesLeft.length;
-
-        // Klassen für echte Bilder setzen
-        imgs.forEach((li) => {
-            li.classList.toggle("active", Number(li.dataset.index) === current);
-        });
-
-        // Scrollen
-        if (scroll) scrollToCurrent(true);
-
-        // Dots
-        dots.forEach((dot) => {
-            dot.classList.toggle("active", Number(dot.dataset.for) === current);
-        });
-
-        // dataset aktualisieren
+    function goTo(index) {
+        current = (index + slideCount) % slideCount;
         carousel.dataset.current = String(current);
+
+        slides[current].scrollIntoView({
+            behavior: "smooth",
+            inline: "start",
+            block: "nearest",
+        });
+
+        dots.forEach((dot, i) => {
+            dot.classList.toggle("active", i === current);
+        });
     }
 
-    /**
-     * Teleport, wenn fakeCurrent auf Clone landet
-     */
-    function teleportIfClone() {
-        // Clone links
-        if (fakeCurrent < clonesLeft.length) {
-            fakeCurrent += items; // zum echten Item am Ende
-            scrollToCurrent(false);
-        }
-        // Clone rechts
-        else if (fakeCurrent >= clonesLeft.length + items) {
-            fakeCurrent -= items; // zum echten Item am Anfang
-            scrollToCurrent(false);
-        }
-
-        // immer current ableiten
-        current = fakeCurrent - clonesLeft.length;
-        updateCarousel(false)
+    function next() {
+        goTo(current + 1);
     }
 
-    function scheduleTeleport() {
-        if (teleportTimer !== null) {
-            clearTimeout(teleportTimer);
-        }
-        teleportTimer = window.setTimeout(() => {
-            teleportIfClone();
-            teleportTimer = null;
-        }, animationWait);
+    function prev() {
+        goTo(current - 1);
     }
+
+    // Initial
+    goTo(current);
 
     // Buttons
-    next.addEventListener("click", (e) => {
-        e.preventDefault();
-        fakeCurrent += 1;
-        updateCarousel(true);
-        scheduleTeleport();
-    });
-
-    back.addEventListener("click", (e) => {
-        e.preventDefault();
-        fakeCurrent -= 1;
-        updateCarousel(true);
-        scheduleTeleport();
-    });
+    btnLeft?.addEventListener("click", prev);
+    btnRight?.addEventListener("click", next);
 
     // Dots
-    dots.forEach((dot) => {
+    dots.forEach(dot => {
         dot.addEventListener("click", () => {
             const index = Number(dot.dataset.for);
             if (!Number.isNaN(index)) {
-                fakeCurrent = clonesLeft.length + index;
-                updateCarousel(true);
-                scheduleTeleport();
+                goTo(index);
             }
         });
     });
 
-    // Initiales Rendern
-    updateCarousel();
+    // Auto-Scroll
+    if (autoScrollMs > 0) {
+        let timer = setInterval(next, autoScrollMs);
+
+        carousel.addEventListener("mouseenter", () => clearInterval(timer));
+        carousel.addEventListener("mouseleave", () => {
+            timer = setInterval(next, autoScrollMs);
+        });
+    }
+
+    // Sync bei manuellem Scroll (Touch / Trackpad)
+    /**
+     * @type {number | undefined}
+     */
+    let scrollTimeout;
+    content.addEventListener("scroll", () => {
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+            const index = Math.round(
+                content.scrollLeft / content.clientWidth
+            );
+            if (index !== current) {
+                current = index;
+                carousel.dataset.current = String(current);
+                dots.forEach((dot, i) =>
+                    dot.classList.toggle("active", i === current)
+                );
+            }
+        }, 80);
+    });
+}
+
+/**
+ * Init aller Carousels
+ */
+function initCarousels() {
+    document
+        .querySelectorAll(".carousel")
+        // @ts-ignore
+        .forEach(initCarousel);
+}
+
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initCarousels);
+} else {
+    initCarousels();
 }

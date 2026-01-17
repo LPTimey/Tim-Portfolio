@@ -100,6 +100,47 @@
     }
 }
 
+#Ergebnis {
+    display: grid;
+    column-gap: 2rem;
+    grid-template-areas: 
+        "Slider ErgebnisH"
+        "Slider ErgebnisT"
+        "Slider FollowH"
+        "Slider FollowT"
+        "LessonsH LessonsH"
+        "LessonsT LessonsT"
+    ;
+    #ErgebnisH {
+        grid-area: ErgebnisH;
+    }
+    #ErgebnisT {
+        grid-area: ErgebnisT;
+    }
+    #LessonsH {
+        grid-area: LessonsH;
+    }
+    #LessonsT {
+        grid-area: LessonsT;
+    }
+    #FollowH {
+        grid-area: FollowH;
+    }
+    #FollowT {
+        grid-area: FollowT;
+    }
+    #Sliders{
+        grid-area: Slider;
+    }
+}
+#Sliders{
+    align-self: center;
+    #ResultPhotosV{
+        display: none;
+    }
+}
+
+
 #Bento {
     display: grid;
     gap: 1rem;
