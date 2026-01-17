@@ -4,6 +4,18 @@
  * Unendliches Carousel mit Clones links/rechts und Teleport
  */
 
+
+/**
+ * Kontrolliert Ob Aktives Bild Links | Mitte | Rechts ist
+ * @type {ScrollLogicalPosition }
+ */
+const scrollPos = "center";
+/**
+ * Kontrolliert wie Lange das Teleportieren wartet (in ms)
+ * @type {number}
+ */
+const animationWait = 400;
+
 const carousels = /** @type {NodeListOf<HTMLDivElement>} */ (
     document.querySelectorAll(".carousel")
 );
@@ -35,6 +47,8 @@ for (const carousel of carousels) {
     let fakeCurrent = clonesLeft.length;
     // Index der echten Bilder
     let current = fakeCurrent - clonesLeft.length;
+    /** @type {number | null} */
+    let teleportTimer = null;
 
     /**
      * Scrollt zu fakeCurrent
@@ -44,8 +58,8 @@ for (const carousel of carousels) {
         const child = content.children[fakeCurrent];
         child.scrollIntoView({
             behavior: smooth ? "smooth" : "instant",
-            inline: "start",
-            block: "nearest",
+            inline: scrollPos, // horizontal
+            block: "nearest", // vertical
         });
     }
 
@@ -93,19 +107,29 @@ for (const carousel of carousels) {
         updateCarousel(false)
     }
 
+    function scheduleTeleport() {
+        if (teleportTimer !== null) {
+            clearTimeout(teleportTimer);
+        }
+        teleportTimer = window.setTimeout(() => {
+            teleportIfClone();
+            teleportTimer = null;
+        }, animationWait);
+    }
+
     // Buttons
     next.addEventListener("click", (e) => {
         e.preventDefault();
         fakeCurrent += 1;
         updateCarousel(true);
-        setTimeout(teleportIfClone, 300); // Dauer des smooth scrolls
+        scheduleTeleport();
     });
 
     back.addEventListener("click", (e) => {
         e.preventDefault();
         fakeCurrent -= 1;
         updateCarousel(true);
-        setTimeout(teleportIfClone, 300);
+        scheduleTeleport();
     });
 
     // Dots
@@ -115,7 +139,7 @@ for (const carousel of carousels) {
             if (!Number.isNaN(index)) {
                 fakeCurrent = clonesLeft.length + index;
                 updateCarousel(true);
-                setTimeout(teleportIfClone, 300);
+                scheduleTeleport();
             }
         });
     });
