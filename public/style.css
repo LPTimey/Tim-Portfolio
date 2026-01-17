@@ -267,7 +267,8 @@
         --_bg-light: var(--bg-light, var(--accent-dark));
         --_bg-normal: var(--bg-normal, var(--accent));
         --_bg-dark: var(--bg-dark, var(--accent-light));
-        --_blob-scale: var(--blob-scale, 100%);
+        --_blob-scale: var(--blob-scale, 90%);
+        --_scaleX: var(--scaleX, 1);
 
         --_x-move-max: var(--x-move-max, 2%);
         --_y-move-max: var(--y-move-max, 10%);
@@ -290,6 +291,7 @@
             /* -webkit-backdrop-filter: blur(var(--_blur-r));
             backdrop-filter: blur(var(--_blur-r)); */
             filter: blur(var(--_blur));
+            scale: var(--_scaleX) 1;
             /* animation: float-gently 30s infinite ease-in-out; */
             animation: move-randomly 30s infinite ease-in-out;
             display: inline-block;

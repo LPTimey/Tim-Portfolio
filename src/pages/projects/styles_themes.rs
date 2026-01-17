@@ -93,14 +93,9 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                             (full_img.render(ImgProps{
                                 path_to_root:&page.path_to_root(lang),
                                 id:Some("OriginalImage"),
-                                attrs:&[("data-source","Original design nicht mehr auf Drizzle verfügbar aber noch sichtbar auf: https://medium.muz.li/weekly-design-inspiration-368-273380298382")],
+                                attrs:&[("data-source","Originaldesign nicht mehr auf Drizzle verfügbar aber noch sichtbar auf: https://medium.muz.li/weekly-design-inspiration-368-273380298382")],
                                 ..Default::default()
                             }))
-                            // picture{
-                            //     img loading="lazy" draggable="false" id="OriginalImage"
-                            //         src=(page.path_to_root(lang)+*link_public!("/assets/Screendesign/Styles/Tim_Ruland_Styles_Screendesign_Original_with_new.webp"))
-                            //         data-source="https://medium.muz.li/weekly-design-inspiration-368-273380298382" alt="";
-                            // }
                         }.into(),
                         rows:&[
                             (&*core_loader.get("module").leak(), "Gestaltung").into(),
@@ -171,7 +166,9 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                         --accent-bg-c: var(--white);
                         --bg-light: #c879e2ff;
                         --bg-normal: #c239f0ff;
-                        --bg-dark: #ac33caff;"{
+                        --bg-dark: #ac33caff;
+                        --blur: 0.55rem;
+                        --scaleX: -0.9;"{
                         // div .cut."top-cut" {(PreEscaped(include_public!("assets/noise/wave.svg")))}
                         div.desc{
                             h2.heading{ (loader.get("bau")) }
