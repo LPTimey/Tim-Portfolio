@@ -109,7 +109,3 @@
 .carousel-button-right{
     grid-area: ButtonRight;
 }
-
-.carousel-buttons :first-child [class|="carousel-button"] svg {
-    transform: rotate(180deg);
-}

@@ -73,12 +73,20 @@ impl Img {
 
         let (width, height) = self.get_dimensions().unwrap();
         let (last, rest) = Self::FORMATS.split_last().unwrap();
+        let prio = match props.high_prio{
+            Some(b) => match b{
+                true => "high",
+                false => "low",
+            },
+            None => "auto",
+        };
 
         PreEscaped(format!(
-            r#"<picture id='{id}' class='{class}' style='{style}' {attrs}>{html}</picture>"#,
+            r#"<picture id='{id}' class='{class}' style='{style}' fetchpriority='{prio}' {attrs}>{html}</picture>"#,
             id = props.id.unwrap_or_default(),
             class = (props.class.join(" ")),
             style = (props.style.unwrap_or_default()),
+            prio = prio,
             attrs = props
                 .attrs
                 .iter()
@@ -92,11 +100,13 @@ impl Img {
                         width=(width)
                         height=(height)
                         sizes=(props.sizes)
+                        fetchpriority=(prio)
                         srcset=(self.srcset(props.path_to_root,*format));
                 }
 
                 img
                     src=(self.web_path(props.path_to_root))
+                    fetchpriority=(prio)
                     width=(width)
                     height=(height)
                     sizes=(props.sizes)
@@ -259,6 +269,7 @@ pub struct ImgProps<'a> {
     pub alt: Option<&'a str>,
     pub class: &'a [&'a str],
     pub style: Option<&'a str>,
+    pub high_prio: Option<bool>,
     pub attrs: &'a [(&'a str, &'a str)],
     pub children: Option<Markup>,
 }

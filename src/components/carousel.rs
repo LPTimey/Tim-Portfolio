@@ -21,11 +21,22 @@ pub fn markup<'a>(
     eager: bool,
 ) -> Markup {
     html! {
-        div.carousel #(id) "data-current"=(0){
-            ul."carousel-content"{@for (i,img) in images.iter().enumerate(){
-                    li "data-index"=(i){picture{
+        div.carousel #(id) data-current=(0){
+            ul."carousel-content"{
+                @for (i,img) in images.iter().enumerate(){
+                    li data-clone-index-left=(i) {
+                        (Arc::clone(img).render(ImgProps{path_to_root:pre_src,eager:false,high_prio:Some(false),..Default::default()}))
+                    }
+                }
+                @for (i,img) in images.iter().enumerate(){
+                    li "data-index"=(i){
                         (Arc::clone(img).render(ImgProps{path_to_root:pre_src,eager,..Default::default()}))
-                    }}
+                    }
+                }
+                @for (i,img) in images.iter().enumerate(){
+                    li data-clone-index-right=(i) {
+                        (Arc::clone(img).render(ImgProps{path_to_root:pre_src,eager:false,high_prio:Some(false),..Default::default()}))
+                    }
                 }
                 li."carousel-spacer"{}
             }

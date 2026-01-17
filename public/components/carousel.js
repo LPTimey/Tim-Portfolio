@@ -5,9 +5,14 @@ const carousels = /** @type {NodeListOf<HTMLDivElement>} */ (
 );
 
 for (const carousel of carousels) {
+
     const content = /** @type {HTMLUListElement} */ (
         carousel.querySelector(".carousel-content")
     );
+    const children = /** @type {HTMLElement[]} */ ([...content.children])
+    const clonesLeft = children.filter((el)=>el.dataset.cloneIndexLeft)
+    const clonesRight = children.filter((el)=>el.dataset.cloneIndexRight)
+    const imgs = children.filter((el)=>el.dataset.index)
     const back = /** @type {HTMLButtonElement} */ (
         carousel.querySelector(".carousel-button-left")
     );
@@ -18,8 +23,9 @@ for (const carousel of carousels) {
         carousel.querySelectorAll(".carousel-dot")
     );
 
-    let current = 0;
-    const items = content.children.length - 1;
+    let current = Number(carousel.dataset.current ?? 0);
+    let fakeCurrent = Number(carousel.dataset.current ?? 0);
+    const items = imgs.length - 1;
 
     back.addEventListener("click", (e) => {
         e.preventDefault();
@@ -43,7 +49,7 @@ for (const carousel of carousels) {
         });
     });
 
-    updateCarousel(false);
+    updateCarousel();
 
     function updateCarousel(scroll = true) {
         const child = content.children[current];
