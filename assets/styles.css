@@ -1,3 +1,23 @@
+#OriginalImage {
+    position: relative;
+    overflow: hidden;
+    &::after {
+        content: attr(data-source);
+        color: var(--dark);
+        padding: 2ch;
+        display: none;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: auto;
+        background-color: rgb(from var(--light) r g b / var(--transparency));
+    }
+    &:hover::after {
+        display: block;
+    }
+}
+
 .phone-border {
     height: 50vh;
     width: auto;

@@ -4,7 +4,7 @@ use maud::{Markup, html};
 
 use crate::{
     assets::{Asset, register_seen_or_get, register_used},
-    canonicalize_web_path,
+    canonicalize_web_path, needs_copy,
 };
 
 #[derive(Debug)]
@@ -69,7 +69,7 @@ impl Asset for Script {
             )));
         }
         let full_path = self.processed_fs_path(prefix);
-        if !overwrite && full_path.exists() {
+        if !(overwrite || needs_copy(&full_path, &self.full_path())?) {
             return Ok(());
         }
 

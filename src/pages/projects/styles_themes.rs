@@ -93,7 +93,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                             (full_img.render(ImgProps{
                                 path_to_root:&page.path_to_root(lang),
                                 id:Some("OriginalImage"),
-                                attrs:&[("data-source","https://medium.muz.li/weekly-design-inspiration-368-273380298382")],
+                                attrs:&[("data-source","Original design nicht mehr auf Drizzle verfügbar aber noch sichtbar auf: https://medium.muz.li/weekly-design-inspiration-368-273380298382")],
                                 ..Default::default()
                             }))
                             // picture{

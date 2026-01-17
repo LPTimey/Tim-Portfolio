@@ -8,7 +8,7 @@ use image::{DynamicImage, GenericImageView, ImageFormat, imageops::FilterType};
 use maud::{Markup, PreEscaped, html};
 use rayon::prelude::*;
 
-use crate::canonicalize_web_path;
+use crate::{canonicalize_web_path, needs_copy};
 
 use super::{Asset, register_seen_or_get, register_used};
 
@@ -212,7 +212,9 @@ impl Asset for Img {
         let base_dir = prefix.join(&self.path).with_extension("");
 
         std::fs::create_dir_all(&base_dir)?;
-        image.save(self.copy_path(prefix))?;
+        if overwrite || needs_copy(&self.full_path(), &self.copy_path(prefix)).unwrap_or(true) {
+            std::fs::copy(self.full_path(), self.copy_path(prefix))?;
+        }
 
         for format in Self::FORMATS {
             Self::SIZES

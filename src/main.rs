@@ -7,6 +7,7 @@ use rayon::prelude::*;
 use strum::VariantArray;
 use website::Page;
 use website::SUPPORTED_LANGS;
+use website::needs_copy;
 use website::used_assets;
 
 fn main() {
@@ -86,18 +87,7 @@ impl Cli {
                     if file_type.is_dir() {
                         copy_recursive(&from_path, &to_path)?;
                     } else if file_type.is_file() {
-                        let needs_copy = match fs::metadata(&to_path) {
-                            Ok(dest_metadata) => {
-                                let src_metadata = fs::metadata(&from_path)?;
-                                let src_modified = src_metadata.modified()?;
-                                let dest_modified = dest_metadata.modified()?;
-                                let src_size = src_metadata.len();
-                                let dest_size = dest_metadata.len();
-
-                                src_modified > dest_modified || src_size != dest_size
-                            }
-                            Err(_) => true, // Ziel existiert nicht => muss kopiert werden
-                        };
+                        let needs_copy = needs_copy(&to_path, &from_path)?;
 
                         if needs_copy {
                             fs::create_dir_all(to_path.parent().unwrap())?;
