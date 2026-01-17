@@ -32,10 +32,8 @@ pub fn markup<'a>(
             ul."carousel-dots"{@for (i,_) in images.iter().enumerate(){
                 li."carousel-dot" "data-for"=(i){}
             }}
-            menu."carousel-buttons"{
-                li{button."carousel-button".btn."secondary-btn".shadow{(PreEscaped(include_asset!("Material Symbols/play_arrow_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg")))}}
-                li{button."carousel-button".btn."secondary-btn".shadow{(PreEscaped(include_asset!("Material Symbols/play_arrow_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg")))}}
-            }
+            button."carousel-button-left".btn."secondary-btn".shadow{(PreEscaped(include_asset!("Material Symbols/play_arrow_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg")))}
+            button."carousel-button-right".btn."secondary-btn".shadow{(PreEscaped(include_asset!("Material Symbols/play_arrow_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg")))}
         }
     }
 }

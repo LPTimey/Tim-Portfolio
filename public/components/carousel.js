@@ -8,14 +8,11 @@ for (const carousel of carousels) {
     const content = /** @type {HTMLUListElement} */ (
         carousel.querySelector(".carousel-content")
     );
-    const buttons = /** @type {HTMLMenuElement} */ (
-        carousel.querySelector(".carousel-buttons")
-    );
     const back = /** @type {HTMLButtonElement} */ (
-        buttons.children[0].querySelector(".carousel-button")
+        carousel.querySelector(".carousel-button-left")
     );
     const next = /** @type {HTMLButtonElement} */ (
-        buttons.children[1].querySelector(".carousel-button")
+        carousel.querySelector(".carousel-button-right")
     );
     const dots = /** @type {NodeListOf<HTMLLIElement>} */ (
         carousel.querySelectorAll(".carousel-dot")

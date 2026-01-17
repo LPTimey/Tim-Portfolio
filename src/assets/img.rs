@@ -212,7 +212,8 @@ impl Asset for Img {
         let base_dir = prefix.join(&self.path).with_extension("");
 
         std::fs::create_dir_all(&base_dir)?;
-        if overwrite || needs_copy(&self.full_path(), &self.copy_path(prefix)).unwrap_or(true) {
+        let needs_copy = needs_copy(&self.full_path(), &self.copy_path(prefix)).unwrap_or(true);
+        if overwrite || needs_copy {
             std::fs::copy(self.full_path(), self.copy_path(prefix))?;
         }
 
@@ -220,7 +221,7 @@ impl Asset for Img {
             Self::SIZES
                 .par_iter()
                 .map(|size| (size, self.processed_fs_path(prefix, *size, format)))
-                .filter(|(_, path)| overwrite || !path.exists())
+                .filter(|(_, path)| overwrite || needs_copy || !path.exists())
                 .map(|(size, path)| {
                     let resized = image.resize(*size as u32, u32::MAX, FilterType::Lanczos3);
                     (path, resized)

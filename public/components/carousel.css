@@ -7,23 +7,14 @@
     grid-template-rows: 70dvh auto auto; */
 
     grid-template-areas:
-        "Content Content Content"
-        "Buttons Dots .";
+        "ButtonLeft Content Content Content ButtonRight"
+        ". . Dots . .";
     grid-template-rows: auto auto;
-    grid-template-columns: 1fr auto 1fr;
+    grid-template-columns: auto 1fr auto 1fr auto;
 
     gap: 0.5em;
     padding-block: 1em;
     width: 100%;
-
-    @media (width < 740px) {
-        grid-template-areas:
-            "Content Content Content"
-            ". Dots ."
-            ". Buttons ."
-            ;
-            grid-template-rows: auto auto auto;
-    }
 }
 
 .carousel-content {
@@ -87,17 +78,10 @@
 }
 
 .carousel-dot.active {
-    background-color: var(--accent);
+    background-color: var(--black, black);
 }
 
-.carousel-buttons {
-    grid-area: Buttons;
-    display: flex;
-    justify-content: start;
-    gap: 3ch;
-}
-
-.carousel-button {
+[class|="carousel-button"] {
     display: grid;
     place-items: center;
     aspect-ratio: 1;
@@ -108,13 +92,24 @@
     border: none;
     cursor: pointer;
 
+    align-self: center;
+
     svg {
         stroke: var(--dark);
         fill: var(--dark);
     }
 }
 
+.carousel-button-left{
+    grid-area: ButtonLeft;
+    svg{
+        rotate: 180deg;
+    }
+}
+.carousel-button-right{
+    grid-area: ButtonRight;
+}
 
-.carousel-buttons :first-child .carousel-button svg {
+.carousel-buttons :first-child [class|="carousel-button"] svg {
     transform: rotate(180deg);
 }

@@ -32,11 +32,11 @@ struct Cli {
 impl Cli {
     pub fn build(&self) -> io::Result<()> {
         self.build_pages()?;
-        self.copy_public_assets("public")?;
         used_assets().into_par_iter().for_each(|asset| {
             let _res = asset.process(&self.out, self.overwrite);
             // let _ = dbg!(res);
         });
+        self.copy_public_assets("public")?;
         Ok(())
     }
 
