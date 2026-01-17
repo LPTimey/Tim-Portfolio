@@ -192,10 +192,11 @@ pub fn canonicalize_web_path(path: &str) -> String {
             "" | "." => continue,
             ".." => {
                 if let Some(last) = parts.last()
-                    && *last != ".." {
-                        parts.pop();
-                        continue;
-                    }
+                    && *last != ".."
+                {
+                    parts.pop();
+                    continue;
+                }
                 // Anfangs-.. oder vor anderen ..: behalten
                 parts.push("..");
             }
@@ -209,4 +210,3 @@ pub fn canonicalize_web_path(path: &str) -> String {
         parts.join("/")
     }
 }
-

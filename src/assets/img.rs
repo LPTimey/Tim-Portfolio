@@ -32,7 +32,7 @@ impl Img {
     /// last = Fallback
     pub const FORMATS: [ImageFormat; 2] = [
         // Avif slow AF to encode
-        // ImageFormat::Avif, 
+        // ImageFormat::Avif,
         ImageFormat::WebP,
         ImageFormat::Png,
     ];
@@ -120,6 +120,9 @@ impl Img {
         self.prefix.join(&self.path)
     }
 
+    pub fn copy_path(&self, prefix: impl Into<PathBuf>) -> PathBuf {
+        prefix.into().join(&self.path)
+    }
     /// Web-Pfad (HTML-safe, immer `/`)
     pub fn web_path(&self, path_to_root: &str) -> String {
         let path = format!(
@@ -209,6 +212,7 @@ impl Asset for Img {
         let base_dir = prefix.join(&self.path).with_extension("");
 
         std::fs::create_dir_all(&base_dir)?;
+        image.save(self.copy_path(prefix))?;
 
         for format in Self::FORMATS {
             Self::SIZES
@@ -230,8 +234,10 @@ impl Asset for Img {
                 .for_each(|(path, image)| {
                     let res = image.save_with_format(&path, format);
                     match res {
-                        Ok(_) => println!("saved {}", path.display()),
-                        Err(e) => println!("failed:\n\t{}\n\t{:?}", path.display(), e),
+                        Ok(_) => println!("📁🖼️  Img Asset gespeichert: {}", path.display()),
+                        Err(e) => {
+                            println!("❌🖼️ Img Asset failed:\n\t{}\n\t{:?}", path.display(), e)
+                        }
                     }
                 });
         }

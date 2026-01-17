@@ -68,7 +68,7 @@ impl Asset for StyleSheet {
         if !self.full_path().exists() {
             return Err(Box::new(io::Error::new(
                 io::ErrorKind::NotFound,
-                format!("Datei existiert nicht: {}", self.full_path().display()),
+                format!("❌  Original Datei existiert nicht: {}", self.full_path().display()),
             )));
         }
         let full_path = self.processed_fs_path(prefix);
@@ -76,7 +76,29 @@ impl Asset for StyleSheet {
             return Ok(());
         }
 
-        std::fs::copy(self.full_path(), full_path)?;
+        if let Some(path) = full_path.parent() {
+            match std::fs::create_dir_all(&path) {
+                Ok(val) => {
+                    println!("📁📂  Dirs erstellt: {}", path.display());
+                    Ok(val)
+                }
+                Err(err) => {
+                    eprintln!("❌📂  Dirs failed:\n\t{}\n\t{:?}", path.display(), err);
+                    Err(err)
+                }
+            }?;
+        }
+
+        match std::fs::copy(self.full_path(), &full_path) {
+            Ok(val) => {
+                println!("📁  StyleSheet Asset gespeichert: {}", full_path.display());
+                Ok(val)
+            },
+            Err(err) => {
+                eprintln!("❌  StyleSheet Asset failed:\n\t{}\n\t{:?}", full_path.display(), err);
+                Err(err)
+            },
+        }?;
 
         Ok(())
     }
