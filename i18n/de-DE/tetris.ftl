@@ -6,9 +6,15 @@ content =
     was einige technische Änderungen nötig machte.
 hardware = Hardware
 preparation = Vorbereitung
+
 hardware-prep = 
-    TODO:<br/>
-    Die verwendete Hardware bestand auf folgenden Teilen:
+    Vor dem Hackathon habe ich nach Hardware gesucht und diese anschließend auch gekauft.
+    Ziel war es, Tetris auf der im R4 eingebauten Matrix zu testen und dann auf einer LED-Matrix auszugeben.
+    Leider war mir nicht bewusst, dass der R4 nicht auf demselben Chipdesign
+    basiert, wie die vorherigen Arduinos, und daher nicht mit der Waveshare-Matrix kompatibel ist.
+    Außerdem stellte sich heraus, dass der gegebene R3 zu schwach ist.
+hardware-list-h = Die verwendete Hardware bestand auf folgenden Teilen:
+UNO-R4-link = Shop
 UNO-R3 = Arduino UNO R3 (gegeben vom Hackathon & nicht notwendig)
 small = klein
 big = großes

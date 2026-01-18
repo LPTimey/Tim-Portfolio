@@ -83,7 +83,8 @@
     display: grid;
     grid-template-columns: 1fr auto;
     grid-template-rows: auto;
-    gap: 2rem;
+    column-gap: 2rem;
+    row-gap: 1rem;
 
     >div,
     >#EinzelteilePic {
@@ -119,6 +120,7 @@
     }
     #LessonsH {
         grid-area: LessonsH;
+        margin-bottom: 1rem;
     }
     #LessonsT {
         grid-area: LessonsT;
@@ -139,7 +141,6 @@
         display: none;
     }
 }
-
 
 #Bento {
     display: grid;

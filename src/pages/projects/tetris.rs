@@ -294,12 +294,17 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                     section.sect.content{
                         div #PrepGrid {
                             div.grow {
-                                h2.heading."mb-medium"{(loader.get("hardware"))" & "(loader.get("preparation"))}
-                                p {(PreEscaped(loader.get("hardware-prep")))}
+                                h2.heading{(loader.get("hardware"))" & "(loader.get("preparation"))}
+                                p."mb-medium" {(PreEscaped(loader.get("hardware-prep")))}
+                                p {(PreEscaped(loader.get("hardware-list-h")))}
                                 ul.list {
-                                    // TODO: Translate
-                                    // TODO: href
-                                    li {"Arduino UNO R4 WiFi (" a{} ")"}
+                                    li {
+                                        "Arduino UNO R4 WiFi ("
+                                        a.link."link-active".underline target="_blank" href="https://store.arduino.cc/products/uno-r4-wifi"{
+                                            (loader.get("UNO-R4-link"))
+                                        }
+                                        ")"
+                                    }
                                     li {(loader.get("UNO-R3"))}
                                     li {
                                         (loader.get("breadboard"))
@@ -310,7 +315,20 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                                         ")"
                                     }
                                     li {(loader.get("resistors"))" (6x 1k\u{2126})"}
-                                    li {(loader.get("cables"))", "(loader.get("buttons"))" & "(loader.get("big")) " " (loader.get("breadboard"))}
+                                    li {
+                                        (loader.get("cables"))
+                                        ", "
+                                        (loader.get("buttons"))
+                                        " & "
+                                        (loader.get("big"))
+                                        " "
+                                        (loader.get("breadboard"))
+                                        " ("
+                                        a.link."link-active".underline target="_blank" href="https://52pi.com/products/cloud-ready-starter-kit-for-arduino-uno-r4-wifi"{
+                                            (loader.get("UNO-R4-link"))
+                                        }
+                                        ")"
+                                    }
                                     li {(loader.get("wave-screen"))}
                                 }
                             }
