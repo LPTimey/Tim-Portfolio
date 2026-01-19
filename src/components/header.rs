@@ -101,19 +101,19 @@ pub fn header(current_page: Page, lang: &LanguageIdentifier) -> maud::Markup {
             label for="ShowMobileNav" {"Toggle Nav"}
             input type="checkbox" #ShowMobileNav;
         }
-        label for="ShowMobileNav" #BurgerToggle .btn."secondary-btn".shadow aria-label="Menü öffnen" {
+        label for="ShowMobileNav" #BurgerToggle .btn."secondary-btn".shadow aria-description="Menü öffnen" {
             (PreEscaped(include_asset!("icons/burger.svg")))
         }
         header #SiteHeader {
             nav {
-                menu #NavLinks{
+                div #NavLinks{
                     @for (parent, pages) in &grouped {
                         @if let Some(folder) = parent && !folder.is_empty() {
-                            details.dismiss."nav-group" #(group_name(folder).0) for=(group_name(folder).1){
+                            details.dismiss."nav-group" #(group_name(folder).0) data-for=(group_name(folder).1){
                                 summary.link.underline { (capitalize(&folder)) }
                                 ({
                                     groups.push((capitalize(folder),html!{@for page in pages {
-                                        li { (nav_link(*page)) }
+                                        div { (nav_link(*page)) }
                                     }}));
                                     ""
                                 })
@@ -125,7 +125,7 @@ pub fn header(current_page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                             }
                         } @else {
                             @for page in pages {
-                                li { (nav_link(*page)) }
+                                div { (nav_link(*page)) }
                             }
                         }
                     }
@@ -148,7 +148,7 @@ pub fn header(current_page: Page, lang: &LanguageIdentifier) -> maud::Markup {
             }
             div #Groups{
                 @for (name,children) in groups.iter(){
-                    menu ."nav-group" #(group_name(name).1) {(children)}
+                    div ."nav-group" #(group_name(name).1) {(children)}
                 }
             }
             style{

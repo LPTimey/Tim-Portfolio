@@ -82,7 +82,7 @@ impl Img {
         };
 
         PreEscaped(format!(
-            r#"<picture id='{id}' class='{class}' style='{style}' fetchpriority='{prio}' {attrs}>{html}</picture>"#,
+            r#"<picture id="{id}" class="{class}" style="{style}" fetchpriority="{prio}" {attrs}>{html}</picture>"#,
             id = props.id.unwrap_or_default(),
             class = (props.class.join(" ")),
             style = (props.style.unwrap_or_default()),
@@ -179,7 +179,8 @@ impl Img {
     }
     /// Filesystem-Pfad für das verarbeitete Bild
     fn processed_fs_path(&self, prefix: &Path, size: u16, format: ImageFormat) -> PathBuf {
-        prefix.join(self.processed_web_path(size, format))
+        let ext = format.extensions_str()[0];
+        prefix.join(&self.path).with_extension("").join(format!("{size}.{ext}"))
     }
 
     pub fn get_dimensions(&self) -> Result<(u32, u32), image::ImageError> {

@@ -22,7 +22,7 @@ pub fn theme_select(
     };
     html! {
         div{
-            form id="ColorPicker" class="visually-hidden" action="" {
+            form id="ColorPicker" class="visually-hidden"{
                 fieldset {
                     legend class="visually-hidden" { "Pick a color scheme" }
                     // (theme("System", false))
@@ -35,12 +35,6 @@ pub fn theme_select(
                 }
             }
 
-            // select #ThemeSelect{
-            //     @for pair in themes {
-            //         option value=(pair.0) selected=(pair.1) { (pair.0) }
-            //     }
-            // }
-
             details #ThemeSelect .dismiss{
                 summary.link.underline {
                     span {
@@ -51,7 +45,7 @@ pub fn theme_select(
                 }
                 ul {
                     @for pair in themes {
-                        li{label.link."underline-child" for=(pair.0) selected=(pair.1) { span{(loader.get(pair.0))} }}
+                        li{label.link."underline-child" for=(pair.0) data-selected=(pair.1) { span{(loader.get(pair.0))} }}
                     }
                 }
             }

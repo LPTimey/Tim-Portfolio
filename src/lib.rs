@@ -9,7 +9,12 @@ use image::ImageReader;
 pub use pages::*;
 use rust_embed::RustEmbed;
 use std::{
-    fmt::Display, io, ops::Deref, path::{Path, PathBuf}, sync::OnceLock, time::Duration
+    fmt::Display,
+    io,
+    ops::Deref,
+    path::{Path, PathBuf},
+    sync::OnceLock,
+    time::Duration,
 };
 use unic_langid::langid;
 
@@ -82,10 +87,11 @@ pub fn needs_copy(to_path: &Path, from_path: &Path) -> io::Result<bool> {
                 dest_modified.duration_since(src_modified)
             };
 
-            let time_changed = false && match time_diff {
-                Ok(diff) => diff > TIME_LEEWAY,
-                Err(_) => true, // Uhr ging rückwärts o.ä.
-            };
+            let time_changed = false
+                && match time_diff {
+                    Ok(diff) => diff > TIME_LEEWAY,
+                    Err(_) => true, // Uhr ging rückwärts o.ä.
+                };
 
             Ok(time_changed || src_size != dest_size)
         }
@@ -230,9 +236,10 @@ pub fn canonicalize_web_path(path: &str) -> String {
         }
     }
 
-    if parts.is_empty() {
+    (if parts.is_empty() {
         ".".to_string()
     } else {
         parts.join("/")
-    }
+    })
+    .replace(" ", "%20")
 }

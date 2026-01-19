@@ -1,12 +1,5 @@
 "use strict";
 
-// document.getElementById("ThemeSelect").addEventListener("change", function () {
-//     const selected = this.value;
-//     const radios = document.querySelectorAll('input[name="theme"]');
-//     radios.forEach(radio => {
-//         radio.checked = radio.value === selected;
-//     });
-// });
 /** @type {HTMLSelectElement} */
 const select = /***/(document.getElementById("ThemeSelect"));
 /** @type {NodeListOf<HTMLInputElement>} */

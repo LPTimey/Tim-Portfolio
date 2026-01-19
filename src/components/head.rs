@@ -2,7 +2,7 @@ use maud::{PreEscaped, html};
 use strum::IntoEnumIterator;
 use unic_langid::LanguageIdentifier;
 
-use crate::{Page, SUPPORTED_LANGS, assets::{script::Script, stylesheet::StyleSheet}};
+use crate::{Page, SUPPORTED_LANGS, assets::{script::Script, stylesheet::StyleSheet}, canonicalize_web_path};
 
 pub fn default_head(
     title: &str,
@@ -24,20 +24,14 @@ pub fn default_head(
         // link rel="stylesheet" href=(path_to_root.clone() + SETUP_CSS );
         title{(title)}
         (script.render(&path_to_root))
-        link rel="shortcut icon" href=(path_to_root.clone()+"assets/Lebenslauf/schönes bild klein@0,25x.png") type="image/x-icon";
+        link rel="shortcut icon" href=(path_to_root.clone()+"assets/Lebenslauf/schönes%20bild%20klein@0,25x.png") type="image/x-icon";
 
         @for page in Page::iter() {
-            link rel="prefetch" href=(path_to_root.to_string()+&page.to_href(lang).components()
-                .map(|c| c.as_os_str().to_string_lossy())
-                .collect::<Vec<_>>()
-                .join("/"));
+            link rel="prefetch" href=(canonicalize_web_path(&(path_to_root.to_string()+&page.to_href(&lang).to_string_lossy())));
         }
         @for langx in SUPPORTED_LANGS {
             @if langx.language != lang.language {
-                link rel="prefetch" href=(path_to_root.to_string()+&page.to_href(&langx).components()
-                    .map(|c| c.as_os_str().to_string_lossy())
-                    .collect::<Vec<_>>()
-                    .join("/")) as="document";
+                link rel="prefetch" href=(canonicalize_web_path(&(path_to_root.to_string()+&page.to_href(&langx).to_string_lossy())));
             }
         }
     }
