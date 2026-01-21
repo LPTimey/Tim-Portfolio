@@ -113,6 +113,8 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                                 props: ImgProps{
                                     path_to_root:&page.path_to_root(lang),
                                     eager:true,
+                                    high_prio:Some(true),
+                                    sizes: Some("100vw"),
                                     ..Default::default()
                                 },
                                 rows: 3,
@@ -134,7 +136,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                     section #AboutMe .sect."sect-large-start"."sect-small-end" {
                         div.content {
                             h2.heading{ span."accent-text"{ (loader.get("hi")) } " " (loader.get("greeting-title")) }
-                            (profile_img.render(ImgProps { path_to_root:&page.path_to_root(lang),..Default::default() }))
+                            (profile_img.render(ImgProps { path_to_root:&page.path_to_root(lang), sizes:Some("40vw"),..Default::default() }))
                             p{
                                 (PreEscaped(loader.get("about-me")))
                             }

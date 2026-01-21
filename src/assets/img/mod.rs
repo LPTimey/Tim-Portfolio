@@ -28,11 +28,11 @@ pub struct Img {
 }
 
 impl Img {
-    pub const SIZES: [u16; 6] = [360, 768, 1024, 1280, 1920, 2560];
+    pub const SIZES: [u16; 7] = [140, 360, 768, 1024, 1280, 1920, 2560];
     /// last = Fallback
-    pub const FORMATS: [ImageFormat; 2] = [
+    pub const FORMATS: [ImageFormat; 3] = [
         // Avif slow AF to encode
-        // ImageFormat::Avif,
+        ImageFormat::Avif,
         ImageFormat::WebP,
         ImageFormat::Png,
     ];
@@ -73,11 +73,15 @@ impl Img {
 
         let (width, height) = self.get_dimensions().unwrap();
         let (last, rest) = Self::FORMATS.split_last().unwrap();
-        let prio = match props.high_prio{
-            Some(b) => match b{
+        let prio = match props.high_prio {
+            Some(b) => match b {
                 true => "high",
                 false => "low",
             },
+            None => "auto",
+        };
+        let sizes = match props.sizes {
+            Some(str) => str,
             None => "auto",
         };
 
@@ -99,17 +103,17 @@ impl Img {
                         type=(format.to_mime_type())
                         width=(width)
                         height=(height)
-                        sizes=(props.sizes)
+                        sizes=(sizes)
                         fetchpriority=(prio)
                         srcset=(self.srcset(props.path_to_root,*format));
                 }
 
                 img
-                    src=(self.web_path(props.path_to_root))
+                    src=(self.processed_web_url(props.path_to_root, Self::SIZES[1], *last))
                     fetchpriority=(prio)
                     width=(width)
                     height=(height)
-                    sizes=(props.sizes)
+                    sizes=(sizes)
                     srcset=(self.srcset(props.path_to_root,*last))
                     alt=(if let Some(alt)=props.alt{alt}else {&self.alt})
                     decoding="async"
@@ -180,7 +184,10 @@ impl Img {
     /// Filesystem-Pfad für das verarbeitete Bild
     fn processed_fs_path(&self, prefix: &Path, size: u16, format: ImageFormat) -> PathBuf {
         let ext = format.extensions_str()[0];
-        prefix.join(&self.path).with_extension("").join(format!("{size}.{ext}"))
+        prefix
+            .join(&self.path)
+            .with_extension("")
+            .join(format!("{size}.{ext}"))
     }
 
     pub fn get_dimensions(&self) -> Result<(u32, u32), image::ImageError> {
@@ -263,8 +270,7 @@ impl Asset for Img {
 #[derive(Debug, Default)]
 pub struct ImgProps<'a> {
     pub path_to_root: &'a str,
-    // TODO: tell the compile 1 (str1,str2) per Img::Sizes str1:media str2:width
-    pub sizes: &'a str,
+    pub sizes: Option<&'a str>,
     pub eager: bool,
     pub id: Option<&'a str>,
     pub alt: Option<&'a str>,

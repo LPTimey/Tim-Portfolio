@@ -15,6 +15,7 @@ pub fn default_head(
     let script = Script::new("public", "script.js").unwrap();
     html! {
         meta charset="UTF-8";
+        link rel="preconnect" href=(page.path_to_root(lang)+"/assets/Roboto/Roboto-VariableFont_wdth,wght.ttf");
         script{
             (PreEscaped(format!("window.pathToRoot='{}';",path_to_root)))
         }
@@ -26,9 +27,6 @@ pub fn default_head(
         (script.render(&path_to_root))
         link rel="shortcut icon" href=(path_to_root.clone()+"assets/Lebenslauf/schönes%20bild%20klein@0,25x.png") type="image/x-icon";
 
-        @for page in Page::iter() {
-            link rel="prefetch" href=(canonicalize_web_path(&(path_to_root.to_string()+&page.to_href(&lang).to_string_lossy())));
-        }
         @for langx in SUPPORTED_LANGS {
             @if langx.language != lang.language {
                 link rel="prefetch" href=(canonicalize_web_path(&(path_to_root.to_string()+&page.to_href(&langx).to_string_lossy())));
