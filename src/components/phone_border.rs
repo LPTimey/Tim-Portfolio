@@ -9,7 +9,7 @@ use crate::{
 
 #[with_props]
 pub fn markup(content: Markup, path_to_root: String, eager:bool) -> Markup {
-    let img = Img::new("public", Path::new("assets").join("iPhone Template [Konvertiert] noBG.png"), "").unwrap();
+    let img = Img::new("public", Path::new("assets").join("iPhone Template [Konvertiert] noBG.png"), "", true).unwrap();
     html! {
         div."phone-border"{
             (img.render(ImgProps{path_to_root:&path_to_root,class:&["phone"],eager, ..Default::default()}))

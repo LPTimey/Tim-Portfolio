@@ -1,9 +1,12 @@
 use std::sync::Arc;
 
-use maud::{PreEscaped, html};
+use maud::{html};
 
 use crate::{
-    assets::{img::{Img, ImgProps}, stylesheet::StyleSheet},
+    angle::Angle,
+    assets::{
+        img::{Img, ImgProps}, script::Script,
+    },
     components::Component,
 };
 
@@ -12,44 +15,26 @@ use Props::with_props;
 #[with_props]
 fn markup<'a>(
     img: Arc<Img>,
-    props: ImgProps<'a>,
-    rows: u8,
-    columns: u8,
-    duration: std::time::Duration,
+    img_props: ImgProps<'a>,
+    zoom: f64,
+    angle: Angle,
+    speed: f64,
 ) -> maud::Markup {
-    let imgs = img
-        .render(props)
-        .into_string()
-        .repeat(rows as usize * columns as usize);
-
+    let href = img.web_path(img_props.path_to_root);
     html! {
-        div."scroll-img" style=(
-            format!(
-                "--columns: {columns};--rows: {rows};animation: {duration}s scroll-{columns}x{rows} infinite linear;",
-                duration=duration.as_secs()
-            )){
-            (PreEscaped(imgs))
-
-            style{(PreEscaped(format!(
-                "@keyframes scroll-{columns}x{rows}{{
-                    from {{ transform: translate({end_x}%, 0%); }}
-
-                    to {{ transform: translate(0, {end_y}%); }}
-                }}",
-                end_x=-2.0 * 100.0/rows as f64,
-                end_y=-100.0/rows as f64
-            )))}
+        canvas."scroll-img" data-href=(href) data-zoom=(zoom) data-angle-rad=(angle.as_rad()) data-speed=(speed){
+            (img.render(img_props))
         }
     }
 }
-fn style() -> Arc<StyleSheet> {
-    StyleSheet::new("public", "components/scroll_img.css").unwrap()
+fn script() -> Arc<Script> {
+    Script::new("public", "components/scroll_img.js").unwrap()
 }
 
-pub fn component<'a>() -> Component<MarkupProps<'a>, Arc<StyleSheet>, ()> {
+pub fn component<'a>() -> Component<MarkupProps<'a>, (), Arc<Script>> {
     Component {
         html: markup,
-        style: style(),
-        script: (),
+        style: (),
+        script: script(),
     }
 }

@@ -19,14 +19,14 @@ use super::super::*;
 const DESCRIPTION: &str = r#"Anpassung des Hochschuldrucker UIs für bessere Les- und Bedienbarkeit ohne den Verlust von Features."#;
 const CONTENT: PreEscaped<&'static str> = PreEscaped(
     r#"
-    Drucker sind berüchtigt für frustrierende Bedienung. 
-    Veraltete Benutzeroberflächen, verschachtelte Menüs und unklare Abläufe sorgen oft dafür, 
+    Drucker sind berüchtigt für frustrierende Bedienung.
+    Veraltete Benutzeroberflächen, verschachtelte Menüs und unklare Abläufe sorgen oft dafür,
     dass sie nicht so funktionieren, wie es Nutzer erwarten.
 
-    Im Rahmen eines Studienprojekts habe ich das veraltete, wenig benutzerfreundliche UI der 
-    hochschuleigenen Drucker neu gestaltet. Das Redesign optimiert insbesondere die Touch-Bedienung 
-    durch größere Buttons, klarere Nutzerführung und eine reduzierte Komplexität. Der Login-Bildschirm 
-    ist vereinfacht, zentrale Funktionen wie Sprache und Tintenfüllstand sind direkt zugänglich, und 
+    Im Rahmen eines Studienprojekts habe ich das veraltete, wenig benutzerfreundliche UI der
+    hochschuleigenen Drucker neu gestaltet. Das Redesign optimiert insbesondere die Touch-Bedienung
+    durch größere Buttons, klarere Nutzerführung und eine reduzierte Komplexität. Der Login-Bildschirm
+    ist vereinfacht, zentrale Funktionen wie Sprache und Tintenfüllstand sind direkt zugänglich, und
     der gesamte Druckprozess wird durch eine klar strukturierte Schritt-für-Schritt-Navigation begleitet.
 "#,
 );
@@ -39,6 +39,7 @@ pub fn meta_data(_lang: &LanguageIdentifier) -> ProjectMetadata {
             "public",
             "assets/Screendesign/Drucker/title-img-zoomed.png",
             "",
+            false,
         )
         .unwrap()
         .into(),
@@ -62,32 +63,62 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
         script: hy_img_script,
     } = hyper_img::component();
 
-    let title_img = Img::new("public", "assets/Screendesign/Drucker/title-img.webp", "").unwrap();
-    let login_img = Img::new("public", "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_05.png", "").unwrap();
+    let title_img = Img::new("public", "assets/Screendesign/Drucker/title-img.webp", "", false).unwrap();
+    let login_img = Img::new(
+        "public",
+        "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_05.png",
+        "",
+        false
+    )
+    .unwrap();
     // picture{(img::img(img::ImgProps{
     //     pre_src:page.path_to_root(lang),
     //     src:link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_07.png"),
     //     ..Default::default()})
     // )}
-    let home_img = Img::new("public", "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_07.png", "").unwrap();
+    let home_img = Img::new(
+        "public",
+        "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_07.png",
+        "",
+        false
+    )
+    .unwrap();
     // picture{(img::img(img::ImgProps{
     //     pre_src:page.path_to_root(lang),
     //     src:link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_08.png"),
     //     ..Default::default()})
     // )}
-    let select_img = Img::new("public", "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_08.png", "").unwrap();
+    let select_img = Img::new(
+        "public",
+        "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_08.png",
+        "",
+        false
+    )
+    .unwrap();
     // picture{(img::img(img::ImgProps{
     //     pre_src:page.path_to_root(lang),
     //     src:link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_09.png"),
     //     ..Default::default()})
     // )}
-    let setting_img = Img::new("public", "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_09.png", "").unwrap();
+    let setting_img = Img::new(
+        "public",
+        "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_09.png",
+        "",
+        false
+    )
+    .unwrap();
     // picture{(img::img(img::ImgProps{
     //     pre_src:page.path_to_root(lang),
     //     src:link_public!("assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_13.png"),
     //     ..Default::default()})
     // )}
-    let print_img = Img::new("public", "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_13.png", "").unwrap();
+    let print_img = Img::new(
+        "public",
+        "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_13.png",
+        "",
+        false
+    )
+    .unwrap();
 
     page::page(
         page.path_to_root(lang),
@@ -243,14 +274,62 @@ pub fn hyper_map() -> HyperMap {
             Href::Specific(HOME_STR.to_string()),
         ),
     ];
-    let login_img = Img::new("public", "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_05.png", "").unwrap();
-    let login_card_img = Img::new("public", "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_06.png", "").unwrap();
-    let home_img = Img::new("public", "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_07.png", "").unwrap();
-    let auswahl_img = Img::new("public", "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_08.png", "").unwrap();
-    let auswahl_alles_img = Img::new("public", "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_08 - alles.webp", "").unwrap();
-    let einstellen_img = Img::new("public", "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_09.png", "").unwrap();
-    let drucken_img = Img::new("public", "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_13.png", "").unwrap();
-    let after_img = Img::new("public", "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_21.png", "").unwrap();
+    let login_img = Img::new(
+        "public",
+        "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_05.png",
+        "",
+        false
+    )
+    .unwrap();
+    let login_card_img = Img::new(
+        "public",
+        "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_06.png",
+        "",
+        false
+    )
+    .unwrap();
+    let home_img = Img::new(
+        "public",
+        "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_07.png",
+        "",
+        false
+    )
+    .unwrap();
+    let auswahl_img = Img::new(
+        "public",
+        "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_08.png",
+        "",
+        false
+    )
+    .unwrap();
+    let auswahl_alles_img = Img::new(
+        "public",
+        "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_08 - alles.webp",
+        "",
+        false
+    )
+    .unwrap();
+    let einstellen_img = Img::new(
+        "public",
+        "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_09.png",
+        "",
+        false
+    )
+    .unwrap();
+    let drucken_img = Img::new(
+        "public",
+        "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_13.png",
+        "",
+        false
+    )
+    .unwrap();
+    let after_img = Img::new(
+        "public",
+        "assets/Screendesign/Drucker/Tim_Ruland_Drucker_Screendesign_Seite_21.png",
+        "",
+        false
+    )
+    .unwrap();
     // login_links.extend_from_slice(&nav);
     let login = (
         LOGIN_STR.to_string(),

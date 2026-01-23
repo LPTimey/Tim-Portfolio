@@ -31,7 +31,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
     let Component {
         style: badge_style, ..
     } = badge::component();
-    let profile_img = Img::new("public", "assets/Lebenslauf/schönes bild.JPG", "").unwrap();
+    let profile_img = Img::new("public", "assets/Lebenslauf/schönes bild.JPG", "", false).unwrap();
 
     let items: [(timeline::Item<'_>, Box<[badge::Badge]>); 5] = [
         (

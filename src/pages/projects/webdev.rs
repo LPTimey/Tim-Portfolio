@@ -22,8 +22,8 @@ pub fn meta_data(_lang: &LanguageIdentifier) -> ProjectMetadata {
     ProjectMetadata {
         page: Page::WebDev,
         title_img: LightDark {
-            light: Img::new("public", "assets/WebSite/title-img-light.webp", "").unwrap(),
-            dark: Img::new("public", "assets/WebSite/title-img-dark.webp", "").unwrap(),
+            light: Img::new("public", "assets/WebSite/title-img-light.webp", "", false).unwrap(),
+            dark: Img::new("public", "assets/WebSite/title-img-dark.webp", "", false).unwrap(),
         }
         .into(),
         name: "Website Development",

@@ -3,16 +3,14 @@ use maud::PreEscaped;
 use std::{path::Path, sync::OnceLock, time::Duration};
 
 use crate::{
-    assets::img::{Img, ImgProps},
-    components::{
+    angle::Angle, assets::img::{Img, ImgProps}, components::{
         self, Component,
         footer::footer,
         head::default_head,
         header::header,
         icon::{Icon, IconToMarkup},
         project_card, scrolling_img, tooltip,
-    },
-    include_public, setup_language_loader,
+    }, include_public, setup_language_loader
 };
 
 use super::*;
@@ -39,7 +37,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
     } = project_card::component();
     let Component {
         html: scroll_img_html,
-        style: scroll_img_style,
+        script: scroll_img_script,
         ..
     } = scrolling_img::component();
     let Component {
@@ -88,17 +86,23 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
     ]
     .map(|(cat, icons)| (cat, icons.to_markup(&page.path_to_root(lang))));
 
-    let title_img = Img::new("public", Path::new("assets").join("Title-img.png"), "").unwrap();
-    let profile_img = Img::new("public", "assets/Lebenslauf/schönes bild.JPG", "").unwrap();
+    let title_img = Img::new(
+        "public",
+        Path::new("assets").join("Title-img.png"),
+        "",
+        false,
+    )
+    .unwrap();
+    let profile_img = Img::new("public", "assets/Lebenslauf/schönes bild.JPG", "", false).unwrap();
 
     components::page::page(
         page.path_to_root(lang),
         html! {
             head{
+                (scroll_img_script.render(&page.path_to_root(lang)));
                 (default_head(&core_loader.get("Home"),&loader.get("description"), page, lang))
                 (card_style.render(&page.path_to_root(lang)))
                 // script type="module" src=(page.path_to_root(lang) + *card_script ){}
-                (scroll_img_style.render(&page.path_to_root(lang)));
                 (tooltip_style.render(&page.path_to_root(lang)));
                 style { (PreEscaped(STYLE)) }
             }
@@ -110,16 +114,16 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                         div #HeroImg{
                             (scroll_img_html(scrolling_img::MarkupProps {
                                 img: title_img,
-                                props: ImgProps{
+                                img_props: ImgProps{
                                     path_to_root:&page.path_to_root(lang),
                                     eager:true,
                                     high_prio:Some(true),
                                     sizes: Some("100vw"),
                                     ..Default::default()
                                 },
-                                rows: 3,
-                                columns: 3,
-                                duration: Duration::from_secs(50)
+                                zoom: 2.25,
+                                angle: Angle::Rad(0.46),
+                                speed: 0.5,
                             }))
                         }
                         // TODO: Better Opener oder ein floating down arrow button

@@ -23,6 +23,9 @@ pub struct Img {
     /// Fallback alt (kann beim Render überschrieben werden)
     pub alt: String,
 
+    /// Ob das Bild einen Alphakanal braucht
+    // pub has_alpha: bool,
+
     /// Lazy Cache für (width, height)
     dimensions: OnceLock<(u32, u32)>,
 }
@@ -41,6 +44,7 @@ impl Img {
         prefix: impl Into<PathBuf>,
         path: impl Into<PathBuf>,
         alt: impl Into<String>,
+        _has_alpha: bool,
     ) -> Result<Arc<Self>, io::Error> {
         let prefix = prefix.into();
         let path = path.into();
@@ -231,9 +235,6 @@ impl Asset for Img {
 
         std::fs::create_dir_all(&base_dir)?;
         let needs_copy = needs_copy(&self.full_path(), &self.copy_path(prefix)).unwrap_or(true);
-        if overwrite || needs_copy {
-            std::fs::copy(self.full_path(), self.copy_path(prefix))?;
-        }
 
         for format in Self::FORMATS {
             Self::SIZES
@@ -261,6 +262,9 @@ impl Asset for Img {
                         }
                     }
                 });
+        }
+        if overwrite || needs_copy {
+            std::fs::copy(self.full_path(), self.copy_path(prefix))?;
         }
         // println!("Done {}", base_dir.display());
         Ok(())

@@ -4,7 +4,9 @@ use i18n_embed::fluent::FluentLanguageLoader;
 use maud::PreEscaped;
 
 use crate::{
-    TabIndex, assets::img::{Img, ImgProps}, components::{
+    TabIndex,
+    assets::img::{Img, ImgProps},
+    components::{
         Component,
         footer::footer,
         head::default_head,
@@ -13,7 +15,10 @@ use crate::{
         page, phone_border,
         project_table::{self, with_sub_heading},
         tooltip,
-    }, include_public, projects::ProjectMetadata, setup_language_loader
+    },
+    include_public,
+    projects::ProjectMetadata,
+    setup_language_loader,
 };
 
 use super::super::*;
@@ -29,9 +34,9 @@ pub fn meta_data(lang: &LanguageIdentifier) -> ProjectMetadata {
     let loader = get_language_loader().select_languages(&[lang]);
     ProjectMetadata {
         page: Page::Styles,
-        title_img: 
+        title_img:
         // link_public!("assets/Screendesign/Styles/title-img.webp")
-        Img::new("public","assets/Screendesign/Styles/title-img.webp","").unwrap()
+        Img::new("public","assets/Screendesign/Styles/title-img.webp","",false).unwrap()
         .into(),
         name: loader.get("name").leak(),
         description: loader.get("description").leak(),
@@ -60,11 +65,41 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
     let dark_title_img = meta_data.title_img.dark();
     let light_title_img = meta_data.title_img.light();
 
-    let full_img = Img::new("public", "assets/Screendesign/Styles/Tim_Ruland_Styles_Screendesign_Original_with_new.webp", "").unwrap();
-    let original_img = Img::new("public", "assets/Screendesign/Styles/Tim_Ruland_Styles_Screendesign_Original-06.webp", "").unwrap();
-    let clear_img = Img::new("public", "assets/Screendesign/Styles/Tim_Ruland_Styles_Screendesign_Original Pic.webp", "").unwrap();
-    let glass_img = Img::new("public", "assets/Screendesign/Styles/Tim_Ruland_Styles_Screendesign_Glas.webp", "").unwrap();
-    let bau_img = Img::new("public", "assets/Screendesign/Styles/Tim_Ruland_Styles_Screendesign_Bauhaus.webp", "").unwrap();
+    let full_img = Img::new(
+        "public",
+        "assets/Screendesign/Styles/Tim_Ruland_Styles_Screendesign_Original_with_new.webp",
+        "",
+        false,
+    )
+    .unwrap();
+    let original_img = Img::new(
+        "public",
+        "assets/Screendesign/Styles/Tim_Ruland_Styles_Screendesign_Original-06.webp",
+        "",
+        true,
+    )
+    .unwrap();
+    let clear_img = Img::new(
+        "public",
+        "assets/Screendesign/Styles/Tim_Ruland_Styles_Screendesign_Original Pic.webp",
+        "",
+        true,
+    )
+    .unwrap();
+    let glass_img = Img::new(
+        "public",
+        "assets/Screendesign/Styles/Tim_Ruland_Styles_Screendesign_Glas.webp",
+        "",
+        false,
+    )
+    .unwrap();
+    let bau_img = Img::new(
+        "public",
+        "assets/Screendesign/Styles/Tim_Ruland_Styles_Screendesign_Bauhaus.webp",
+        "",
+        false,
+    )
+    .unwrap();
 
     page::page(
         page.path_to_root(lang),

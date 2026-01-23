@@ -4,9 +4,21 @@ use i18n_embed::fluent::FluentLanguageLoader;
 use maud::PreEscaped;
 
 use crate::{
-    TabIndex, assets::img::{Img, ImgProps}, components::{
-        Component, carousel, codeblock, footer::footer, head::default_head, header::header, icon::{Icon, IconToMarkup}, mermaid, page, project_table::{self, with_sub_heading}, tooltip::{self, Align}
-    }, include_public, projects::ProjectMetadata, setup_language_loader
+    TabIndex,
+    assets::img::{Img, ImgProps},
+    components::{
+        Component, carousel, codeblock,
+        footer::footer,
+        head::default_head,
+        header::header,
+        icon::{Icon, IconToMarkup},
+        mermaid, page,
+        project_table::{self, with_sub_heading},
+        tooltip::{self, Align},
+    },
+    include_public,
+    projects::ProjectMetadata,
+    setup_language_loader,
 };
 
 use super::super::*;
@@ -194,9 +206,9 @@ pub fn meta_data(lang: &LanguageIdentifier) -> ProjectMetadata {
     let loader = get_language_loader().select_languages(&[lang]);
     ProjectMetadata {
         page: Page::Tetris,
-        title_img: 
+        title_img:
         // link_public!("assets/Tetris/Title-img.webp")
-        Img::new("public","assets/Tetris/Title-img.webp","").unwrap()
+        Img::new("public","assets/Tetris/Title-img.webp","",false).unwrap()
         .into(),
         name: "Tetris in Arduino & C",
         description: loader.get("description").leak(),
@@ -235,14 +247,52 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
     let dark_title_img = meta_data.title_img.dark();
     let light_title_img = meta_data.title_img.light();
 
-    let einzelteile_img = Img::new("public", "assets/Tetris/webp/Einzelteile.webp", "").unwrap();
-    let schaltdiagramm= Img::new("public","assets/Tetris/webp/Tetris_Steckplatine_small.webp","").unwrap();
-    let buttons_resistors_img = Img::new("public","assets/Tetris/webp/Buttons mit widerstand_small.webp","").unwrap();
-    let buttons_resistor_cables_img = Img::new("public","assets/Tetris/webp/buttons mit + und gnd topview_small.webp","").unwrap();
-    let arduino_block_img_h = Img::new("public","assets/Tetris/Arduino Tetris Block Horizontal.jpeg","").unwrap();
-    let full_connection_img_h = Img::new("public","assets/Tetris/Buttons verbunden Horizontal.jpeg","").unwrap();
-    let arduino_block_img = Img::new("public","assets/Tetris/Arduino Tetris Block.jpeg","").unwrap();
-    let full_connection_img = Img::new("public","assets/Tetris/Buttons verbunden.jpeg","").unwrap();
+    let einzelteile_img =
+        Img::new("public", "assets/Tetris/webp/Einzelteile.webp", "", false).unwrap();
+    let schaltdiagramm = Img::new(
+        "public",
+        "assets/Tetris/webp/Tetris_Steckplatine_small.webp",
+        "",
+        false,
+    )
+    .unwrap();
+    let buttons_resistors_img = Img::new(
+        "public",
+        "assets/Tetris/webp/Buttons mit widerstand_small.webp",
+        "",
+        false,
+    )
+    .unwrap();
+    let buttons_resistor_cables_img = Img::new(
+        "public",
+        "assets/Tetris/webp/buttons mit + und gnd topview_small.webp",
+        "",
+        false,
+    )
+    .unwrap();
+    let arduino_block_img_h = Img::new(
+        "public",
+        "assets/Tetris/Arduino Tetris Block Horizontal.jpeg",
+        "",
+        false,
+    )
+    .unwrap();
+    let full_connection_img_h = Img::new(
+        "public",
+        "assets/Tetris/Buttons verbunden Horizontal.jpeg",
+        "",
+        false,
+    )
+    .unwrap();
+    let arduino_block_img = Img::new(
+        "public",
+        "assets/Tetris/Arduino Tetris Block.jpeg",
+        "",
+        false,
+    )
+    .unwrap();
+    let full_connection_img =
+        Img::new("public", "assets/Tetris/Buttons verbunden.jpeg", "", false).unwrap();
 
     page::page(
         page.path_to_root(lang),

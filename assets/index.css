@@ -10,6 +10,10 @@
         background: linear-gradient(rgba(0 0 0 / 0) 75%, var(--flow-color));
         pointer-events: none;
     }
+    canvas {
+        height: 100dvh;
+        border-radius: 0;
+    }
 }
 
 .hero-content {

@@ -2,6 +2,7 @@ mod assets;
 mod color;
 mod components;
 mod pages;
+mod angle;
 
 pub use crate::assets::used_assets;
 use i18n_embed::{LanguageLoader, fluent::FluentLanguageLoader};

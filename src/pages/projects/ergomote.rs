@@ -4,7 +4,10 @@ use i18n_embed::fluent::FluentLanguageLoader;
 use maud::PreEscaped;
 
 use crate::{
-    assets::{img::{Img, ImgProps}, script::Script},
+    assets::{
+        img::{Img, ImgProps},
+        script::Script,
+    },
     components::{
         self, Component,
         footer::footer,
@@ -40,6 +43,7 @@ pub fn meta_data(lang: &LanguageIdentifier) -> ProjectMetadata {
             "public",
             Path::new("assets").join("Ergomote").join("render3.png"),
             "",
+            false,
         )
         .unwrap()
         .into(),
@@ -63,7 +67,7 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
     let meta_data = meta_data(lang);
     let dark_title = meta_data.title_img.dark();
     let light_title = meta_data.title_img.light();
-    let table_img = Img::new("public", "assets/Ergomote/render.png", "").unwrap();
+    let table_img = Img::new("public", "assets/Ergomote/render.png", "", false).unwrap();
 
     let ergomote_js = Script::new("public", "ergomote.js").unwrap();
     components::page::page(
