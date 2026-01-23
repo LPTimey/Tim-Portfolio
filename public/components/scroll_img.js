@@ -5,6 +5,7 @@
 /** @type {NodeListOf<HTMLCanvasElement>} */
 const canvasses = /** */(document.querySelectorAll(".scroll-img"));
 
+// TODO: Fallback für wenn WebGPU nicht unterstützt
 const gpu = /** @type {any} */ (navigator).gpu;
 const GPUTextureUsage = /** @type {any} */ (window).GPUTextureUsage;
 const GPUBufferUsage = /** @type {any} */ (window).GPUBufferUsage;

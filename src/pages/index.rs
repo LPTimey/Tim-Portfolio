@@ -126,11 +126,9 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
                                 speed: 0.5,
                             }))
                         }
-                        // TODO: Better Opener oder ein floating down arrow button
-                        // div ."hero-content"."visually-hidden"{
                         div ."hero-content"{
                             h1."mb-large"{
-                                span."fs-large"."lh-tight"."text-shadow"{ (loader.get("welcome")) } br;
+                                span."fs-large"."fw-medium"."lh-normal"."text-shadow"{ (loader.get("welcome")) } br;
                                 span.hero."text-shadow"{ (loader.get("details")) }
                             }
                             a draggable="false" .btn."accent-btn".shadow href="#AboutMe" { span{(loader.get("discover-more"))} }

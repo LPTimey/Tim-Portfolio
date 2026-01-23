@@ -1,0 +1,24 @@
+# TO-DOs
+
+- [ ] Fix IndexHero on Phone
+- [ ] Fix Shadow on Phone
+- [ ] Fix Nav on Phone
+  - [ ] Layout
+  - [ ] Details icon sind Emoji??????????????
+- [ ] Phone Layouts
+  - [x] Index
+  - [x] Projects (Page)
+  - [ ] Watchout
+  - [ ] Printer
+  - [ ] Styles
+  - [ ] Tetris
+  - [ ] Ergomote
+  - [ ] Webdev
+  - [ ] Erfahrung
+  - [ ] ADVERMA
+- [ ] Content
+  - [ ] Ergomote
+  - [ ] Webdev
+  - [ ] Erfahrung
+  - [ ] ADVERMA
+- [ ] make Button Animation complete a full rep
