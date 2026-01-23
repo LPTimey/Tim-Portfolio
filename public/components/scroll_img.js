@@ -1,9 +1,14 @@
+/* =========================================================
+    Globals
+========================================================= */
+//#region Globals
 /** @type {NodeListOf<HTMLCanvasElement>} */
 const canvasses = /** */(document.querySelectorAll(".scroll-img"));
 
 const gpu = /** @type {any} */ (navigator).gpu;
 const GPUTextureUsage = /** @type {any} */ (window).GPUTextureUsage;
 const GPUBufferUsage = /** @type {any} */ (window).GPUBufferUsage;
+
 const code = `
 struct Uniforms {
   offset : vec2<f32>,
@@ -37,12 +42,14 @@ fn fs(in : VertexOut) -> @location(0) vec4<f32> {
   return textureSample(myTexture, mySampler, scrolledUV);
 }
 `;
+//#endregion Globals
 
 canvasses.forEach(async (canvas) => {
     /* =========================================================
-        consts
+        CanvasDerived
     ========================================================= */
-    //#region consts
+    //#region CanvasDerived
+    // TODO: check vor changes
     const href = String(canvas.dataset.href);
     const zoom = Number(canvas.dataset.zoom);
     const speed = Number(canvas.dataset.speed);
@@ -50,12 +57,12 @@ canvasses.forEach(async (canvas) => {
     const dY = Math.sin(angleRad);
     const dX = Math.cos(angleRad);
     const speedScale = 0.0001;
-    //#endregion consts
+    //#endregion CanvasDerived
 
     /* =========================================================
-        globals
+        SemiGlobals
     ========================================================= */
-    //#region globals
+    //#region SemiGlobals
     /** @type {any} */
     let device;
     /** @type {any} */
@@ -72,7 +79,7 @@ canvasses.forEach(async (canvas) => {
     let scaleY = 1;
     let offsetX = 0;
     let offsetY = 0;
-    //#endregion globals
+    //#endregion SemiGlobals
 
     /* =========================================================
         Functions
