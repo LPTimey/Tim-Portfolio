@@ -37,6 +37,35 @@
         list-style: none;
     }
 
+    summary {
+        list-style: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.5ch;
+    }
+
+    summary::-webkit-details-marker {
+        display: none;
+    }
+
+    summary::before {
+        content: "";
+        width: 1em;
+        height: 1em;
+        flex-shrink: 0;
+
+        background-color: currentColor;
+        mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 6l6 6-6 6' fill='black'/%3E%3C/svg%3E") no-repeat center / contain;
+        -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 6l6 6-6 6' fill='black'/%3E%3C/svg%3E") no-repeat center / contain;
+
+        transition: transform 0.2s ease;
+    }
+
+    details[open] summary::before {
+        transform: rotate(90deg);
+    }
+
     :where(:focus-visible) {
         outline: none;
         outline: 0.15rem solid rgb(from var(--accent) r g b / 0.5);
