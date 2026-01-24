@@ -11,7 +11,7 @@ ICT = ICT
 languages = Languages
 
 about-me =
-    I am a User Experience Design student from near Munich Germany.<br>
+    I am a User Experience Design student from near Munich, Germany.<br>
     I’m fascinated by both IT & programming as well as design & creativity.
     This combination of technical precision and creative thinking is what drives me in my projects.
     It allows me to create solutions that are both visually appealing and highly functional – always with a structured approach, great care, and a keen eye for detail.

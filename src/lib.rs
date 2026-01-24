@@ -15,7 +15,6 @@ use std::{
     ops::Deref,
     path::{Path, PathBuf},
     sync::OnceLock,
-    time::Duration,
 };
 use unic_langid::langid;
 
@@ -71,8 +70,6 @@ pub fn lang_to_html(string: &str) -> String {
 }
 
 pub fn needs_copy(to_path: &Path, from_path: &Path) -> io::Result<bool> {
-    const TIME_LEEWAY: Duration = Duration::from_secs(10);
-
     let src_metadata = std::fs::metadata(from_path)?;
     let src_modified = src_metadata.modified()?;
     let src_size = src_metadata.len();
@@ -82,19 +79,7 @@ pub fn needs_copy(to_path: &Path, from_path: &Path) -> io::Result<bool> {
             let dest_modified = dest_metadata.modified()?;
             let dest_size = dest_metadata.len();
 
-            let time_diff = if src_modified > dest_modified {
-                src_modified.duration_since(dest_modified)
-            } else {
-                dest_modified.duration_since(src_modified)
-            };
-
-            let time_changed = false
-                && match time_diff {
-                    Ok(diff) => diff > TIME_LEEWAY,
-                    Err(_) => true, // Uhr ging rückwärts o.ä.
-                };
-
-            Ok(time_changed || src_size != dest_size)
+            Ok(src_modified > dest_modified || src_size != dest_size)
         }
         Err(_) => Ok(true), // Ziel existiert nicht
     }

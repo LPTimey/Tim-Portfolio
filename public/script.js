@@ -318,3 +318,9 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 });
 //#endregion linkToScroll
+
+//#region webGPU?
+export function supportsWebGPU() {
+    return typeof navigator !== "undefined" && !!navigator.gpu
+}
+//#endregion webGPU?

@@ -1,6 +1,6 @@
 use i18n_embed::fluent::FluentLanguageLoader;
 use maud::PreEscaped;
-use std::{path::Path, sync::OnceLock, time::Duration};
+use std::{path::Path, sync::OnceLock};
 
 use crate::{
     angle::Angle, assets::img::{Img, ImgProps}, components::{

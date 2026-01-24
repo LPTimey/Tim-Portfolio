@@ -1,6 +1,6 @@
 # TO-DOs
 
-- [ ] Fix IndexHero on Phone
+- [x] Fix IndexHero on Phone
 - [ ] Fix Shadow on Phone
 - [ ] Fix Nav on Phone
   - [ ] Layout
