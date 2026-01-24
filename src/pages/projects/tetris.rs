@@ -248,24 +248,24 @@ pub fn page(page: Page, lang: &LanguageIdentifier) -> maud::Markup {
     let light_title_img = meta_data.title_img.light();
 
     let einzelteile_img =
-        Img::new("public", "assets/Tetris/webp/Einzelteile.webp", "", false).unwrap();
+        Img::new("public", "assets/Tetris/Einzelteile.jpg", "", false).unwrap();
     let schaltdiagramm = Img::new(
         "public",
-        "assets/Tetris/webp/Tetris_Steckplatine_small.webp",
+        "assets/Tetris/Tetris_Steckplatine.png",
         "",
         false,
     )
     .unwrap();
     let buttons_resistors_img = Img::new(
         "public",
-        "assets/Tetris/webp/Buttons mit widerstand_small.webp",
+        "assets/Tetris/Buttons mit widerstand.jpeg",
         "",
         false,
     )
     .unwrap();
     let buttons_resistor_cables_img = Img::new(
         "public",
-        "assets/Tetris/webp/buttons mit + und gnd topview_small.webp",
+        "assets/Tetris/buttons mit + und gnd topview.jpeg",
         "",
         false,
     )
